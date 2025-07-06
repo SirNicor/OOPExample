@@ -20,15 +20,3 @@ public class Address
         Console.WriteLine("FullAddress: " + Country + " " + City + " " + Street + " " + HouseNumber);
     }
 }
-
-class Group
-{
-    private Faculty faculty;
-    private Department department;
-    private Discipline discipline;
-
-    public string ReturnGroupCipher()
-    {
-        return ClassUniversity.NameUniversity + faculty.ReturnNameFaculty + department.ReturnNameDepatment + discipline.ReturnNameDiscipline;
-    }
-}
