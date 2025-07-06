@@ -22,12 +22,15 @@ namespace University
             Elder Student_elder0 = new Elder("Zakhar", "Bondarev", "Ivanovich", 20, 
                 new Address("Russia", "Samara", "Streer2", 43), DegreesStudy.bachelor, 1,  AppliedComputerScience);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 50; i++)
             {
                 Student0.VisitingCouple(Student_elder0);
             }
             
             Student1.VisitingCouple(Student_elder0);
+            
+            Console.WriteLine(Student0.TotalScore);
+            Student0.session();
         }
     }
 }

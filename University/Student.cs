@@ -105,13 +105,19 @@ public class Student:Person
     {
         Console.WriteLine("Началась сессия: ");
         for (int i = 0; i < 10; ++i)
-            PassingTheExam(MinChances - SkipHours / 2 + СreditScores/CountOfExamsPassed*2);
+            PassingTheExam(MinChances - SkipHours / 2 + (int)TotalScore*2);
         Console.WriteLine("Сессия кончилась, отдавайте зачетную книжку старосте или лично несите ее в деканат на подпись.");
-        Console.WriteLine("Конечный результат на сессии: " + TotalScore);
+        Console.WriteLine("Конечный результат сессии: " + TotalScore);
     }
 
     public double TotalScore {
-        get {return ((double)СreditScores/CountOfExamsPassed)/5*100;}
+        get
+        {
+            if (CountOfExamsPassed == 0)
+                return 0;
+            else
+                return ((double)СreditScores/CountOfExamsPassed)/5*100;
+        }
     }
 }
 
