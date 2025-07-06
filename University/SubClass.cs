@@ -10,7 +10,7 @@ public enum DegreesStudy
 }
 public class Address
 {
-    public Address(string country, string street, string city, string houseNumber)
+    public Address(string country, string city, string street, int houseNumber)
     {
         Country = country;
         Street = street;
@@ -20,7 +20,7 @@ public class Address
     private string Country;
     private string City;
     private string Street;
-    private string HouseNumber;
+    private int HouseNumber;
 
 
     public void Print()
