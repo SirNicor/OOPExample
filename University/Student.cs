@@ -8,7 +8,10 @@ public class Student:Person
         address){}
     public Student(string FirstName, string LastName, string MiddleName, int age, Address address, string MillitaryId, bool CriminalRecord) : base(FirstName, LastName, MiddleName, age,
         address, MillitaryId, CriminalRecord){}
-    
+
+    protected string GroupCipher;
+    protected int СreditScores;
+    protected int SkipHours;
 }
 
 public class Elder:Student
