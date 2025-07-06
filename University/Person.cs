@@ -27,6 +27,7 @@ public class Person
         this.MilitaryIDAvailability = MilitaryIDAvailability;
         this.CriminalRecord = CriminalRecord;
     }
+    protected Person(){}
     
     protected string FirstName;
     protected string LastName;
