@@ -35,4 +35,23 @@ public class Person
     protected Address address;
     protected string MilitaryIDAvailability;
     protected bool CriminalRecord;
+
+    public void Print()
+    {
+        Console.WriteLine("FullName: " + FirstName + " " + LastName + " " + MiddleName);
+        Console.WriteLine("Age: " + age);
+        address.Print();
+        Console.WriteLine("MilitaryID: " + MilitaryIDAvailability);
+        Console.WriteLine("CriminalRecord " + (CriminalRecord?"Yes":"No"));
+    }
+
+    public string MilitaryReset
+    {
+        set { MilitaryIDAvailability = value; }
+    }
+    
+    public bool CriminalRecordReset
+    {
+        set { CriminalRecord = value; }
+    }
 }

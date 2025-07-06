@@ -13,5 +13,10 @@ public class Address
     private string City;
     private string Street;
     private string HouseNumber;
-    
+
+
+    public void Print()
+    {
+        Console.WriteLine("FullAddress: " + Country + " " + City + " " + Street + " " + HouseNumber);
+    }
 }
