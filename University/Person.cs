@@ -28,11 +28,11 @@ public class Person
         this.CriminalRecord = CriminalRecord;
     }
     
-    private string FirstName;
-    private string LastName;
-    private string MiddleName;
-    private int age;
-    private Address address;
-    private string MilitaryIDAvailability;
-    private bool CriminalRecord;
+    protected string FirstName;
+    protected string LastName;
+    protected string MiddleName;
+    protected int age;
+    protected Address address;
+    protected string MilitaryIDAvailability;
+    protected bool CriminalRecord;
 }
