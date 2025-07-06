@@ -1,0 +1,15 @@
+D:\LessonsRep\OOPExample\OOPExample\University\obj\Debug\net9.0\University.GeneratedMSBuildEditorConfig.editorconfig
+D:\LessonsRep\OOPExample\OOPExample\University\obj\Debug\net9.0\University.AssemblyInfoInputs.cache
+D:\LessonsRep\OOPExample\OOPExample\University\obj\Debug\net9.0\University.AssemblyInfo.cs
+D:\LessonsRep\OOPExample\OOPExample\University\obj\Debug\net9.0\University.csproj.CoreCompileInputs.cache
+D:\LessonsRep\OOPExample\OOPExample\University\obj\Debug\net9.0\University.sourcelink.json
+D:\LessonsRep\OOPExample\OOPExample\University\bin\Debug\net9.0\University.exe
+D:\LessonsRep\OOPExample\OOPExample\University\bin\Debug\net9.0\University.deps.json
+D:\LessonsRep\OOPExample\OOPExample\University\bin\Debug\net9.0\University.runtimeconfig.json
+D:\LessonsRep\OOPExample\OOPExample\University\bin\Debug\net9.0\University.dll
+D:\LessonsRep\OOPExample\OOPExample\University\bin\Debug\net9.0\University.pdb
+D:\LessonsRep\OOPExample\OOPExample\University\obj\Debug\net9.0\University.dll
+D:\LessonsRep\OOPExample\OOPExample\University\obj\Debug\net9.0\refint\University.dll
+D:\LessonsRep\OOPExample\OOPExample\University\obj\Debug\net9.0\University.pdb
+D:\LessonsRep\OOPExample\OOPExample\University\obj\Debug\net9.0\University.genruntimeconfig.cache
+D:\LessonsRep\OOPExample\OOPExample\University\obj\Debug\net9.0\ref\University.dll
