@@ -1,7 +1,6 @@
 ﻿namespace University;
 
-public class Worker
+public class Teacher:Worker
 {
     
 }
-

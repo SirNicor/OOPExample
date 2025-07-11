@@ -2,57 +2,56 @@
 
 public class Person
 {
-    public Person(string FirstName, string LastName, int age, Address address)
+    public Person(string firstName, string lastName, int age, Address address)
     {
-        this.FirstName = FirstName;
-        this.LastName = LastName;
-        this.age = age;
-        this.address = address;
+        FirstName = firstName;
+        LastName = lastName;
+        Age = age;
+        Address = address;
     }
-    public Person(string FirstName, string LastName, string middleName, int age, Address address)
+    public Person(string firstName, string lastName, string middleName, int age, Address address)
     {
-        this.FirstName = FirstName;
-        this.LastName = LastName;
+        FirstName = firstName;
+        lastName = lastName;
         MiddleName = middleName;
-        this.age = age;
-        this.address = address;
+        Age = age;
+        Address = address;
     }
-    public Person(string FirstName, string LastName, string middleName, int age, Address address, string MilitaryIDAvailability, bool CriminalRecord)
+    public Person(string firstName, string lastName, string middleName, int age, Address address, string militaryIdAvailability, bool criminalRecord)
     {
-        this.FirstName = FirstName;
-        this.LastName = LastName;
+        this.FirstName = firstName;
+        this.LastName = lastName;
         MiddleName = middleName;
-        this.age = age;
-        this.address = address;
-        this.MilitaryIDAvailability = MilitaryIDAvailability;
-        this.CriminalRecord = CriminalRecord;
+        Age = age;
+        Address = address;
+        MilitaryIdAvailability = militaryIdAvailability;
+        CriminalRecord = criminalRecord;
     }
-    protected Person(){}
-    
-    protected string FirstName;
-    protected string LastName;
-    protected string MiddleName;
-    protected int age;
-    protected Address address;
-    protected string MilitaryIDAvailability;
-    protected bool CriminalRecord;
-
     public void Print()
     {
         Console.WriteLine("FullName: " + FirstName + " " + LastName + " " + MiddleName);
-        Console.WriteLine("Age: " + age);
-        address.Print();
-        Console.WriteLine("MilitaryID: " + MilitaryIDAvailability);
+        Console.WriteLine("Age: " + Age);
+        Address.Print();
+        Console.WriteLine("MilitaryID: " + MilitaryIdAvailability);
         Console.WriteLine("CriminalRecord " + (CriminalRecord?"Yes":"No"));
     }
 
     public string MilitaryReset
     {
-        set { MilitaryIDAvailability = value; }
+        set { MilitaryIdAvailability = value; }
     }
     
     public bool CriminalRecordReset
     {
         set { CriminalRecord = value; }
     }
+    
+    protected Person(){}
+    protected readonly string FirstName;
+    protected readonly string LastName;
+    protected readonly string MiddleName;
+    protected int Age;
+    protected Address Address;
+    protected string MilitaryIdAvailability;
+    protected bool CriminalRecord;
 }
