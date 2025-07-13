@@ -1,7 +1,5 @@
 ﻿namespace UCore;
 
-
-
 public class Address
 {
     public Address(string country, string city, string street, int houseNumber)

@@ -6,7 +6,7 @@ public class Elder:Student
         address, degrees, course, discipline){}
     public Elder(string firstName, string lastName, string middleName, int age, Address address, DegreesStudy degrees, int course, Discipline discipline) : base(firstName, lastName, middleName, age,
         address, degrees, course,  discipline){}
-    public Elder(string firstName, string lastName, string middleName, int age, Address address, string millitaryId, bool criminalRecord, DegreesStudy degrees, int course, Discipline discipline) : base(firstName, lastName, middleName, age,
+    public Elder(string firstName, string lastName, string middleName, int age, Address address, IdMillitary millitaryId, bool criminalRecord, DegreesStudy degrees, int course, Discipline discipline) : base(firstName, lastName, middleName, age,
         address, millitaryId, criminalRecord, degrees, course, discipline){}
     
     public bool Protect()

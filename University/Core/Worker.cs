@@ -1,6 +1,6 @@
 ﻿namespace UCore;
 
-public class Worker
+public abstract class Worker
 {
     
 }

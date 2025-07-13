@@ -27,7 +27,7 @@ public class Student:Person
         СreditScores = 0;
         Cipher = discipline.ReturnGroupCipher();
     }
-    public Student(string firstName, string lastName, string middleName, int age, Address address, string millitaryId,
+    public Student(string firstName, string lastName, string middleName, int age, Address address, IdMillitary millitaryId,
         bool criminalRecord, DegreesStudy degrees, int course, Discipline discipline) : base(firstName, lastName, middleName, age,
         address, millitaryId, criminalRecord)
     {

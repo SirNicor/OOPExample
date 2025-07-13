@@ -17,7 +17,7 @@ public class Person
         Age = age;
         Address = address;
     }
-    public Person(string firstName, string lastName, string middleName, int age, Address address, string militaryIdAvailability, bool criminalRecord)
+    public Person(string firstName, string lastName, string middleName, int age, Address address, IdMillitary militaryIdAvailability, bool criminalRecord)
     {
         this.FirstName = firstName;
         this.LastName = lastName;
@@ -36,7 +36,7 @@ public class Person
         Console.WriteLine("CriminalRecord " + (CriminalRecord?"Yes":"No"));
     }
 
-    public string MilitaryReset
+    public IdMillitary MilitaryReset
     {
         set { MilitaryIdAvailability = value; }
     }
@@ -52,6 +52,6 @@ public class Person
     protected readonly string MiddleName;
     protected int Age;
     protected Address Address;
-    protected string MilitaryIdAvailability;
+    protected IdMillitary MilitaryIdAvailability;
     protected bool CriminalRecord;
 }
