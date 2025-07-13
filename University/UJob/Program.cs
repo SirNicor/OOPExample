@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using UCore;
 
-namespace University
+namespace UJob
 {
     class Program
     {

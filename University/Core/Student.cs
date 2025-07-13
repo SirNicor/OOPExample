@@ -1,6 +1,6 @@
 ﻿using System.Net.Security;
 
-namespace University;
+namespace UCore;
 
 public class Student:Person
 {

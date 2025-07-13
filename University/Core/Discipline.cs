@@ -1,4 +1,4 @@
-﻿namespace University;
+﻿namespace UCore;
 
 public class Discipline:Department
 {
