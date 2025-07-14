@@ -2,12 +2,12 @@
 
 public class Elder:Student
 {
-    public Elder(string firstName, string lastName, int age, Address address, DegreesStudy degrees, int course, Discipline discipline) : base(firstName, lastName, age,
-        address, degrees, course, discipline){}
-    public Elder(string firstName, string lastName, string middleName, int age, Address address, DegreesStudy degrees, int course, Discipline discipline) : base(firstName, lastName, middleName, age,
-        address, degrees, course,  discipline){}
-    public Elder(string firstName, string lastName, string middleName, int age, Address address, IdMillitary millitaryId, bool criminalRecord, DegreesStudy degrees, int course, Discipline discipline) : base(firstName, lastName, middleName, age,
-        address, millitaryId, criminalRecord, degrees, course, discipline){}
+    public Elder(string firstName, string lastName, int age, Address address, DegreesStudy degrees, int course, Direction direction) : base(firstName, lastName, age,
+        address, degrees, course, direction){}
+    public Elder(string firstName, string lastName, string middleName, int age, Address address, DegreesStudy degrees, int course, Direction direction) : base(firstName, lastName, middleName, age,
+        address, degrees, course,  direction){}
+    public Elder(string firstName, string lastName, string middleName, int age, Address address, IdMillitary millitaryId, bool criminalRecord, DegreesStudy degrees, int course, Direction direction) : base(firstName, lastName, middleName, age,
+        address, millitaryId, criminalRecord, degrees, course, direction){}
     
     public bool Protect()
     {

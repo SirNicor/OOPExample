@@ -8,7 +8,7 @@ namespace UJob
     {
         static void Main()
         {
-            Discipline AppliedComputerScience = new Discipline(
+            Direction AppliedComputerScience = new Direction(
                 "FITM", new Administrator(), new Administrator(), 
                 "IMST", new Administrator(), "AppliedComputerScience");
             Console.WriteLine(AppliedComputerScience.ReturnGroupCipher());

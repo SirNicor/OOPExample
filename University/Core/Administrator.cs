@@ -1,5 +1,6 @@
 ﻿namespace UCore;
-public class Administrator:Worker
+
+public class Administrator : Worker
 {
-    
+
 }

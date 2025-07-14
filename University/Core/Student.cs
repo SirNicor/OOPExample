@@ -5,7 +5,7 @@ namespace UCore;
 public class Student:Person
 {
     protected const int MinChances = 200;
-    public Student(string firstName, string lastName, int age, Address address, DegreesStudy degrees, int course, Discipline discipline) : base(firstName, lastName, age,
+    public Student(string firstName, string lastName, int age, Address address, DegreesStudy degrees, int course, Direction direction) : base(firstName, lastName, age,
         address)
     {
         Degrees =  degrees;
@@ -13,11 +13,11 @@ public class Student:Person
         SkipHours = 0;
         CountOfExamsPassed = 0;
         СreditScores = 0;
-        Cipher = discipline.ReturnGroupCipher();
+        Cipher = direction.ReturnGroupCipher();
     }
     
     public Student(string firstName, string lastName, string middleName, int age, Address address, DegreesStudy degrees,
-        int course, Discipline discipline) : base(firstName, lastName, middleName, age,
+        int course, Direction direction) : base(firstName, lastName, middleName, age,
         address)
     {
         Degrees =  degrees;
@@ -25,10 +25,10 @@ public class Student:Person
         SkipHours = 0;
         CountOfExamsPassed = 0;
         СreditScores = 0;
-        Cipher = discipline.ReturnGroupCipher();
+        Cipher = direction.ReturnGroupCipher();
     }
     public Student(string firstName, string lastName, string middleName, int age, Address address, IdMillitary millitaryId,
-        bool criminalRecord, DegreesStudy degrees, int course, Discipline discipline) : base(firstName, lastName, middleName, age,
+        bool criminalRecord, DegreesStudy degrees, int course, Direction direction) : base(firstName, lastName, middleName, age,
         address, millitaryId, criminalRecord)
     {
         Degrees =  degrees;
@@ -36,7 +36,7 @@ public class Student:Person
         SkipHours = 0;
         CountOfExamsPassed = 0;
         СreditScores = 0;
-        Cipher = discipline.ReturnGroupCipher();
+        Cipher = direction.ReturnGroupCipher();
     }
     public virtual void VisitingCouple(Elder elder)
     {

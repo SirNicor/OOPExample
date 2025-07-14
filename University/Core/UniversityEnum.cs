@@ -9,7 +9,7 @@ public enum DegreesStudy
 }
 
 public enum IdMillitary
-{
+{   
     DidNotServe = 0, 
     PostponementHealth = 1,
     PostponementUniversityB = DegreesStudy.bachelor,
