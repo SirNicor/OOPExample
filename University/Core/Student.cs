@@ -5,15 +5,16 @@ namespace UCore;
 public class Student:Person
 {
     protected const int MinChances = 200;
-    public Student(Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord, DegreesStudy degrees, int course, Direction direction) :
+    public Student(Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord, int course, Direction direction, bool accomodationDormitories) :
         base(passport, militaryIdAvailability, criminalRecord)
     {
-        Degrees =  degrees;
-        Course = CheckMethods.CheckDegress(course, degrees);
-        SkipHours = 0;
-        CountOfExamsPassed = 0;
-        СreditScores = 0;
-        Cipher = direction.ReturnGroupCipher();
+        _course = CheckMethods.CheckDegress(course, direction.DegreesStudy);
+        _skipHours = 0;
+        _countOfExamsPassed = 0;
+        _creditScores = 0;
+        _direction =  direction;
+        _groupCipher = direction.ReturnGroupCipher();
+        _accomodationDormitories =  accomodationDormitories;
     }
     /*public virtual void VisitingCouple(Elder elder)
     {
@@ -22,7 +23,7 @@ public class Student:Person
             SkipHours+=2;
             Console.WriteLine($"Вас, {FirstName} {LastName} {MiddleName}, не видели на паре");
         }
-        else
+        else    
         {
             Console.WriteLine($"Несмотря на все трудности вы, {FirstName} {LastName} {MiddleName}, были на паре или, хотя бы, так считает преподаватель");
             Console.WriteLine("Пара окончена, можно расходиться");
@@ -42,24 +43,24 @@ public class Student:Person
     public double TotalScore {
         get
         {
-            if (CountOfExamsPassed == 0)
+            if (_countOfExamsPassed == 0)
             {
                 return 0;
             }
             else
             {
-                return ((double)СreditScores/CountOfExamsPassed)/5*100;
+                return ((double)_creditScores/_countOfExamsPassed)/5*100;
             }
         }
     }
     protected Student(){}
-    protected string GroupCipher;
-    protected int СreditScores;
-    protected int CountOfExamsPassed;
-    protected int SkipHours;
-    protected int Course;
-    protected DegreesStudy Degrees;
-    protected string Cipher;
+    private string _groupCipher;
+    private Direction _direction;
+    private int _creditScores;
+    private int _countOfExamsPassed;
+    private int _skipHours;
+    private int _course;
+    private bool _accomodationDormitories;
     /*protected void PassingTheExam(int chances)
     {
         if ((new Random()).Next(0, chances) > 150)
