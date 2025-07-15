@@ -1,13 +1,21 @@
 ﻿namespace University.Logger;
 
-class LoggerConsole : ILogger
+class LoggerConsole : Logger
 {
-    public void Log(ILogger logger, LevelLoger levelLoger, string message)
+    public override void Log(LevelLoger levelLoger, string message)
     {
-        Log(logger, levelLoger, message, null);
+        Log(levelLoger, message, null);
     }
-    public void Log(ILogger logger, LevelLoger levelLoger, string message, Exception exception)
+    public override void Log(LevelLoger levelLoger, string message, Exception exception)
     {
-        throw new NotImplementedException();
+        if (levelLoger < LevelLoger)
+            return;
+        CurrentTime = DateTime.Now;
+        var logMessage = $"{CurrentTime}: {levelLoger}: {message}";
+        if (exception != null)
+        {
+            logMessage += Environment.NewLine + exception;
+        }
+        Console.WriteLine(logMessage);
     }
 }

@@ -1,14 +1,27 @@
 ﻿namespace University.Logger;
 
-class LoggerFile : ILogger
+class LoggerFile : Logger
 {   
-    public void Log(ILogger logger, LevelLoger levelLoger, string message)
+    public LoggerFile(string fileName = @"D:\LessonsRep\OOPExample\OOPExample\University\Logs\Info.txt")
     {
-        Log(logger, levelLoger, message, null);
+        _fileName = fileName;
     }
-    public void Log(ILogger logger, LevelLoger levelLoger, string message, Exception exception)
+    public override void Log(LevelLoger levelLoger, string message)
     {
-        throw new NotImplementedException();
+        Log(levelLoger, message, null);
     }
-    private static string FileName = "logFilename.log";
+
+    public override void Log(LevelLoger levelLoger, string message, Exception exception)
+    {
+        if (levelLoger < LevelLoger)
+            return;
+        CurrentTime = DateTime.Now;
+        var logMessage = $"{CurrentTime}: {levelLoger}: {message}";
+        if (exception != null)
+        {
+            logMessage += Environment.NewLine + exception;
+        }
+        File.AppendAllText(_fileName, logMessage + Environment.NewLine);
+    }
+    private readonly string _fileName = @"D:\LessonsRep\OOPExample\OOPExample\University\Logs\Info.txt";
 }

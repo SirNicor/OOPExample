@@ -2,9 +2,10 @@
 
 namespace University.Logger;
 
-interface ILogger
+abstract class Logger
 {
-    protected static LevelLoger LevelLoger = LevelLoger.DEBUG;
-    void Log(ILogger logger, LevelLoger levelLoger,  string message);
-    void Log(ILogger logger, LevelLoger levelLoger, string message, Exception exception);
+    protected LevelLoger LevelLoger = LevelLoger.DEBUG;
+    protected DateTime CurrentTime;
+    public abstract void Log(LevelLoger levelLoger,  string message);
+    public abstract void Log(LevelLoger levelLoger, string message, Exception exception);
 }

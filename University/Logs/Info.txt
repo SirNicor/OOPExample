@@ -1,0 +1,2 @@
+15.07.2025 16:19:23: DEBUG: loggerFile
+15.07.2025 16:19:23: INFO: Logger

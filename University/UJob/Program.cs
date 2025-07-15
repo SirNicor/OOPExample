@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using UCore;
+using University.Logger;
 
 namespace UJob
 {
@@ -22,18 +23,16 @@ namespace UJob
             Elder Student_elder0 = new Elder("Zakhar", "Bondarev", "Ivanovich", 20, 
                 new Address("Russia", "Samara", "Streer2", 43), DegreesStudy.bachelor, 1,  AppliedComputerScience);
 
-            for (int i = 0; i < 50; i++)
+            LoggerConsole loggerConsole = new LoggerConsole();
+            LoggerFile loggerFile = new LoggerFile();
+            Logger[] Loggers = { loggerFile, loggerConsole };
+            
+            loggerConsole.Log(LevelLoger.DEBUG, "loggerConsole");
+            loggerFile.Log(LevelLoger.DEBUG, "loggerFile");
+            foreach (var Logger in Loggers)
             {
-                Student0.VisitingCouple(Student_elder0);
+                Logger.Log(LevelLoger.INFO, "Logger");
             }
-            
-            Student1.VisitingCouple(Student_elder0);
-            Student_elder0.VisitingCouple(Student_elder0);
-            Console.WriteLine(" ");
-            Console.WriteLine(Student0.TotalScore);
-            Student0.Session();
-            
-            Student_elder0.Session();
         }
     }
-}
+}   
