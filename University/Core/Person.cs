@@ -1,39 +1,16 @@
 ﻿namespace UCore;
 
-public class Person
+public abstract class Person
 {
-    public Person(string firstName, string lastName, int age, Address address)
+    public Person(Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord)
     {
-        FirstName = firstName;
-        LastName = lastName;
-        Age = age;
-        Address = address;
-    }
-    public Person(string firstName, string lastName, string middleName, int age, Address address)
-    {
-        FirstName = firstName;
-        lastName = lastName;
-        MiddleName = middleName;
-        Age = age;
-        Address = address;
-    }
-    public Person(string firstName, string lastName, string middleName, int age, Address address, IdMillitary militaryIdAvailability, bool criminalRecord)
-    {
-        this.FirstName = firstName;
-        this.LastName = lastName;
-        MiddleName = middleName;
-        Age = age;
-        Address = address;
+        Passport = passport;
         MilitaryIdAvailability = militaryIdAvailability;
         CriminalRecord = criminalRecord;
     }
     public void Print()
     {
-        Console.WriteLine("FullName: " + FirstName + " " + LastName + " " + MiddleName);
-        Console.WriteLine("Age: " + Age);
-        Address.Print();
-        Console.WriteLine("MilitaryID: " + MilitaryIdAvailability);
-        Console.WriteLine("CriminalRecord " + (CriminalRecord?"Yes":"No"));
+        
     }
 
     public IdMillitary MilitaryReset
@@ -47,11 +24,7 @@ public class Person
     }
     
     protected Person(){}
-    protected readonly string FirstName;
-    protected readonly string LastName;
-    protected readonly string MiddleName;
-    protected int Age;
-    protected Address Address;
+    protected Passport Passport;
     protected IdMillitary MilitaryIdAvailability;
     protected bool CriminalRecord;
 }

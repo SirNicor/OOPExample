@@ -5,8 +5,8 @@ namespace UCore;
 public class Student:Person
 {
     protected const int MinChances = 200;
-    public Student(string firstName, string lastName, int age, Address address, DegreesStudy degrees, int course, Direction direction) : base(firstName, lastName, age,
-        address)
+    public Student(Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord, DegreesStudy degrees, int course, Direction direction) :
+        base(passport, militaryIdAvailability, criminalRecord)
     {
         Degrees =  degrees;
         Course = CheckMethods.CheckDegress(course, degrees);
@@ -15,30 +15,7 @@ public class Student:Person
         СreditScores = 0;
         Cipher = direction.ReturnGroupCipher();
     }
-    
-    public Student(string firstName, string lastName, string middleName, int age, Address address, DegreesStudy degrees,
-        int course, Direction direction) : base(firstName, lastName, middleName, age,
-        address)
-    {
-        Degrees =  degrees;
-        Course = CheckMethods.CheckDegress(course, degrees);
-        SkipHours = 0;
-        CountOfExamsPassed = 0;
-        СreditScores = 0;
-        Cipher = direction.ReturnGroupCipher();
-    }
-    public Student(string firstName, string lastName, string middleName, int age, Address address, IdMillitary millitaryId,
-        bool criminalRecord, DegreesStudy degrees, int course, Direction direction) : base(firstName, lastName, middleName, age,
-        address, millitaryId, criminalRecord)
-    {
-        Degrees =  degrees;
-        Course = CheckMethods.CheckDegress(course, degrees);
-        SkipHours = 0;
-        CountOfExamsPassed = 0;
-        СreditScores = 0;
-        Cipher = direction.ReturnGroupCipher();
-    }
-    public virtual void VisitingCouple(Elder elder)
+    /*public virtual void VisitingCouple(Elder elder)
     {
         if (Skip(elder))
         {
@@ -61,7 +38,7 @@ public class Student:Person
         }
         Console.WriteLine("Сессия кончилась, отдавайте зачетную книжку старосте или лично несите ее в деканат на подпись.");
         Console.WriteLine("Конечный результат сессии: " + TotalScore);
-    }
+    }*/
     public double TotalScore {
         get
         {
@@ -83,7 +60,7 @@ public class Student:Person
     protected int Course;
     protected DegreesStudy Degrees;
     protected string Cipher;
-    protected void PassingTheExam(int chances)
+    /*protected void PassingTheExam(int chances)
     {
         if ((new Random()).Next(0, chances) > 150)
         {
@@ -124,9 +101,7 @@ public class Student:Person
             return false;
         }
         return true;
-    }
-
-    
+    }*/
 }
 
 

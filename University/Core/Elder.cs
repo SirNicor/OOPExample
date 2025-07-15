@@ -1,6 +1,6 @@
 ﻿namespace UCore;
 
-public class Elder:Student
+/*public class Elder:Student
 {
     public Elder(string firstName, string lastName, int age, Address address, DegreesStudy degrees, int course, Direction direction) : base(firstName, lastName, age,
         address, degrees, course, direction){}
@@ -42,4 +42,4 @@ public class Elder:Student
     
     protected Elder(){}
     private int _attitudeToTheGroup = (new Random()).Next(40, 100);
-}
+}*/
