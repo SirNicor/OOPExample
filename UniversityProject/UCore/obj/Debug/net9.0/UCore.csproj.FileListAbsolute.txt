@@ -1,0 +1,12 @@
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\bin\Debug\net9.0\UCore.deps.json
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\bin\Debug\net9.0\UCore.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\bin\Debug\net9.0\UCore.pdb
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\UCore.GeneratedMSBuildEditorConfig.editorconfig
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\UCore.AssemblyInfoInputs.cache
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\UCore.AssemblyInfo.cs
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\UCore.csproj.CoreCompileInputs.cache
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\UCore.sourcelink.json
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\UCore.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\refint\UCore.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\UCore.pdb
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\ref\UCore.dll

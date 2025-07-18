@@ -1,0 +1,15 @@
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\bin\Debug\net9.0\Repository.exe
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\bin\Debug\net9.0\Repository.deps.json
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\bin\Debug\net9.0\Repository.runtimeconfig.json
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\bin\Debug\net9.0\Repository.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\bin\Debug\net9.0\Repository.pdb
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\obj\Debug\net9.0\Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\obj\Debug\net9.0\Repository.AssemblyInfoInputs.cache
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\obj\Debug\net9.0\Repository.AssemblyInfo.cs
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\obj\Debug\net9.0\Repository.csproj.CoreCompileInputs.cache
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\obj\Debug\net9.0\Repository.sourcelink.json
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\obj\Debug\net9.0\Repository.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\obj\Debug\net9.0\refint\Repository.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\obj\Debug\net9.0\Repository.pdb
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\obj\Debug\net9.0\Repository.genruntimeconfig.cache
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Repository\obj\Debug\net9.0\ref\Repository.dll
