@@ -12,72 +12,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9af5fd33-267b-4b70-867e-a06cc68ad4a8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../University/.idea/.idea.OOPExample.dir/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/.idea/.idea.OOPExample.dir/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/.idea/.idea.OOPExample.dir/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/.idea/.idea.OOPExample.dir/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/.idea/.idea.OOPExample.dir/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Address.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Administrator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Applicant.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/ClassUniversity.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Departament.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Direction.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Dormitories.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Elder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Faculty.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Passport.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Person.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Proforg.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Security.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Service.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Student.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/SubClass.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Teacher.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/UniversityEnum.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Core/Worker.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Logger/LevelLoger.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Logger/Logger.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Logger/LoggerConsole.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Logger/LoggerFile.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/Logs/Info.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/UJob/Program.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/University.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/bin/Debug/net9.0/Info.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/bin/Debug/net9.0/University.deps.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/bin/Debug/net9.0/University.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/bin/Debug/net9.0/University.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/bin/Debug/net9.0/University.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/bin/Debug/net9.0/University.runtimeconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/.NETCoreApp,Version=v9.0.AssemblyAttributes.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/University.AssemblyInfo.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/University.AssemblyInfoInputs.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/University.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/University.GlobalUsings.g.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/University.assets.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/University.csproj.CoreCompileInputs.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/University.csproj.FileListAbsolute.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/University.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/University.genruntimeconfig.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/University.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/University.sourcelink.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/apphost.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/ref/University.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/Debug/net9.0/refint/University.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/University.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/University.csproj.nuget.dgspec.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/University.csproj.nuget.g.props" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/University.csproj.nuget.g.targets" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/project.assets.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/project.nuget.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/project.packagespec.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/rider.project.model.nuget.info" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../University/obj/rider.project.restore.info" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logger/Logger.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Logger/Logger.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logger/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logger/obj/Debug/net9.0/Logger.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Logger/obj/Debug/net9.0/Logger.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logger/obj/Debug/net9.0/Logger.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Logger/obj/Debug/net9.0/Logger.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/Repository.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/Repository.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/obj/Debug/net9.0/Repository.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/Debug/net9.0/Repository.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/obj/Debug/net9.0/Repository.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/Debug/net9.0/Repository.AssemblyInfoInputs.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -206,7 +156,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1752833250007</updated>
-      <workItem from="1752833251100" duration="2041000" />
+      <workItem from="1752833251100" duration="2523000" />
     </task>
     <servers />
   </component>
