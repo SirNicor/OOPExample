@@ -2,7 +2,11 @@
 using Logger;
 public class Teacher:Worker
 {
-    public void DoWork()
+    public Teacher(ClassUniversity university, DateTime startWork, DateTime endWork, int salary) : base(university, startWork, endWork, salary)
+    {
+    }
+
+    public override void DoWork()
     {
         
     }

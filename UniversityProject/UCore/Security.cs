@@ -2,7 +2,11 @@
 using Logger;
 public class Security:Worker
 {
-    public void DoWork()
+    public Security(ClassUniversity university, DateTime startWork, DateTime endWork, int salary) : base(university, startWork, endWork, salary)
+    {
+    }
+
+    public override void DoWork()
     {
         
     }  

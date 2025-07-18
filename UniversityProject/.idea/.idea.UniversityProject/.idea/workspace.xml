@@ -13,26 +13,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9af5fd33-267b-4b70-867e-a06cc68ad4a8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UniversityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UniversityProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/Address.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Address.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/Applicant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Applicant.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/Passport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Passport.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/Person.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Person.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/Student.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Student.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/UCore.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/UCore.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UCore/Administrator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Administrator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UCore/Security.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Security.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UCore/Service.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Service.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UCore/Teacher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Teacher.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UCore/Worker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Worker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/obj/Debug/net9.0/UCore.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/obj/Debug/net9.0/UCore.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/obj/Debug/net9.0/UCore.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/obj/Debug/net9.0/UCore.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/obj/UCore.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/obj/UCore.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UJob/obj/Debug/net9.0/UJob.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UJob/obj/Debug/net9.0/UJob.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UJob/obj/Debug/net9.0/UJob.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/UJob/obj/Debug/net9.0/UJob.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UJob/obj/UJob.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/UJob/obj/UJob.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UJob/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/UJob/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UJob/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/UJob/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UJob/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/UJob/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +154,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1752833250007</updated>
-      <workItem from="1752833251100" duration="7129000" />
+      <workItem from="1752833251100" duration="9760000" />
     </task>
     <servers />
   </component>

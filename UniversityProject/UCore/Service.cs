@@ -2,7 +2,11 @@
 using Logger;
 public class Service:Worker
 {
-    public void DoWork()
+    public Service(ClassUniversity university, DateTime startWork, DateTime endWork, int salary) : base(university, startWork, endWork, salary)
+    {
+    }
+
+    public override void DoWork()
     {
         
     }
