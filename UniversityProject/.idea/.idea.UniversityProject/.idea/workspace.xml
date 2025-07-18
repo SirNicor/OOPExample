@@ -12,12 +12,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9af5fd33-267b-4b70-867e-a06cc68ad4a8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/UCore/Discipline.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UniversityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UniversityProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/Administrator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Administrator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/Security.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Security.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/Service.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Service.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/Teacher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Teacher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UCore/Worker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Worker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UCore/ClassUniversity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/ClassUniversity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UCore/Faculty.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UCore/Faculty.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +152,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1752833250007</updated>
-      <workItem from="1752833251100" duration="9760000" />
+      <workItem from="1752833251100" duration="12163000" />
     </task>
     <servers />
   </component>

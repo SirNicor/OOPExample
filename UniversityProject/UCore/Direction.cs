@@ -1,27 +1,28 @@
 ﻿namespace University.UCore;
 
-public class Direction : Department
+public class Direction 
 {
     static Direction()
     {
         _numberBudget = (new Random()).Next(1, 100); //замена получение данных
     }
 
-    public Direction(string nameFaculty, Administrator dean, Administrator deputyDean, string nameDepartment,
-        Administrator headDepartment, string nameDiscipline, DegreesStudy degreesStudy) : base(nameFaculty, dean, deputyDean, nameDepartment,
-        headDepartment)
+    public Direction(Department department, string nameDirection, DegreesStudy degreesStudy)
     {
-        _nameDiscipline = nameDiscipline;
+        Department = department;
+        _nameDirection = nameDirection;
         _degreesStudy =  degreesStudy;
     }
     public DegreesStudy DegreesStudy{get{return _degreesStudy;}}
     public string ReturnGroupCipher()
     {
-        return NameUniversity + " " + NameFaculty + " " + NameDepartment + " " + _nameDiscipline;
+        return $"{Department.Faculty.University.NameUniversity}.{Department.Faculty.NameFaculty}.{Department.NameDepartment}.{_nameDirection}.courses:{NumberOfCourse}";
     }
 
-    private readonly string _nameDiscipline;
-    private static int _numberBudget;
-    private readonly DegreesStudy _degreesStudy;
+    public readonly Department Department;
+    protected readonly string _nameDirection;
+    protected static int _numberBudget;
+    protected int NumberOfCourse;
+    protected readonly DegreesStudy _degreesStudy;
     
 }

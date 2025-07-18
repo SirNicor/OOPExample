@@ -1,6 +1,6 @@
 ﻿namespace University.UCore;
 
-public class Dormitories:ClassUniversity
+public class Dormitories
 {
     
 }

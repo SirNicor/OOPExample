@@ -1,13 +1,16 @@
 ﻿namespace University.UCore;
 
-public class Department:Faculty
+public class Department
 {
-    public Department(string nameFaculty, Administrator dean, Administrator deputyDean, string nameDepartment, Administrator headDepartment):base(nameFaculty, dean, deputyDean)
+    public Department(string nameDepartment, Administrator headDepartment, Faculty faculty)
     {
+        Faculty =  faculty;
         NameDepartment = nameDepartment;
         HeadDepartment = headDepartment;
     }
     
-    protected readonly string NameDepartment;
+    public readonly Faculty Faculty;
     protected Administrator HeadDepartment;
+    protected Administrator[] Administrators;
+    public readonly string NameDepartment;
 }
