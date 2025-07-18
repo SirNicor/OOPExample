@@ -1,5 +1,7 @@
-﻿namespace University.UCore;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace University.UCore;
+using Logger;
 public abstract class Person
 {
     public Person(Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord)
@@ -8,11 +10,15 @@ public abstract class Person
         MilitaryIdAvailability = militaryIdAvailability;
         CriminalRecord = criminalRecord;
     }
-    public void Print()
+    public void PrintInfo(Logger logger)
     {
-        
+        Passport.Print(logger);
+        string message = ($"Военный билет: {MilitaryIdAvailability} и судимость ") + (CriminalRecord?"есть":"нет");
+        logger.Log(LevelLoger.INFO, message);
+        PrintDerivedClass(logger);
     }
 
+    public abstract void PrintDerivedClass(Logger logger);
     public IdMillitary MilitaryReset
     {
         set { MilitaryIdAvailability = value; }

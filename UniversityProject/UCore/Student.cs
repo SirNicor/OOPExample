@@ -1,7 +1,8 @@
 ﻿using System.Net.Security;
+using Logger;
 
 namespace University.UCore;
-
+using Logger;
 public class Student:Person
 {
     protected const int MinChances = 200;
@@ -53,6 +54,15 @@ public class Student:Person
             }
         }
     }
+
+    public override void PrintDerivedClass(Logger logger)
+    {
+        string message = $"GroupCipher: {_groupCipher}, Course: {_course}" + Environment.NewLine;
+        message += $"Общий балл ={_creditScores} и количество сданных экзаменов = {_countOfExamsPassed} и общий балл = {TotalScore}" + Environment.NewLine;
+        message += "Расположен ли в общежитии " + (_accomodationDormitories ? "Да" : "Нет");
+        logger.Log(LevelLoger.INFO, message);
+    }
+
     protected Student(){}
     private string _groupCipher;
     private Direction _direction;

@@ -1,4 +1,5 @@
 ﻿namespace University.UCore;
+using Logger;
 
 public class Address
 {
@@ -9,9 +10,9 @@ public class Address
         _city = city;
         _houseNumber = houseNumber;
     }
-    public void Print()
+    public void Print(Logger logger)
     {
-        Console.WriteLine("FullAddress: " + _country + " " + _city + " " + _street + " " + _houseNumber);
+        logger.Log(LevelLoger.INFO, "FullAddress: " + _country + " " + _city + " " + _street + " " + _houseNumber);
     }
     
     private readonly string _country;

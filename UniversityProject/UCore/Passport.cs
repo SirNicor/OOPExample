@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 
 namespace University.UCore;
-
+using Logger;
 public class Passport
 {
     public Passport(int serial, int number, string firstName, string lastName, string middleName, DateTime birthDate, Address address, string placeRepeipt)
@@ -26,11 +26,12 @@ public class Passport
         _placeRepeipt = placeRepeipt;
     }
 
-    public void Print()
+    public void Print(Logger logger)
     {
-        Console.WriteLine($"FullName: {_firstName} {_lastName} {_middleName}, BirthDate: {_birthDate}");
-        Console.WriteLine($"Serial: {_serial} Number: {_number} issued by whom: {_placeRepeipt}");
-        _address.Print();
+        string message = $"FullName: {_firstName} {_lastName} {_middleName}, BirthDate: {_birthDate}";
+        message += Environment.NewLine + $"Serial: {_serial} Number: {_number} issued by whom: {_placeRepeipt}";
+        logger.Log(LevelLoger.INFO, message);
+        _address.Print(logger);
     }
     
     private int _serial;
