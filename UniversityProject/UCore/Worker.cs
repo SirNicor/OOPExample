@@ -2,20 +2,21 @@
 
 public abstract class Worker : Person
 {
-    public Worker(ClassUniversity university, DateTime startWork, DateTime endWork, int salary)
+    public Worker(int salary,
+    Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord):base(passport, militaryIdAvailability, criminalRecord)
     {
-        University =  university;
-        StartWork = startWork;
-        EndWork = endWork;
         Salary = salary;
     }
     public abstract void DoWork();
-    
-    protected ClassUniversity University;
-    protected DateTime StartWork;
-    protected DateTime EndWork;
-    protected int Salary;
-    
 
+    // protected DateTime StartWork;
+    // protected DateTime EndWork;
+    protected int Salary;
+
+    public int ReturnSalary
+    {
+        get { return Salary;}
+        set { Salary = value; }
+    }
 }
 

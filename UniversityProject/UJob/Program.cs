@@ -9,14 +9,10 @@ namespace University.UJob
     {
         static void Main()
         {
-            Logger.Logger logger = new LoggerConsole();
-            logger = new LoggerFile();
-            logger.Log(LevelLoger.INFO, "Started");
-            IJob test0 = new TestJob(logger);
-            logger = new LoggerConsoleAndFile(new Logger.Logger[] {new LoggerFile(), new LoggerFile()}); 
-            IJob test1 = new TestJob2(logger);
-            test0.DoWork();
-            test1.DoWork();
+            Logger.Logger logger = new ConsoleLogger();
+            logger = new FileLogger();
+            SalaryOperations salaryOperations = new SalaryOperations(logger);
+            salaryOperations.DoWork();
         }
     }
 }   

@@ -1,11 +1,49 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {}
+    "net9.0": {
+      "Logger/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/Logger.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Logger.dll": {}
+        }
+      },
+      "UCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Logger": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/UCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UCore.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Logger/1.0.0": {
+      "type": "project",
+      "path": "../Logger/Logger.csproj",
+      "msbuildProject": "../Logger/Logger.csproj"
+    },
+    "UCore/1.0.0": {
+      "type": "project",
+      "path": "../UCore/UCore.csproj",
+      "msbuildProject": "../UCore/UCore.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net9.0": []
+    "net9.0": [
+      "Logger >= 1.0.0",
+      "UCore >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\user\\.nuget\\packages\\": {},
@@ -38,7 +76,14 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Logger\\Logger.csproj": {
+              "projectPath": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Logger\\Logger.csproj"
+            },
+            "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\UCore.csproj": {
+              "projectPath": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\UCore.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

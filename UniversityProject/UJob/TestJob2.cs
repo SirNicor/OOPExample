@@ -13,6 +13,6 @@ public class TestJob2:IJob
 
     public void DoWork()
     {
-        _logger.Log(LevelLoger.DEBUG, "TestJob2");
+        _logger.Debug("TestJob2");
     }
 }

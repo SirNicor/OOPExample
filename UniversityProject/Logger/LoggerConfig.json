@@ -1,0 +1,17 @@
+﻿{
+  "Logging": {
+    "MinLog": "Debug",
+    "Loggers": [
+      {
+        "Type": "File",
+        "Path": "Logs/file.txt",
+        "MaxFileSize": 10485760,
+        "RetainedFileCount": 5,
+        "RollingInterval": "Day"
+      },
+      {
+        "Type": "Console"
+      }
+    ]
+  }
+}

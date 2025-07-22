@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Logger\Logger.csproj" />
+      <ProjectReference Include="..\UCore\UCore.csproj" />
+    </ItemGroup>
+
 </Project>

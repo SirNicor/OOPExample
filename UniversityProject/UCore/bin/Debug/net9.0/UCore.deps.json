@@ -7,14 +7,30 @@
   "targets": {
     ".NETCoreApp,Version=v9.0": {
       "UCore/1.0.0": {
+        "dependencies": {
+          "Logger": "1.0.0"
+        },
         "runtime": {
           "UCore.dll": {}
+        }
+      },
+      "Logger/1.0.0": {
+        "runtime": {
+          "Logger.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
   },
   "libraries": {
     "UCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Logger/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

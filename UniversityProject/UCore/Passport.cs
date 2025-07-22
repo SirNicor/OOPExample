@@ -30,7 +30,7 @@ public class Passport
     {
         string message = $"FullName: {_firstName} {_lastName} {_middleName}, BirthDate: {_birthDate}";
         message += Environment.NewLine + $"Serial: {_serial} Number: {_number} issued by whom: {_placeRepeipt}";
-        logger.Log(LevelLoger.INFO, message);
+        logger.Info(message);
         _address.Print(logger);
     }
     

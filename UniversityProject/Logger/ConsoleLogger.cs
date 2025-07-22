@@ -1,14 +1,14 @@
 ﻿namespace Logger;
 
-public class LoggerConsole : Logger
+public class ConsoleLogger : Logger
 {
-    public override void Log(LevelLoger levelLoger, string message)
+    protected override void Log(LevelLoger levelLoger, string message)
     {
         Log(levelLoger, message, null);
     }
-    public override void Log(LevelLoger levelLoger, string message, Exception exception)
+    protected override void Log(LevelLoger levelLoger, string message, Exception exception)
     {
-        if (levelLoger < LevelLoger)
+        if (levelLoger < MinLog)
             return;
         CurrentTime = DateTime.Now;
         var logMessage = $"{CurrentTime}: {levelLoger}: {message}";

@@ -25,6 +25,10 @@
         }
       },
       "Repository/1.0.0": {
+        "dependencies": {
+          "Logger": "1.0.0",
+          "UCore": "1.0.0"
+        },
         "runtime": {
           "Repository.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -33,6 +37,9 @@
         }
       },
       "UCore/1.0.0": {
+        "dependencies": {
+          "Logger": "1.0.0"
+        },
         "runtime": {
           "UCore.dll": {
             "assemblyVersion": "1.0.0.0",

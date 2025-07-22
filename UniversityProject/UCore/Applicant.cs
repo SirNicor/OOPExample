@@ -18,6 +18,6 @@ public class Applicant:Person
         }
 
         message += Environment.NewLine + $"Баллы за экзамен: {_scores}";
-        logger.Log(LevelLoger.INFO, message);
+        logger.Info(message);
     }
 }

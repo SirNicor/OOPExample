@@ -96,7 +96,14 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Logger\\Logger.csproj": {
+                "projectPath": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Logger\\Logger.csproj"
+              },
+              "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\UCore.csproj": {
+                "projectPath": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\UCore.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

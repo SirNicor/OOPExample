@@ -1,6 +1,4 @@
-D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\bin\Debug\net9.0\Logger.exe
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\bin\Debug\net9.0\Logger.deps.json
-D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\bin\Debug\net9.0\Logger.runtimeconfig.json
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\bin\Debug\net9.0\Logger.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\bin\Debug\net9.0\Logger.pdb
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\obj\Debug\net9.0\Logger.GeneratedMSBuildEditorConfig.editorconfig
@@ -11,5 +9,4 @@ D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\obj\Debug\net9.0\Lo
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\obj\Debug\net9.0\Logger.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\obj\Debug\net9.0\refint\Logger.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\obj\Debug\net9.0\Logger.pdb
-D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\obj\Debug\net9.0\Logger.genruntimeconfig.cache
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Logger\obj\Debug\net9.0\ref\Logger.dll

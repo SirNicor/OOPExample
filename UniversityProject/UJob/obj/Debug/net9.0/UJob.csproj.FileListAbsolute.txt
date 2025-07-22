@@ -4,12 +4,6 @@ D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\obj\Debug\net9.0\UJob
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\obj\Debug\net9.0\UJob.csproj.CoreCompileInputs.cache
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\obj\Debug\net9.0\UJob.sourcelink.json
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\obj\Debug\net9.0\UJob.csproj.AssemblyReference.cache
-D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Logger.deps.json
-D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Logger.runtimeconfig.json
-D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Logger.exe
-D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Repository.deps.json
-D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Repository.runtimeconfig.json
-D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Repository.exe
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\UJob.exe
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\UJob.deps.json
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\UJob.runtimeconfig.json

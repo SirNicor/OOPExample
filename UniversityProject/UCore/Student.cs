@@ -60,7 +60,7 @@ public class Student:Person
         string message = $"GroupCipher: {_groupCipher}, Course: {_course}" + Environment.NewLine;
         message += $"Общий балл ={_creditScores} и количество сданных экзаменов = {_countOfExamsPassed} и общий балл = {TotalScore}" + Environment.NewLine;
         message += "Расположен ли в общежитии " + (_accomodationDormitories ? "Да" : "Нет");
-        logger.Log(LevelLoger.INFO, message);
+        logger.Info(message);
     }
 
     protected Student(){}

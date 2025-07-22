@@ -10,3 +10,7 @@ D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\UCo
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\refint\UCore.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\UCore.pdb
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\ref\UCore.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\UCore.csproj.AssemblyReference.cache
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\bin\Debug\net9.0\Logger.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\bin\Debug\net9.0\Logger.pdb
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UCore\obj\Debug\net9.0\UCore.csproj.Up2Date

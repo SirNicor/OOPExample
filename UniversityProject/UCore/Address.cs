@@ -12,7 +12,7 @@ public class Address
     }
     public void Print(Logger logger)
     {
-        logger.Log(LevelLoger.INFO, "FullAddress: " + _country + " " + _city + " " + _street + " " + _houseNumber);
+        logger.Info("FullAddress: " + _country + " " + _city + " " + _street + " " + _houseNumber);
     }
     
     private readonly string _country;

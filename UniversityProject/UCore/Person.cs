@@ -14,7 +14,7 @@ public abstract class Person
     {
         Passport.Print(logger);
         string message = ($"Военный билет: {MilitaryIdAvailability} и судимость ") + (CriminalRecord?"есть":"нет");
-        logger.Log(LevelLoger.INFO, message);
+        logger.Info(message);
         PrintDerivedClass(logger);
     }
 
