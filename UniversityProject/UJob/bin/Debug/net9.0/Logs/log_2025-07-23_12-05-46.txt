@@ -1,0 +1,273 @@
+23.07.2025 12:05:46: создан новый лог файл
+23.07.2025 12:05:46: DEBUG: Worker added
+
+23.07.2025 12:05:46: DEBUG: TestJob1
+23.07.2025 12:05:46: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+23.07.2025 12:05:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+23.07.2025 12:05:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:05:46: INFO: Зарплата - 35000
+
+23.07.2025 12:05:46: INFO: FullName: Yelisey Koltsov , BirthDate: 03.02.2001 0:00:00
+Serial: 1112 Number: 123457 issued by whom: 1
+23.07.2025 12:05:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 37
+23.07.2025 12:05:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:05:46: INFO: Зарплата - 45000
+
+23.07.2025 12:05:46: INFO: FullName: Mikhail Alexandrov , BirthDate: 03.02.1980 0:00:00
+Serial: 1113 Number: 133457 issued by whom: 1
+23.07.2025 12:05:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+23.07.2025 12:05:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:05:46: INFO: Зарплата - 55000
+
+23.07.2025 12:05:46: INFO: FullName: Yaroslav Sakharov , BirthDate: 03.12.1988 0:00:00
+Serial: 1122 Number: 123466 issued by whom: 1
+23.07.2025 12:05:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+23.07.2025 12:05:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:05:46: INFO: Зарплата - 50234
+
+23.07.2025 12:05:46: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+23.07.2025 12:05:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+23.07.2025 12:05:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:05:46: INFO: Зарплата - 123000
+
+23.07.2025 12:05:46: INFO: FullName: Ivan Karpov , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+23.07.2025 12:05:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+23.07.2025 12:05:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:05:46: INFO: Зарплата - 90000
+
+23.07.2025 12:05:46: DEBUG: Return list
+
+23.07.2025 12:05:46: INFO: Максимальная зп = 123000. Рабочий с данной зп:
+23.07.2025 12:05:46: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+23.07.2025 12:05:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+23.07.2025 12:05:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:05:46: INFO: Зарплата - 123000
+
+23.07.2025 12:05:46: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+23.07.2025 12:05:46: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+23.07.2025 12:05:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+23.07.2025 12:05:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:05:46: INFO: Зарплата - 35000
+
+23.07.2025 12:05:46: INFO: Средняя зп = 66372,33333333333
+23.07.2025 12:06:46: DEBUG: TestJob1
+23.07.2025 12:06:46: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+23.07.2025 12:06:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+23.07.2025 12:06:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:06:46: INFO: Зарплата - 35000
+
+23.07.2025 12:06:46: INFO: FullName: Yelisey Koltsov , BirthDate: 03.02.2001 0:00:00
+Serial: 1112 Number: 123457 issued by whom: 1
+23.07.2025 12:06:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 37
+23.07.2025 12:06:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:06:46: INFO: Зарплата - 45000
+
+23.07.2025 12:06:46: INFO: FullName: Mikhail Alexandrov , BirthDate: 03.02.1980 0:00:00
+Serial: 1113 Number: 133457 issued by whom: 1
+23.07.2025 12:06:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+23.07.2025 12:06:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:06:46: INFO: Зарплата - 55000
+
+23.07.2025 12:06:46: INFO: FullName: Yaroslav Sakharov , BirthDate: 03.12.1988 0:00:00
+Serial: 1122 Number: 123466 issued by whom: 1
+23.07.2025 12:06:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+23.07.2025 12:06:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:06:46: INFO: Зарплата - 50234
+
+23.07.2025 12:06:46: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+23.07.2025 12:06:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+23.07.2025 12:06:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:06:46: INFO: Зарплата - 123000
+
+23.07.2025 12:06:46: INFO: FullName: Ivan Karpov , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+23.07.2025 12:06:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+23.07.2025 12:06:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:06:46: INFO: Зарплата - 90000
+
+23.07.2025 12:06:46: DEBUG: Return list
+
+23.07.2025 12:06:46: INFO: Максимальная зп = 123000. Рабочий с данной зп:
+23.07.2025 12:06:46: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+23.07.2025 12:06:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+23.07.2025 12:06:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:06:46: INFO: Зарплата - 123000
+
+23.07.2025 12:06:46: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+23.07.2025 12:06:46: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+23.07.2025 12:06:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+23.07.2025 12:06:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:06:46: INFO: Зарплата - 35000
+
+23.07.2025 12:06:46: INFO: Средняя зп = 66372,33333333333
+23.07.2025 12:07:46: DEBUG: TestJob1
+23.07.2025 12:07:46: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+23.07.2025 12:07:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+23.07.2025 12:07:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:07:46: INFO: Зарплата - 35000
+
+23.07.2025 12:07:46: INFO: FullName: Yelisey Koltsov , BirthDate: 03.02.2001 0:00:00
+Serial: 1112 Number: 123457 issued by whom: 1
+23.07.2025 12:07:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 37
+23.07.2025 12:07:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:07:46: INFO: Зарплата - 45000
+
+23.07.2025 12:07:46: INFO: FullName: Mikhail Alexandrov , BirthDate: 03.02.1980 0:00:00
+Serial: 1113 Number: 133457 issued by whom: 1
+23.07.2025 12:07:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+23.07.2025 12:07:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:07:46: INFO: Зарплата - 55000
+
+23.07.2025 12:07:46: INFO: FullName: Yaroslav Sakharov , BirthDate: 03.12.1988 0:00:00
+Serial: 1122 Number: 123466 issued by whom: 1
+23.07.2025 12:07:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+23.07.2025 12:07:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:07:46: INFO: Зарплата - 50234
+
+23.07.2025 12:07:46: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+23.07.2025 12:07:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+23.07.2025 12:07:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:07:46: INFO: Зарплата - 123000
+
+23.07.2025 12:07:46: INFO: FullName: Ivan Karpov , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+23.07.2025 12:07:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+23.07.2025 12:07:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:07:46: INFO: Зарплата - 90000
+
+23.07.2025 12:07:46: DEBUG: Return list
+
+23.07.2025 12:07:46: INFO: Максимальная зп = 123000. Рабочий с данной зп:
+23.07.2025 12:07:46: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+23.07.2025 12:07:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+23.07.2025 12:07:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:07:46: INFO: Зарплата - 123000
+
+23.07.2025 12:07:46: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+23.07.2025 12:07:46: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+23.07.2025 12:07:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+23.07.2025 12:07:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:07:46: INFO: Зарплата - 35000
+
+23.07.2025 12:07:46: INFO: Средняя зп = 66372,33333333333
+23.07.2025 12:08:46: DEBUG: TestJob1
+23.07.2025 12:08:46: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+23.07.2025 12:08:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+23.07.2025 12:08:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:08:46: INFO: Зарплата - 35000
+
+23.07.2025 12:08:46: INFO: FullName: Yelisey Koltsov , BirthDate: 03.02.2001 0:00:00
+Serial: 1112 Number: 123457 issued by whom: 1
+23.07.2025 12:08:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 37
+23.07.2025 12:08:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:08:46: INFO: Зарплата - 45000
+
+23.07.2025 12:08:46: INFO: FullName: Mikhail Alexandrov , BirthDate: 03.02.1980 0:00:00
+Serial: 1113 Number: 133457 issued by whom: 1
+23.07.2025 12:08:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+23.07.2025 12:08:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:08:46: INFO: Зарплата - 55000
+
+23.07.2025 12:08:46: INFO: FullName: Yaroslav Sakharov , BirthDate: 03.12.1988 0:00:00
+Serial: 1122 Number: 123466 issued by whom: 1
+23.07.2025 12:08:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+23.07.2025 12:08:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:08:46: INFO: Зарплата - 50234
+
+23.07.2025 12:08:46: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+23.07.2025 12:08:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+23.07.2025 12:08:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:08:46: INFO: Зарплата - 123000
+
+23.07.2025 12:08:46: INFO: FullName: Ivan Karpov , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+23.07.2025 12:08:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+23.07.2025 12:08:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:08:46: INFO: Зарплата - 90000
+
+23.07.2025 12:08:46: DEBUG: Return list
+
+23.07.2025 12:08:46: INFO: Максимальная зп = 123000. Рабочий с данной зп:
+23.07.2025 12:08:46: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+23.07.2025 12:08:46: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+23.07.2025 12:08:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:08:46: INFO: Зарплата - 123000
+
+23.07.2025 12:08:46: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+23.07.2025 12:08:46: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+23.07.2025 12:08:46: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+23.07.2025 12:08:46: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:08:46: INFO: Зарплата - 35000
+
+23.07.2025 12:08:46: INFO: Средняя зп = 66372,33333333333
+23.07.2025 12:09:47: DEBUG: TestJob1
+23.07.2025 12:09:47: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+23.07.2025 12:09:47: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+23.07.2025 12:09:47: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:09:47: INFO: Зарплата - 35000
+
+23.07.2025 12:09:47: INFO: FullName: Yelisey Koltsov , BirthDate: 03.02.2001 0:00:00
+Serial: 1112 Number: 123457 issued by whom: 1
+23.07.2025 12:09:47: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 37
+23.07.2025 12:09:47: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:09:47: INFO: Зарплата - 45000
+
+23.07.2025 12:09:47: INFO: FullName: Mikhail Alexandrov , BirthDate: 03.02.1980 0:00:00
+Serial: 1113 Number: 133457 issued by whom: 1
+23.07.2025 12:09:47: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+23.07.2025 12:09:47: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:09:47: INFO: Зарплата - 55000
+
+23.07.2025 12:09:47: INFO: FullName: Yaroslav Sakharov , BirthDate: 03.12.1988 0:00:00
+Serial: 1122 Number: 123466 issued by whom: 1
+23.07.2025 12:09:47: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+23.07.2025 12:09:47: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:09:47: INFO: Зарплата - 50234
+
+23.07.2025 12:09:47: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+23.07.2025 12:09:47: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+23.07.2025 12:09:47: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:09:47: INFO: Зарплата - 123000
+
+23.07.2025 12:09:47: INFO: FullName: Ivan Karpov , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+23.07.2025 12:09:47: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+23.07.2025 12:09:47: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:09:47: INFO: Зарплата - 90000
+
+23.07.2025 12:09:47: DEBUG: Return list
+
+23.07.2025 12:09:47: INFO: Максимальная зп = 123000. Рабочий с данной зп:
+23.07.2025 12:09:47: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+23.07.2025 12:09:47: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+23.07.2025 12:09:47: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:09:47: INFO: Зарплата - 123000
+
+23.07.2025 12:09:47: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+23.07.2025 12:09:47: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+23.07.2025 12:09:47: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+23.07.2025 12:09:47: INFO: Военный билет: InStock и судимость нет
+23.07.2025 12:09:47: INFO: Зарплата - 35000
+
+23.07.2025 12:09:47: INFO: Средняя зп = 66372,33333333333

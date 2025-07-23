@@ -3,7 +3,6 @@ using Logger;
 using University.UCore;
 public class SalaryOperations:IJob
 {
-    private readonly Logger _logger;
 
     public SalaryOperations(Logger logger)
     {
@@ -44,4 +43,6 @@ public class SalaryOperations:IJob
         workers[minindex].PrintInfo(_logger);
         _logger.Info("Средняя зп = " + (double)FullSalary/lenWorkers);
     }
-}
+    private readonly Logger _logger;
+    private Timer _timer;
+}   
