@@ -14,7 +14,7 @@ public class ConsoleLogger : Logger
         var logMessage = $"{CurrentTime}: {levelLoger}: {message}";
         if (exception != null)
         {
-            logMessage += Environment.NewLine + exception;
+            logMessage += Environment.NewLine + exception.StackTrace;
         }
         Console.WriteLine(logMessage);
     }

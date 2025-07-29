@@ -45,4 +45,5 @@ public class SalaryOperations:IJob
     }
     private readonly Logger _logger;
     private Timer _timer;
+    private WorkerRepository _repository;
 }   

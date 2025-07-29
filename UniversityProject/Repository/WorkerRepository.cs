@@ -40,9 +40,20 @@ public class WorkerRepository
             _workers.Add(worker);
             logger.Debug("Worker added" + Environment.NewLine);
         }
-        catch
+        catch (AbandonedMutexException ex) 
         {
-            logger.Error("Worker not added, The information is incomplete" + Environment.NewLine);
+            logger.Error(ex.Message, ex);
+        }
+        catch (NullReferenceException ex)
+        {
+            logger.Error(ex.Message);
+        }
+        catch(Exception exception)
+        {
+            logger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
+            throw;
+            throw exception;
+            NullReferenceException nullReferenceException = new NullReferenceException();
         }
     }
 
@@ -60,5 +71,5 @@ public class WorkerRepository
         return _workers;
     }
     
-    private List<Worker> _workers = new List<Worker>();
+    private List<Worker> _workers = new List<Worker>(0);
 }

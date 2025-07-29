@@ -27,7 +27,7 @@ public class FileLogger : Logger
         var logMessage = $"{CurrentTime}: {levelLoger}: {message}";
         if (exception != null)
         {
-            logMessage += Environment.NewLine + exception;
+            logMessage += Environment.NewLine + exception.StackTrace;
         }
         File.AppendAllText(_fileName, logMessage + Environment.NewLine);
     }
