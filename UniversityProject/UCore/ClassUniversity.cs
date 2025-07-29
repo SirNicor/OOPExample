@@ -2,7 +2,7 @@
 
 public class ClassUniversity
 {
-     public ClassUniversity(string nameUniversity, Administrator rector, Administrator[] administrators, int budgetSize)
+     public ClassUniversity(string nameUniversity, Administrator rector, List<Administrator> administrators, int budgetSize)
      {
           NameUniversity = nameUniversity;
           Rector = rector;
@@ -12,7 +12,7 @@ public class ClassUniversity
      
      public readonly string NameUniversity;
      protected Administrator Rector;
-     protected Administrator[] Administrators;
+     protected List<Administrator> Administrators;
      private int BudgetSize;  
 }
 

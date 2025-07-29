@@ -3,7 +3,7 @@ using Logger;
     
 public class WorkerRepository
 {
-    public WorkerRepository()
+    static WorkerRepository()
     {
         Passport passport;
         Worker worker;
@@ -33,6 +33,11 @@ public class WorkerRepository
         _workers.Add(worker);
     }
 
+    public WorkerRepository()
+    {
+        
+    }
+    
     public void Add(Worker worker, Logger.Logger logger)
     {
         try
@@ -40,20 +45,9 @@ public class WorkerRepository
             _workers.Add(worker);
             logger.Debug("Worker added" + Environment.NewLine);
         }
-        catch (AbandonedMutexException ex) 
-        {
-            logger.Error(ex.Message, ex);
-        }
-        catch (NullReferenceException ex)
-        {
-            logger.Error(ex.Message);
-        }
         catch(Exception exception)
         {
             logger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
-            throw;
-            throw exception;
-            NullReferenceException nullReferenceException = new NullReferenceException();
         }
     }
 
@@ -71,5 +65,10 @@ public class WorkerRepository
         return _workers;
     }
     
-    private List<Worker> _workers = new List<Worker>(0);
+    public List<Worker> ReturnList()
+    {
+        return _workers;
+    }
+    
+    static List<Worker> _workers = new List<Worker>(0);
 }
