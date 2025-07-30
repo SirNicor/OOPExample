@@ -57,5 +57,5 @@ public class DisciplineRepository
         return _disciplines;
     }
     
-    private static List<Discipline> _disciplines;
+    private static List<Discipline> _disciplines = new  List<Discipline>();
 }

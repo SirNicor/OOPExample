@@ -47,6 +47,6 @@ public class DirectionRepository
     private static DisciplineRepository _disciplineRepository;
     private static StudentRepository _studentRepository;
     private static DepartmentRepository _departmentRepository;
-    private static List<Direction> _directions;
+    private static List<Direction> _directions = new List<Direction>();
     private static Logger _logger;
 }

@@ -49,6 +49,6 @@ public class DepartmentRepository
     }
 
     private static FacultyRepository _facultyRepository;
-    private static List<Administrator> _workerRep;
-    private static List<Department> _departments;
+    private static List<Administrator> _workerRep = new List<Administrator>();
+    private static List<Department> _departments = new List<Department>();
 }

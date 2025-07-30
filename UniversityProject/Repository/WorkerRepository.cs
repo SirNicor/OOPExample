@@ -65,7 +65,7 @@ public class WorkerRepository
         return _workers;
     }
     
-    internal List<Worker> ReturnList()
+    internals List<Worker> ReturnList()
     {
         return _workers;
     }

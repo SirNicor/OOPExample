@@ -29,11 +29,11 @@ public class FacultyRepository
         try
         {
             _faculties.Add(faculty);
-            logger.Debug("Worker added" + Environment.NewLine);
+            logger.Debug("Faculty added" + Environment.NewLine);
         }
         catch(Exception exception)
         {
-            logger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
+            logger.Error("Faculty not added, The information is incomplete " + Environment.NewLine, exception);
         }
     }
     
@@ -49,6 +49,6 @@ public class FacultyRepository
     }
 
     private static UniversityRepository _universityRepository;
-    private static List<Administrator> _workerRep;
-    private static List<Faculty> _faculties;
+    private static List<Administrator> _workerRep = new List<Administrator>();
+    private static List<Faculty> _faculties = new List<Faculty>();
 }

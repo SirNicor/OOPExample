@@ -45,6 +45,6 @@ public class UniversityRepository
         return _university;
     }
     
-    private static List<Administrator> _workerRep;
-    private static List<ClassUniversity> _university;
+    private static List<Administrator> _workerRep = new List<Administrator>();
+    private static List<ClassUniversity> _university = new List<ClassUniversity>();
 }
