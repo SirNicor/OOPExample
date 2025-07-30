@@ -4,25 +4,27 @@ public class Direction
 {
     static Direction()
     {
-        _numberBudget = (new Random()).Next(1, 100); //замена получение данных
+        
     }
 
-    public Direction(Department department, string nameDirection, DegreesStudy degreesStudy)
+    public Direction(Department department, string nameDirection, DegreesStudy degreesStudy, List<Discipline> disciplines, List<Student> students)
     {
-        Department = department;
-        _nameDirection = nameDirection;
-        _degreesStudy =  degreesStudy;
+        _department = department;
+        NameDirection = nameDirection;
+        DegreesStudy =  degreesStudy;
+        _disciplines = disciplines;
+        _students = students;
     }
-    public DegreesStudy DegreesStudy{get{return _degreesStudy;}}
+
     public string ReturnGroupCipher()
     {
-        return $"{Department.Faculty.University.NameUniversity}.{Department.Faculty.NameFaculty}.{Department.NameDepartment}.{_nameDirection}.courses:{NumberOfCourse}";
+        return $"{_department.Faculty.University.NameUniversity}.{_department.Faculty.NameFaculty}.{_department.NameDepartment}.{NameDirection}.courses:{_numberOfCourse}";
     }
-
-    public readonly Department Department;
-    protected readonly string _nameDirection;
-    protected static int _numberBudget;
-    protected int NumberOfCourse;
-    protected readonly DegreesStudy _degreesStudy;
     
+    public DegreesStudy DegreesStudy { get; }
+    public readonly string NameDirection;
+    private readonly Department _department;
+    private int _numberOfCourse;
+    private List<Discipline> _disciplines;
+    private List<Student> _students;
 }

@@ -43,7 +43,7 @@ public class FacultyRepository
         return _faculties;
     }
     
-    public List<Faculty> ReturnList()
+    internal List<Faculty> ReturnList()
     {
         return _faculties;
     }

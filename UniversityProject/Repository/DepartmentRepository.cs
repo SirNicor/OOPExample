@@ -43,7 +43,7 @@ public class DepartmentRepository
         return _departments;
     }
     
-    public List<Department> ReturnList()
+    internal List<Department> ReturnList()
     {
         return _departments;
     }

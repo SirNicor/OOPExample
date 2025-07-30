@@ -40,7 +40,7 @@ public class UniversityRepository
         return _university;
     }
     
-    public List<ClassUniversity> ReturnList()
+    internal List<ClassUniversity> ReturnList()
     {
         return _university;
     }

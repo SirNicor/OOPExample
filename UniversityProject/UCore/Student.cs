@@ -6,15 +6,13 @@ using Logger;
 public class Student:Person
 {
     protected const int MinChances = 200;
-    public Student(Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord, int course, Direction direction, bool accomodationDormitories) :
+    public Student(Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord, int course, bool accomodationDormitories, DegreesStudy degreesStudy) :
         base(passport, militaryIdAvailability, criminalRecord)
     {
-        _course = CheckMethods.CheckDegress(course, direction.DegreesStudy);
+        _course = CheckMethods.CheckDegress(course, degreesStudy);
         _skipHours = 0;
         _countOfExamsPassed = 0;
         _creditScores = 0;
-        _direction =  direction;
-        _groupCipher = direction.ReturnGroupCipher();
         _accomodationDormitories =  accomodationDormitories;
     }
     /*public virtual void VisitingCouple(Elder elder)
@@ -57,15 +55,13 @@ public class Student:Person
 
     public override void PrintDerivedClass(Logger logger)
     {
-        string message = $"GroupCipher: {_groupCipher}, Course: {_course}" + Environment.NewLine;
+        string message = $"Course: {_course}" + Environment.NewLine;
         message += $"Общий балл ={_creditScores} и количество сданных экзаменов = {_countOfExamsPassed} и общий балл = {TotalScore}" + Environment.NewLine;
         message += "Расположен ли в общежитии " + (_accomodationDormitories ? "Да" : "Нет");
         logger.Info(message);
     }
 
     protected Student(){}
-    private string _groupCipher;
-    private Direction _direction;
     private int _creditScores;
     private int _countOfExamsPassed;
     private int _skipHours;

@@ -2,12 +2,11 @@
 
 public class Discipline
 {
-    public Discipline(Direction direction) 
+    public Discipline(string name) 
     {
-        _direction = direction; 
+        NameDiscipline = name;
     }
-
-    private Direction _direction;
+    
     public readonly string NameDiscipline;
     //private FileInfo ProgrammDiscipline
 }
