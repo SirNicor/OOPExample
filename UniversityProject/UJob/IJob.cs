@@ -1,4 +1,4 @@
-﻿namespace University.UJob;
+﻿namespace UJob;
 
 public interface IJob
 {

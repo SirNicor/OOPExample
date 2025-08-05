@@ -1,4 +1,4 @@
-﻿namespace University.UCore;
+﻿namespace UCore;
 using Logger;
 public class Service:Worker
 {
@@ -8,7 +8,7 @@ public class Service:Worker
     {
     }
 
-    public override void DoWork()
+    public override void DoWork(Logger logger)
     {
         
     }

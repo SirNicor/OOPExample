@@ -1,4 +1,4 @@
-﻿namespace University.UCore;
+﻿namespace UCore;
 
 /*public class Elder:Student
 {

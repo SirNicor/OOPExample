@@ -1,5 +1,5 @@
-﻿namespace University.UCore;
-
+﻿namespace UCore;
+using Logger;
 public abstract class Worker : Person
 {
     public Worker(int salary,
@@ -7,7 +7,7 @@ public abstract class Worker : Person
     {
         Salary = salary;
     }
-    public abstract void DoWork();
+    public abstract void DoWork(Logger logger);
 
     // protected DateTime StartWork;
     // protected DateTime EndWork;

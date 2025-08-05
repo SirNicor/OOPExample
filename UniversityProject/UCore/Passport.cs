@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace University.UCore;
+namespace UCore;
 using Logger;
 public class Passport
 {

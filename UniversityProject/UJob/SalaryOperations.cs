@@ -1,21 +1,35 @@
-﻿namespace University.UJob;
+﻿using Repository;
+
+namespace UJob;
+
 using Logger;
-using University.UCore;
+using UCore;
 public class SalaryOperations:IJob
 {
 
-    public SalaryOperations(Logger logger)
+    public SalaryOperations(Logger logger, WorkerRepository workerRepositoryTeachers, WorkerRepository workerRepositoryAdministrators)
     {
         _logger = logger;
+        _workerRepositoryTeachers = workerRepositoryTeachers;
+        _workerRepositoryAdministrators = workerRepositoryAdministrators;
     }
 
 
     public void DoWork()
     {
-        _logger.Debug("TestJob1");
-        WorkerRepository repository = new WorkerRepository();
-        repository.PrintAll(_logger);
-        List<Worker> workers = repository.ReturnList(_logger);
+        // _workerRepositoryTeachers.PrintAll(_logger);
+        // _workerRepositoryAdministrators.PrintAll(_logger);
+        List<Teacher> teachers = _workerRepositoryTeachers.ReturnListTeachers(_logger);
+        List<Administrator> administrators = _workerRepositoryAdministrators.ReturnListAdministrator(_logger);
+        List<Worker> workers = new List<Worker>();
+        foreach(var worker in teachers)
+        {
+            workers.Add(worker);
+        }
+        foreach(var worker in administrators)
+        {
+            workers.Add(worker);
+        }
         int lenWorkers = workers.Count;
         int[] salaryWorkers = new int[lenWorkers];;
         for(int i = 0; i < lenWorkers; i++)
@@ -46,4 +60,6 @@ public class SalaryOperations:IJob
     private readonly Logger _logger;
     private Timer _timer;
     private WorkerRepository _repository;
+    private WorkerRepository _workerRepositoryTeachers;
+    private WorkerRepository _workerRepositoryAdministrators;
 }   

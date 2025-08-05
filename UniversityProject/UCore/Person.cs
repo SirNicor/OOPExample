@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace University.UCore;
+namespace UCore;
 using Logger;
 public abstract class Person
 {

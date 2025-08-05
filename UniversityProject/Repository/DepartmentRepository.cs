@@ -1,15 +1,14 @@
 ﻿namespace Repository;
-using University.UCore;
+using UCore;
 using Logger;
 
 public class DepartmentRepository
 {
-    static DepartmentRepository()
+    public DepartmentRepository(Logger logger, FacultyRepository facultyRepository, WorkerRepository workerRepository)
     {
-        _facultyRepository = new FacultyRepository();
-        List<Worker> workerRep = new WorkerRepository().ReturnList();
-        UniversityRepository rep = new UniversityRepository();
-        foreach (var worker in workerRep)
+        _facultyRepository = facultyRepository;
+        WorkerRepository workerRep = workerRepository;
+        foreach (var worker in workerRep.ReturnListAdministrator(logger))
         {
             if (worker.GetType() == typeof(Administrator))
             {
@@ -17,11 +16,6 @@ public class DepartmentRepository
             }
         } 
         _departments.Add(new Department("IIST", _workerRep[5],  _workerRep.GetRange(6, 1), _facultyRepository.ReturnList()[0]));
-    }
-
-    public DepartmentRepository()
-    {
-        
     }
     
     public void Add(Department department, Logger logger)

@@ -1,4 +1,4 @@
-﻿namespace University.UCore;
+﻿namespace UCore;
 
 public class Direction 
 {
@@ -7,12 +7,11 @@ public class Direction
         
     }
 
-    public Direction(Department department, string nameDirection, DegreesStudy degreesStudy, List<Discipline> disciplines, List<Student> students)
+    public Direction(Department department, string nameDirection, DegreesStudy degreesStudy, List<Student> students)
     {
         _department = department;
         NameDirection = nameDirection;
-        DegreesStudy =  degreesStudy;
-        _disciplines = disciplines;
+        DegreesStudy =  degreesStudy;    
         _students = students;
     }
 
@@ -22,9 +21,12 @@ public class Direction
     }
     
     public DegreesStudy DegreesStudy { get; }
+    public List<Student> Students
+    {
+        get { return _students; }
+    }
     public readonly string NameDirection;
     private readonly Department _department;
     private int _numberOfCourse;
-    private List<Discipline> _disciplines;
     private List<Student> _students;
 }

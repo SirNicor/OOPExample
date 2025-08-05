@@ -1,4 +1,4 @@
-﻿namespace University.UCore;
+﻿namespace UCore;
 using Logger;
 
 public class Address

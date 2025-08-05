@@ -1,38 +1,67 @@
-﻿using System;
+﻿namespace UJob;
+
+using System;
 using System.Runtime.InteropServices;
 using Logger;
-using University.UCore;
-
-namespace University.UJob
-{
+using Repository;
+using UCore;
     class Program
     {
         static void Main()
         {
-            try
+            Logger logger = new ConsoleLogger();
+            
+            StudentRepository studentRepository = new StudentRepository(logger);
+            WorkerRepository workerRepositoryAdministrator = new WorkerRepository(logger);
+            UniversityRepository universityRepository = new UniversityRepository(logger, workerRepositoryAdministrator);
+            FacultyRepository facultyRepository = new FacultyRepository(logger, universityRepository, workerRepositoryAdministrator);
+            DepartmentRepository departmentRepository = new DepartmentRepository(logger, facultyRepository, workerRepositoryAdministrator);
+            DirectionRepository directionRepository = new DirectionRepository(logger, studentRepository, departmentRepository);
+            DisciplineRepository disciplineRepository = new DisciplineRepository(directionRepository);
+            WorkerRepository workerRepositoryTeachers = new WorkerRepository(logger, disciplineRepository);
+            
+            SalaryOperations salaryOperations = new SalaryOperations(logger, workerRepositoryTeachers, workerRepositoryAdministrator);
+            
+            List<Teacher> teachers = workerRepositoryTeachers.ReturnListTeachers(logger);
+            
+            Thread threadOfJob = new Thread(() =>
             {
-                Logger.Logger logger = new ConsoleLogger();
-                logger = new AllLogger([new ConsoleLogger(), new FileLogger()]);
-                WorkerRepository workerRepository = new WorkerRepository();
-                Passport passport = new Passport(5555, 555555, "Timofey", "Kryukov", 
-                    new DateTime(1979,3,04), new Address("Russia", "Saint Petersburg", "Nalichnaya Street", 70), "1");;
-                Worker worker = new Teacher(47000, passport, IdMillitary.InStock, false);
-                workerRepository.Add(worker, logger);
-                passport = new Passport(6767, 676767, "1", "2", 
-                    new DateTime(1989,4,04), new Address("Russia", "Saint Petersburg", "Nalichnaya",  90), "1");;
-                worker = new Teacher(87000, passport, IdMillitary.InStock, false);
-                workerRepository.Add(worker, logger);
                 while (true)
                 {
-                    SalaryOperations salaryOperations = new SalaryOperations(logger);
                     salaryOperations.DoWork();
                     Thread.Sleep(60000);
                 }
-            }
-            catch
+            });
+
+            Thread threadOfWork = new Thread(() =>
             {
-                
-            }
+                while (true)
+                {
+                    foreach (var teacher in teachers)
+                    {
+                        teacher.DoWork(logger);
+                        Thread.Sleep(120000);
+                    }
+                }
+            });
+            
+            threadOfWork.Priority = ThreadPriority.AboveNormal;
+            
+            Thread threadOfSession = new Thread(() =>
+            {
+                while (true)
+                {
+                    foreach (var teacher in teachers)
+                    {
+                        teacher.DoSession(logger);
+                        Thread.Sleep(240000);
+                    }
+                }
+            });
+            threadOfWork.Priority = ThreadPriority.AboveNormal;
+            
+            threadOfJob.Start();
+            threadOfWork.Start();
+            threadOfSession.Start();
         }
     }
-}   

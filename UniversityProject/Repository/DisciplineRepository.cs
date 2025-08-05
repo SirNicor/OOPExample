@@ -1,36 +1,19 @@
 ﻿namespace Repository;
-using University.UCore;
+using UCore;
 using Logger;
 
 public class DisciplineRepository
 {
-    static DisciplineRepository()
+    public DisciplineRepository(DirectionRepository directionRepository)
     {
-        
-    }
-
-    public DisciplineRepository()
-    {
-        Discipline discipline = new Discipline("Discipline1");
-        _disciplines.Add(discipline);
-        discipline = new Discipline("Discipline2");
-        _disciplines.Add(discipline);
-        discipline = new Discipline("Discipline3");
-        _disciplines.Add(discipline);
-        discipline = new Discipline("Discipline4");
-        _disciplines.Add(discipline);
-        discipline = new Discipline("Discipline5");
-        _disciplines.Add(discipline);
-        discipline = new Discipline("Discipline6");
-        _disciplines.Add(discipline);
-        discipline = new Discipline("Discipline7");
-        _disciplines.Add(discipline);
-        discipline = new Discipline("Discipline8");
-        _disciplines.Add(discipline);
-        discipline = new Discipline("Discipline9");
-        _disciplines.Add(discipline);
-        discipline = new Discipline("Discipline10");
-        _disciplines.Add(discipline);
+        _directions = directionRepository;
+        List<Direction> directions = _directions.ReturnList();
+        for (int i = 0; i < 12; i++)
+        {
+            Discipline discipline = new Discipline($"Discipline{i}", directions);
+            _disciplines.Add(discipline);
+        }
+        Console.WriteLine(_disciplines.Count);
     }
 
     public void Add(Discipline discipline, Logger logger)
@@ -50,7 +33,7 @@ public class DisciplineRepository
     {
         logger.Debug("Return list" + Environment.NewLine);
         return _disciplines;
-    }
+    }   
     
     internal List<Discipline> ReturnList()
     {
@@ -58,4 +41,5 @@ public class DisciplineRepository
     }
     
     private static List<Discipline> _disciplines = new  List<Discipline>();
+    private static DirectionRepository  _directions;
 }

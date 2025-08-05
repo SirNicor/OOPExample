@@ -1,6 +1,6 @@
-﻿namespace University.UJob;
+﻿namespace UJob;
 using Logger;
-using University.UCore;
+using UCore;
 
 public class TestJob2:IJob
 {

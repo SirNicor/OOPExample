@@ -1,15 +1,15 @@
 ﻿namespace Repository;
-using University.UCore;
+using UCore;
 using Logger;
 
 public class FacultyRepository
 {
-    static FacultyRepository()
+
+    public FacultyRepository(Logger logger, UniversityRepository universityRepository, WorkerRepository workerRepository)
     {
-        _universityRepository = new UniversityRepository();
-        List<Worker> workerRep = new WorkerRepository().ReturnList();
-        UniversityRepository rep = new UniversityRepository();
-        foreach (var worker in workerRep)
+        _universityRepository = universityRepository;
+        WorkerRepository workerRep = workerRepository;
+        foreach (var worker in workerRep.ReturnListAdministrator(logger))
         {
             if (worker.GetType() == typeof(Administrator))
             {
@@ -17,11 +17,6 @@ public class FacultyRepository
             }
         } 
         _faculties.Add(new Faculty("FITU", _workerRep[2],  _workerRep[3], _workerRep.GetRange(4, 1), _universityRepository.ReturnList()[0]));
-    }
-
-    public FacultyRepository()
-    {
-        
     }
     
     public void Add(Faculty faculty, Logger logger)

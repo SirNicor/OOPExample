@@ -1,12 +1,12 @@
 ﻿namespace Repository;
-using University.UCore;
+using UCore;
 using Logger;
 public class UniversityRepository
 {
-    static UniversityRepository()
+    public UniversityRepository(Logger logger, WorkerRepository workerRepository)
     {
-        List<Worker> workerRep = new WorkerRepository().ReturnList();
-        foreach(var worker in workerRep)
+        WorkerRepository workerRep = workerRepository;
+        foreach(var worker in workerRep.ReturnListAdministrator(logger))
         {
             if (worker.GetType() == typeof(Administrator))
             {
@@ -14,11 +14,6 @@ public class UniversityRepository
             }
         }
         _university.Add(new ClassUniversity("VUZ", _workerRep[0],  _workerRep.GetRange(1,1), new Random().Next(10000, 10000000)));
-    }
-
-    public UniversityRepository()
-    {
-        
     }
     
     public void Add(ClassUniversity university, Logger logger)

@@ -1,23 +1,16 @@
 ﻿namespace Repository;
-using University.UCore;
+using UCore;
 using Logger;
 
 public class DirectionRepository
 {
-    static DirectionRepository()
+    public DirectionRepository(Logger logger, StudentRepository studentRepository, DepartmentRepository departmentRepository)
     {
-        _departmentRepository = new DepartmentRepository();
-        _disciplineRepository = new DisciplineRepository();
-        _studentRepository = new StudentRepository();
+        _departmentRepository = departmentRepository;
+        _studentRepository = studentRepository;
         Direction direction = new Direction(_departmentRepository.ReturnList()[0], "Direction1", 
-            DegreesStudy.bachelor, _disciplineRepository.ReturnList().GetRange(0, 10)
-            , _studentRepository.ReturnList().GetRange(0, 10));
+            DegreesStudy.bachelor, _studentRepository.ReturnList(logger).GetRange(0, 10));
         _directions.Add(direction);
-    }
-
-    public DirectionRepository()
-    {
-        
     }
     
     public void Add(Direction direction, Logger logger)
@@ -44,7 +37,6 @@ public class DirectionRepository
         return _directions;
     }
 
-    private static DisciplineRepository _disciplineRepository;
     private static StudentRepository _studentRepository;
     private static DepartmentRepository _departmentRepository;
     private static List<Direction> _directions = new List<Direction>();
