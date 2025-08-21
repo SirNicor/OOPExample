@@ -20,7 +20,7 @@ using UCore;
             DisciplineRepository disciplineRepository = new DisciplineRepository(directionRepository);
             WorkerRepository workerRepositoryTeachers = new WorkerRepository(logger, disciplineRepository);
             
-            SalaryOperations salaryOperations = new SalaryOperations(logger, workerRepositoryTeachers, workerRepositoryAdministrator);
+            SalaryOperationsJob salaryOperationsJob = new SalaryOperationsJob(logger, workerRepositoryTeachers, workerRepositoryAdministrator);
             
             List<Teacher> teachers = workerRepositoryTeachers.ReturnListTeachers(logger);
             
@@ -28,7 +28,7 @@ using UCore;
             {
                 while (true)
                 {
-                    salaryOperations.DoWork();
+                    salaryOperationsJob.DoWork();
                     Thread.Sleep(60000);
                 }
             });

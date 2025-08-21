@@ -4,10 +4,10 @@ namespace UJob;
 
 using Logger;
 using UCore;
-public class SalaryOperations:IJob
+public class SalaryOperationsJob:IJob
 {
 
-    public SalaryOperations(Logger logger, WorkerRepository workerRepositoryTeachers, WorkerRepository workerRepositoryAdministrators)
+    public SalaryOperationsJob(Logger logger, WorkerRepository workerRepositoryTeachers, WorkerRepository workerRepositoryAdministrators)
     {
         _logger = logger;
         _workerRepositoryTeachers = workerRepositoryTeachers;
