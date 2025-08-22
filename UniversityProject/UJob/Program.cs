@@ -9,6 +9,7 @@ using UCore;
     {
         static void Main()
         {
+            
             Logger logger = new ConsoleLogger();
             
             StudentRepository studentRepository = new StudentRepository(logger);
@@ -20,7 +21,7 @@ using UCore;
             DisciplineRepository disciplineRepository = new DisciplineRepository(directionRepository);
             WorkerRepository workerRepositoryTeachers = new WorkerRepository(logger, disciplineRepository);
             
-            SalaryOperationsJob salaryOperationsJob = new SalaryOperationsJob(logger, workerRepositoryTeachers, workerRepositoryAdministrator);
+            SalaryJob salaryJob = new SalaryJob(logger, workerRepositoryTeachers, workerRepositoryAdministrator);
             
             List<Teacher> teachers = workerRepositoryTeachers.ReturnListTeachers(logger);
             
@@ -28,7 +29,7 @@ using UCore;
             {
                 while (true)
                 {
-                    salaryOperationsJob.DoWork();
+                    salaryJob.DoWork();
                     Thread.Sleep(60000);
                 }
             });

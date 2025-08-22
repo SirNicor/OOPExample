@@ -4,10 +4,10 @@ namespace UJob;
 
 using Logger;
 using UCore;
-public class SalaryOperationsJob:IJob
+public class SalaryJob:IJob
 {
 
-    public SalaryOperationsJob(Logger logger, WorkerRepository workerRepositoryTeachers, WorkerRepository workerRepositoryAdministrators)
+    public SalaryJob(Logger logger, WorkerRepository workerRepositoryTeachers, WorkerRepository workerRepositoryAdministrators)
     {
         _logger = logger;
         _workerRepositoryTeachers = workerRepositoryTeachers;
@@ -17,8 +17,6 @@ public class SalaryOperationsJob:IJob
 
     public void DoWork()
     {
-        // _workerRepositoryTeachers.PrintAll(_logger);
-        // _workerRepositoryAdministrators.PrintAll(_logger);
         List<Teacher> teachers = _workerRepositoryTeachers.ReturnListTeachers(_logger);
         List<Administrator> administrators = _workerRepositoryAdministrators.ReturnListAdministrator(_logger);
         List<Worker> workers = new List<Worker>();
