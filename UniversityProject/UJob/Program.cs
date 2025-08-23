@@ -22,6 +22,11 @@ using UCore;
             WorkerRepository workerRepositoryTeachers = new WorkerRepository(logger, disciplineRepository);
             
             SalaryJob salaryJob = new SalaryJob(logger, workerRepositoryTeachers, workerRepositoryAdministrator);
+            PrintWorkersJob printWorkersJob = new PrintWorkersJob(logger, workerRepositoryTeachers, workerRepositoryAdministrator);
+            PrintStudentsJob printStudentsJob = new PrintStudentsJob(logger, studentRepository);
+            InfoCouplesAttendanceJob infoCouplesAttendanceJob = new InfoCouplesAttendanceJob(logger, studentRepository);
+            ScoresOfStudentsJob scoresOfStudentsJob = new ScoresOfStudentsJob(logger, studentRepository);
+            
             
             List<Teacher> teachers = workerRepositoryTeachers.ReturnListTeachers(logger);
             
@@ -60,6 +65,35 @@ using UCore;
                 }
             });
             threadOfWork.Priority = ThreadPriority.AboveNormal;
+
+            Thread threadOfInfo = new Thread(() =>
+            {
+                int input;
+                while (true)
+                {
+                    Console.WriteLine("Вывод интересующей вас инфо. Если о рабочих, введите 1, если о студентах, введите 2. Если о баллах студентов - 3, если о пропусках студентов - 4");
+                    input = int.Parse(Console.ReadLine());
+                    switch (input)
+                    {
+                        case 1:
+                            printWorkersJob.DoWork();
+                            break;
+                        case 2:
+                            printStudentsJob.DoWork();
+                            break;
+                        case 3:
+                            scoresOfStudentsJob.DoWork();
+                            break;
+                        case 4:
+                            infoCouplesAttendanceJob.DoWork();
+                            break;
+                        default:
+                            logger.Info("Выход за возможный выбор");
+                            Console.WriteLine("Повторите ввод");
+                            break;
+                    }
+                }
+            });
             
             threadOfJob.Start();
             threadOfWork.Start();

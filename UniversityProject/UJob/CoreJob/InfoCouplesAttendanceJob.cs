@@ -28,8 +28,6 @@ public class InfoCouplesAttendanceJob
                 minindex = i;
             }
         }
-        
-        
         _logger.Info($"Максимально количество пропусков= {couplesAttendance[maxindex]}. Данный студент:");
         _students[maxindex].PrintInfo(_logger);
         _logger.Info($"Минимальное количество пропусков = {couplesAttendance[minindex]}. Данный студент:");
