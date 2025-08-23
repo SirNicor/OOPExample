@@ -10,6 +10,7 @@ using UCore;
         static void Main()
         {
             
+            
             Logger logger = new ConsoleLogger();
             
             StudentRepository studentRepository = new StudentRepository(logger);
@@ -98,5 +99,6 @@ using UCore;
             threadOfJob.Start();
             threadOfWork.Start();
             threadOfSession.Start();
+            threadOfInfo.Start();
         }
     }
