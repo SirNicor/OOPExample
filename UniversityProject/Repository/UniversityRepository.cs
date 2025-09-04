@@ -3,10 +3,10 @@ using UCore;
 using Logger;
 public class UniversityRepository
 {
-    public UniversityRepository(Logger logger, WorkerRepository workerRepository)
+    public UniversityRepository(MyLogger myLogger, WorkerRepository workerRepository)
     {
         WorkerRepository workerRep = workerRepository;
-        foreach(var worker in workerRep.ReturnListAdministrator(logger))
+        foreach(var worker in workerRep.ReturnListAdministrator(myLogger))
         {
             if (worker.GetType() == typeof(Administrator))
             {
@@ -16,22 +16,22 @@ public class UniversityRepository
         _university.Add(new ClassUniversity("VUZ", _workerRep[0],  _workerRep.GetRange(1,1), new Random().Next(10000, 10000000)));
     }
     
-    public void Add(ClassUniversity university, Logger logger)
+    public void Add(ClassUniversity university, MyLogger myLogger)
     {
         try
         {
             _university.Add(university);
-            logger.Debug("Worker added" + Environment.NewLine);
+            myLogger.Debug("Worker added" + Environment.NewLine);
         }
         catch(Exception exception)
         {
-            logger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
+            myLogger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
         }
     }
     
-    public List<ClassUniversity> ReturnList(Logger logger)
+    public List<ClassUniversity> ReturnList(MyLogger myLogger)
     {
-        logger.Debug("Return list" + Environment.NewLine);
+        myLogger.Debug("Return list" + Environment.NewLine);
         return _university;
     }
     

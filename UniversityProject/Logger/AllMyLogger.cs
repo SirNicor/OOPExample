@@ -1,10 +1,10 @@
 ﻿namespace Logger;
 
-public class AllLogger:Logger
+public class AllMyLogger:MyLogger
 {
-    private readonly Logger[] _loggers;
+    private readonly MyLogger[] _loggers;
 
-    public AllLogger(Logger[] loggers)
+    public AllMyLogger(MyLogger[] loggers)
     {
         _loggers = loggers;
     }

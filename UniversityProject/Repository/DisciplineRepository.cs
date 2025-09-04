@@ -16,22 +16,22 @@ public class DisciplineRepository
         Console.WriteLine(_disciplines.Count);
     }
 
-    public void Add(Discipline discipline, Logger logger)
+    public void Add(Discipline discipline, MyLogger myLogger)
     {
         try
         {
             _disciplines.Add(discipline);
-            logger.Debug("Discipline added" + Environment.NewLine);
+            myLogger.Debug("Discipline added" + Environment.NewLine);
         }
         catch(Exception exception)
         {
-            logger.Error("Discipline not added, The information is incomplete " + Environment.NewLine, exception);
+            myLogger.Error("Discipline not added, The information is incomplete " + Environment.NewLine, exception);
         }
     }
     
-    public List<Discipline> ReturnList(Logger logger)
+    public List<Discipline> ReturnList(MyLogger myLogger)
     {
-        logger.Debug("Return list" + Environment.NewLine);
+        myLogger.Debug("Return list" + Environment.NewLine);
         return _disciplines;
     }   
     

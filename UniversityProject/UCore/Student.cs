@@ -29,12 +29,12 @@ public class Student:Person
         }
     }
 
-    public override void PrintDerivedClass(Logger logger)
+    public override void PrintDerivedClass(MyLogger myLogger)
     {
         string message = $"Course: {_course}" + Environment.NewLine;
         message += $"Общий балл ={_creditScores} и количество сданных экзаменов = {_countOfExamsPassed} и общий балл = {TotalScore}" + Environment.NewLine;
         message += "Расположен ли в общежитии " + (_accomodationDormitories ? "Да" : "Нет");
-        logger.Info(message);
+        myLogger.Info(message);
     }
 
     

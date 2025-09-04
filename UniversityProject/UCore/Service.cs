@@ -8,14 +8,14 @@ public class Service:Worker
     {
     }
 
-    public override void DoWork(Logger logger) 
+    public override void DoWork(MyLogger myLogger) 
     {
         
     }
-    public override void PrintDerivedClass(Logger logger)
+    public override void PrintDerivedClass(MyLogger myLogger)
     {   
         string message;
         message = $"Зарплата - {Salary}" + Environment.NewLine;
-        logger.Info(message);
+        myLogger.Info(message);
     }
 }

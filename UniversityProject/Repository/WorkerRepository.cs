@@ -4,7 +4,7 @@ using Logger;
 
 public class WorkerRepository
 {
-    public WorkerRepository(Logger logger, DisciplineRepository disciplineRepository)
+    public WorkerRepository(MyLogger myLogger, DisciplineRepository disciplineRepository)
     {
         try
         {
@@ -40,7 +40,7 @@ public class WorkerRepository
         }
     }
     
-    public WorkerRepository(Logger logger)
+    public WorkerRepository(MyLogger myLogger)
     {
         try
         {
@@ -77,57 +77,57 @@ public class WorkerRepository
         }
     }
     
-    public void AddTeacher(Teacher worker, Logger logger)
+    public void AddTeacher(Teacher worker, MyLogger myLogger)
     {
         try
         {
             _workersTeachers.Add(worker);
-            logger.Debug("Worker added" + Environment.NewLine);
+            myLogger.Debug("Worker added" + Environment.NewLine);
             throw new Exception("Worker not added");
         }
         catch(Exception exception)
         {
-            logger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
+            myLogger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
             throw exception;
         }
     }
     
-    public void AddAdministrator(Administrator worker, Logger logger)
+    public void AddAdministrator(Administrator worker, MyLogger myLogger)
     {
         try
         {
             _workersAdministrator.Add(worker);
-            logger.Debug("Worker added" + Environment.NewLine);
+            myLogger.Debug("Worker added" + Environment.NewLine);
             throw new Exception("Worker not added");
         }
         catch(Exception exception)
         {
-            logger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
+            myLogger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
         }
     }
 
-    public void PrintAll(Logger logger)
+    public void PrintAll(MyLogger myLogger)
     {
         foreach (Worker worker in _workersTeachers)
         {
-            worker.PrintInfo(logger);
+            worker.PrintInfo(myLogger);
         }
 
         foreach (Worker worker in _workersAdministrator)
         {
-            worker.PrintInfo(logger);
+            worker.PrintInfo(myLogger);
         }
     }
 
-    public List<Teacher> ReturnListTeachers(Logger logger)
+    public List<Teacher> ReturnListTeachers(MyLogger myLogger)
     {
-        logger.Debug("Return list" + Environment.NewLine);
+        myLogger.Debug("Return list" + Environment.NewLine);
         return _workersTeachers;
     }
     
-    public List<Administrator> ReturnListAdministrator(Logger logger)
+    public List<Administrator> ReturnListAdministrator(MyLogger myLogger)
     {
-        logger.Debug("Return list" + Environment.NewLine);
+        myLogger.Debug("Return list" + Environment.NewLine);
         return _workersAdministrator;
     }
     

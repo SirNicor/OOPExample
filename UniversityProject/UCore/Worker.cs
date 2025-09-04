@@ -7,7 +7,7 @@ public abstract class Worker : Person
     {
         Salary = salary;
     }
-    public abstract void DoWork(Logger logger);
+    public abstract void DoWork(MyLogger myLogger);
 
     // protected DateTime StartWork;
     // protected DateTime EndWork;

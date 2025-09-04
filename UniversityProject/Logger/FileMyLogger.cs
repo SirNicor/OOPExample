@@ -1,8 +1,8 @@
 ﻿namespace Logger;
 
-public class FileLogger : Logger
+public class FileMyLogger : MyLogger
 {
-    public FileLogger()
+    public FileMyLogger()
     {
         string currentTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
         string workingDir = Environment.CurrentDirectory;

@@ -26,12 +26,12 @@ public class Passport
         _placeRepeipt = placeRepeipt;
     }
 
-    public void Print(Logger logger)
+    public void Print(MyLogger myLogger)
     {
         string message = $"FullName: {_firstName} {_lastName} {_middleName}, BirthDate: {_birthDate}";
         message += Environment.NewLine + $"Serial: {_serial} Number: {_number} issued by whom: {_placeRepeipt}";
-        logger.Info(message);
-        _address.Print(logger);
+        myLogger.Info(message);
+        _address.Print(myLogger);
     }
     
     private int _serial;

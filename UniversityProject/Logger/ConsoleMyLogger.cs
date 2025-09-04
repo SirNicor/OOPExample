@@ -1,6 +1,6 @@
 ﻿namespace Logger;
 
-public class ConsoleLogger : Logger
+public class ConsoleMyLogger : MyLogger
 {
     protected override void Log(LevelLoger levelLoger, string message)
     {

@@ -10,9 +10,9 @@ public class Address
         _city = city;
         _houseNumber = houseNumber;
     }
-    public void Print(Logger logger)
+    public void Print(MyLogger myLogger)
     {
-        logger.Info("FullAddress: " + _country + " " + _city + " " + _street + " " + _houseNumber);
+        myLogger.Info("FullAddress: " + _country + " " + _city + " " + _street + " " + _houseNumber);
     }
     
     private readonly string _country;

@@ -5,10 +5,10 @@ using UCore;
 
 public class InfoCouplesAttendanceJob
 {
-    public InfoCouplesAttendanceJob(Logger logger, StudentRepository studentRepository)
+    public InfoCouplesAttendanceJob(MyLogger myLogger, StudentRepository studentRepository)
     {
-        _logger = logger;
-        _students = studentRepository.ReturnList(logger);
+        _myLogger = myLogger;
+        _students = studentRepository.ReturnList(myLogger);
     }
 
     public void DoWork()
@@ -28,14 +28,14 @@ public class InfoCouplesAttendanceJob
                 minindex = i;
             }
         }
-        _logger.Info($"Максимально количество пропусков= {couplesAttendance[maxindex]}. Данный студент:");
-        _students[maxindex].PrintInfo(_logger);
-        _logger.Info($"Минимальное количество пропусков = {couplesAttendance[minindex]}. Данный студент:");
-        _students[minindex].PrintInfo(_logger);
+        _myLogger.Info($"Максимально количество пропусков= {couplesAttendance[maxindex]}. Данный студент:");
+        _students[maxindex].PrintInfo(_myLogger);
+        _myLogger.Info($"Минимальное количество пропусков = {couplesAttendance[minindex]}. Данный студент:");
+        _students[minindex].PrintInfo(_myLogger);
     }
     
     
-    private readonly Logger _logger;
+    private readonly MyLogger _myLogger;
     private Timer _timer;
     private List<Student> _students;
 }

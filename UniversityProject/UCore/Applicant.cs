@@ -9,7 +9,7 @@ public class Applicant:Person
     }
     private Direction[] _directionsOfAdmission;
     private int _scores;
-    public override void PrintDerivedClass(Logger logger)
+    public override void PrintDerivedClass(MyLogger myLogger)
     {
         string message = "Все направления для поступления: ";
         foreach (Direction str in _directionsOfAdmission)
@@ -18,6 +18,6 @@ public class Applicant:Person
         }
 
         message += Environment.NewLine + $"Баллы за экзамен: {_scores}";
-        logger.Info(message);
+        myLogger.Info(message);
     }
 }

@@ -6,10 +6,10 @@ using UCore;
 
 public class ScoresOfStudentsJob
 {
-    public ScoresOfStudentsJob(Logger logger, StudentRepository studentRepository)
+    public ScoresOfStudentsJob(MyLogger myLogger, StudentRepository studentRepository)
     {
-        _logger = logger;
-        _students = studentRepository.ReturnList(logger);
+        _myLogger = myLogger;
+        _students = studentRepository.ReturnList(myLogger);
     }
 
     public void DoWork()
@@ -33,15 +33,15 @@ public class ScoresOfStudentsJob
         }
         
         
-        _logger.Info($"Максимальные баллы = {scoreStudent[maxindex]}. Студент с данными баллами:");
-        _students[maxindex].PrintInfo(_logger);
-        _logger.Info($"Минимальные баллы = {scoreStudent[minindex]}. Студент с данными баллами:");
-        _students[minindex].PrintInfo(_logger);
-        _logger.Info("Средние баллы = " + allscores/_students.Count);
+        _myLogger.Info($"Максимальные баллы = {scoreStudent[maxindex]}. Студент с данными баллами:");
+        _students[maxindex].PrintInfo(_myLogger);
+        _myLogger.Info($"Минимальные баллы = {scoreStudent[minindex]}. Студент с данными баллами:");
+        _students[minindex].PrintInfo(_myLogger);
+        _myLogger.Info("Средние баллы = " + allscores/_students.Count);
     }
     
     
-    private readonly Logger _logger;
+    private readonly MyLogger _myLogger;
     private Timer _timer;
     private List<Student> _students;
 }

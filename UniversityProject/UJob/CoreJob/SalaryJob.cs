@@ -7,9 +7,9 @@ using UCore;
 public class SalaryJob:IJob
 {
 
-    public SalaryJob(Logger logger, WorkerRepository workerRepositoryTeachers, WorkerRepository workerRepositoryAdministrators)
+    public SalaryJob(MyLogger myLogger, WorkerRepository workerRepositoryTeachers, WorkerRepository workerRepositoryAdministrators)
     {
-        _logger = logger;
+        _myLogger = myLogger;
         _workerRepositoryTeachers = workerRepositoryTeachers;
         _workerRepositoryAdministrators = workerRepositoryAdministrators;
     }
@@ -17,8 +17,8 @@ public class SalaryJob:IJob
 
     public void DoWork()
     {
-        List<Teacher> teachers = _workerRepositoryTeachers.ReturnListTeachers(_logger);
-        List<Administrator> administrators = _workerRepositoryAdministrators.ReturnListAdministrator(_logger);
+        List<Teacher> teachers = _workerRepositoryTeachers.ReturnListTeachers(_myLogger);
+        List<Administrator> administrators = _workerRepositoryAdministrators.ReturnListAdministrator(_myLogger);
         List<Worker> workers = new List<Worker>();
         foreach(var worker in teachers)
         {
@@ -49,13 +49,13 @@ public class SalaryJob:IJob
             }
             FullSalary += salaryWorkers[i];
         }
-        _logger.Info($"Максимальная зп = {salaryWorkers[maxindex]}. Рабочий с данной зп:");
-        workers[maxindex].PrintInfo(_logger);
-        _logger.Info($"Минимальная зп = {salaryWorkers[minindex]}. Рабочий с данной зп:");
-        workers[minindex].PrintInfo(_logger);
-        _logger.Info("Средняя зп = " + (double)FullSalary/lenWorkers);
+        _myLogger.Info($"Максимальная зп = {salaryWorkers[maxindex]}. Рабочий с данной зп:");
+        workers[maxindex].PrintInfo(_myLogger);
+        _myLogger.Info($"Минимальная зп = {salaryWorkers[minindex]}. Рабочий с данной зп:");
+        workers[minindex].PrintInfo(_myLogger);
+        _myLogger.Info("Средняя зп = " + (double)FullSalary/lenWorkers);
     }
-    private readonly Logger _logger;
+    private readonly MyLogger _myLogger;
     private Timer _timer;
     private WorkerRepository _repository;
     private WorkerRepository _workerRepositoryTeachers;

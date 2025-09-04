@@ -11,25 +11,25 @@ using UCore;
         {
             
             
-            Logger logger = new ConsoleLogger();
+            MyLogger myLogger = new ConsoleMyLogger();
                 
-            StudentRepository studentRepository = new StudentRepository(logger);
-            WorkerRepository workerRepositoryAdministrator = new WorkerRepository(logger);
-            UniversityRepository universityRepository = new UniversityRepository(logger, workerRepositoryAdministrator);
-            FacultyRepository facultyRepository = new FacultyRepository(logger, universityRepository, workerRepositoryAdministrator);
-            DepartmentRepository departmentRepository = new DepartmentRepository(logger, facultyRepository, workerRepositoryAdministrator);
-            DirectionRepository directionRepository = new DirectionRepository(logger, studentRepository, departmentRepository);
+            StudentRepository studentRepository = new StudentRepository(myLogger);
+            WorkerRepository workerRepositoryAdministrator = new WorkerRepository(myLogger);
+            UniversityRepository universityRepository = new UniversityRepository(myLogger, workerRepositoryAdministrator);
+            FacultyRepository facultyRepository = new FacultyRepository(myLogger, universityRepository, workerRepositoryAdministrator);
+            DepartmentRepository departmentRepository = new DepartmentRepository(myLogger, facultyRepository, workerRepositoryAdministrator);
+            DirectionRepository directionRepository = new DirectionRepository(myLogger, studentRepository, departmentRepository);
             DisciplineRepository disciplineRepository = new DisciplineRepository(directionRepository);
-            WorkerRepository workerRepositoryTeachers = new WorkerRepository(logger, disciplineRepository);
+            WorkerRepository workerRepositoryTeachers = new WorkerRepository(myLogger, disciplineRepository);
             
-            SalaryJob salaryJob = new SalaryJob(logger, workerRepositoryTeachers, workerRepositoryAdministrator);
-            PrintWorkersJob printWorkersJob = new PrintWorkersJob(logger, workerRepositoryTeachers, workerRepositoryAdministrator);
-            PrintStudentsJob printStudentsJob = new PrintStudentsJob(logger, studentRepository);
-            InfoCouplesAttendanceJob infoCouplesAttendanceJob = new InfoCouplesAttendanceJob(logger, studentRepository);
-            ScoresOfStudentsJob scoresOfStudentsJob = new ScoresOfStudentsJob(logger, studentRepository);
+            SalaryJob salaryJob = new SalaryJob(myLogger, workerRepositoryTeachers, workerRepositoryAdministrator);
+            PrintWorkersJob printWorkersJob = new PrintWorkersJob(myLogger, workerRepositoryTeachers, workerRepositoryAdministrator);
+            PrintStudentsJob printStudentsJob = new PrintStudentsJob(myLogger, studentRepository);
+            InfoCouplesAttendanceJob infoCouplesAttendanceJob = new InfoCouplesAttendanceJob(myLogger, studentRepository);
+            ScoresOfStudentsJob scoresOfStudentsJob = new ScoresOfStudentsJob(myLogger, studentRepository);
             
             
-            List<Teacher> teachers = workerRepositoryTeachers.ReturnListTeachers(logger);
+            List<Teacher> teachers = workerRepositoryTeachers.ReturnListTeachers(myLogger);
             
             Thread threadOfJob = new Thread(() =>
             {
@@ -46,7 +46,7 @@ using UCore;
                 {
                     foreach (var teacher in teachers)
                     {
-                        teacher.DoWork(logger);
+                        teacher.DoWork(myLogger);
                         Thread.Sleep(120000);
                     }
                 }
@@ -60,7 +60,7 @@ using UCore;
                 {
                     foreach (var teacher in teachers)
                     {
-                        teacher.DoSession(logger);
+                        teacher.DoSession(myLogger);
                         Thread.Sleep(240000);
                     }
                 }
@@ -89,7 +89,7 @@ using UCore;
                             infoCouplesAttendanceJob.DoWork();
                             break;
                         default:
-                            logger.Info("Выход за возможный выбор");
+                            myLogger.Info("Выход за возможный выбор");
                             Console.WriteLine("Повторите ввод");
                             break;
                     }

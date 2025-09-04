@@ -10,7 +10,7 @@ public class Teacher:Worker
         _discipline = discipline;
     }
 
-    public override void DoWork(Logger logger)
+    public override void DoWork(MyLogger myLogger)
     {
         foreach (var discipline in _discipline)
         {
@@ -32,10 +32,10 @@ public class Teacher:Worker
                 }
             }
         }
-        logger.Info("DoWork Complete" + Environment.NewLine);
+        myLogger.Info("DoWork Complete" + Environment.NewLine);
     }
     
-    public void DoSession(Logger logger)
+    public void DoSession(MyLogger myLogger)
     {
         foreach (var discipline in _discipline)
         {
@@ -49,13 +49,13 @@ public class Teacher:Worker
                 }
             }
         }
-        logger.Info("DoSession Complete" + Environment.NewLine);
+        myLogger.Info("DoSession Complete" + Environment.NewLine);
     }
-    public override void PrintDerivedClass(Logger logger)
+    public override void PrintDerivedClass(MyLogger myLogger)
     {
         string message;
         message = $"Зарплата - {Salary}" + Environment.NewLine;
-        logger.Info(message);
+        myLogger.Info(message);
     }
     
     private List<Discipline> _discipline;

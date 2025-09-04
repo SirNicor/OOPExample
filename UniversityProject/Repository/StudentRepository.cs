@@ -4,7 +4,7 @@ using Logger;
 
 public class StudentRepository
 {
-    public StudentRepository(Logger logger)
+    public StudentRepository(MyLogger myLogger)
     {
         try
         {
@@ -63,35 +63,35 @@ public class StudentRepository
         }
         catch (Exception ex)
         {
-            logger.Error("StudentRepError", ex);
+            myLogger.Error("StudentRepError", ex);
         }
         
     }
     
-    public void Add(Student student, Logger logger)
+    public void Add(Student student, MyLogger myLogger)
     {
         try
         {
             _student.Add(student);
-            logger.Debug("Student added" + Environment.NewLine);
+            myLogger.Debug("Student added" + Environment.NewLine);
         }
         catch(Exception exception)
         {
-            logger.Error("Student not added, The information is incomplete " + Environment.NewLine, exception);
+            myLogger.Error("Student not added, The information is incomplete " + Environment.NewLine, exception);
         }
     }
 
-    public void PrintAll(Logger logger)
+    public void PrintAll(MyLogger myLogger)
     {
         foreach (Student student in _student)
         {
-            student.PrintInfo(logger);
+            student.PrintInfo(myLogger);
         }
     }
 
-    public List<Student> ReturnList(Logger logger)
+    public List<Student> ReturnList(MyLogger myLogger)
     {
-        logger.Debug("Return list" + Environment.NewLine);
+        myLogger.Debug("Return list" + Environment.NewLine);
         return _student;
     }
     

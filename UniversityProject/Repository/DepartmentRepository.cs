@@ -4,11 +4,11 @@ using Logger;
 
 public class DepartmentRepository
 {
-    public DepartmentRepository(Logger logger, FacultyRepository facultyRepository, WorkerRepository workerRepository)
+    public DepartmentRepository(MyLogger myLogger, FacultyRepository facultyRepository, WorkerRepository workerRepository)
     {
         _facultyRepository = facultyRepository;
         WorkerRepository workerRep = workerRepository;
-        foreach (var worker in workerRep.ReturnListAdministrator(logger))
+        foreach (var worker in workerRep.ReturnListAdministrator(myLogger))
         {
             if (worker.GetType() == typeof(Administrator))
             {
@@ -18,22 +18,22 @@ public class DepartmentRepository
         _departments.Add(new Department("IIST", _workerRep[5],  _workerRep.GetRange(6, 1), _facultyRepository.ReturnList()[0]));
     }
     
-    public void Add(Department department, Logger logger)
+    public void Add(Department department, MyLogger myLogger)
     {
         try
         {
             _departments.Add(department);
-            logger.Debug("Worker added" + Environment.NewLine);
+            myLogger.Debug("Worker added" + Environment.NewLine);
         }
         catch(Exception exception)
         {
-            logger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
+            myLogger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
         }
     }
     
-    public List<Department> ReturnList(Logger logger)
+    public List<Department> ReturnList(MyLogger myLogger)
     {
-        logger.Debug("Return list" + Environment.NewLine);
+        myLogger.Debug("Return list" + Environment.NewLine);
         return _departments;
     }
     

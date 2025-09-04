@@ -5,19 +5,19 @@ using UCore;
 
 public class PrintStudentsJob:IJob
 {
-    public PrintStudentsJob(Logger logger, StudentRepository studentRepository)
+    public PrintStudentsJob(MyLogger myLogger, StudentRepository studentRepository)
     {
-        _logger = logger;
+        _myLogger = myLogger;
         _studentsRepository = studentRepository;
     }
 
     public void DoWork()
     {
-        _studentsRepository.PrintAll(_logger);
+        _studentsRepository.PrintAll(_myLogger);
     }
     
     
-    private readonly Logger _logger;
+    private readonly MyLogger _myLogger;
     private Timer _timer;
     private StudentRepository _studentsRepository;
 }

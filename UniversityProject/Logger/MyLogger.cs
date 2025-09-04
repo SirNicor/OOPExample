@@ -3,7 +3,7 @@
 using System.Diagnostics;
 using Microsoft.VisualBasic.CompilerServices;
 using System.Text.Json;
-public abstract class Logger
+public abstract class MyLogger
 {
     protected LevelLoger MinLog = LevelLoger.DEBUG;
     protected DateTime CurrentTime;

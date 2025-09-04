@@ -5,11 +5,11 @@ using Logger;
 public class FacultyRepository
 {
 
-    public FacultyRepository(Logger logger, UniversityRepository universityRepository, WorkerRepository workerRepository)
+    public FacultyRepository(MyLogger myLogger, UniversityRepository universityRepository, WorkerRepository workerRepository)
     {
         _universityRepository = universityRepository;
         WorkerRepository workerRep = workerRepository;
-        foreach (var worker in workerRep.ReturnListAdministrator(logger))
+        foreach (var worker in workerRep.ReturnListAdministrator(myLogger))
         {
             if (worker.GetType() == typeof(Administrator))
             {
@@ -19,22 +19,22 @@ public class FacultyRepository
         _faculties.Add(new Faculty("FITU", _workerRep[2],  _workerRep[3], _workerRep.GetRange(4, 1), _universityRepository.ReturnList()[0]));
     }
     
-    public void Add(Faculty faculty, Logger logger)
+    public void Add(Faculty faculty, MyLogger myLogger)
     {
         try
         {
             _faculties.Add(faculty);
-            logger.Debug("Faculty added" + Environment.NewLine);
+            myLogger.Debug("Faculty added" + Environment.NewLine);
         }
         catch(Exception exception)
         {
-            logger.Error("Faculty not added, The information is incomplete " + Environment.NewLine, exception);
+            myLogger.Error("Faculty not added, The information is incomplete " + Environment.NewLine, exception);
         }
     }
     
-    public List<Faculty> ReturnList(Logger logger)
+    public List<Faculty> ReturnList(MyLogger myLogger)
     {
-        logger.Debug("Return list" + Environment.NewLine);
+        myLogger.Debug("Return list" + Environment.NewLine);
         return _faculties;
     }
     

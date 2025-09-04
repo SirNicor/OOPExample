@@ -10,15 +10,15 @@ public abstract class Person
         MilitaryIdAvailability = militaryIdAvailability;
         CriminalRecord = criminalRecord;
     }
-    public void PrintInfo(Logger logger)
+    public void PrintInfo(MyLogger myLogger)
     {
-        Passport.Print(logger);
+        Passport.Print(myLogger);
         string message = ($"Военный билет: {MilitaryIdAvailability} и судимость ") + (CriminalRecord?"есть":"нет");
-        logger.Info(message);
-        PrintDerivedClass(logger);
+        myLogger.Info(message);
+        PrintDerivedClass(myLogger);
     }
 
-    public abstract void PrintDerivedClass(Logger logger);
+    public abstract void PrintDerivedClass(MyLogger myLogger);
     public IdMillitary MilitaryReset
     {
         set { MilitaryIdAvailability = value; }
