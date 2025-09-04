@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Version 21
+VisualStudioVersion = 17.14.36408.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "UniversityDB", "UniversityDB\UniversityDB.ssmssqlproj", "{A728126A-D445-BA33-8DB2-7F4B74A8E543}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A728126A-D445-BA33-8DB2-7F4B74A8E543}.Default|Default.ActiveCfg = Default
+		{11C64D6D-7811-4627-A0DE-45BD0CF239A0}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2DE64068-D444-4BB5-9FC1-350C2745BDE2}
+	EndGlobalSection
+EndGlobal

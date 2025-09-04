@@ -12,7 +12,7 @@ using UCore;
             
             
             Logger logger = new ConsoleLogger();
-            
+                
             StudentRepository studentRepository = new StudentRepository(logger);
             WorkerRepository workerRepositoryAdministrator = new WorkerRepository(logger);
             UniversityRepository universityRepository = new UniversityRepository(logger, workerRepositoryAdministrator);
