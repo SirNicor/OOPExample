@@ -1,0 +1,16 @@
+07.09.2025 17:04:16: создан новый лог файл
+07.09.2025 17:04:16: INFO: Максимальная зп = 674386. Рабочий с данной зп:
+07.09.2025 17:04:16: INFO: FullName: ad5 ad5 , BirthDate: 24.05.1966 0:00:00
+Serial: 7037 Number: 601436 issued by whom: 1
+07.09.2025 17:04:16: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:04:16: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:04:16: INFO: Зарплата - 674386
+
+07.09.2025 17:04:16: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+07.09.2025 17:04:16: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:04:16: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+07.09.2025 17:04:16: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:04:16: INFO: Зарплата - 35000
+
+07.09.2025 17:04:17: INFO: Средняя зп = 209309,6923076923

@@ -1,0 +1,542 @@
+07.09.2025 17:29:43: создан новый лог файл
+07.09.2025 17:29:43: INFO: Максимальная зп = 886133. Рабочий с данной зп:
+07.09.2025 17:29:43: INFO: DoSession Complete
+
+07.09.2025 17:29:43: INFO: DoWork Complete
+
+07.09.2025 17:29:43: INFO: FullName: ad7 ad7 , BirthDate: 08.09.1955 0:00:00
+Serial: 8926 Number: 734599 issued by whom: 1
+07.09.2025 17:29:43: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:29:43: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:29:43: INFO: Зарплата - 886133
+
+07.09.2025 17:29:43: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+07.09.2025 17:29:43: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:29:43: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+07.09.2025 17:29:43: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:29:43: INFO: Зарплата - 35000
+
+07.09.2025 17:29:43: INFO: Средняя зп = 238795,46153846153
+07.09.2025 17:29:43: создан новый лог файл
+07.09.2025 17:29:43: INFO: Максимальная зп = 886133. Рабочий с данной зп:
+07.09.2025 17:29:43: INFO: DoWork Complete
+
+07.09.2025 17:29:43: INFO: FullName: ad7 ad7 , BirthDate: 08.09.1955 0:00:00
+Serial: 8926 Number: 734599 issued by whom: 1
+07.09.2025 17:29:43: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:29:43: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:29:43: INFO: DoSession Complete
+
+07.09.2025 17:29:43: INFO: Зарплата - 886133
+
+07.09.2025 17:29:43: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+07.09.2025 17:29:43: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:29:43: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+07.09.2025 17:29:43: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:29:43: INFO: Зарплата - 35000
+
+07.09.2025 17:29:43: INFO: Средняя зп = 256262,11538461538
+07.09.2025 17:29:46: INFO: Максимальные баллы = 0. Студент с данными баллами:
+07.09.2025 17:29:46: INFO: FullName: StudentFirstName1 StudentLastName1 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:29:46: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:46: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:46: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:29:46: INFO: Минимальные баллы = 0. Студент с данными баллами:
+07.09.2025 17:29:46: INFO: FullName: StudentFirstName1 StudentLastName1 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:29:46: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:46: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:46: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:29:46: INFO: Средние баллы = -8
+07.09.2025 17:29:58: INFO: Максимально количество пропусков= 8. Данный студент:
+07.09.2025 17:29:58: INFO: FullName: StudentFirstName1 StudentLastName1 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:29:58: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:58: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:58: INFO: Course: 1
+Общий балл =-8 и количество сданных экзаменов = 6 и общий балл = -26,666666666666668
+Расположен ли в общежитии Нет
+07.09.2025 17:29:58: INFO: Минимальное количество пропусков = 8. Данный студент:
+07.09.2025 17:29:58: INFO: FullName: StudentFirstName1 StudentLastName1 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:29:58: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:58: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:58: INFO: Course: 1
+Общий балл =-8 и количество сданных экзаменов = 6 и общий балл = -26,666666666666668
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName1 StudentLastName1 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =-8 и количество сданных экзаменов = 6 и общий балл = -26,666666666666668
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName2 StudentLastName2 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 2
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =-4 и количество сданных экзаменов = 6 и общий балл = -13,333333333333334
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName3 StudentLastName3 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 3
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =-4 и количество сданных экзаменов = 6 и общий балл = -13,333333333333334
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName4 StudentLastName4 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 4
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =-4 и количество сданных экзаменов = 6 и общий балл = -13,333333333333334
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName5 StudentLastName5 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 5
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =-4 и количество сданных экзаменов = 6 и общий балл = -13,333333333333334
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName6 StudentLastName6 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 6
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =-4 и количество сданных экзаменов = 6 и общий балл = -13,333333333333334
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName7 StudentLastName7 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 7
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =-6 и количество сданных экзаменов = 6 и общий балл = -20
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName8 StudentLastName8 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 8
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =-4 и количество сданных экзаменов = 6 и общий балл = -13,333333333333334
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName9 StudentLastName9 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 9
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =-6 и количество сданных экзаменов = 6 и общий балл = -20
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName10 StudentLastName10 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 10
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =-4 и количество сданных экзаменов = 6 и общий балл = -13,333333333333334
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName1 StudentLastName1 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName2 StudentLastName2 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 2
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName3 StudentLastName3 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 3
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName4 StudentLastName4 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 4
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName5 StudentLastName5 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 5
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName6 StudentLastName6 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 6
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName7 StudentLastName7 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 7
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName8 StudentLastName8 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 8
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName9 StudentLastName9 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 9
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:29:59: INFO: FullName: StudentFirstName10 StudentLastName10 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 10
+07.09.2025 17:29:59: INFO: FullAddress: Russia city street 1
+07.09.2025 17:29:59: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:29:59: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:30:00: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 35000
+
+07.09.2025 17:30:00: INFO: FullName: Yelisey Koltsov , BirthDate: 03.02.2001 0:00:00
+Serial: 1112 Number: 123457 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 37
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 45000
+
+07.09.2025 17:30:00: INFO: FullName: Mikhail Alexandrov , BirthDate: 03.02.1980 0:00:00
+Serial: 1113 Number: 133457 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 55000
+
+07.09.2025 17:30:00: INFO: FullName: Yaroslav Sakharov , BirthDate: 03.12.1988 0:00:00
+Serial: 1122 Number: 123466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 50234
+
+07.09.2025 17:30:00: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 35000
+
+07.09.2025 17:30:00: INFO: FullName: Yelisey Koltsov , BirthDate: 03.02.2001 0:00:00
+Serial: 1112 Number: 123457 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 37
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 45000
+
+07.09.2025 17:30:00: INFO: FullName: Mikhail Alexandrov , BirthDate: 03.02.1980 0:00:00
+Serial: 1113 Number: 133457 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 55000
+
+07.09.2025 17:30:00: INFO: FullName: Yaroslav Sakharov , BirthDate: 03.12.1988 0:00:00
+Serial: 1122 Number: 123466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 50234
+
+07.09.2025 17:30:00: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 123000
+
+07.09.2025 17:30:00: INFO: FullName: Ivan Karpov , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 90000
+
+07.09.2025 17:30:00: INFO: FullName: ad2 ad2 , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 123000
+
+07.09.2025 17:30:00: INFO: FullName: ad3 ad3 , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 90000
+
+07.09.2025 17:30:00: INFO: FullName: ad4 ad4 , BirthDate: 07.07.1985 0:00:00
+Serial: 5109 Number: 557557 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 781009
+
+07.09.2025 17:30:00: INFO: FullName: ad5 ad5 , BirthDate: 10.06.1991 0:00:00
+Serial: 6997 Number: 565085 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 147133
+
+07.09.2025 17:30:00: INFO: FullName: ad6 ad6 , BirthDate: 22.04.1955 0:00:00
+Serial: 1610 Number: 414861 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 148692
+
+07.09.2025 17:30:00: INFO: FullName: ad7 ad7 , BirthDate: 08.09.1955 0:00:00
+Serial: 8926 Number: 734599 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 886133
+
+07.09.2025 17:30:00: INFO: FullName: ad8 ad8 , BirthDate: 09.09.1991 0:00:00
+Serial: 9122 Number: 741682 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 530140
+
+07.09.2025 17:30:00: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 123000
+
+07.09.2025 17:30:00: INFO: FullName: Ivan Karpov , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 90000
+
+07.09.2025 17:30:00: INFO: FullName: ad2 ad2 , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 123000
+
+07.09.2025 17:30:00: INFO: FullName: ad3 ad3 , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 90000
+
+07.09.2025 17:30:00: INFO: FullName: ad4 ad4 , BirthDate: 25.01.1988 0:00:00
+Serial: 4999 Number: 824340 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 663014
+
+07.09.2025 17:30:00: INFO: FullName: ad5 ad5 , BirthDate: 14.10.1958 0:00:00
+Serial: 2572 Number: 385207 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 430273
+
+07.09.2025 17:30:00: INFO: FullName: ad6 ad6 , BirthDate: 07.02.1972 0:00:00
+Serial: 8937 Number: 881962 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 791962
+
+07.09.2025 17:30:00: INFO: FullName: ad7 ad7 , BirthDate: 17.05.1986 0:00:00
+Serial: 6228 Number: 536527 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 472742
+
+07.09.2025 17:30:00: INFO: FullName: ad8 ad8 , BirthDate: 11.06.1992 0:00:00
+Serial: 6824 Number: 140619 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 589249
+
+07.09.2025 17:30:00: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 35000
+
+07.09.2025 17:30:00: INFO: FullName: Yelisey Koltsov , BirthDate: 03.02.2001 0:00:00
+Serial: 1112 Number: 123457 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 37
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 45000
+
+07.09.2025 17:30:00: INFO: FullName: Mikhail Alexandrov , BirthDate: 03.02.1980 0:00:00
+Serial: 1113 Number: 133457 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 55000
+
+07.09.2025 17:30:00: INFO: FullName: Yaroslav Sakharov , BirthDate: 03.12.1988 0:00:00
+Serial: 1122 Number: 123466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 50234
+
+07.09.2025 17:30:00: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 35000
+
+07.09.2025 17:30:00: INFO: FullName: Yelisey Koltsov , BirthDate: 03.02.2001 0:00:00
+Serial: 1112 Number: 123457 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 37
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 45000
+
+07.09.2025 17:30:00: INFO: FullName: Mikhail Alexandrov , BirthDate: 03.02.1980 0:00:00
+Serial: 1113 Number: 133457 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 55000
+
+07.09.2025 17:30:00: INFO: FullName: Yaroslav Sakharov , BirthDate: 03.12.1988 0:00:00
+Serial: 1122 Number: 123466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 38
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 50234
+
+07.09.2025 17:30:00: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 123000
+
+07.09.2025 17:30:00: INFO: FullName: Ivan Karpov , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 90000
+
+07.09.2025 17:30:00: INFO: FullName: ad2 ad2 , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 123000
+
+07.09.2025 17:30:00: INFO: FullName: ad3 ad3 , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 90000
+
+07.09.2025 17:30:00: INFO: FullName: ad4 ad4 , BirthDate: 07.07.1985 0:00:00
+Serial: 5109 Number: 557557 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 781009
+
+07.09.2025 17:30:00: INFO: FullName: ad5 ad5 , BirthDate: 10.06.1991 0:00:00
+Serial: 6997 Number: 565085 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 147133
+
+07.09.2025 17:30:00: INFO: FullName: ad6 ad6 , BirthDate: 22.04.1955 0:00:00
+Serial: 1610 Number: 414861 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 148692
+
+07.09.2025 17:30:00: INFO: FullName: ad7 ad7 , BirthDate: 08.09.1955 0:00:00
+Serial: 8926 Number: 734599 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 886133
+
+07.09.2025 17:30:00: INFO: FullName: ad8 ad8 , BirthDate: 09.09.1991 0:00:00
+Serial: 9122 Number: 741682 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 530140
+
+07.09.2025 17:30:00: INFO: FullName: Maxim Kirillov , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 123000
+
+07.09.2025 17:30:00: INFO: FullName: Ivan Karpov , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 90000
+
+07.09.2025 17:30:00: INFO: FullName: ad2 ad2 , BirthDate: 03.12.1978 0:00:00
+Serial: 2222 Number: 223466 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 123000
+
+07.09.2025 17:30:00: INFO: FullName: ad3 ad3 , BirthDate: 03.12.1977 0:00:00
+Serial: 5522 Number: 125766 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 60
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 90000
+
+07.09.2025 17:30:00: INFO: FullName: ad4 ad4 , BirthDate: 25.01.1988 0:00:00
+Serial: 4999 Number: 824340 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 663014
+
+07.09.2025 17:30:00: INFO: FullName: ad5 ad5 , BirthDate: 14.10.1958 0:00:00
+Serial: 2572 Number: 385207 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 430273
+
+07.09.2025 17:30:00: INFO: FullName: ad6 ad6 , BirthDate: 07.02.1972 0:00:00
+Serial: 8937 Number: 881962 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 791962
+
+07.09.2025 17:30:00: INFO: FullName: ad7 ad7 , BirthDate: 17.05.1986 0:00:00
+Serial: 6228 Number: 536527 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 472742
+
+07.09.2025 17:30:00: INFO: FullName: ad8 ad8 , BirthDate: 11.06.1992 0:00:00
+Serial: 6824 Number: 140619 issued by whom: 1
+07.09.2025 17:30:00: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:30:00: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:30:00: INFO: Зарплата - 589249
+
+07.09.2025 17:30:01: INFO: Максимальные баллы = 0. Студент с данными баллами:
+07.09.2025 17:30:01: INFO: FullName: StudentFirstName1 StudentLastName1 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:30:01: INFO: FullAddress: Russia city street 1
+07.09.2025 17:30:01: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:30:01: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:30:01: INFO: Минимальные баллы = 0. Студент с данными баллами:
+07.09.2025 17:30:01: INFO: FullName: StudentFirstName1 StudentLastName1 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:30:01: INFO: FullAddress: Russia city street 1
+07.09.2025 17:30:01: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:30:01: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:30:01: INFO: Средние баллы = -8

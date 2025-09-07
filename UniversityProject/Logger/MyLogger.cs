@@ -5,7 +5,7 @@ using Microsoft.VisualBasic.CompilerServices;
 using System.Text.Json;
 public abstract class MyLogger
 {
-    protected LevelLoger MinLog = LevelLoger.DEBUG;
+    public LevelLoger MinLog { get; set; }
     protected DateTime CurrentTime;
     protected abstract void Log(LevelLoger levelLoger,  string message);
     protected abstract void Log(LevelLoger levelLoger, string message, Exception exception);

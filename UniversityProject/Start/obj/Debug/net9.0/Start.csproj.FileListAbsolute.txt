@@ -40,3 +40,4 @@ D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\UCo
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\UJob.pdb
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\obj\Debug\net9.0\Start.csproj.AssemblyReference.cache
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\obj\Debug\net9.0\Start.csproj.Up2Date
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Newtonsoft.Json.dll

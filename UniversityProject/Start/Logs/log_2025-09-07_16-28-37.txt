@@ -1,0 +1,26 @@
+07.09.2025 16:28:37: создан новый лог файл
+07.09.2025 16:28:37: INFO: Максимальная зп = 826456. Рабочий с данной зп:
+07.09.2025 16:28:37: INFO: FullName: ad8 ad8 , BirthDate: 18.11.1992 0:00:00
+Serial: 9626 Number: 306356 issued by whom: 1
+07.09.2025 16:28:37: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 16:28:37: INFO: Военный билет: InStock и судимость нет
+07.09.2025 16:28:37: INFO: Зарплата - 826456
+
+07.09.2025 16:28:37: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+07.09.2025 16:28:37: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 16:28:37: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+07.09.2025 16:28:37: INFO: Военный билет: InStock и судимость нет
+07.09.2025 16:28:37: INFO: Зарплата - 35000
+
+07.09.2025 16:28:37: INFO: Средняя зп = 186660,3076923077
+07.09.2025 16:28:37: создан новый лог файл
+07.09.2025 16:28:37: INFO: Максимальная зп = 826456. Рабочий с данной зп:
+07.09.2025 16:28:37: INFO: DoWork Complete
+
+07.09.2025 16:28:37: INFO: FullName: ad8 ad8 , BirthDate: 18.11.1992 0:00:00
+Serial: 9626 Number: 306356 issued by whom: 1
+07.09.2025 16:28:37: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 16:28:37: INFO: Военный билет: InStock и судимость нет
+07.09.2025 16:28:37: INFO: DoSession Complete
+
