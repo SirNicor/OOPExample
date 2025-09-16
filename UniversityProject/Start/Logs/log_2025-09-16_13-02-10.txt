@@ -1,0 +1,57 @@
+16.09.2025 13:02:10: создан новый лог файл
+16.09.2025 13:02:10: DEBUG: Return list
+
+16.09.2025 13:02:10: DEBUG: Return list
+
+16.09.2025 13:02:10: DEBUG: Return list
+
+16.09.2025 13:02:10: DEBUG: Return list
+
+16.09.2025 13:02:10: DEBUG: Return list
+
+16.09.2025 13:02:10: DEBUG: Return list
+
+16.09.2025 13:02:10: DEBUG: Return list
+
+16.09.2025 13:02:10: DEBUG: Return list
+
+16.09.2025 13:02:10: INFO: DoWork Complete
+
+16.09.2025 13:02:10: INFO: DoSession Complete
+
+16.09.2025 13:02:10: DEBUG: Return list
+
+16.09.2025 13:02:10: INFO: Максимальная зп = 973059. Рабочий с данной зп:
+16.09.2025 13:02:10: INFO: FullName: ad7 ad7 , BirthDate: 09.02.1980 0:00:00
+Serial: 5973 Number: 408264 issued by whom: 1
+16.09.2025 13:02:10: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+16.09.2025 13:02:10: INFO: Военный билет: InStock и судимость нет
+16.09.2025 13:02:10: INFO: Зарплата - 973059
+
+16.09.2025 13:02:10: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+16.09.2025 13:02:10: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+16.09.2025 13:02:10: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+16.09.2025 13:02:10: INFO: Военный билет: InStock и судимость нет
+16.09.2025 13:02:10: INFO: Зарплата - 35000
+
+16.09.2025 13:02:10: INFO: Средняя зп = 255916,6923076923
+16.09.2025 13:03:10: DEBUG: Return list
+
+16.09.2025 13:03:10: DEBUG: Return list
+
+16.09.2025 13:03:10: INFO: Максимальная зп = 991122. Рабочий с данной зп:
+16.09.2025 13:03:10: INFO: FullName: ad6 ad6 , BirthDate: 18.05.2002 0:00:00
+Serial: 4045 Number: 843975 issued by whom: 1
+16.09.2025 13:03:10: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+16.09.2025 13:03:10: INFO: Военный билет: InStock и судимость нет
+16.09.2025 13:03:10: INFO: Зарплата - 991122
+
+16.09.2025 13:03:10: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+16.09.2025 13:03:10: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+16.09.2025 13:03:10: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+16.09.2025 13:03:10: INFO: Военный билет: InStock и судимость нет
+16.09.2025 13:03:10: INFO: Зарплата - 35000
+
+16.09.2025 13:03:10: INFO: Средняя зп = 270045,5

@@ -13,6 +13,12 @@ var app = builder.Build();
 
 app.Run(async (context) =>
 {
+    var response = context.Response;
+    response.Headers.ContentLanguage = "ru-RU";
+    response.Headers.ContentType = "text/html; charset=utf-8";
+    response.Headers.Append("University", "system");
+    response.SendFileAsync("Index.html");
+    
     Action<string>? PrintForClients = (string s1) => Console.WriteLine(s1);
     IConfiguration appConfig = builder.Configuration;
     ConfigurationLogger cl = new ConfigurationLogger(appConfig);

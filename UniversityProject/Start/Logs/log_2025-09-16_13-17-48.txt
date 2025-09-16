@@ -1,0 +1,77 @@
+16.09.2025 13:17:48: создан новый лог файл
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: INFO: DoSession Complete
+
+16.09.2025 13:17:48: INFO: DoWork Complete
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: INFO: Максимальная зп = 885155. Рабочий с данной зп:
+16.09.2025 13:17:48: INFO: FullName: ad5 ad5 , BirthDate: 21.03.1999 0:00:00
+Serial: 3918 Number: 307837 issued by whom: 1
+16.09.2025 13:17:48: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+16.09.2025 13:17:48: INFO: Военный билет: InStock и судимость нет
+16.09.2025 13:17:48: INFO: Зарплата - 885155
+
+16.09.2025 13:17:48: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+16.09.2025 13:17:48: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+16.09.2025 13:17:48: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+16.09.2025 13:17:48: INFO: Военный билет: InStock и судимость нет
+16.09.2025 13:17:48: INFO: Зарплата - 35000
+
+16.09.2025 13:17:48: INFO: Средняя зп = 279021,53846153844
+16.09.2025 13:17:48: создан новый лог файл
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: INFO: DoWork Complete
+
+16.09.2025 13:17:48: DEBUG: Return list
+
+16.09.2025 13:17:48: INFO: DoSession Complete
+
+16.09.2025 13:17:48: INFO: Максимальная зп = 885155. Рабочий с данной зп:
+16.09.2025 13:17:48: INFO: FullName: ad5 ad5 , BirthDate: 21.03.1999 0:00:00
+Serial: 3918 Number: 307837 issued by whom: 1
+16.09.2025 13:17:48: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+16.09.2025 13:17:48: INFO: Военный билет: InStock и судимость нет
+16.09.2025 13:17:48: INFO: Зарплата - 885155
+
+16.09.2025 13:17:48: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+16.09.2025 13:17:48: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+16.09.2025 13:17:48: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+16.09.2025 13:17:48: INFO: Военный билет: InStock и судимость нет
+16.09.2025 13:17:48: INFO: Зарплата - 35000
+
+16.09.2025 13:17:48: INFO: Средняя зп = 209809,22727272726
+16.09.2025 13:18:03: INFO: Выход за возможный выбор
