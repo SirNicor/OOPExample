@@ -1,0 +1,152 @@
+10.09.2025 14:57:43: создан новый лог файл
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: INFO: DoSession Complete
+
+10.09.2025 14:57:43: INFO: DoWork Complete
+
+10.09.2025 14:57:43: INFO: Максимальная зп = 794048. Рабочий с данной зп:
+10.09.2025 14:57:43: INFO: FullName: ad7 ad7 , BirthDate: 19.11.1950 0:00:00
+Serial: 9329 Number: 137949 issued by whom: 1
+10.09.2025 14:57:43: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+10.09.2025 14:57:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:57:43: INFO: Зарплата - 794048
+
+10.09.2025 14:57:43: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+10.09.2025 14:57:43: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+10.09.2025 14:57:43: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+10.09.2025 14:57:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:57:43: INFO: Зарплата - 35000
+
+10.09.2025 14:57:43: INFO: Средняя зп = 216001,6923076923
+10.09.2025 14:57:43: создан новый лог файл
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: INFO: DoWork Complete
+
+10.09.2025 14:57:43: DEBUG: Return list
+
+10.09.2025 14:57:43: INFO: DoSession Complete
+
+10.09.2025 14:57:43: INFO: Максимальная зп = 794048. Рабочий с данной зп:
+10.09.2025 14:57:43: INFO: FullName: ad7 ad7 , BirthDate: 19.11.1950 0:00:00
+Serial: 9329 Number: 137949 issued by whom: 1
+10.09.2025 14:57:43: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+10.09.2025 14:57:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:57:43: INFO: Зарплата - 794048
+
+10.09.2025 14:57:43: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+10.09.2025 14:57:43: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+10.09.2025 14:57:43: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+10.09.2025 14:57:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:57:43: INFO: Зарплата - 35000
+
+10.09.2025 14:57:43: INFO: Средняя зп = 225986,3076923077
+10.09.2025 14:58:43: DEBUG: Return list
+
+10.09.2025 14:58:43: DEBUG: Return list
+
+10.09.2025 14:58:43: DEBUG: Return list
+
+10.09.2025 14:58:43: DEBUG: Return list
+
+10.09.2025 14:58:43: INFO: Максимальная зп = 957102. Рабочий с данной зп:
+10.09.2025 14:58:43: INFO: Максимальная зп = 957102. Рабочий с данной зп:
+10.09.2025 14:58:43: INFO: FullName: ad4 ad4 , BirthDate: 28.03.1985 0:00:00
+Serial: 8153 Number: 259554 issued by whom: 1
+10.09.2025 14:58:43: INFO: FullName: ad4 ad4 , BirthDate: 28.03.1985 0:00:00
+Serial: 8153 Number: 259554 issued by whom: 1
+10.09.2025 14:58:43: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+10.09.2025 14:58:43: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+10.09.2025 14:58:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:58:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:58:43: INFO: Зарплата - 957102
+
+10.09.2025 14:58:43: INFO: Зарплата - 957102
+
+10.09.2025 14:58:43: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+10.09.2025 14:58:43: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+10.09.2025 14:58:43: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+10.09.2025 14:58:43: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+10.09.2025 14:58:43: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+10.09.2025 14:58:43: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+10.09.2025 14:58:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:58:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:58:43: INFO: Зарплата - 35000
+
+10.09.2025 14:58:43: INFO: Зарплата - 35000
+
+10.09.2025 14:58:43: INFO: Средняя зп = 250273,26923076922
+10.09.2025 14:58:43: INFO: Средняя зп = 250273,26923076922
+10.09.2025 14:59:43: DEBUG: Return list
+
+10.09.2025 14:59:43: DEBUG: Return list
+
+10.09.2025 14:59:43: DEBUG: Return list
+
+10.09.2025 14:59:43: DEBUG: Return list
+
+10.09.2025 14:59:43: INFO: Максимальная зп = 957102. Рабочий с данной зп:
+10.09.2025 14:59:43: INFO: Максимальная зп = 957102. Рабочий с данной зп:
+10.09.2025 14:59:43: INFO: FullName: ad4 ad4 , BirthDate: 28.03.1985 0:00:00
+Serial: 8153 Number: 259554 issued by whom: 1
+10.09.2025 14:59:43: INFO: FullName: ad4 ad4 , BirthDate: 28.03.1985 0:00:00
+Serial: 8153 Number: 259554 issued by whom: 1
+10.09.2025 14:59:43: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+10.09.2025 14:59:43: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+10.09.2025 14:59:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:59:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:59:43: INFO: Зарплата - 957102
+
+10.09.2025 14:59:43: INFO: Зарплата - 957102
+
+10.09.2025 14:59:43: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+10.09.2025 14:59:43: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+10.09.2025 14:59:43: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+10.09.2025 14:59:43: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+10.09.2025 14:59:43: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+10.09.2025 14:59:43: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+10.09.2025 14:59:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:59:43: INFO: Военный билет: InStock и судимость нет
+10.09.2025 14:59:43: INFO: Зарплата - 35000
+
+10.09.2025 14:59:43: INFO: Зарплата - 35000
+
+10.09.2025 14:59:43: INFO: Средняя зп = 240296,1420118343
+10.09.2025 14:59:43: INFO: Средняя зп = 240296,1420118343

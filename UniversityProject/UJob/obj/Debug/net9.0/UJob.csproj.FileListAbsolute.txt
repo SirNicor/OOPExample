@@ -21,3 +21,16 @@ D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\obj\Debug\net9.0\refi
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\obj\Debug\net9.0\UJob.pdb
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\obj\Debug\net9.0\UJob.genruntimeconfig.cache
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\obj\Debug\net9.0\ref\UJob.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.Configuration.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Binder.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Json.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.FileProviders.Physical.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.FileSystemGlobbing.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\UJob\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll

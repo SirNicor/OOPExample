@@ -1,0 +1,109 @@
+07.09.2025 17:43:23: создан новый лог файл
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: INFO: DoSession Complete
+
+07.09.2025 17:43:23: INFO: DoWork Complete
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: INFO: Максимальная зп = 893301. Рабочий с данной зп:
+07.09.2025 17:43:23: INFO: FullName: ad5 ad5 , BirthDate: 01.02.1976 0:00:00
+Serial: 9732 Number: 147732 issued by whom: 1
+07.09.2025 17:43:23: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:43:23: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:43:23: INFO: Зарплата - 893301
+
+07.09.2025 17:43:23: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+07.09.2025 17:43:23: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:43:23: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+07.09.2025 17:43:23: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:43:23: INFO: Зарплата - 35000
+
+07.09.2025 17:43:23: INFO: Средняя зп = 324634,3076923077
+07.09.2025 17:43:23: создан новый лог файл
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: INFO: DoWork Complete
+
+07.09.2025 17:43:23: DEBUG: Return list
+
+07.09.2025 17:43:23: INFO: DoSession Complete
+
+07.09.2025 17:43:23: INFO: Максимальная зп = 940807. Рабочий с данной зп:
+07.09.2025 17:43:23: INFO: FullName: ad7 ad7 , BirthDate: 23.05.1998 0:00:00
+Serial: 7166 Number: 993057 issued by whom: 1
+07.09.2025 17:43:23: INFO: FullAddress: Russia Saint Petersburg Nalichnaya Street 45
+07.09.2025 17:43:23: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:43:23: INFO: Зарплата - 940807
+
+07.09.2025 17:43:23: INFO: Минимальная зп = 35000. Рабочий с данной зп:
+07.09.2025 17:43:23: INFO: FullName: Grigory Novikov , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:43:23: INFO: FullAddress: Russia Saint Petersburg Sredniy Avenue 35
+07.09.2025 17:43:23: INFO: Военный билет: InStock и судимость нет
+07.09.2025 17:43:23: INFO: Зарплата - 35000
+
+07.09.2025 17:43:23: INFO: Средняя зп = 254553,34615384616
+07.09.2025 17:43:26: INFO: Максимальные баллы = 0. Студент с данными баллами:
+07.09.2025 17:43:26: INFO: FullName: StudentFirstName1 StudentLastName1 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:43:26: INFO: FullAddress: Russia city street 1
+07.09.2025 17:43:26: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:43:26: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:43:26: INFO: Минимальные баллы = 0. Студент с данными баллами:
+07.09.2025 17:43:26: INFO: FullName: StudentFirstName1 StudentLastName1 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 1
+07.09.2025 17:43:26: INFO: FullAddress: Russia city street 1
+07.09.2025 17:43:26: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:43:26: INFO: Course: 1
+Общий балл =0 и количество сданных экзаменов = 0 и общий балл = 0
+Расположен ли в общежитии Нет
+07.09.2025 17:43:26: INFO: Средние баллы = -7,333333333333334
+07.09.2025 17:43:27: INFO: Максимально количество пропусков= 4. Данный студент:
+07.09.2025 17:43:27: INFO: FullName: StudentFirstName5 StudentLastName5 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 5
+07.09.2025 17:43:27: INFO: FullAddress: Russia city street 1
+07.09.2025 17:43:27: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:43:27: INFO: Course: 1
+Общий балл =-6 и количество сданных экзаменов = 6 и общий балл = -20
+Расположен ли в общежитии Нет
+07.09.2025 17:43:27: INFO: Минимальное количество пропусков = 4. Данный студент:
+07.09.2025 17:43:27: INFO: FullName: StudentFirstName5 StudentLastName5 , BirthDate: 01.01.2000 0:00:00
+Serial: 1111 Number: 123456 issued by whom: 5
+07.09.2025 17:43:27: INFO: FullAddress: Russia city street 1
+07.09.2025 17:43:27: INFO: Военный билет: DidNotServe и судимость нет
+07.09.2025 17:43:27: INFO: Course: 1
+Общий балл =-6 и количество сданных экзаменов = 6 и общий балл = -20
+Расположен ли в общежитии Нет

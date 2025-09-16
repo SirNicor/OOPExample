@@ -4,50 +4,20 @@ using UCore;
 using UJob;
 using Microsoft.Extensions.Logging.Configuration;
 using Newtonsoft.Json;
+using ConfigurationManager = Microsoft.Extensions.Configuration.ConfigurationManager;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 builder.Configuration.AddJsonFile("appsettings.json");
+IServiceCollection services = builder.Services;
+var app = builder.Build();
 
 app.Run(async (context) =>
-{;
-    MyLogger logger;
+{
+    Action<string>? PrintForClients = (string s1) => Console.WriteLine(s1);
     IConfiguration appConfig = builder.Configuration;
-    ConfigController configController = new ConfigController(appConfig);
-    List<string> config = configController.Get().ToList();
-    switch (config[1])
-    {
-        case "Console":
-            logger = new ConsoleMyLogger();
-            break;
-        case "File":
-            logger = new FileMyLogger();
-            break;
-        case "All":
-            logger = new AllMyLogger( new MyLogger[] {new ConsoleMyLogger(),  new FileMyLogger()});
-            break;
-        default:
-            logger = new FileMyLogger();
-            break;
-    }
-    switch(config[0])
-    {
-        case "Information":
-            logger.MinLog = LevelLoger.INFO;
-            break;
-        case "Warning":
-            logger.MinLog = LevelLoger.WARNING;
-            break;
-        case "Error":
-            logger.MinLog = LevelLoger.ERROR;
-            break;
-        case "Debug":
-            logger.MinLog = LevelLoger.DEBUG;
-            break;
-        case "Fatal":
-            logger.MinLog = LevelLoger.FATAL;
-            break;
-    }
+    ConfigurationLogger cl = new ConfigurationLogger(appConfig);
+    MyLogger logger = cl.Get();
+    Console.WriteLine(logger.MinLog);   
     StudentRepository studentRepository = new StudentRepository(logger);
     WorkerRepository workerRepositoryAdministrator = new WorkerRepository(logger);
     UniversityRepository universityRepository = new UniversityRepository(logger, workerRepositoryAdministrator);
@@ -103,8 +73,8 @@ app.Run(async (context) =>
                 int input;
                 while (true)
                 {
-                    Console.WriteLine("Вывод интересующей вас инфо. Если о рабочих, введите 1, если о студентах, введите 2. Если о баллах студентов - 3, если о пропусках студентов - 4");
-                    input = int.Parse(Console.ReadLine());
+                    PrintForClients("Вывод интересующей вас инфо. Если о рабочих, введите 1, если о студентах, введите 2. Если о баллах студентов - 3, если о пропусках студентов - 4");
+                    input = int.Parse(Console.ReadLine()??"0");
                     switch (input)
                     {
                         case 1:
@@ -121,7 +91,7 @@ app.Run(async (context) =>
                             break;
                         default:
                             logger.Info("Выход за возможный выбор");
-                            Console.WriteLine("Повторите ввод");
+                            PrintForClients("Повторите ввод");
                             break;
                     }
                 }

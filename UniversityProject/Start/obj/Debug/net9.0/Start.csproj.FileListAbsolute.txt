@@ -41,3 +41,16 @@ D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\UJo
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\obj\Debug\net9.0\Start.csproj.AssemblyReference.cache
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\obj\Debug\net9.0\Start.csproj.Up2Date
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Newtonsoft.Json.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Configuration.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Binder.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Json.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.FileProviders.Physical.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.FileSystemGlobbing.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll

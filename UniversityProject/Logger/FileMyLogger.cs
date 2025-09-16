@@ -39,5 +39,5 @@ public class FileMyLogger : MyLogger
         }
     }
     private readonly string _fileName;
-    private object locker = new object();
+    private Lock locker = new();
 }
