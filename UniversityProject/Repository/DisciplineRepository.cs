@@ -2,12 +2,12 @@
 using UCore;
 using Logger;
 
-public class DisciplineRepository
+public class DisciplineRepository : IDisciplineRepository
 {
-    public DisciplineRepository(DirectionRepository directionRepository)
+    public DisciplineRepository(MyLogger myLogger,IDirectionRepository directionRepository)
     {
         _directions = directionRepository;
-        List<Direction> directions = _directions.ReturnList();
+        List<Direction> directions = _directions.ReturnList(myLogger);
         for (int i = 0; i < 12; i++)
         {
             Discipline discipline = new Discipline($"Discipline{i}", directions);
@@ -35,11 +35,6 @@ public class DisciplineRepository
         return _disciplines;
     }   
     
-    internal List<Discipline> ReturnList()
-    {
-        return _disciplines;
-    }
-    
     private static List<Discipline> _disciplines = new  List<Discipline>();
-    private static DirectionRepository  _directions;
+    private static IDirectionRepository  _directions;
 }

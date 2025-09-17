@@ -2,25 +2,25 @@
 using Repository;
 using Logger;
 using UCore;
-public class PrintWorkersJob:IJob
+public class PrintWorkersJob:IJob, IPrintWorkersJob
 {
-    public PrintWorkersJob(MyLogger myLogger, WorkerRepository workerRepositoryTeachers, WorkerRepository workerRepositoryAdministrators)
+    public PrintWorkersJob(MyLogger myLogger, IWorkerTeacherRepository workerTeacherRepository, 
+        IWorkerAdministratorRepository workerAdministratorsRepository)
     {
         _myLogger = myLogger;
-        _workerRepositoryTeachers = workerRepositoryTeachers;
-        _workerRepositoryAdministrators = workerRepositoryAdministrators;
+        _workerTeacherRepository = workerTeacherRepository;
+        _workerAdministratorRepository = workerAdministratorsRepository;
     }
 
     public void DoWork()
     {
-        _workerRepositoryTeachers.PrintAll(_myLogger);
-        _workerRepositoryAdministrators.PrintAll(_myLogger);
+        _workerTeacherRepository.PrintAll(_myLogger);
+        _workerAdministratorRepository.PrintAll(_myLogger);
     }
     
     
     private readonly MyLogger _myLogger;
     private Timer _timer;
-    private WorkerRepository _repository;
-    private WorkerRepository _workerRepositoryTeachers;
-    private WorkerRepository _workerRepositoryAdministrators;
+    private IWorkerTeacherRepository _workerTeacherRepository;
+    private IWorkerAdministratorRepository _workerAdministratorRepository;
 }

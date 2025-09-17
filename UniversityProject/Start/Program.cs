@@ -8,8 +8,25 @@ using ConfigurationManager = Microsoft.Extensions.Configuration.ConfigurationMan
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json");
-IServiceCollection services = builder.Services;
+IConfiguration appConfig1 = builder.Configuration;
+ConfigurationLogger cl1 = new ConfigurationLogger(appConfig1);
+MyLogger logger1 = cl1.Get();
+builder.Services.AddSingleton<MyLogger>(logger1);
+builder.Services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
+builder.Services.AddSingleton<IDirectionRepository, DirectionRepository>();
+builder.Services.AddSingleton<IDisciplineRepository,  DisciplineRepository>();
+builder.Services.AddSingleton<IFacultyRepository, FacultyRepository>();
+builder.Services.AddSingleton<IUniversityRepository, UniversityRepository>();
+builder.Services.AddSingleton<IWorkerTeacherRepository, WorkerTeacherRepository>();
+builder.Services.AddSingleton<IWorkerAdministratorRepository, WorkerAdministratorRepository>();
+builder.Services.AddSingleton<IInfoCouplesAttendanceJob, InfoCouplesAttendanceJob>();
+builder.Services.AddSingleton<IPrintStudentJob, PrintStudentsJob>();
+builder.Services.AddSingleton<IPrintWorkersJob, PrintWorkersJob>();
+builder.Services.AddSingleton<ISalaryJob, SalaryJob>();
+builder.Services.AddSingleton<IScoresOfStudentsJob, ScoresOfStudentsJob>();
 var app = builder.Build();
+
 
 app.Run(async (context) =>
 {
@@ -23,32 +40,21 @@ app.Run(async (context) =>
     IConfiguration appConfig = builder.Configuration;
     ConfigurationLogger cl = new ConfigurationLogger(appConfig);
     MyLogger logger = cl.Get();
+    
     Console.WriteLine(logger.MinLog);   
-    StudentRepository studentRepository = new StudentRepository(logger);
-    WorkerRepository workerRepositoryAdministrator = new WorkerRepository(logger);
-    UniversityRepository universityRepository = new UniversityRepository(logger, workerRepositoryAdministrator);
-    FacultyRepository facultyRepository = new FacultyRepository(logger, universityRepository, workerRepositoryAdministrator);
-    DepartmentRepository departmentRepository = new DepartmentRepository(logger, facultyRepository, workerRepositoryAdministrator);
-    DirectionRepository directionRepository = new DirectionRepository(logger, studentRepository, departmentRepository);
-    DisciplineRepository disciplineRepository = new DisciplineRepository(directionRepository);
-    WorkerRepository workerRepositoryTeachers = new WorkerRepository(logger, disciplineRepository);
-    SalaryJob salaryJob = new SalaryJob(logger, workerRepositoryTeachers, workerRepositoryAdministrator);
-    PrintWorkersJob printWorkersJob = new PrintWorkersJob(logger, workerRepositoryTeachers, workerRepositoryAdministrator);
-    PrintStudentsJob printStudentsJob = new PrintStudentsJob(logger, studentRepository);
-    InfoCouplesAttendanceJob infoCouplesAttendanceJob = new InfoCouplesAttendanceJob(logger, studentRepository);
-    ScoresOfStudentsJob scoresOfStudentsJob = new ScoresOfStudentsJob(logger, studentRepository);
-    List<Teacher> teachers = workerRepositoryTeachers.ReturnListTeachers(logger);
+    List<Teacher> teachers = app.Services.GetService<IWorkerTeacherRepository>().ReturnListTeachers(app.Services.GetService<MyLogger>());
     Thread threadOfJob = new Thread(() =>
             {
                 while (true)
                 {
-                    salaryJob.DoWork();
+                    app.Services.GetService<ISalaryJob>();
                     Thread.Sleep(60000);
                 }
             });
 
-            Thread threadOfWork = new Thread(() =>
+    Thread threadOfWork = new Thread(() =>
             {
+                teachers = app.Services.GetService<IWorkerTeacherRepository>().ReturnListTeachers(app.Services.GetService<MyLogger>());
                 while (true)
                 {
                     foreach (var teacher in teachers)
@@ -58,10 +64,9 @@ app.Run(async (context) =>
                     }
                 }
             });
+    threadOfWork.Priority = ThreadPriority.AboveNormal;
             
-            threadOfWork.Priority = ThreadPriority.AboveNormal;
-            
-            Thread threadOfSession = new Thread(() =>
+    Thread threadOfSession = new Thread(() =>
             {
                 while (true)
                 {
@@ -72,9 +77,9 @@ app.Run(async (context) =>
                     }
                 }
             });
-            threadOfWork.Priority = ThreadPriority.AboveNormal;
+    threadOfWork.Priority = ThreadPriority.AboveNormal;
 
-            Thread threadOfInfo = new Thread(() =>
+    Thread threadOfInfo = new Thread(() =>
             {
                 int input;
                 while (true)
@@ -84,16 +89,16 @@ app.Run(async (context) =>
                     switch (input)
                     {
                         case 1:
-                            printWorkersJob.DoWork();
+                            app.Services.GetService<IPrintWorkersJob>();
                             break;
                         case 2:
-                            printStudentsJob.DoWork();
+                            app.Services.GetService<IPrintStudentJob>();
                             break;
                         case 3:
-                            scoresOfStudentsJob.DoWork();
+                            app.Services.GetService<IScoresOfStudentsJob>();
                             break;
                         case 4:
-                            infoCouplesAttendanceJob.DoWork();
+                            app.Services.GetService<IInfoCouplesAttendanceJob>();
                             break;
                         default:
                             logger.Info("Выход за возможный выбор");

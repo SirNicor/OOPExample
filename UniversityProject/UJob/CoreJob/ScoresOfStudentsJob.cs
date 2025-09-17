@@ -4,9 +4,9 @@ using Logger;
 using UCore;
 
 
-public class ScoresOfStudentsJob
+public class ScoresOfStudentsJob:IJob, IScoresOfStudentsJob
 {
-    public ScoresOfStudentsJob(MyLogger myLogger, StudentRepository studentRepository)
+    public ScoresOfStudentsJob(MyLogger myLogger, IStudentRepository studentRepository)
     {
         _myLogger = myLogger;
         _students = studentRepository.ReturnList(myLogger);

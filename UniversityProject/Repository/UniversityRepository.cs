@@ -1,12 +1,12 @@
 ﻿namespace Repository;
 using UCore;
 using Logger;
-public class UniversityRepository
+public class UniversityRepository : IUniversityRepository
 {
-    public UniversityRepository(MyLogger myLogger, WorkerRepository workerRepository)
+    public UniversityRepository(MyLogger myLogger, IWorkerAdministratorRepository workerAdministratorRepository)
     {
-        WorkerRepository workerRep = workerRepository;
-        foreach(var worker in workerRep.ReturnListAdministrator(myLogger))
+        IWorkerAdministratorRepository workerAdministratorRep = workerAdministratorRepository;
+        foreach(var worker in workerAdministratorRep.ReturnListAdministrator(myLogger))
         {
             if (worker.GetType() == typeof(Administrator))
             {
@@ -32,11 +32,6 @@ public class UniversityRepository
     public List<ClassUniversity> ReturnList(MyLogger myLogger)
     {
         myLogger.Debug("Return list" + Environment.NewLine);
-        return _university;
-    }
-    
-    internal List<ClassUniversity> ReturnList()
-    {
         return _university;
     }
     

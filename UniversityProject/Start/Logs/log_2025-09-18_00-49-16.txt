@@ -1,0 +1,83 @@
+18.09.2025 0:49:16: создан новый лог файл
+18.09.2025 0:49:16: создан новый лог файл
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: INFO: DoWork Complete
+
+18.09.2025 0:49:16: создан новый лог файл
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: DEBUG: Return list
+
+18.09.2025 0:49:16: INFO: DoWork Complete
+
+18.09.2025 0:51:16: INFO: DoWork Complete
+

@@ -2,7 +2,7 @@
 using UCore;
 using Logger;
 
-public class StudentRepository
+public class StudentRepository : IStudentRepository
 {
     public StudentRepository(MyLogger myLogger)
     {
@@ -76,7 +76,7 @@ public class StudentRepository
             myLogger.Debug("Student added" + Environment.NewLine);
         }
         catch(Exception exception)
-        {
+        { 
             myLogger.Error("Student not added, The information is incomplete " + Environment.NewLine, exception);
         }
     }

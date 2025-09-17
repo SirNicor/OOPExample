@@ -1,0 +1,62 @@
+18.09.2025 0:53:29: создан новый лог файл
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: INFO: DoSession Complete
+
+18.09.2025 0:53:29: INFO: DoWork Complete
+
+18.09.2025 0:53:29: создан новый лог файл
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: DEBUG: Return list
+
+18.09.2025 0:53:29: INFO: DoSession Complete
+
+18.09.2025 0:53:29: INFO: DoWork Complete
+

@@ -3,9 +3,9 @@ using Repository;
 using Logger;
 using UCore;
 
-public class PrintStudentsJob:IJob
+public class PrintStudentsJob:IJob, IPrintStudentJob
 {
-    public PrintStudentsJob(MyLogger myLogger, StudentRepository studentRepository)
+    public PrintStudentsJob(MyLogger myLogger, IStudentRepository studentRepository)
     {
         _myLogger = myLogger;
         _studentsRepository = studentRepository;
@@ -19,5 +19,5 @@ public class PrintStudentsJob:IJob
     
     private readonly MyLogger _myLogger;
     private Timer _timer;
-    private StudentRepository _studentsRepository;
+    private IStudentRepository _studentsRepository;
 }

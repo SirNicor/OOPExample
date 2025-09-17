@@ -2,20 +2,20 @@
 using UCore;
 using Logger;
 
-public class DepartmentRepository
+public class DepartmentRepository: IDepartmentRepository
 {
-    public DepartmentRepository(MyLogger myLogger, FacultyRepository facultyRepository, WorkerRepository workerRepository)
+    public DepartmentRepository(MyLogger myLogger, IFacultyRepository facultyRepository, IWorkerAdministratorRepository workerAdministratorRepository)
     {
         _facultyRepository = facultyRepository;
-        WorkerRepository workerRep = workerRepository;
-        foreach (var worker in workerRep.ReturnListAdministrator(myLogger))
+        IWorkerAdministratorRepository workerAdministratorRep = workerAdministratorRepository;
+        foreach (var worker in workerAdministratorRep.ReturnListAdministrator(myLogger))
         {
             if (worker.GetType() == typeof(Administrator))
             {
                 _workerRep.Add((Administrator)worker);
             }
         } 
-        _departments.Add(new Department("IIST", _workerRep[5],  _workerRep.GetRange(6, 1), _facultyRepository.ReturnList()[0]));
+        _departments.Add(new Department("IIST", _workerRep[5],  _workerRep.GetRange(6, 1), _facultyRepository.ReturnList(myLogger)[0]));
     }
     
     public void Add(Department department, MyLogger myLogger)
@@ -36,13 +36,8 @@ public class DepartmentRepository
         myLogger.Debug("Return list" + Environment.NewLine);
         return _departments;
     }
-    
-    internal List<Department> ReturnList()
-    {
-        return _departments;
-    }
 
-    private static FacultyRepository _facultyRepository;
+    private static IFacultyRepository _facultyRepository;
     private static List<Administrator> _workerRep = new List<Administrator>();
     private static List<Department> _departments = new List<Department>();
 }

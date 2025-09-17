@@ -3,9 +3,9 @@ using Repository;
 using Logger;
 using UCore;
 
-public class InfoCouplesAttendanceJob
+public class InfoCouplesAttendanceJob:IJob,  IInfoCouplesAttendanceJob
 {
-    public InfoCouplesAttendanceJob(MyLogger myLogger, StudentRepository studentRepository)
+    public InfoCouplesAttendanceJob(MyLogger myLogger, IStudentRepository studentRepository)
     {
         _myLogger = myLogger;
         _students = studentRepository.ReturnList(myLogger);

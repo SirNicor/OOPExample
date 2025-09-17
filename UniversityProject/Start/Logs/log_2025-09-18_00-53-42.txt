@@ -1,0 +1,64 @@
+18.09.2025 0:53:42: создан новый лог файл
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: INFO: DoWork Complete
+
+18.09.2025 0:53:42: INFO: DoSession Complete
+
+18.09.2025 0:53:42: создан новый лог файл
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: DEBUG: Return list
+
+18.09.2025 0:53:42: INFO: DoSession Complete
+
+18.09.2025 0:53:42: INFO: DoWork Complete
+
+18.09.2025 0:53:55: INFO: Выход за возможный выбор
+18.09.2025 0:54:17: INFO: Выход за возможный выбор

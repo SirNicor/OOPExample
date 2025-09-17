@@ -2,13 +2,13 @@
 using UCore;
 using Logger;
 
-public class DirectionRepository
+public class DirectionRepository : IDirectionRepository
 {
-    public DirectionRepository(MyLogger myLogger, StudentRepository studentRepository, DepartmentRepository departmentRepository)
+    public DirectionRepository(MyLogger myLogger, IStudentRepository studentRepository, IDepartmentRepository departmentRepository)
     {
         _departmentRepository = departmentRepository;
         _studentRepository = studentRepository;
-        Direction direction = new Direction(_departmentRepository.ReturnList()[0], "Direction1", 
+        Direction direction = new Direction(_departmentRepository.ReturnList(myLogger)[0], "Direction1", 
             DegreesStudy.bachelor, _studentRepository.ReturnList(myLogger).GetRange(0, 10));
         _directions.Add(direction);
     }
@@ -31,14 +31,9 @@ public class DirectionRepository
         myLogger.Debug("Return list" + Environment.NewLine);
         return _directions;
     }
-    
-    internal List<Direction> ReturnList()
-    {
-        return _directions;
-    }
 
-    private static StudentRepository _studentRepository;
-    private static DepartmentRepository _departmentRepository;
+    private static IStudentRepository _studentRepository;
+    private static IDepartmentRepository _departmentRepository;
     private static List<Direction> _directions = new List<Direction>();
     private static MyLogger _myLogger;
 }

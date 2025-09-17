@@ -4,21 +4,22 @@ namespace UJob;
 
 using Logger;
 using UCore;
-public class SalaryJob:IJob
+public class SalaryJob:IJob, ISalaryJob
 {
 
-    public SalaryJob(MyLogger myLogger, WorkerRepository workerRepositoryTeachers, WorkerRepository workerRepositoryAdministrators)
+    public SalaryJob(MyLogger myLogger, IWorkerTeacherRepository workerTeacherRepository, 
+        IWorkerAdministratorRepository workerAdministratorRepository)
     {
         _myLogger = myLogger;
-        _workerRepositoryTeachers = workerRepositoryTeachers;
-        _workerRepositoryAdministrators = workerRepositoryAdministrators;
+        _workerTeacherRepository = workerTeacherRepository;
+        _workerAdministratorsRepository = workerAdministratorRepository;
     }
 
 
     public void DoWork()
     {
-        List<Teacher> teachers = _workerRepositoryTeachers.ReturnListTeachers(_myLogger);
-        List<Administrator> administrators = _workerRepositoryAdministrators.ReturnListAdministrator(_myLogger);
+        List<Teacher> teachers = _workerTeacherRepository.ReturnListTeachers(_myLogger);
+        List<Administrator> administrators = _workerAdministratorsRepository.ReturnListAdministrator(_myLogger);
         List<Worker> workers = new List<Worker>();
         foreach(var worker in teachers)
         {
@@ -57,7 +58,6 @@ public class SalaryJob:IJob
     }
     private readonly MyLogger _myLogger;
     private Timer _timer;
-    private WorkerRepository _repository;
-    private WorkerRepository _workerRepositoryTeachers;
-    private WorkerRepository _workerRepositoryAdministrators;
+    private IWorkerTeacherRepository _workerTeacherRepository;
+    private IWorkerAdministratorRepository _workerAdministratorsRepository;
 }   
