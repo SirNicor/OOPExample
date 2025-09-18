@@ -2,5 +2,5 @@
 
 public interface IInfoCouplesAttendanceJob 
 {
-    
+    void DoWork();
 }

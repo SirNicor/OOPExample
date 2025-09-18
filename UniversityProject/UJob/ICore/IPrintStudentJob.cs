@@ -2,5 +2,5 @@
 
 public interface IPrintStudentJob
 {
-    
+    void DoWork();
 }

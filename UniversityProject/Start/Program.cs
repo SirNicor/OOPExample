@@ -4,27 +4,14 @@ using UCore;
 using UJob;
 using Microsoft.Extensions.Logging.Configuration;
 using Newtonsoft.Json;
-using ConfigurationManager = Microsoft.Extensions.Configuration.ConfigurationManager;
+using Start;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json");
-IConfiguration appConfig1 = builder.Configuration;
-ConfigurationLogger cl1 = new ConfigurationLogger(appConfig1);
-MyLogger logger1 = cl1.Get();
-builder.Services.AddSingleton<MyLogger>(logger1);
-builder.Services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
-builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
-builder.Services.AddSingleton<IDirectionRepository, DirectionRepository>();
-builder.Services.AddSingleton<IDisciplineRepository,  DisciplineRepository>();
-builder.Services.AddSingleton<IFacultyRepository, FacultyRepository>();
-builder.Services.AddSingleton<IUniversityRepository, UniversityRepository>();
-builder.Services.AddSingleton<IWorkerTeacherRepository, WorkerTeacherRepository>();
-builder.Services.AddSingleton<IWorkerAdministratorRepository, WorkerAdministratorRepository>();
-builder.Services.AddSingleton<IInfoCouplesAttendanceJob, InfoCouplesAttendanceJob>();
-builder.Services.AddSingleton<IPrintStudentJob, PrintStudentsJob>();
-builder.Services.AddSingleton<IPrintWorkersJob, PrintWorkersJob>();
-builder.Services.AddSingleton<ISalaryJob, SalaryJob>();
-builder.Services.AddSingleton<IScoresOfStudentsJob, ScoresOfStudentsJob>();
+IConfiguration appConfig = builder.Configuration;
+ConfigurationLogger cl = new ConfigurationLogger(appConfig);
+MyLogger logger = cl.Get();
+AddedInfrastructureServices.AddInfrastructureServices(builder.Services, logger);
 var app = builder.Build();
 
 
@@ -36,25 +23,22 @@ app.Run(async (context) =>
     response.Headers.Append("University", "system");
     response.SendFileAsync("Index.html");
     
-    Action<string>? PrintForClients = (string s1) => Console.WriteLine(s1);
-    IConfiguration appConfig = builder.Configuration;
-    ConfigurationLogger cl = new ConfigurationLogger(appConfig);
-    MyLogger logger = cl.Get();
+    // builder.Services.AddCronJob<>()
     
-    Console.WriteLine(logger.MinLog);   
+    Action<string>? PrintForClients = (string s1) => Console.WriteLine(s1);
+    
     List<Teacher> teachers = app.Services.GetService<IWorkerTeacherRepository>().ReturnListTeachers(app.Services.GetService<MyLogger>());
     Thread threadOfJob = new Thread(() =>
             {
                 while (true)
                 {
-                    app.Services.GetService<ISalaryJob>();
+                    app.Services.GetService<ISalaryJob>().DoWork();
                     Thread.Sleep(60000);
                 }
             });
 
     Thread threadOfWork = new Thread(() =>
             {
-                teachers = app.Services.GetService<IWorkerTeacherRepository>().ReturnListTeachers(app.Services.GetService<MyLogger>());
                 while (true)
                 {
                     foreach (var teacher in teachers)
@@ -89,16 +73,16 @@ app.Run(async (context) =>
                     switch (input)
                     {
                         case 1:
-                            app.Services.GetService<IPrintWorkersJob>();
+                            app.Services.GetService<IPrintWorkersJob>().DoWork();
                             break;
                         case 2:
-                            app.Services.GetService<IPrintStudentJob>();
+                            app.Services.GetService<IPrintStudentJob>().DoWork();
                             break;
                         case 3:
-                            app.Services.GetService<IScoresOfStudentsJob>();
+                            app.Services.GetService<IScoresOfStudentsJob>().DoWork();
                             break;
                         case 4:
-                            app.Services.GetService<IInfoCouplesAttendanceJob>();
+                            app.Services.GetService<IInfoCouplesAttendanceJob>().DoWork();
                             break;
                         default:
                             logger.Info("Выход за возможный выбор");

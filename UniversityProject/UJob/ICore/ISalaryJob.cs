@@ -2,5 +2,5 @@
 
 public interface ISalaryJob
 {
-    
+    void DoWork();
 }
