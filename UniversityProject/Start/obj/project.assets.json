@@ -818,6 +818,10 @@
     "net9.0": [
       "Cronos >= 0.11.1",
       "Logger >= 1.0.0",
+      "Microsoft.Extensions.Configuration >= 9.0.9",
+      "Microsoft.Extensions.Configuration.EnvironmentVariables >= 9.0.9",
+      "Microsoft.Extensions.Configuration.Json >= 9.0.9",
+      "Microsoft.Extensions.Options.ConfigurationExtensions >= 9.0.9",
       "Newtonsoft.Json >= 13.0.3",
       "Repository >= 1.0.0",
       "UCore >= 1.0.0",
@@ -890,6 +894,22 @@
           "Cronos": {
             "target": "Package",
             "version": "[0.11.1, )"
+          },
+          "Microsoft.Extensions.Configuration": {
+            "target": "Package",
+            "version": "[9.0.9, )"
+          },
+          "Microsoft.Extensions.Configuration.EnvironmentVariables": {
+            "target": "Package",
+            "version": "[9.0.9, )"
+          },
+          "Microsoft.Extensions.Configuration.Json": {
+            "target": "Package",
+            "version": "[9.0.9, )"
+          },
+          "Microsoft.Extensions.Options.ConfigurationExtensions": {
+            "target": "Package",
+            "version": "[9.0.9, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

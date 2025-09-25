@@ -14,22 +14,8 @@ builder.Configuration.AddJsonFile("appsettings.json");
 IConfiguration appConfig = builder.Configuration;
 ConfigurationLogger cl = new ConfigurationLogger(appConfig);
 MyLogger logger = cl.Get();
-builder.Services.AddInfrastructureServices(logger); 
-builder.Services.AddCronJob<TeacherDoWorkJob>(c =>
-{
-    c.TimeZoneInfo = TimeZoneInfo.Local;
-    c.CronExpression = @"0/1 * * * *";
-});
-builder.Services.AddCronJob<TeacherDoSessionJob>(c =>
-{
-    c.TimeZoneInfo = TimeZoneInfo.Local;
-    c.CronExpression = @"0/2 * * * *";
-});
-builder.Services.AddCronJob<SalaryJob>(c =>
-{
-    c.TimeZoneInfo = TimeZoneInfo.Local;
-    c.CronExpression = @"0/3 * * * *";
-});
+builder.Services.AddInfrastructureServices(logger);
+builder.Services.MakeCronJob(appConfig);
 var app = builder.Build();
 
 
