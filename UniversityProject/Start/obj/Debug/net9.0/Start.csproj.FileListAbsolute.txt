@@ -54,3 +54,6 @@ D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Mic
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\ServiceWorkerCronJob\ServiceWorkerCronJobDemo\appsettings.Development.json
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\ServiceWorkerCronJob\ServiceWorkerCronJobDemo\appsettings.json
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Cronos.dll

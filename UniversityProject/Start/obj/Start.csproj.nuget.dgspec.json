@@ -218,6 +218,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Cronos": {
+              "target": "Package",
+              "version": "[0.11.1, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"

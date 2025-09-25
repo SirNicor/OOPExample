@@ -2,16 +2,34 @@ using Logger;
 using Repository;
 using UCore;
 using UJob;
-using Microsoft.Extensions.Logging.Configuration;
-using Newtonsoft.Json;
 using Start;
+using ServiceWorkerCronJobDemo;
+using ServiceWorkerCronJobDemo.Services;
+using SalaryJob = Start.SalaryJob;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json");
+
 IConfiguration appConfig = builder.Configuration;
 ConfigurationLogger cl = new ConfigurationLogger(appConfig);
 MyLogger logger = cl.Get();
-AddedInfrastructureServices.AddInfrastructureServices(builder.Services, logger);
+builder.Services.AddInfrastructureServices(logger); 
+builder.Services.AddCronJob<TeacherDoWorkJob>(c =>
+{
+    c.TimeZoneInfo = TimeZoneInfo.Local;
+    c.CronExpression = @"0/1 * * * *";
+});
+builder.Services.AddCronJob<TeacherDoSessionJob>(c =>
+{
+    c.TimeZoneInfo = TimeZoneInfo.Local;
+    c.CronExpression = @"0/2 * * * *";
+});
+builder.Services.AddCronJob<SalaryJob>(c =>
+{
+    c.TimeZoneInfo = TimeZoneInfo.Local;
+    c.CronExpression = @"0/3 * * * *";
+});
 var app = builder.Build();
 
 
@@ -23,52 +41,14 @@ app.Run(async (context) =>
     response.Headers.Append("University", "system");
     response.SendFileAsync("Index.html");
     
-    // builder.Services.AddCronJob<>()
-    
-    Action<string>? PrintForClients = (string s1) => Console.WriteLine(s1);
-    
     List<Teacher> teachers = app.Services.GetService<IWorkerTeacherRepository>().ReturnListTeachers(app.Services.GetService<MyLogger>());
-    Thread threadOfJob = new Thread(() =>
-            {
-                while (true)
-                {
-                    app.Services.GetService<ISalaryJob>().DoWork();
-                    Thread.Sleep(60000);
-                }
-            });
-
-    Thread threadOfWork = new Thread(() =>
-            {
-                while (true)
-                {
-                    foreach (var teacher in teachers)
-                    {
-                        teacher.DoWork(logger);
-                        Thread.Sleep(120000);
-                    }
-                }
-            });
-    threadOfWork.Priority = ThreadPriority.AboveNormal;
-            
-    Thread threadOfSession = new Thread(() =>
-            {
-                while (true)
-                {
-                    foreach (var teacher in teachers)
-                    {
-                        teacher.DoSession(logger);
-                        Thread.Sleep(240000);
-                    }
-                }
-            });
-    threadOfWork.Priority = ThreadPriority.AboveNormal;
-
+    
     Thread threadOfInfo = new Thread(() =>
             {
                 int input;
                 while (true)
                 {
-                    PrintForClients("Вывод интересующей вас инфо. Если о рабочих, введите 1, если о студентах, введите 2. Если о баллах студентов - 3, если о пропусках студентов - 4");
+                    Console.WriteLine("Вывод интересующей вас инфо. Если о рабочих, введите 1, если о студентах, введите 2. Если о баллах студентов - 3, если о пропусках студентов - 4");
                     input = int.Parse(Console.ReadLine()??"0");
                     switch (input)
                     {
@@ -86,15 +66,12 @@ app.Run(async (context) =>
                             break;
                         default:
                             logger.Info("Выход за возможный выбор");
-                            PrintForClients("Повторите ввод");
+                            Console.WriteLine("Повторите ввод");
                             break;
                     }
                 }
             });
-            
-            threadOfJob.Start();
-            threadOfWork.Start();
-            threadOfSession.Start();
+    
             threadOfInfo.Start();
 });
 app.Run();
