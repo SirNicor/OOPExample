@@ -14,9 +14,9 @@ public class ScoresOfStudentsJob:IJob, IScoresOfStudentsJob
 
     public void DoWork()
     {
-        double[] scoreStudent = new double[_students.Count];
+        double?[] scoreStudent = new double?[_students.Count];
         int maxindex = 0, minindex = 0;
-        double allscores = 0;
+        double? allscores = 0;
         for(int i = 0; i < _students.Count; i++)
         {
             scoreStudent[i] = _students[i].TotalScore;

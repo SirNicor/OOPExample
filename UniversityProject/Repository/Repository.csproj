@@ -11,4 +11,13 @@
       <ProjectReference Include="..\UCore\UCore.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.66" />
+      <PackageReference Include="Eka.Dapper.Json" Version="1.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.9" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.9" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.9" />
+      <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    </ItemGroup>
+
 </Project>

@@ -4,42 +4,42 @@ namespace UCore;
 using Logger;
 public class Passport
 {
-    public Passport(int serial, int number, string firstName, string lastName, string middleName, DateTime birthDate, Address address, string placeRepeipt)
+    public Passport(int serial, int number, string firstName, string lastName, string middleName, DateTime birthData, Address address, string placeReceipt)
     {
-        _serial = serial;
-        _number = number;
-        _firstName = firstName;
-        _lastName = lastName;
-        _middleName = middleName;
-        _birthDate = birthDate;
-        _address = address;
-        _placeRepeipt = placeRepeipt;
+        Serial = serial;
+        Number = number;
+        FirstName = firstName;
+        LastName = lastName;
+        MiddleName = middleName;
+        BirthData = birthData;
+        Address = address;
+        PlaceReceipt = placeReceipt;
     }
-    public Passport(int serial, int number, string firstName, string lastName, DateTime birthDate, Address address, string placeRepeipt)
+    public Passport(int serial, int number, string firstName, string lastName, DateTime birthData, Address address, string placeReceipt)
     {
-        _serial = serial;
-        _number = number;
-        _firstName = firstName;
-        _lastName = lastName;
-        _birthDate = birthDate;
-        _address = address;
-        _placeRepeipt = placeRepeipt;
+        Serial = serial;
+        Number = number;
+        FirstName = firstName;
+        LastName = lastName;
+        BirthData = birthData;
+        Address = address;
+        PlaceReceipt = placeReceipt;
     }
 
+    public Passport() { }
     public void Print(MyLogger myLogger)
     {
-        string message = $"FullName: {_firstName} {_lastName} {_middleName}, BirthDate: {_birthDate}";
-        message += Environment.NewLine + $"Serial: {_serial} Number: {_number} issued by whom: {_placeRepeipt}";
+        string message = $"FullName: {FirstName} {LastName} {MiddleName}, BirthDate: {BirthData}";
+        message += Environment.NewLine + $"Serial: {Serial} Number: {Number} issued by whom: {PlaceReceipt}";
         myLogger.Info(message);
-        _address.Print(myLogger);
+        Address.Print(myLogger);
     }
-    
-    private int _serial;
-    private int _number;
-    private string _firstName;
-    private string _lastName;
-    private string _middleName;
-    private string _placeRepeipt;
-    private Address _address;
-    private DateTime _birthDate;
+    public int Serial { get; set; }
+    public int Number { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string MiddleName { get; set; }
+    public DateTime BirthData { get; set; }
+    public Address Address { get; set; }
+    public string PlaceReceipt { get; set; }
 }

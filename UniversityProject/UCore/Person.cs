@@ -19,18 +19,9 @@ public abstract class Person
     }
 
     public abstract void PrintDerivedClass(MyLogger myLogger);
-    public IdMillitary MilitaryReset
-    {
-        set { MilitaryIdAvailability = value; }
-    }
-    
-    public bool CriminalRecordReset
-    {
-        set { CriminalRecord = value; }
-    }
     
     protected Person(){}
-    protected Passport Passport;
-    protected IdMillitary MilitaryIdAvailability;
-    protected bool CriminalRecord;
+    public Passport Passport { get; set; }
+    public IdMillitary MilitaryIdAvailability { get; set; }
+    public bool CriminalRecord { get; set; }
 }

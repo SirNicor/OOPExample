@@ -11,9 +11,9 @@ public class InfoCouplesAttendanceJob:IJob,  IInfoCouplesAttendanceJob
         _students = studentRepository.ReturnList(myLogger);
     }
 
-    public void DoWork()
+    public void DoWork()    
     {
-        int[] couplesAttendance = new int[_students.Count];
+        int?[] couplesAttendance = new int?[_students.Count];
         int maxindex = 0, minindex = 0;
         for(int i = 0; i < _students.Count; i++)
         {

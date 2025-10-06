@@ -5,18 +5,19 @@ public class Address
 {
     public Address(string country, string city, string street, int houseNumber)
     {
-        _country = country;
-        _street = street;
-        _city = city;
-        _houseNumber = houseNumber;
+        Country = country;
+        Street = street;
+        City = city;
+        HouseNumber = houseNumber;
     }
+    public Address(){}
     public void Print(MyLogger myLogger)
     {
-        myLogger.Info("FullAddress: " + _country + " " + _city + " " + _street + " " + _houseNumber);
+        myLogger.Info("FullAddress: " + Country + " " + City + " " + Street + " " + HouseNumber);
     }
-    
-    private readonly string _country;
-    private readonly string _city;
-    private readonly string _street;
-    private readonly int _houseNumber;
+
+    public string Country { get; set; }
+    public string City { get; set; }
+    public string Street { get; set; }
+    public int HouseNumber { get; set; }
 }

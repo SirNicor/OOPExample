@@ -8,9 +8,10 @@ using UJob;
 
 public static class AddedInfrastructureServices
 {
-    public static void AddInfrastructureServices(this IServiceCollection services, MyLogger logger)
+    public static void AddInfrastructureServices(this IServiceCollection services, MyLogger logger, IConfiguration configuration)
     {
         services.AddSingleton<MyLogger>(logger);
+        services.AddSingleton<IGetDBPath, GetDBPath>();
         services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
         services.AddSingleton<IStudentRepository, StudentRepository>();
         services.AddSingleton<IDirectionRepository, DirectionRepository>();
@@ -24,5 +25,7 @@ public static class AddedInfrastructureServices
         services.AddTransient<IPrintWorkersJob, PrintWorkersJob>();
         services.AddTransient<ISalaryJob, UJob.SalaryJob>();
         services.AddTransient<IScoresOfStudentsJob, ScoresOfStudentsJob>();
+        services.AddTransient<ReturnListOfStudents>();
+        services.AddSingleton<ReturnOneStudent>();
     }
 }

@@ -6,44 +6,39 @@ using Logger;
 public class Student:Person
 {
     protected const int MinChances = 200;
-    public Student(Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord, int course, bool accomodationDormitories, DegreesStudy degreesStudy) :
-        base(passport, militaryIdAvailability, criminalRecord)
-    {
-        _course = CheckMethods.CheckDegress(course, degreesStudy);
-        _skipHours = 0;
-        _countOfExamsPassed = 0;
-        _creditScores = 0;
-        _accomodationDormitories =  accomodationDormitories;
-    }
-    public double TotalScore {
+    public double? TotalScore {
         get
         {
-            if (_countOfExamsPassed == 0)
+            if (CountOfExamsPassed == 0)
             {
                 return 0;
-            }
+            } 
             else
             {
-                return ((double)_creditScores/_countOfExamsPassed)/5*100;
+                return ((double?)CreditScores/CountOfExamsPassed)/5*100;
             }
         }
     }
 
     public override void PrintDerivedClass(MyLogger myLogger)
     {
-        string message = $"Course: {_course}" + Environment.NewLine;
-        message += $"Общий балл ={_creditScores} и количество сданных экзаменов = {_countOfExamsPassed} и общий балл = {TotalScore}" + Environment.NewLine;
-        message += "Расположен ли в общежитии " + (_accomodationDormitories ? "Да" : "Нет");
+        string message = $"Course: {Course}" + Environment.NewLine;
+        message += $"Общий балл ={CreditScores} и количество сданных экзаменов = {CountOfExamsPassed} и общий балл = {TotalScore}" + Environment.NewLine;
+        // message += "Расположен ли в общежитии " + (_accomodationDormitories ? "Да" : "Нет");
         myLogger.Info(message);
     }
 
     
-    public int SkipHours
+    public int? SkipHours
     {
         get { return _skipHours;}
         set
         {
-            if (value < 0)
+            if (value == null)
+            {
+                _skipHours = 0;
+            }
+            else if (value < 0)
             {
                 _skipHours += 0;
             }
@@ -54,12 +49,16 @@ public class Student:Person
         }
     }
     
-    public int CreditScores
+    public int? CreditScores
     {
         get { return _creditScores;}
         set
         {
-            if (value + _creditScores > 0)
+            if (value == null)
+            {
+                _creditScores = 0;
+            }
+            else if (value < 0)
             {
                 _creditScores -= 1;
             }
@@ -70,21 +69,39 @@ public class Student:Person
         }
     }
 
-    public int CountOfExamsPassed
+    public void NextExamsPassed()
+    {
+        CountOfExamsPassed++;
+    }
+    public int? CountOfExamsPassed
     {
         get{return _countOfExamsPassed;}
         set
         {
-            _countOfExamsPassed += 1;
+            if (value == null)
+            {
+                _countOfExamsPassed = 0;
+            }
+            else 
+            {
+                _countOfExamsPassed = value;
+            }
         }
     }
-    protected Student(){}
-    private int _creditScores;
-    private int _countOfExamsPassed;
-    private int _skipHours;
-    private int _course;
-    private bool _accomodationDormitories;
+    public int? Course
+    {
+        get { return _course;} 
+        set{ _course=value;} 
+    }
+
+    private int? _course;
+    private int? _countOfExamsPassed;
+    private int? _skipHours;
+    private int? _creditScores;
     
+
+    // private bool _accomodationDormitories;
+
 }
 
 
