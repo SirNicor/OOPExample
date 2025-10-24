@@ -9,7 +9,7 @@ public class ScoresOfStudentsJob:IJob, IScoresOfStudentsJob
     public ScoresOfStudentsJob(MyLogger myLogger, IStudentRepository studentRepository)
     {
         _myLogger = myLogger;
-        _students = studentRepository.ReturnList(myLogger);
+        _students = studentRepository.ReturnList();
     }
 
     public void DoWork()

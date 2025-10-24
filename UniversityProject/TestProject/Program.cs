@@ -8,14 +8,14 @@ using UCore;
 MyLogger logger = new ConsoleMyLogger();
 DebugColumnOrder();
 StudentRepository studentRepository = new StudentRepository(
-    "Server=(localdb)\\MSSQLLocalDB;;Database=UniversityDB;Integrated Security=True");
+    "Server=(localdb)\\MSSQLLocalDB;;Database=UniversityDB;Integrated Security=True", logger);
 // var students = studentRepository.ReturnList(logger);
 // foreach (var student in students)
 // {
 //     student.PrintInfo(logger);
 // }
 
-Student student2 = studentRepository.Get(1, logger);
+Student student2 = studentRepository.Get(1);
 student2.PrintInfo(logger);
 // Student student1 = new Student();
 // student1.CountOfExamsPassed = 0;

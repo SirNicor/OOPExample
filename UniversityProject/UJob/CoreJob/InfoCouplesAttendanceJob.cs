@@ -8,7 +8,7 @@ public class InfoCouplesAttendanceJob:IJob,  IInfoCouplesAttendanceJob
     public InfoCouplesAttendanceJob(MyLogger myLogger, IStudentRepository studentRepository)
     {
         _myLogger = myLogger;
-        _students = studentRepository.ReturnList(myLogger);
+        _students = studentRepository.ReturnList();
     }
 
     public void DoWork()    

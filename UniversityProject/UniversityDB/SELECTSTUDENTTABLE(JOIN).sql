@@ -48,33 +48,24 @@ FROM Student
 	INNER JOIN IdMillitary ON STUDENT._millitaryID = IdMillitary.ID
 
 SELECT 
-    -- Student fields
     s._skipHours AS SkipHours,
     s._countOfExamsPassed AS CountOfExamsPassed, 
     s._creditScores AS CreditScores,
-    
-    -- Passport fields
     p._serial AS Serial,
     p._number AS Number,
     p._firstName AS FirstName,
     p._lastName AS LastName,
     p._middleName AS MiddleName,
     p._birthDate AS BirthDate,
-    
-
     a._country AS Country,
     a._city AS City,
     a._street AS Street,
     a._houseNumber AS HouseNumber,
-
-
     ds._levelDegrees AS LevelDegrees,
-    
-
     im._levelID AS LevelID
-
 FROM Student s
 INNER JOIN Passport p ON s._passportID = p.ID
 INNER JOIN Address a ON p._addressID = a.ID
 INNER JOIN DegreesStudy ds ON s._courseID = ds.ID
 INNER JOIN IdMillitary im ON s._millitaryID = im.ID
+WHERE S.ID = 1;	

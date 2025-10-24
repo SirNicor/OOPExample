@@ -7,15 +7,13 @@ using Logger;
 public class ReturnOneStudent
 {
     private IStudentRepository _studentRepository;
-    private MyLogger _loggerMain;
-    public ReturnOneStudent(IStudentRepository studentRepository, MyLogger loggerMain)
+    public ReturnOneStudent(IStudentRepository studentRepository)
     {
         _studentRepository = studentRepository;   
-        _loggerMain = loggerMain;
     }
 
     public Student ReturnStudent(int id)
     {
-        return _studentRepository.Get(id, _loggerMain);
+        return _studentRepository.Get(id);
     }
 }

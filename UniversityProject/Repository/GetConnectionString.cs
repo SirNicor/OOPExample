@@ -1,14 +1,14 @@
 ﻿namespace Repository;
 using Microsoft.Extensions.Configuration;
 
-public class GetDBPath : IGetDBPath
+public class GetConnectionString : IGetConnectionString
 {
-    public GetDBPath(IConfiguration configuration)
+    public GetConnectionString(IConfiguration configuration)
     {
         _configuration = configuration;
     }
 
-    public string ReturnPath()
+    public string ReturnConnectionString()
     {
         return _configuration.GetValue<string>("ConnectionStrings");
     }

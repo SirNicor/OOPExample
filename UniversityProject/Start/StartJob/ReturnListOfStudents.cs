@@ -9,15 +9,13 @@ namespace Start;
 public class ReturnListOfStudents 
 {
     private IStudentRepository _studentRepository;
-    private MyLogger _loggerMain;
-    public ReturnListOfStudents(IStudentRepository studentRepository, MyLogger loggerMain)
+    public ReturnListOfStudents(IStudentRepository studentRepository)
     {
         _studentRepository = studentRepository;   
-        _loggerMain = loggerMain;
     }
 
     public List<Student> ReturnList()
     {
-        return _studentRepository.ReturnList(_loggerMain);
+        return _studentRepository.ReturnList();
     }
 }

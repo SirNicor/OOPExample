@@ -34,27 +34,22 @@ public class StudentRepository : IStudentRepository
     INNER JOIN Address a ON p._addressID = a.ID
     INNER JOIN DegreesStudy ds ON s._courseID = ds.ID
     INNER JOIN IdMillitary im ON s._millitaryID = im.ID";
-    public string ConvertToJson(List<Student> students)
-    {
-        var options = new JsonSerializerOptions
-        {
-            WriteIndented = true, 
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase 
-        };
-        return JsonSerializer.Serialize(students, options);
-    }
+    
     string ConnectionString = null;
-    public StudentRepository(IGetDBPath getDBPath)
+    private MyLogger myLogger;
+    public StudentRepository(IGetConnectionString getConnectionString, MyLogger logger)
     {
-        ConnectionString = getDBPath.ReturnPath();
+        ConnectionString = getConnectionString.ReturnConnectionString();
+        myLogger = logger;
     }
 
-    public StudentRepository(string path)
+    public StudentRepository(string connectionString, MyLogger logger)
     {
-        ConnectionString = path;
+        ConnectionString = connectionString;
+        myLogger = logger;
     }
 
-    public void Create(Student student, MyLogger myLogger)
+    public void Create(Student student)
     {
         try
         {
@@ -75,7 +70,7 @@ public class StudentRepository : IStudentRepository
             var creditScores = student.CreditScores;
             var skipHours = student.SkipHours;
             var criminalRecord = student.CriminalRecord;
-            IdMillitary millitaryIdAvailability = student.MilitaryIdAvailability;
+            string millitaryIdAvailability = student.MilitaryIdAvailability.ToString();
             var passport = student.Passport;
             var address = passport.Address;
             var city =  address.City;
@@ -112,7 +107,7 @@ public class StudentRepository : IStudentRepository
             NULL);";
             db.Execute(sqlQuery, new
             {
-                country = country, city = city, street = street, houseNumber = houseNumber, 
+                country, city, street, houseNumber, 
                 serial = serial, number = number,  firstName = firstName, lastName = lastName, middleName = middleName,
                 birthData = birthData,  placeReceipt = placeReceipt, millitaryIdAvailability = millitaryIdAvailability, 
                 criminalRecord = criminalRecord, course = course, creditScores = creditScores, countOfExamsPassed = countOfExamsPassed,
@@ -121,7 +116,7 @@ public class StudentRepository : IStudentRepository
         }
     }
 
-    public void PrintAll(MyLogger myLogger)
+    public void PrintAll()
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
@@ -143,7 +138,7 @@ public class StudentRepository : IStudentRepository
         }
     }
 
-    public List<Student> ReturnList(MyLogger myLogger)
+    public List<Student> ReturnList()
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
@@ -160,25 +155,7 @@ public class StudentRepository : IStudentRepository
         }
     }   
     
-    public string ReturnJson(MyLogger myLogger)
-    {
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            var sqlQuery = @"SQlQuerySelect";
-            var students = db.Query<Student, Passport, Address, Student>(sqlQuery,
-                (student, passport, address) =>
-                {
-                    passport.Address = address;
-                    student.Passport = passport;
-                    return student;
-                },
-                splitOn: "PassportID, AddressID"
-            ).ToList();
-            return ConvertToJson(students);
-        }
-    }
-    
-    public Student Get(int id, MyLogger logger)
+    public Student Get(int id)
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
@@ -193,12 +170,12 @@ public class StudentRepository : IStudentRepository
                 (new { id = id }),
                 splitOn: "PassportID, AddressID"
             ).FirstOrDefault();
-            logger.Info($"Возвращение студента - {student.Passport.FirstName}, {student.Passport.LastName}");
+            myLogger.Info($"Возвращение студента - {student.Passport.FirstName}, {student.Passport.LastName}");
             return student;
         }
     }
     
-    public void Update(Student student, MyLogger myLogger)
+    public void Update(Student student)
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
@@ -207,7 +184,7 @@ public class StudentRepository : IStudentRepository
         }
     }
 
-    public void Delete(int ID, MyLogger myLogger)
+    public void Delete(int ID)
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
@@ -215,7 +192,22 @@ public class StudentRepository : IStudentRepository
             db.Execute(sqlQuery, new{ID});
         }
     }
-
     
-    private static List<Student> _student = new List<Student>(0);
+    public void DeleteAddress(int ID)
+    {
+        using (IDbConnection db = new SqlConnection(ConnectionString))
+        {
+            var sqlQuery = "DELETE FROM Address where ID = @ID;";
+            db.Execute(sqlQuery, new{ID});
+        }
+    }
+    
+    public void DeletePassport(int ID)
+    {
+        using (IDbConnection db = new SqlConnection(ConnectionString))
+        {
+            var sqlQuery = "DELETE FROM Passport where ID = @ID;";
+            db.Execute(sqlQuery, new{ID});
+        }
+    }
 }

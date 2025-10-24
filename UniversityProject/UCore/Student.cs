@@ -93,7 +93,7 @@ public class Student:Person
         get { return _course;} 
         set{ _course=value;} 
     }
-
+    
     private int? _course;
     private int? _countOfExamsPassed;
     private int? _skipHours;

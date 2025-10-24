@@ -11,7 +11,7 @@ public static class AddedInfrastructureServices
     public static void AddInfrastructureServices(this IServiceCollection services, MyLogger logger, IConfiguration configuration)
     {
         services.AddSingleton<MyLogger>(logger);
-        services.AddSingleton<IGetDBPath, GetDBPath>();
+        services.AddSingleton<IGetConnectionString, GetConnectionString>();
         services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
         services.AddSingleton<IStudentRepository, StudentRepository>();
         services.AddSingleton<IDirectionRepository, DirectionRepository>();

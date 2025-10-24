@@ -13,7 +13,7 @@ public class PrintStudentsJob:IJob, IPrintStudentJob
 
     public void DoWork()
     {
-        _studentsRepository.PrintAll(_myLogger);
+        _studentsRepository.PrintAll();
     }
     
     
