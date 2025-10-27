@@ -5,9 +5,6 @@ using Logger;
 using Dapper;
 using System.Data;
 using System.Data.SqlClient;
-using Dapper.Json.Extensions;
-using System.Reflection;
-using System.Text.Json;
 public class StudentRepository : IStudentRepository
 {
     const string SQlQuerySelect = @"
@@ -85,34 +82,66 @@ public class StudentRepository : IStudentRepository
             var birthData =  passport.BirthData/*.ToString().Remove(10, 8)*/;
             var placeReceipt = passport.PlaceReceipt;
             var sqlQuery = @"
-    INSERT INTO Address 
-    VALUES(@country, @city, @street, @placeReceipt)
-    INSERT INTO Passport
-       VALUES(@serial, 
-           @firstName,
-           @lastName, 
-           @middleName, 
-           @birthData, 
-           (SELECT SCOPE_IDENTITY()), 
-           @placeReceipt,
-           @number); 
-    INSERT INTO Student
-        VALUES((SELECT SCOPE_IDENTITY()),
-            (SELECT ID FROM IdMillitary WHERE _levelID = @millitaryIdAvailability),
-            @criminalRecord,
-            @course,
-            @skipHours,
-            @countOfExamsPassed, 
-            @creditScores, 
-            NULL);";
-            db.Execute(sqlQuery, new
+        INSERT INTO Address 
+        VALUES(@country, @city, @street, @houseNumber)";
+            try
             {
-                country, city, street, houseNumber, 
-                serial = serial, number = number,  firstName = firstName, lastName = lastName, middleName = middleName,
-                birthData = birthData,  placeReceipt = placeReceipt, millitaryIdAvailability = millitaryIdAvailability, 
-                criminalRecord = criminalRecord, course = course, creditScores = creditScores, countOfExamsPassed = countOfExamsPassed,
-                skipHours = skipHours
-            });
+                db.Execute(sqlQuery, new{country, city, street, houseNumber});
+                myLogger.Info("Added Address");
+                try
+                {
+                    sqlQuery = @"
+            INSERT INTO Passport
+               VALUES(@serial, 
+                   @firstName,
+                   @lastName, 
+                   @middleName, 
+                   @birthData, 
+                   (SELECT MAX(ID) FROM ADDRESS), 
+                   @placeReceipt,
+                   @number);";
+                    db.Execute(sqlQuery,
+                        new { serial, firstName, lastName, middleName, birthData, placeReceipt, number });
+                    myLogger.Info("Added Passport");
+                    try
+                    {
+                        sqlQuery = @"INSERT INTO Student
+            VALUES((SELECT MAX(ID) FROM PASSPORT),
+                (SELECT ID FROM IdMillitary WHERE _levelID = @millitaryIdAvailability),
+                @criminalRecord,
+                @course,
+                @skipHours,
+                @countOfExamsPassed, 
+                @creditScores, 
+                NULL);";
+                        db.Execute(sqlQuery,
+                            new
+                            {
+                                millitaryIdAvailability, criminalRecord, course, skipHours, countOfExamsPassed,
+                                creditScores
+                            });
+                        myLogger.Info("Added Student");
+                    }
+                    catch (SqlException ex)
+                    {
+                        sqlQuery = "DELETE FROM Address WHERE ID = (SELECT MAX(ID) FROM ADDRESS)";
+                        db.Execute(sqlQuery);
+                        sqlQuery = "DELETE FROM Passport WHERE ID = (SELECT MAX(ID) FROM PASSPORT)";
+                        db.Execute(sqlQuery);
+                        myLogger.Info("Deleted Address and Passport. Not added Student");
+                    }
+                }
+                catch(SqlException ex)
+                {
+                    sqlQuery = "DELETE FROM Address WHERE ID = (SELECT MAX(ID) FROM ADDRESS)";
+                    db.Execute(sqlQuery);
+                    myLogger.Info("Deleted Address and not added Passport" + ex.Message);
+                }
+            }
+            catch(SqlException ex)
+            {
+                myLogger.Info("not added Address " + ex.Message);
+            }
         }
     }
 
