@@ -3,7 +3,9 @@ using Repository;
 using UJob;
 using Start;
 using UCore;
-
+using FluentMigrator.Runner;
+using Microsoft.Extensions.DependencyInjection;
+using Repository.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json");
@@ -11,6 +13,8 @@ builder.Configuration.AddJsonFile("appsettings.json");
 IConfiguration appConfig = builder.Configuration;
 ConfigurationLogger cl = new ConfigurationLogger(appConfig);
 MyLogger logger = cl.Get();
+StartMigrations startMigrations = new StartMigrations(appConfig, logger);
+startMigrations.Start();
 builder.Services.AddInfrastructureServices(logger, appConfig);
 builder.Services.MakeCronJob(appConfig);
 var app = builder.Build();
@@ -30,3 +34,4 @@ app.MapGet("/Worker", () => app.Services.GetService<IPrintWorkersJob>().DoWork()
 app.MapGet("/ScoresOfStudents", () => app.Services.GetService<IScoresOfStudentsJob>().DoWork());
 app.MapGet("/InfoCouplesAttendance", () => app.Services.GetService<IInfoCouplesAttendanceJob>().DoWork());
 app.Run();
+    

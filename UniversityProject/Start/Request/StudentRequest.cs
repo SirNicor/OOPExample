@@ -8,11 +8,10 @@ static class StudentRequest
 {
     public static void AddStudentRequest(this IEndpointRouteBuilder app, MyLogger logger, IConfiguration configuration)
     {
-        app.MapGet("/Student/{id}", async (string id, HttpContext context) =>
+        app.MapGet("/Student/{id}", async (int id, HttpContext context) =>
         {
-            int i = int.Parse(id);
             var service = context.RequestServices.GetService<ReturnOneStudent>();   
-            var student = service.ReturnStudent(i);
+            var student = service.ReturnStudent(id);
             student.PrintInfo(logger);
             await context.Response.WriteAsJsonAsync(student); 
         });
@@ -27,7 +26,7 @@ static class StudentRequest
             var service = context.RequestServices.GetService<IStudentRepository>();
             service.Delete(id);
         });
-        app.MapPut("/Student", async context =>
+        app.MapPost("/Student", async context =>
         {
             var request = context.Request;
             var service =  context.RequestServices.GetService<IStudentRepository>();

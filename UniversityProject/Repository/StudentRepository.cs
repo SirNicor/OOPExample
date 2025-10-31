@@ -79,7 +79,7 @@ public class StudentRepository : IStudentRepository
             var firstName = passport.FirstName;
             var lastName = passport.LastName;
             var middleName = passport.MiddleName;
-            var birthData =  passport.BirthData/*.ToString().Remove(10, 8)*/;
+            var birthData =  passport.BirthData;
             var placeReceipt = passport.PlaceReceipt;
             var sqlQuery = @"
         INSERT INTO Address 
@@ -92,14 +92,14 @@ public class StudentRepository : IStudentRepository
                 {
                     sqlQuery = @"
             INSERT INTO Passport
-               VALUES(@serial, 
+               VALUES(@serial,
+                   @number,
                    @firstName,
                    @lastName, 
                    @middleName, 
                    @birthData, 
                    (SELECT MAX(ID) FROM ADDRESS), 
-                   @placeReceipt,
-                   @number);";
+                   @placeReceipt);";
                     db.Execute(sqlQuery,
                         new { serial, firstName, lastName, middleName, birthData, placeReceipt, number });
                     myLogger.Info("Added Passport");
@@ -112,8 +112,7 @@ public class StudentRepository : IStudentRepository
                 @course,
                 @skipHours,
                 @countOfExamsPassed, 
-                @creditScores, 
-                NULL);";
+                @creditScores);";
                         db.Execute(sqlQuery,
                             new
                             {
@@ -124,11 +123,11 @@ public class StudentRepository : IStudentRepository
                     }
                     catch (SqlException ex)
                     {
-                        sqlQuery = "DELETE FROM Address WHERE ID = (SELECT MAX(ID) FROM ADDRESS)";
-                        db.Execute(sqlQuery);
                         sqlQuery = "DELETE FROM Passport WHERE ID = (SELECT MAX(ID) FROM PASSPORT)";
                         db.Execute(sqlQuery);
-                        myLogger.Info("Deleted Address and Passport. Not added Student");
+                        sqlQuery = "DELETE FROM Address WHERE ID = (SELECT MAX(ID) FROM ADDRESS)";
+                        db.Execute(sqlQuery);
+                        myLogger.Info("Deleted Address and Passport. Not added Student " + ex.Message);
                     }
                 }
                 catch(SqlException ex)
