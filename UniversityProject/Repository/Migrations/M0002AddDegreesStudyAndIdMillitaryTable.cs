@@ -11,20 +11,20 @@ public class M0002AddDegreesStudyAndIdMillitaryTable : AutoReversingMigration
     {
             Create.Table("IdMillitary")
                 .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
-                .WithColumn("_levelID").AsString();
+                .WithColumn("LevelID").AsString();
             Insert.IntoTable("IdMillitary")
-                .Row(new { _levelID = "DidNotServe" })
-                .Row(new { _levelID = "ExcludedFromTheStock" })
-                .Row(new { _levelID = "PostponementHealth" })
-                .Row(new { _levelID = "PostponementUniversityB" })
-                .Row(new { _levelID = "PostponementUniversityS" });
+                .Row(new { LevelID = "DidNotServe" })
+                .Row(new { LevelID = "ExcludedFromTheStock" })
+                .Row(new { LevelID = "PostponementHealth" })
+                .Row(new { LevelID = "PostponementUniversityB" })
+                .Row(new { LevelID = "PostponementUniversityS" });
             Create.Table("DegreesStudy")
                 .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
-                .WithColumn("_levelDegrees").AsString();
+                .WithColumn("LevelDegrees").AsString();
             Insert.IntoTable("DegreesStudy")
-                .Row(new { _levelDegrees = "bachelor" })
-                .Row(new { _levelDegrees = "doctoral" })
-                .Row(new { _levelDegrees = "master" })
-                .Row(new { _levelDegrees = "specialization" });
+                .Row(new { LevelDegrees = "bachelor" })
+                .Row(new { LevelDegrees = "doctoral" })
+                .Row(new { LevelDegrees = "master" })
+                .Row(new { LevelDegrees = "specialization" });
     }
 }

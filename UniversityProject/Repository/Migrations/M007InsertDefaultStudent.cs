@@ -11,8 +11,8 @@ public class M007InsertDefaultStudent : AutoReversingMigration
             Insert.IntoTable("Student")
                 .Row(new
                 {
-                    _passportId = i+1, _millitaryId = 1, _criminalRecord = false, _courseID = 1, _skipHours = 0,
-                    _countOfExamsPassed = 0, _creditScores = 0
+                    PassportId = i+1, MillitaryId = 1, CriminalRecord = false, CourseId = 1, SkipHours = 0,
+                    CountOfExamsPassed = 0, CreditScores = 0
                 });
         }
     }

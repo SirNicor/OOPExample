@@ -9,9 +9,9 @@ public class M0001AddAddress : AutoReversingMigration
     {
         Create.Table("Address")
             .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
-            .WithColumn("_country").AsString()
-            .WithColumn("_city").AsString()
-            .WithColumn("_street").AsString()
-            .WithColumn("_houseNumber").AsInt64();
+            .WithColumn("Country").AsString()
+            .WithColumn("City").AsString()
+            .WithColumn("Street").AsString()
+            .WithColumn("HouseNumber").AsInt64();
     }
 }

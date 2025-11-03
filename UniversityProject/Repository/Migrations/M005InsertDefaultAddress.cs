@@ -10,43 +10,43 @@ public class M005InsertDefaultAddress : AutoReversingMigration
         Insert.IntoTable("Address")
             .Row(new
             {
-                _country = "Russia", _city = "Moscow", _street = "Geroyev Panfilovtsev Street", _houseNumber = 1
+                Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = 1
             })
             .Row(new
             {
-                _country = "Russia", _city = "Moscow", _street = "Geroyev Panfilovtsev Street", _houseNumber = 2
+                Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = 2
             })
             .Row(new
             {
-                _country = "Russia", _city = "Moscow", _street = "Geroyev Panfilovtsev Street", _houseNumber = 3
+                Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = 3
             })
             .Row(new
             {
-                _country = "Russia", _city = "Moscow", _street = "Geroyev Panfilovtsev Street", _houseNumber = 4
+                Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = 4
             })
             .Row(new
             {
-                _country = "Russia", _city = "Moscow", _street = "Geroyev Panfilovtsev Street", _houseNumber = 5
+                Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = 5
             })
             .Row(new
             {
-                _country = "Russia", _city = "Moscow", _street = "Geroyev Panfilovtsev Street", _houseNumber = 6
+                Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = 6
             })
             .Row(new
             {
-                _country = "Russia", _city = "Moscow", _street = "Geroyev Panfilovtsev Street", _houseNumber = 7
+                Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = 7
             })
             .Row(new
             {
-                _country = "Russia", _city = "Moscow", _street = "Geroyev Panfilovtsev Street", _houseNumber = 8
+                Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = 8
             })
             .Row(new
             {
-                _country = "Russia", _city = "Moscow", _street = "Geroyev Panfilovtsev Street", _houseNumber = 9
+                Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = 9
             })
             .Row(new
             {
-                _country = "Russia", _city = "Moscow", _street = "Geroyev Panfilovtsev Street", _houseNumber = 10
+                Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = 10
             });
     }
 }

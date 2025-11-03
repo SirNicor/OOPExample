@@ -18,7 +18,6 @@ startMigrations.Start();
 builder.Services.AddInfrastructureServices(logger, appConfig);
 builder.Services.MakeCronJob(appConfig);
 var app = builder.Build();
-
 app.AddStudentRequest(app.Services.GetService<MyLogger>(), app.Services.GetService<IConfiguration>());
 app.AddOtherRequest(app.Services.GetService<MyLogger>(), app.Services.GetService<IConfiguration>());
 app.AddAddressRequest(app.Services.GetService<MyLogger>());

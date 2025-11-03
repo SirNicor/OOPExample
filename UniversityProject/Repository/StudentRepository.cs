@@ -9,28 +9,28 @@ public class StudentRepository : IStudentRepository
 {
     const string SQlQuerySelect = @"
     SELECT 
-        s._skipHours AS SkipHours,
-        s._countOfExamsPassed AS CountOfExamsPassed, 
-        s._creditScores AS CreditScores,
-        ds._levelDegrees AS LevelDegrees,
-        im._levelID AS LevelID,
+        s.SkipHours AS SkipHours,
+        s.CountOfExamsPassed AS CountOfExamsPassed, 
+        s.CreditScores AS CreditScores,
+        ds.LevelDegrees AS LevelDegrees,
+        im.LevelId AS LevelID,
         p.ID as PassportID,
-        p._serial AS Serial,
-        p._number AS Number,
-        p._firstName AS FirstName,
-        p._lastName AS LastName,
-        p._middleName AS MiddleName,
-        p._birthDate AS BirthDate,
+        p.Serial AS Serial,
+        p.Number AS Number,
+        p.FirstName AS FirstName,
+        p.LastName AS LastName,
+        p.MiddleName AS MiddleName,
+        p.BirthData AS BirthDate,
         a.ID as AddressID,
-        a._country AS Country,
-        a._city AS City,
-        a._street AS Street,
-        a._houseNumber AS HouseNumber
+        a.Country AS Country,
+        a.City AS City,
+        a.Street AS Street,
+        a.HouseNumber AS HouseNumber
     FROM Student s
-    INNER JOIN Passport p ON s._passportID = p.ID
-    INNER JOIN Address a ON p._addressID = a.ID
-    INNER JOIN DegreesStudy ds ON s._courseID = ds.ID
-    INNER JOIN IdMillitary im ON s._millitaryID = im.ID";
+    INNER JOIN Passport p ON s.PassportId = p.ID
+    INNER JOIN Address a ON p.AddressId = a.ID
+    INNER JOIN DegreesStudy ds ON s.CourseId = ds.ID
+    INNER JOIN IdMillitary im ON s.MillitaryId = im.ID";
     
     string ConnectionString = null;
     private MyLogger myLogger;
@@ -46,102 +46,74 @@ public class StudentRepository : IStudentRepository
         myLogger = logger;
     }
 
-    public void Create(Student student)
+    public int Create(Student student)
     {
-        try
+        var countOfExamsPassed = student.CountOfExamsPassed;
+        var course = student.Course;
+        var creditScores = student.CreditScores;
+        var skipHours = student.SkipHours;
+        var criminalRecord = student.CriminalRecord;
+        var millitaryIdAvailability = student.MilitaryIdAvailability;
+        var passport = student.Passport;
+        var address = passport.Address;
+        var city =  address.City;
+        var houseNumber = address.HouseNumber;
+        var country = address.Country;
+        var street = address.Street;
+        var serial = passport.Serial;
+        var number = passport.Number;
+        var firstName = passport.FirstName;
+        var lastName = passport.LastName;
+        var middleName = passport.MiddleName;
+        var birthData =  passport.BirthData;
+        var placeReceipt = passport.PlaceReceipt;
+        using (IDbConnection db = new SqlConnection(ConnectionString))
         {
-
-        }
-        catch (SqlException ex)
-        {
-            myLogger.Error("SQL error " + ex.Message + ".Error number " + ex.Number);
-        }
-        catch (Exception ex)
-        {
-            myLogger.Error("General Error" + ex.Message);
-        }
-    using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            var countOfExamsPassed = student.CountOfExamsPassed;
-            var course = student.Course;
-            var creditScores = student.CreditScores;
-            var skipHours = student.SkipHours;
-            var criminalRecord = student.CriminalRecord;
-            string millitaryIdAvailability = student.MilitaryIdAvailability.ToString();
-            var passport = student.Passport;
-            var address = passport.Address;
-            var city =  address.City;
-            var houseNumber = address.HouseNumber;
-            var country = address.Country;
-            var street = address.Street;
-            var serial = passport.Serial;
-            var number = passport.Number;
-            var firstName = passport.FirstName;
-            var lastName = passport.LastName;
-            var middleName = passport.MiddleName;
-            var birthData =  passport.BirthData;
-            var placeReceipt = passport.PlaceReceipt;
-            var sqlQuery = @"
-        INSERT INTO Address 
-        VALUES(@country, @city, @street, @houseNumber)";
-            try
-            {
-                db.Execute(sqlQuery, new{country, city, street, houseNumber});
-                myLogger.Info("Added Address");
-                try
+            db.Open();
+            using(IDbTransaction transaction = db.BeginTransaction())
                 {
-                    sqlQuery = @"
-            INSERT INTO Passport
-               VALUES(@serial,
-                   @number,
-                   @firstName,
-                   @lastName, 
-                   @middleName, 
-                   @birthData, 
-                   (SELECT MAX(ID) FROM ADDRESS), 
-                   @placeReceipt);";
-                    db.Execute(sqlQuery,
-                        new { serial, firstName, lastName, middleName, birthData, placeReceipt, number });
-                    myLogger.Info("Added Passport");
                     try
                     {
-                        sqlQuery = @"INSERT INTO Student
-            VALUES((SELECT MAX(ID) FROM PASSPORT),
-                (SELECT ID FROM IdMillitary WHERE _levelID = @millitaryIdAvailability),
-                @criminalRecord,
-                @course,
-                @skipHours,
-                @countOfExamsPassed, 
-                @creditScores);";
-                        db.Execute(sqlQuery,
-                            new
-                            {
-                                millitaryIdAvailability, criminalRecord, course, skipHours, countOfExamsPassed,
-                                creditScores
-                            });
-                        myLogger.Info("Added Student");
+                        myLogger.Info("Start Transaction");
+                        var sqlQuery = @"
+                INSERT INTO Address 
+                VALUES(@country, @city, @street, @houseNumber)
+                INSERT INTO Passport
+                       VALUES(@serial,
+                           @number,
+                           @firstName,
+                           @lastName, 
+                           @middleName, 
+                           @birthData, 
+                           (SELECT MAX(ID) FROM ADDRESS), 
+                           @placeReceipt)
+                INSERT INTO Student
+                    VALUES((SELECT MAX(ID) FROM PASSPORT),
+                        @millitaryIdAvailability + 1,
+                        @criminalRecord,
+                        @course,
+                        @skipHours,
+                        @countOfExamsPassed, 
+                        @creditScores)";
+                        db.Execute(sqlQuery, new
+                        {
+                            country, city, street, houseNumber, serial, number,firstName, lastName, middleName, birthData,placeReceipt, millitaryIdAvailability,
+                            criminalRecord, course, skipHours,  countOfExamsPassed, creditScores
+                        }, transaction);
+                        transaction.Commit();
+                        myLogger.Info("End Transaction");
+                        var id = db.QueryFirstOrDefault<int>("SELECT MAX(ID) FROM Student");
+                        return id;
                     }
-                    catch (SqlException ex)
+                    catch(Exception ex)
                     {
-                        sqlQuery = "DELETE FROM Passport WHERE ID = (SELECT MAX(ID) FROM PASSPORT)";
-                        db.Execute(sqlQuery);
-                        sqlQuery = "DELETE FROM Address WHERE ID = (SELECT MAX(ID) FROM ADDRESS)";
-                        db.Execute(sqlQuery);
-                        myLogger.Info("Deleted Address and Passport. Not added Student " + ex.Message);
+                        myLogger.Error("An error occured during transaction" + ex.Message);
+                        transaction.Rollback();
+                        return -1;
                     }
                 }
-                catch(SqlException ex)
-                {
-                    sqlQuery = "DELETE FROM Address WHERE ID = (SELECT MAX(ID) FROM ADDRESS)";
-                    db.Execute(sqlQuery);
-                    myLogger.Info("Deleted Address and not added Passport" + ex.Message);
-                }
-            }
-            catch(SqlException ex)
-            {
-                myLogger.Info("not added Address " + ex.Message);
-            }
         }
+        
     }
 
     public void PrintAll()

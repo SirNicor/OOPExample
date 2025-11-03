@@ -1,4 +1,6 @@
-﻿namespace Repository.Migrations;
+﻿using System.Data;
+
+namespace Repository.Migrations;
 using FluentMigrator;
 
 [Migration(4, "Added Student Table")]
@@ -8,12 +10,12 @@ public class M004AddStudentTable : AutoReversingMigration
     {
             Create.Table("Student")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("_passportID").AsInt32().Unique().NotNullable().ForeignKey("Passport", "Id")
-                .WithColumn("_millitaryID").AsInt32().NotNullable().ForeignKey("IdMillitary", "Id")
-                .WithColumn("_criminalRecord").AsBoolean().NotNullable()
-                .WithColumn("_courseID").AsInt16().NotNullable()
-                .WithColumn("_skipHours").AsInt32().Nullable()
-                .WithColumn("_countOfExamsPassed").AsInt32().Nullable()
-                .WithColumn("_creditScores").AsInt32().Nullable();
+                .WithColumn("PassportID").AsInt32().Unique().NotNullable().ForeignKey("Passport", "Id").OnDelete(Rule.Cascade)
+                .WithColumn("MillitaryID").AsInt32().ForeignKey("IdMillitary", "Id")
+                .WithColumn("CriminalRecord").AsBoolean().NotNullable()
+                .WithColumn("CourseID").AsInt16().NotNullable()
+                .WithColumn("SkipHours").AsInt32().Nullable()
+                .WithColumn("CountOfExamsPassed").AsInt32().Nullable()
+                .WithColumn("CreditScores").AsInt32().Nullable();
     }
 }

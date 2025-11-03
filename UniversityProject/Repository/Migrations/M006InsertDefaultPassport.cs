@@ -11,8 +11,8 @@ public class M006InsertDefaultPassport : AutoReversingMigration
             Insert.IntoTable("Passport")
                 .Row(new
                 {
-                    _serial = "000" + i, _number = "00000" + i, _firstName = $"st{i}f", _middleName = $"st{i}m", _lastName = $"st{i}l",
-                    _birthDate = "2007-01-01", _addressId = i+1, _placeReceipt = "1"
+                    Serial = "000" + i, Number = "00000" + i, FirstName = $"st{i}f", MiddleName = $"st{i}m", LastName = $"st{i}l",
+                    BirthData = "2007-01-01", AddressId = i+1, PlaceReceipt = "1"
                 });
         }
     }

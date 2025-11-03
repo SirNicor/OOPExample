@@ -21,17 +21,18 @@ static class StudentRequest
             var students = service.ReturnList();            
             await context.Response.WriteAsJsonAsync(students);
         });
-        app.MapDelete("/Student/{id}", async (int id, HttpContext context) =>
-        {
-            var service = context.RequestServices.GetService<IStudentRepository>();
-            service.Delete(id);
-        });
         app.MapPost("/Student", async context =>
         {
             var request = context.Request;
             var service =  context.RequestServices.GetService<IStudentRepository>();
             Student student1 = await request.ReadFromJsonAsync<Student>();
-            service.Create(student1);
+            int ID = service.Create(student1);
+            await context.Response.WriteAsJsonAsync(ID);
+        });
+        app.MapDelete("/Student/{id}", async (int id, HttpContext context) =>
+        {
+            var service = context.RequestServices.GetService<IStudentRepository>();
+            service.Delete(id);
         });
     }
 }
