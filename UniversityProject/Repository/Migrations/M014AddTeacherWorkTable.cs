@@ -6,14 +6,14 @@ using Migrations;
 [Migration(14, "Create new table Teacher")]  
 public class M014AddTeacherWorkTable : AutoReversingMigration
 {
-    public override void Up() 
+    public override void Up()
     {
         Create.Table("Teacher")
             .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
-            .WithColumn("Salary").AsString().NotNullable()
+            .WithColumn("Salary").AsInt64().NotNullable()
+            .WithColumn("CriminalRecord").AsBoolean()
             .WithColumn("PassportID").AsInt32().NotNullable().ForeignKey("Passport", "Id")
-            .WithColumn("MilitaryID").AsInt16().NotNullable().ForeignKey("IdMilitary", "Id")
-            .WithColumn("CriminalRecord").AsBoolean();
+            .WithColumn("MilitaryID").AsInt16().NotNullable().ForeignKey("IdMilitary", "Id");
         Create.Table("DisciplineOfTeacher")
             .WithColumn("IdTeacher").AsInt32().NotNullable().ForeignKey("Teacher", "Id")
             .WithColumn("IdDiscipline").AsInt32().NotNullable().ForeignKey("Discipline", "Id");    

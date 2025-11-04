@@ -15,7 +15,7 @@ public class PrintWorkersJob:IJob, IPrintWorkersJob
     public void DoWork()
     {
         _workerTeacherRepository.PrintAll(_myLogger);
-        _workerAdministratorRepository.PrintAll(_myLogger);
+        _workerAdministratorRepository.PrintAll();
     }
     
     

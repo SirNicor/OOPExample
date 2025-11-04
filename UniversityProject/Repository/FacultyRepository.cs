@@ -9,7 +9,7 @@ public class FacultyRepository : IFacultyRepository
     {
         _universityRepository = universityRepository;
         IWorkerAdministratorRepository workerAdministratorRep = workerAdministratorRepository;
-        foreach (var worker in workerAdministratorRep.ReturnListAdministrator(myLogger))
+        foreach (var worker in workerAdministratorRep.ReturnListAdministrator())
         {
             if (worker.GetType() == typeof(Administrator))
             {

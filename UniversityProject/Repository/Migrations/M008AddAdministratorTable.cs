@@ -10,10 +10,10 @@ public class M008AddAdministratorTable : AutoReversingMigration
     {
         Create.Table("Administrator")
             .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
-            .WithColumn("Salary").AsString().NotNullable()
+            .WithColumn("Salary").AsInt64().NotNullable()
+            .WithColumn("CriminalRecord").AsBoolean()
             .WithColumn("PassportID").AsInt32().NotNullable().ForeignKey("Passport", "Id")
-            .WithColumn("MilitaryID").AsInt16().NotNullable().ForeignKey("IdMilitary", "Id")
-            .WithColumn("CriminalRecord").AsBoolean();
+            .WithColumn("MilitaryID").AsInt16().NotNullable().ForeignKey("IdMilitary", "Id");
         for(int i = 0; i<10; ++i)
         {
             Insert.IntoTable("Passport")

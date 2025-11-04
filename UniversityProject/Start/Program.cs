@@ -22,6 +22,7 @@ app.AddStudentRequest(app.Services.GetService<MyLogger>(), app.Services.GetServi
 app.AddOtherRequest(app.Services.GetService<MyLogger>(), app.Services.GetService<IConfiguration>());
 app.AddAddressRequest(app.Services.GetService<MyLogger>());
 app.AddPassportRequest(app.Services.GetService<MyLogger>());
+app.AddAdministratorRequest(app.Services.GetService<MyLogger>());
 app.MapGet("/", async (HttpContext context) =>
 {
     context.Response.Headers.ContentLanguage = "ru-RU";

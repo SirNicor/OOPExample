@@ -8,6 +8,10 @@ public class Administrator : Worker
     {
     }
 
+    public Administrator()
+    {
+        
+    }
     public override void PrintDerivedClass(MyLogger myLogger)
     {
         string message;

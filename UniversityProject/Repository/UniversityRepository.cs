@@ -6,7 +6,7 @@ public class UniversityRepository : IUniversityRepository
     public UniversityRepository(MyLogger myLogger, IWorkerAdministratorRepository workerAdministratorRepository)
     {
         IWorkerAdministratorRepository workerAdministratorRep = workerAdministratorRepository;
-        foreach(var worker in workerAdministratorRep.ReturnListAdministrator(myLogger))
+        foreach(var worker in workerAdministratorRep.ReturnListAdministrator())
         {
             if (worker.GetType() == typeof(Administrator))
             {
@@ -37,4 +37,6 @@ public class UniversityRepository : IUniversityRepository
     
     private static List<Administrator> _workerRep = new List<Administrator>();
     private static List<ClassUniversity> _university = new List<ClassUniversity>();
+    string ConnectionString = null;
+    private MyLogger myLogger;
 }

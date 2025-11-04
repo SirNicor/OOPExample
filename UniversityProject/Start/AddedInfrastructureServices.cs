@@ -27,5 +27,7 @@ public static class AddedInfrastructureServices
         services.AddTransient<IScoresOfStudentsJob, ScoresOfStudentsJob>();
         services.AddTransient<ReturnListOfStudents>();
         services.AddSingleton<ReturnOneStudent>();
+        services.AddTransient<ReturnListAdministrator>();
+        services.AddSingleton<ReturnOneAdministrator>();
     }
 }

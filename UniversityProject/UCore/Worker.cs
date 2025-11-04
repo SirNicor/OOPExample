@@ -7,16 +7,20 @@ public abstract class Worker : Person
     {
         Salary = salary;
     }
+
+    public Worker()
+    {
+        
+    }
     public abstract void DoWork(MyLogger myLogger);
 
     // protected DateTime StartWork;
     // protected DateTime EndWork;
-    protected int Salary;
 
-    public int ReturnSalary
+    public int Salary
     {
-        get { return Salary;}
-        set { Salary = value; }
+        get;
+        set;
     }
 }
 

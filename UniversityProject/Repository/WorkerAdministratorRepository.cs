@@ -1,73 +1,163 @@
 ﻿namespace Repository;
 using UCore;
 using Logger;
-
+using Dapper;
+using System.Data;
+using System.Data.SqlClient;
 public class WorkerAdministratorRepository : IWorkerAdministratorRepository
 {
-    public WorkerAdministratorRepository(MyLogger myLogger)
+    private const string SqlQuerySelect = @"
+    SELECT 
+        ad.Salary AS Salary,
+        ad.CriminalRecord as CriminalRecord,
+        im.LevelId AS MilitaryIdAvailability,
+        p.ID as PassportID,
+        p.Serial AS Serial,
+        p.Number AS Number,
+        p.FirstName AS FirstName,
+        p.LastName AS LastName,
+        p.MiddleName AS MiddleName,
+        p.BirthData AS BirthDate,
+        a.ID as AddressID,
+        a.Country AS Country,
+        a.City AS City,
+        a.Street AS Street,
+        a.HouseNumber AS HouseNumber
+    FROM Administrator ad
+    INNER JOIN Passport p ON ad.PassportId = p.ID
+    INNER JOIN Address a ON p.AddressId = a.ID
+    INNER JOIN IdMilitary im ON ad.MilitaryId = im.ID";
+    public WorkerAdministratorRepository(IGetConnectionString getConnectionString, MyLogger logger)
     {
-        try
+        ConnectionString = getConnectionString.ReturnConnectionString();
+        _myLogger = logger;
+    }
+    public void PrintAll()
+    {
+        using(IDbConnection db = new SqlConnection(ConnectionString))
         {
-            Passport passport;
-            Administrator worker;
-            passport = new Passport(2222, 223466, "Maxim", "Kirillov", 
-                new DateTime(1978,12,03), new Address("Russia", "Saint Petersburg", "Nalichnaya Street", 45), "1");
-            worker = new Administrator(123000,  passport, IdMillitary.InStock, false);
-            _workersAdministrator.Add(worker);
-            passport = new Passport(5522, 125766, "Ivan", "Karpov", 
-                new DateTime(1977,12,03), new Address("Russia", "Saint Petersburg", "Nalichnaya Street", 60), "1");
-            worker = new Administrator(90000,  passport, IdMillitary.InStock, false);
-            _workersAdministrator.Add(worker);
-            passport = new Passport(2222, 223466, "ad2", "ad2", 
-                new DateTime(1978,12,03), new Address("Russia", "Saint Petersburg", "Nalichnaya Street", 45), "1");
-            worker = new Administrator(123000,  passport, IdMillitary.InStock, false);
-            _workersAdministrator.Add(worker);
-            passport = new Passport(5522, 125766, "ad3", "ad3", 
-                new DateTime(1977,12,03), new Address("Russia", "Saint Petersburg", "Nalichnaya Street", 60), "1");
-            worker = new Administrator(90000,  passport, IdMillitary.InStock, false);
-            _workersAdministrator.Add(worker);
-            Random random = new Random();
-            for (int i = 4; i < 9; i++)
+            List<Administrator> Administrators = db.Query<Administrator, Passport, Address, Administrator>(SqlQuerySelect,
+                (Administrator, Passport, Address) =>
+                {
+                    Passport.Address = Address;
+                    Administrator.Passport = Passport;
+                    return Administrator;
+                }, 
+                splitOn: "PassportId, AddressId").ToList();
+            foreach (Administrator admin in Administrators)
             {
-                passport = new Passport(random.Next(1000, 9999), random.Next(100000, 999999), $"ad{i}", $"ad{i}", 
-                    new DateTime(random.Next(1950, 2005),random.Next(1, 12),random.Next(1, 30)), new Address("Russia", "Saint Petersburg", "Nalichnaya Street", 45), "1");
-                worker = new Administrator(random.Next(80000, 1000000),  passport, IdMillitary.InStock, false);
-                _workersAdministrator.Add(worker);
+                admin.PrintDerivedClass(_myLogger);
             }
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
-        }
     }
-    
-    public void AddAdministrator(Administrator worker, MyLogger myLogger)
+    public List<Administrator> ReturnListAdministrator()
     {
-        try
+        using (IDbConnection db = new SqlConnection(ConnectionString))
         {
-            _workersAdministrator.Add(worker);
-            myLogger.Debug("Worker added" + Environment.NewLine);
-            throw new Exception("Worker not added");
-        }
-        catch(Exception exception)
-        {
-            myLogger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
+            return db.Query<Administrator, Passport, Address, Administrator>(
+                SqlQuerySelect,
+                (Administrator, Passport, Address) =>
+                {
+                    Passport.Address = Address;
+                    Administrator.Passport = Passport;
+                    return Administrator;
+                },
+                splitOn: "PassportId, AddressId").ToList();
         }
     }
-    
-    public void PrintAll(MyLogger myLogger)
+
+    public Administrator Get(int ID)
     {
-        foreach (Worker worker in _workersAdministrator)
+        Administrator administrator = null;
+        using (IDbConnection db = new SqlConnection(ConnectionString))
         {
-            worker.PrintInfo(myLogger);
+            administrator = db.Query<Administrator, Passport, Address, Administrator>(
+                SqlQuerySelect + " WHERE ad.ID = @ID",
+                (Administrator, Passport, Address) =>
+                {
+                    Passport.Address = Address;
+                    Administrator.Passport = Passport;
+                    return Administrator;
+                },
+                splitOn: "PassportId, AddressId").FirstOrDefault();
+        }
+        _myLogger.Info("Return administrator - " + administrator.Passport.Serial + administrator.Passport.Number);
+        return administrator;
+    }
+    
+    public int Create(Administrator worker)
+    {
+        var salary = worker.Salary;
+        var criminalRecord = worker.CriminalRecord;
+        var millitaryIdAvailability = worker.MilitaryIdAvailability;
+        var passport = worker.Passport;
+        var address = passport.Address;
+        var city =  address.City;
+        var houseNumber = address.HouseNumber;
+        var country = address.Country;
+        var street = address.Street;
+        var serial = passport.Serial;
+        var number = passport.Number;
+        var firstName = passport.FirstName;
+        var lastName = passport.LastName;
+        var middleName = passport.MiddleName;
+        var birthData =  passport.BirthData;
+        var placeReceipt = passport.PlaceReceipt;
+        using (IDbConnection db = new SqlConnection(ConnectionString))
+        {
+            db.Open();
+            using(IDbTransaction transaction = db.BeginTransaction())
+                {
+                    try
+                    {
+                        _myLogger.Info("Start Transaction");
+                        var sqlQuery = @"
+                INSERT INTO Address 
+                VALUES(@country, @city, @street, @houseNumber)
+                INSERT INTO Passport
+                       VALUES(@serial,
+                           @number,
+                           @firstName,
+                           @lastName, 
+                           @middleName, 
+                           @birthData, 
+                           (SELECT MAX(ID) FROM ADDRESS), 
+                           @placeReceipt)
+                INSERT INTO Administrator
+                    VALUES(@salary,
+                        @criminalRecord,
+                        (SELECT MAX(ID) FROM PASSPORT),
+                        @millitaryIdAvailability + 1
+                        )";
+                        db.Execute(sqlQuery, new
+                        {
+                            country, city, street, houseNumber, serial, number,firstName, lastName, middleName, birthData,placeReceipt, salary,
+                            millitaryIdAvailability, criminalRecord
+                        }, transaction);
+                        transaction.Commit();
+                        _myLogger.Info("End Transaction");
+                        var id = db.QueryFirstOrDefault<int>("SELECT MAX(ID) FROM Administrator");
+                        return id;
+                    }
+                    catch(Exception ex)
+                    {
+                        _myLogger.Error("An error occured during transaction" + ex.Message);
+                        transaction.Rollback();
+                        return -1;
+                    }
+                }
+        }
+    }
+
+    public void Delete(int ID)
+    {
+        using (IDbConnection db = new SqlConnection(ConnectionString))
+        {
+            db.Execute("DELETE FROM Address WHERE ID = @ID", new {ID});
+            _myLogger.Info("Delete administrator - " + ID);
         }
     }
     
-    public List<Administrator> ReturnListAdministrator(MyLogger myLogger)
-    {
-        myLogger.Debug("Return list" + Environment.NewLine);
-        return _workersAdministrator;
-    }
-    
-    private static List<Administrator> _workersAdministrator = new List<Administrator>();
+    string ConnectionString = null;
+    private MyLogger _myLogger;
 }

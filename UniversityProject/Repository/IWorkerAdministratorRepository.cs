@@ -4,10 +4,9 @@ using Logger;
 
 public interface IWorkerAdministratorRepository
 {
-    
-    public void AddAdministrator(Administrator worker, MyLogger myLogger);
-
-    public void PrintAll(MyLogger myLogger);
-
-    public List<Administrator> ReturnListAdministrator(MyLogger myLogger);
+    public void PrintAll();
+    public int Create(Administrator administrator);
+    public List<Administrator> ReturnListAdministrator();
+    Administrator Get(int ID);
+    public void Delete(int ID);
 }

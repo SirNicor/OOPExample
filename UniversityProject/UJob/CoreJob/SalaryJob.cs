@@ -19,7 +19,7 @@ public class SalaryJob:IJob, ISalaryJob
     public void DoWork()
     {
         List<Teacher> teachers = _workerTeacherRepository.ReturnListTeachers(_myLogger);
-        List<Administrator> administrators = _workerAdministratorsRepository.ReturnListAdministrator(_myLogger);
+        List<Administrator> administrators = _workerAdministratorsRepository.ReturnListAdministrator();
         List<Worker> workers = new List<Worker>();
         foreach(var worker in teachers)
         {
@@ -33,7 +33,7 @@ public class SalaryJob:IJob, ISalaryJob
         int[] salaryWorkers = new int[lenWorkers];;
         for(int i = 0; i < lenWorkers; i++)
         {
-            salaryWorkers[i] = workers[i].ReturnSalary;
+            salaryWorkers[i] = workers[i].Salary;
         }
         
         int maxindex = 0, minindex = 0, FullSalary = 0;

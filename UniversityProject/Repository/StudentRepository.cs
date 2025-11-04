@@ -13,7 +13,7 @@ public class StudentRepository : IStudentRepository
         s.CountOfExamsPassed AS CountOfExamsPassed, 
         s.CreditScores AS CreditScores,
         ds.LevelDegrees AS LevelDegrees,
-        im.LevelId AS LevelID,
+        im.LevelId AS MilitaryIdAvailability,
         p.ID as PassportID,
         p.Serial AS Serial,
         p.Number AS Number,
@@ -32,8 +32,6 @@ public class StudentRepository : IStudentRepository
     INNER JOIN DegreesStudy ds ON s.CourseId = ds.ID
     INNER JOIN IdMilitary im ON s.MilitaryId = im.ID";
     
-    string ConnectionString = null;
-    private MyLogger myLogger;
     public StudentRepository(IGetConnectionString getConnectionString, MyLogger logger)
     {
         ConnectionString = getConnectionString.ReturnConnectionString();
@@ -53,7 +51,7 @@ public class StudentRepository : IStudentRepository
         var creditScores = student.CreditScores;
         var skipHours = student.SkipHours;
         var criminalRecord = student.CriminalRecord;
-        var millitaryIdAvailability = student.MilitaryIdAvailability;
+        var militaryIdAvailability = student.MilitaryIdAvailability;
         var passport = student.Passport;
         var address = passport.Address;
         var city =  address.City;
@@ -89,7 +87,7 @@ public class StudentRepository : IStudentRepository
                            @placeReceipt)
                 INSERT INTO Student
                     VALUES((SELECT MAX(ID) FROM PASSPORT),
-                        @millitaryIdAvailability + 1,
+                        @militaryIdAvailability + 1,
                         @criminalRecord,
                         @course,
                         @skipHours,
@@ -97,7 +95,7 @@ public class StudentRepository : IStudentRepository
                         @creditScores)";
                         db.Execute(sqlQuery, new
                         {
-                            country, city, street, houseNumber, serial, number,firstName, lastName, middleName, birthData,placeReceipt, millitaryIdAvailability,
+                            country, city, street, houseNumber, serial, number,firstName, lastName, middleName, birthData,placeReceipt, militaryIdAvailability,
                             criminalRecord, course, skipHours,  countOfExamsPassed, creditScores
                         }, transaction);
                         transaction.Commit();
@@ -210,4 +208,7 @@ public class StudentRepository : IStudentRepository
             db.Execute(sqlQuery, new{ID});
         }
     }
+    
+    string ConnectionString = null;
+    private MyLogger myLogger;
 }
