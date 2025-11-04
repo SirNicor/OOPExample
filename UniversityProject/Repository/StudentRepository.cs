@@ -30,7 +30,7 @@ public class StudentRepository : IStudentRepository
     INNER JOIN Passport p ON s.PassportId = p.ID
     INNER JOIN Address a ON p.AddressId = a.ID
     INNER JOIN DegreesStudy ds ON s.CourseId = ds.ID
-    INNER JOIN IdMillitary im ON s.MillitaryId = im.ID";
+    INNER JOIN IdMilitary im ON s.MilitaryId = im.ID";
     
     string ConnectionString = null;
     private MyLogger myLogger;

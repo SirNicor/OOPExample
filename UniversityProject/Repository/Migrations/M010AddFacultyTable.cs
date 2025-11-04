@@ -1,0 +1,24 @@
+﻿namespace Repository.Migrations;
+using FluentMigrator;
+
+[Migration(10, "Create new table Faculty")]  
+public class M010AddFacultyTable : AutoReversingMigration
+{
+    public override void Up()
+    {
+        Create.Table("Faculty")
+            .WithColumn("Id").AsInt32().Identity().PrimaryKey()
+            .WithColumn("IdUniversity").AsInt32().NotNullable().ForeignKey("University", "Id")
+            .WithColumn("NameFaculty").AsString(100).NotNullable()
+            .WithColumn("Dean").AsInt32().NotNullable().ForeignKey("Administrator", "Id")
+            .WithColumn("DeputyDean").AsInt32().NotNullable().ForeignKey("Administrator", "Id");
+        Create.Table("AdministrationOfDeanOffice")
+            .WithColumn("IdFaculty").AsInt32().ForeignKey("Faculty", "Id")
+            .WithColumn("IdAdministrator").AsInt32().ForeignKey("Administrator", "Id");
+        Insert.IntoTable("Faculty")
+            .Row(new {IdUniversity = 1, NameFaculty = "FITU", Dean = 4, DeputyDean = 5});
+        Insert.IntoTable("AdministrationOfDeanOffice")
+            .Row(new {IdFaculty = 1, IdAdministrator = 6})
+            .Row(new {IdFaculty = 1, IdAdministrator = 7});
+    }
+}

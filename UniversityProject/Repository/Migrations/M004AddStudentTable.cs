@@ -11,7 +11,7 @@ public class M004AddStudentTable : AutoReversingMigration
             Create.Table("Student")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
                 .WithColumn("PassportID").AsInt32().Unique().NotNullable().ForeignKey("Passport", "Id").OnDelete(Rule.Cascade)
-                .WithColumn("MillitaryID").AsInt32().ForeignKey("IdMillitary", "Id")
+                .WithColumn("MilitaryID").AsInt16().ForeignKey("IdMilitary", "Id")
                 .WithColumn("CriminalRecord").AsBoolean().NotNullable()
                 .WithColumn("CourseID").AsInt16().NotNullable()
                 .WithColumn("SkipHours").AsInt32().Nullable()

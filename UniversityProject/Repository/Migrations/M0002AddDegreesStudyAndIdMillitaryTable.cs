@@ -9,10 +9,10 @@ public class M0002AddDegreesStudyAndIdMillitaryTable : AutoReversingMigration
 {
     public override void Up()
     {
-            Create.Table("IdMillitary")
-                .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
+            Create.Table("IdMilitary")
+                .WithColumn("Id").AsInt16().NotNullable().PrimaryKey().Identity()
                 .WithColumn("LevelID").AsString();
-            Insert.IntoTable("IdMillitary")
+            Insert.IntoTable("IdMilitary")
                 .Row(new { LevelID = "DidNotServe" })
                 .Row(new { LevelID = "ExcludedFromTheStock" })
                 .Row(new { LevelID = "PostponementHealth" })
