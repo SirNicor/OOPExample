@@ -29,6 +29,15 @@ static class StudentRequest
             int ID = service.Create(student1);
             await context.Response.WriteAsJsonAsync(ID);
         });
+        app.MapPut("/Student/{id}", async (int id, HttpContext context) =>
+        {
+            var request = context.Request;
+            var service = context.RequestServices.GetService<IStudentRepository>();
+            Student student = await request.ReadFromJsonAsync<Student>();
+            Tuple<int, Student> tupleIdStudent = new Tuple<int, Student>(id, student);
+            var ID = service.Update(tupleIdStudent);
+            await context.Response.WriteAsJsonAsync(ID);
+        });
         app.MapDelete("/Student/{id}", async (int id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IStudentRepository>();

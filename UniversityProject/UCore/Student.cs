@@ -104,6 +104,10 @@ public class Student:Person
 
 }
 
-
+public class StudentAndID
+{
+    public int Id { get; set; }
+    public Student ClassStudent { get; set; }
+}
 
 

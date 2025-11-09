@@ -130,7 +130,6 @@ public class StudentRepository : IStudentRepository
             ).ToList();
             foreach (var student in students)
             {
-                Console.WriteLine(student.Passport.FirstName);
                 student.PrintInfo(myLogger);
             }
         }
@@ -173,12 +172,68 @@ public class StudentRepository : IStudentRepository
         }
     }
     
-    public void Update(Student student)
+    public int Update(Tuple<int, Student> idAndStudent)
     {
+        int Id = idAndStudent.Item1;
+        Student student = idAndStudent.Item2;
+        var countOfExamsPassed = student.CountOfExamsPassed;
+        var course = student.Course;
+        var creditScores = student.CreditScores;
+        var skipHours = student.SkipHours;
+        var criminalRecord = student.CriminalRecord;
+        var militaryIdAvailability = student.MilitaryIdAvailability;
+        var passport = student.Passport;
+        var address = passport.Address;
+        var city =  address.City;
+        var houseNumber = address.HouseNumber;
+        var country = address.Country;
+        var street = address.Street;
+        var serial = passport.Serial;
+        var number = passport.Number;
+        var firstName = passport.FirstName;
+        var lastName = passport.LastName;
+        var middleName = passport.MiddleName;
+        var birthData =  passport.BirthData;
+        var placeReceipt = passport.PlaceReceipt;
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
-            var sqlQuery = "";
-            db.Execute(sqlQuery, student);
+            db.Open();
+            using (IDbTransaction transaction = db.BeginTransaction())
+            {
+                try
+                {
+                    var sqlQuery = @"UPDATE Address 
+                SET Country = @country,  City = @city, Street = @street, HouseNumber = @houseNumber
+                WHERE ID = (SELECT AddressId FROM PASSPORT WHERE ID = (SELECT PassportId FROM STUDENT WHERE ID = @ID))";
+                    db.Execute(sqlQuery, new{country, city, street, houseNumber, ID = Id}, transaction);
+                    sqlQuery = @"UPDATE Passport 
+                SET Serial = @serial, Number = @number,  FirstName = @firstName, LastName = @lastName, MiddleName = @middleName, 
+                    BirthData = @birthData, PlaceReceipt = @placeReceipt
+                WHERE ID = (SELECT PassportId FROM STUDENT WHERE ID = @ID)";
+                    db.Execute(sqlQuery, new
+                    {
+                        serial, number, firstName, lastName, middleName,
+                        birthData, placeReceipt, ID = Id
+                    }, transaction);
+                    sqlQuery = @"UPDATE STUDENT 
+                SET MilitaryId = @militaryIdAvailability, CriminalRecord = @criminalRecord, CourseId = @course, SkipHours = @skipHours,
+                    CountOfExamsPassed = @countOfExamsPassed, CreditScores = @creditScores
+                WHERE ID = @ID";
+                    db.Execute(sqlQuery, new
+                    {
+                        militaryIdAvailability, criminalRecord, course, skipHours, countOfExamsPassed, creditScores, ID = Id
+                    }, transaction);
+                    myLogger.Info("Transaction complete");
+                    transaction.Commit();
+                    return Id;
+                }
+                catch (Exception ex)
+                {
+                    myLogger.Error("An error occured during transaction" + ex.Message);
+                    transaction.Rollback();
+                    return -1;
+                }
+            }
         }
     }
 
