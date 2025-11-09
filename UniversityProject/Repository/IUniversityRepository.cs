@@ -4,6 +4,8 @@ using Logger;
 
 public interface IUniversityRepository
 {
-    public void Add(ClassUniversity university, MyLogger myLogger);
-    public List<ClassUniversity> ReturnList(MyLogger myLogger);
+    public int Create(UniversityForDB university);
+    public University Get(int ID);
+    public List<University> ReturnList();
+    public void Delete(int ID);
 }

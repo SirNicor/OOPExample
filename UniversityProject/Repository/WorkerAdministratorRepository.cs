@@ -68,22 +68,21 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
 
     public Administrator Get(int ID)
     {
-        Administrator administrator = null;
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
-            administrator = db.Query<Administrator, Passport, Address, Administrator>(
+            var administrator = db.Query<Administrator, Passport, Address, Administrator>(
                 SqlQuerySelect + " WHERE ad.ID = @ID",
-                (Administrator, Passport, Address) =>
+                (admin, Passport, Address) =>
                 {
                     Passport.Address = Address;
-                    Administrator.Passport = Passport;
-                    return Administrator;
-                },
+                    admin.Passport = Passport;
+                    return admin;
+                }, new{ID},
                 splitOn: "PassportId, AddressId").FirstOrDefault();
+            _myLogger.Info($"Return administrator - {administrator?.Passport?.Serial ?? -1}, Number: {administrator?.Passport?.Number ?? -1}");
+            return administrator;
         }
-        _myLogger.Info("Return administrator - " + administrator.Passport.Serial + administrator.Passport.Number);
-        return administrator;
-    }
+    }   
     
     public int Create(Administrator worker)
     {

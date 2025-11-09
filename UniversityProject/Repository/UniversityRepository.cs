@@ -1,42 +1,155 @@
 ﻿namespace Repository;
 using UCore;
 using Logger;
+using Dapper;
+using System.Data;
+using System.Data.SqlClient;
 public class UniversityRepository : IUniversityRepository
 {
-    public UniversityRepository(MyLogger myLogger, IWorkerAdministratorRepository workerAdministratorRepository)
+    private const string SqlSelectIdUniversityQuery = @"Select 
+    un.Id AS ID
+    FROM University un";
+    private const string SqlSelectNameUniversityQuery = @"Select 
+    un.NameUniversity AS NameUniversity
+    FROM University un";
+
+    private const string SqlSelectBudgetUniversityQuery = @"Select 
+    un.Budget AS BudgetSize
+    FROM University un";
+
+    private const string SqlSelectRectorUniversityQuery = @"Select 
+    un.Rector AS Rector
+    FROM University un";
+    private const string SqsSelectPersonalOfAdministratorQuery = @"
+SELECT 
+    IdUniversity,
+    IdAdministrator
+FROM PersonalOfUniversity";
+    private const string SqsSelectPersonalOfAdministratorQuery1 = @"
+SELECT 
+    IdAdministrator
+FROM PersonalOfUniversity WHERE IdUniversity = @ID";
+    public UniversityRepository(IGetConnectionString getConnectionString, MyLogger logger, IWorkerAdministratorRepository workerAdministratorRepository)
     {
-        IWorkerAdministratorRepository workerAdministratorRep = workerAdministratorRepository;
-        foreach(var worker in workerAdministratorRep.ReturnListAdministrator())
+        _connectionString =  getConnectionString.ReturnConnectionString();
+        _myLogger = logger;
+        _workerAdministratorRepository = workerAdministratorRepository;
+    }
+
+    public University Get(int ID)
+    {
+        using (IDbConnection db = new SqlConnection(_connectionString))
         {
-            if (worker.GetType() == typeof(Administrator))
+            List<Administrator> administrators = new List<Administrator>();
+            var idadministrator = db.Query<int>(SqsSelectPersonalOfAdministratorQuery1, new { ID }).ToList();
+            foreach (int i in idadministrator)
             {
-                _workerRep.Add((Administrator)worker);
+                administrators.Add(_workerAdministratorRepository.Get(i));
+            }
+            string nameUniversity = db.Query<string>(SqlSelectNameUniversityQuery + " Where ID = @ID", new { ID }).FirstOrDefault();
+            int  budgetSize = db.Query<int>(SqlSelectBudgetUniversityQuery + " Where ID = @ID", new { ID }).FirstOrDefault();
+            int idRector = db.Query<int>(SqlSelectRectorUniversityQuery + " Where ID = @ID", new { ID }).FirstOrDefault();
+            University university = new University();
+            university.NameUniversity = nameUniversity;
+            university.BudgetSize = budgetSize;
+            university.Rector = _workerAdministratorRepository.Get(idRector);
+            university.Administrators = administrators;
+            return university;
+        }
+    }
+
+    public List<University> ReturnList()
+    {
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            int count = db.Query(SqlSelectIdUniversityQuery).ToList().Count;
+            List<University> universities = new List<University>();
+            for (int idUniversity = 1; idUniversity < count+1; idUniversity++)
+            {
+                List<Administrator> administrators = new List<Administrator>();
+                var Idadministrator = db.Query<int>(SqsSelectPersonalOfAdministratorQuery1, new { ID = idUniversity }).ToList();
+                foreach (int i in Idadministrator)
+                {
+                    administrators.Add(_workerAdministratorRepository.Get(i));
+                }
+                string nameUniversity = db.Query<string>(SqlSelectNameUniversityQuery + " Where ID = @ID", new { ID = idUniversity }).FirstOrDefault();
+                int  budgetSize = db.Query<int>(SqlSelectBudgetUniversityQuery + " Where ID = @ID", new { ID = idUniversity }).FirstOrDefault();
+                int idRector = db.Query<int>(SqlSelectRectorUniversityQuery + " Where ID = @ID", new { ID = idUniversity }).FirstOrDefault();
+                University university = new University();
+                university.NameUniversity = nameUniversity;
+                university.BudgetSize = budgetSize;
+                university.Rector = _workerAdministratorRepository.Get(idRector);
+                university.Administrators = administrators;
+                universities.Add(university);
+            }
+            return universities;
+        }
+    }
+    public int Create(UniversityForDB university)
+    {
+        List<int> idAdministrators = university.IdAdministrators;
+        var budget = university.BudgetSize;
+        var nameUniversity = university.NameUniversity;
+        int rector = university.IdRector;
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            db.Open();
+            using (IDbTransaction transaction = db.BeginTransaction())
+            {
+                string SqlQuery;
+                try
+                {
+                    SqlQuery = @"INSERT INTO UNIVERSITY VALUES(@nameUniversity, @IdRector, @budget) SELECT MAX(ID) FROM UNIVERSITY";
+                    int idUniversity = db.QuerySingle<int>(SqlQuery, new { nameUniversity, IdRector = rector, budget }, transaction);
+                    SqlQuery = @"INSERT INTO PersonalOfUniversity VALUES(@IDUniversity, @IDADMINISTRATOR)";
+                    for (int i = 0; i < idAdministrators.Count; i++)
+                    {
+                        db.Execute(SqlQuery, new { IDUniversity = idUniversity, IDADMINISTRATOR = idAdministrators[i] }, transaction);
+                    }
+                    transaction.Commit();
+                    return idUniversity;
+                }
+                catch (Exception ex)
+                {
+                    _myLogger.Error("An error occured during transaction" + ex.Message);
+                    transaction.Rollback();
+                    return -1;
+                }
+            }
+            
+        }
+    }
+
+    public void Delete(int ID)
+    {
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            db.Open();
+            List<int> IdAdministrator =  db.Query<int>(SqsSelectPersonalOfAdministratorQuery + " WHERE IDUniversity = @ID", new { ID }).ToList();
+            using (IDbTransaction transaction = db.BeginTransaction())
+            {
+                try
+                {
+                    string SqlQuery = @"DELETE FROM PersonalOfUniversity WHERE IDUniversity = @ID";
+                    for (int i = 0; i < IdAdministrator.Count; i++)
+                    {
+                        db.Execute(SqlQuery, new { ID = IdAdministrator[i]}, transaction);
+                    }
+                    SqlQuery = @"DELETE FROM University WHERE ID = @ID";
+                    db.Execute(SqlQuery, new { ID },  transaction);
+                    transaction.Commit();
+                    _myLogger.Info("Deleted University. ID = " + ID);
+                }
+                catch (Exception ex)
+                {
+                    _myLogger.Error("An error occured during transaction" + ex.Message);
+                    transaction.Rollback();
+                }
             }
         }
-        _university.Add(new ClassUniversity("VUZ", _workerRep[0],  _workerRep.GetRange(1,1), new Random().Next(10000, 10000000)));
     }
     
-    public void Add(ClassUniversity university, MyLogger myLogger)
-    {
-        try
-        {
-            _university.Add(university);
-            myLogger.Debug("Worker added" + Environment.NewLine);
-        }
-        catch(Exception exception)
-        {
-            myLogger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
-        }
-    }
-    
-    public List<ClassUniversity> ReturnList(MyLogger myLogger)
-    {
-        myLogger.Debug("Return list" + Environment.NewLine);
-        return _university;
-    }
-    
-    private static List<Administrator> _workerRep = new List<Administrator>();
-    private static List<ClassUniversity> _university = new List<ClassUniversity>();
-    string ConnectionString = null;
-    private MyLogger myLogger;
+    private string _connectionString = null;
+    private MyLogger _myLogger;
+    private IWorkerAdministratorRepository _workerAdministratorRepository;
 }

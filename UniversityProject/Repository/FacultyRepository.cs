@@ -16,7 +16,7 @@ public class FacultyRepository : IFacultyRepository
                 _workerRep.Add((Administrator)worker);
             }
         } 
-        _faculties.Add(new Faculty("FITU", _workerRep[2],  _workerRep[3], _workerRep.GetRange(4, 1), _universityRepository.ReturnList(myLogger)[0]));
+        _faculties.Add(new Faculty("FITU", _workerRep[2],  _workerRep[3], _workerRep.GetRange(4, 1), _universityRepository.ReturnList()[0]));
     }
     
     public void Add(Faculty faculty, MyLogger myLogger)

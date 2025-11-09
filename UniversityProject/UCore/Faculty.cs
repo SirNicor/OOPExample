@@ -2,7 +2,7 @@
 
 public class Faculty
 {
-    public Faculty(string nameFaculty, Administrator dean, Administrator deputyDean, List<Administrator> administrationOfDeanOffice,ClassUniversity university) 
+    public Faculty(string nameFaculty, Administrator dean, Administrator deputyDean, List<Administrator> administrationOfDeanOffice,University university) 
     {
         University = university;
         NameFaculty = nameFaculty;
@@ -12,7 +12,7 @@ public class Faculty
     }
     public string ReturnNameFaculty { get; }
     
-    public readonly ClassUniversity University;
+    public readonly University University;
     public readonly string NameFaculty;  
     protected Administrator Dean;
     protected Administrator DeputyDean;

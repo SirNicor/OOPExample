@@ -23,6 +23,7 @@ app.AddOtherRequest(app.Services.GetService<MyLogger>(), app.Services.GetService
 app.AddAddressRequest(app.Services.GetService<MyLogger>());
 app.AddPassportRequest(app.Services.GetService<MyLogger>());
 app.AddAdministratorRequest(app.Services.GetService<MyLogger>());
+app.AddUniversityRequest(app.Services.GetService<MyLogger>());
 app.MapGet("/", async (HttpContext context) =>
 {
     context.Response.Headers.ContentLanguage = "ru-RU";

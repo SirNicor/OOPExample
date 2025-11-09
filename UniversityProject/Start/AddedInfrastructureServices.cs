@@ -29,5 +29,7 @@ public static class AddedInfrastructureServices
         services.AddSingleton<ReturnOneStudent>();
         services.AddTransient<ReturnListAdministrator>();
         services.AddSingleton<ReturnOneAdministrator>();
+        services.AddTransient<ReturnListOfUniversity>();
+        services.AddSingleton<ReturnOneUniversity>();
     }
 }
