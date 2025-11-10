@@ -148,6 +148,67 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
         }
     }
 
+    public int Update(Tuple<int, Administrator> idAndAdministrator)
+    {
+        int Id = idAndAdministrator.Item1;
+        Administrator worker = idAndAdministrator.Item2;
+        var salary = worker.Salary;
+        var criminalRecord = worker.CriminalRecord;
+        var millitaryIdAvailability = worker.MilitaryIdAvailability;
+        var passport = worker.Passport;
+        var address = passport.Address;
+        var city =  address.City;
+        var houseNumber = address.HouseNumber;
+        var country = address.Country;
+        var street = address.Street;
+        var serial = passport.Serial;
+        var number = passport.Number;
+        var firstName = passport.FirstName;
+        var lastName = passport.LastName;
+        var middleName = passport.MiddleName;
+        var birthData =  passport.BirthData;
+        var placeReceipt = passport.PlaceReceipt;
+        using (IDbConnection db = new SqlConnection(ConnectionString))
+        {
+            db.Open();
+            using (IDbTransaction transaction = db.BeginTransaction())
+            {
+                try
+                {
+                    _myLogger.Info("Start Transaction");
+                    var sqlQuery = @"UPDATE Address 
+                SET Country = @country,  City = @city, Street = @street, HouseNumber = @houseNumber
+                WHERE ID = (SELECT AddressId FROM PASSPORT WHERE ID = (SELECT PassportId FROM Administrator WHERE ID = @ID))";
+                    db.Execute(sqlQuery, new{country, city, street, houseNumber, ID = Id}, transaction);
+                    sqlQuery = @"UPDATE Passport 
+                SET Serial = @serial, Number = @number,  FirstName = @firstName, LastName = @lastName, MiddleName = @middleName, 
+                    BirthData = @birthData, PlaceReceipt = @placeReceipt
+                WHERE ID = (SELECT PassportId FROM Administrator WHERE ID = @ID)";
+                    db.Execute(sqlQuery, new
+                    {
+                        serial, number, firstName, lastName, middleName,
+                        birthData, placeReceipt, ID = Id
+                    }, transaction);
+                    sqlQuery = @"UPDATE Administrator
+                    SET Salary = @salary, MilitaryId = @millitaryIdAvailability, CriminalRecord = @criminalRecord
+                    WHERE ID = @ID";
+                    db.Execute(sqlQuery, new
+                    {
+                        salary, millitaryIdAvailability, criminalRecord, ID = Id
+                    }, transaction);
+                    transaction.Commit();
+                    _myLogger.Info("End Transaction");
+                    return Id;
+                }
+                catch(Exception ex)
+                {
+                    _myLogger.Error("An error occured during transaction" + ex.Message);
+                    transaction.Rollback();
+                    return -1;
+                }
+            }
+        }
+    }
     public void Delete(int ID)
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))

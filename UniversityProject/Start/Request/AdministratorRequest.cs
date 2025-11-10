@@ -28,6 +28,15 @@ static class AdministratorRequest
             int ID = service.Create(administrator);
             await context.Response.WriteAsJsonAsync(ID);
         });
+        app.MapPut("/Administrator/{id}", async (int id, HttpContext context) =>
+        {
+            var request = context.Request;
+            var service =  context.RequestServices.GetService<IWorkerAdministratorRepository>();
+            Administrator administrator = await request.ReadFromJsonAsync<Administrator>();
+            Tuple<int, Administrator> idAndAdministrator = new Tuple<int, Administrator>(id, administrator);
+            int ID = service.Update(idAndAdministrator);
+            await context.Response.WriteAsJsonAsync(ID);
+        });
         app.MapDelete("/Administrator/{id}", async (int id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IWorkerAdministratorRepository>();
