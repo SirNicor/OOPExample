@@ -120,6 +120,42 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
         }
     }
 
+    public int Update(Tuple<int, UniversityForDB> idAndUniversity)
+    {
+        int id = idAndUniversity.Item1;
+        UniversityForDB university = idAndUniversity.Item2;
+        List<int> idAdministrators = university.IdAdministrators;
+        var budget = university.BudgetSize;
+        var nameUniversity = university.NameUniversity;
+        int rector = university.IdRector;
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            db.Open();
+            using (IDbTransaction transaction = db.BeginTransaction())
+            {
+                string SqlQuery;
+                try
+                {
+                    SqlQuery = @"UPDATE UNIVERSITY SET NameUniversity = @nameUniversity, Rector = @rector, Budget = @budget WHERE ID = @id";
+                    db.Execute(SqlQuery, new { nameUniversity, rector, budget, id }, transaction);
+                    SqlQuery = @"UPDATE PersonalOfUniversity SET IDADMINISTRATOR = @IDADMINISTRATOR WHERE IDUniversity = @id";
+                    for (int i = 0; i < idAdministrators.Count; i++)
+                    {
+                        db.Execute(SqlQuery, new { IDADMINISTRATOR = idAdministrators[i], id }, transaction);
+                    }
+                    transaction.Commit();
+                    _myLogger.Info("Successfully updated universities");
+                    return id;
+                }
+                catch (Exception ex)
+                {
+                    _myLogger.Error("An error occured during transaction" + ex.Message);
+                    transaction.Rollback();
+                    return -1;
+                }
+            }
+        }
+    }
     public void Delete(int ID)
     {
         using (IDbConnection db = new SqlConnection(_connectionString))

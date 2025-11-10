@@ -18,6 +18,15 @@ static public class UniversityRequest
             var universities = service.ReturnList();            
             await context.Response.WriteAsJsonAsync(universities);
         });
+        app.MapPut("/University/{id}", async (int id, HttpContext context) =>
+        {
+            var request = context.Request;
+            var service =  context.RequestServices.GetService<IUniversityRepository>();
+            UniversityForDB university = await request.ReadFromJsonAsync<UniversityForDB>();
+            Tuple<int, UniversityForDB> idAndUniversity = new Tuple<int, UniversityForDB>(id,  university);
+            int ID = service.Update(idAndUniversity);
+            await context.Response.WriteAsJsonAsync(ID);
+        });
         app.MapPost("/University", async context =>
         {
             var request = context.Request;
