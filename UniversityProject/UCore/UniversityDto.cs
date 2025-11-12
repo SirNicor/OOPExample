@@ -1,6 +1,6 @@
 ﻿namespace UCore;
 
-public class UniversityForDB
+public class UniversityDto
 {
     public string NameUniversity { get; set; }
     public int IdRector { get; set; }

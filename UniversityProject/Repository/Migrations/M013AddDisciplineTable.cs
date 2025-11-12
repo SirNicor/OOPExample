@@ -9,11 +9,12 @@ public class M013AddDisciplineTable : AutoReversingMigration
     public override void Up()
     {
         Create.Table("Discipline")
-            .WithColumn("Id").AsInt32().Identity().PrimaryKey()
+            .WithColumn("Id").AsInt64().Identity().PrimaryKey()
             .WithColumn("NameDiscipline").AsString(100).NotNullable();
         Create.Table("DirectionsOfDiscipline")
-            .WithColumn("IdDiscipline").AsInt32().ForeignKey("Discipline", "Id")
-            .WithColumn("IdDirection").AsInt32().ForeignKey("Direction", "Id");
+            .WithColumn("IdDiscipline").AsInt64().ForeignKey("Discipline", "Id")
+            .WithColumn("IdDirection").AsInt64().ForeignKey("Direction", "Id");
+        Create.PrimaryKey("PK_DirectionsOfDiscipline").OnTable("DirectionsOfDiscipline").Columns("IdDiscipline", "IdDirection");
         for (int i = 0; i < 10; i++)
         {
             Insert.IntoTable("Discipline")

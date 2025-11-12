@@ -8,7 +8,7 @@ public class M0001AddAddress : AutoReversingMigration
     public override void Up()
     {
         Create.Table("Address")
-            .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
+            .WithColumn("Id").AsInt64().NotNullable().PrimaryKey().Identity()
             .WithColumn("Country").AsString()
             .WithColumn("City").AsString()
             .WithColumn("Street").AsString()

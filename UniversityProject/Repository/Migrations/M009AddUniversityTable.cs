@@ -8,13 +8,14 @@ public class M009AddUniversityTable : AutoReversingMigration
     public override void Up()
     {
         Create.Table("University")
-            .WithColumn("Id").AsInt32().Identity().PrimaryKey()
+            .WithColumn("Id").AsInt64().Identity().PrimaryKey()
             .WithColumn("NameUniversity").AsString(100).NotNullable()
-            .WithColumn("Rector").AsInt32().NotNullable().ForeignKey("Administrator", "Id")
+            .WithColumn("Rector").AsInt64().NotNullable().ForeignKey("Administrator", "Id")
             .WithColumn("Budget").AsString().NotNullable();
         Create.Table("PersonalOfUniversity")
-            .WithColumn("IdUniversity").AsInt32().ForeignKey("University", "Id")
-            .WithColumn("IdAdministrator").AsInt32().ForeignKey("Administrator", "Id");
+            .WithColumn("IdUniversity").AsInt64().ForeignKey("University", "Id")
+            .WithColumn("IdAdministrator").AsInt64().ForeignKey("Administrator", "Id");
+        Create.PrimaryKey("PK_PersonalOfUniversity").OnTable("PersonalOfUniversity").Columns("IdUniversity", "IdAdministrator");
         Insert.IntoTable("University")
             .Row(new {NameUniversity = "VUZ", Rector = 1, Budget = 1000000});
         Insert.IntoTable("PersonalOfUniversity")

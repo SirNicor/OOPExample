@@ -9,14 +9,15 @@ public class M014AddTeacherWorkTable : AutoReversingMigration
     public override void Up()
     {
         Create.Table("Teacher")
-            .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
+            .WithColumn("Id").AsInt64().NotNullable().PrimaryKey().Identity()
             .WithColumn("Salary").AsInt64().NotNullable()
             .WithColumn("CriminalRecord").AsBoolean()
-            .WithColumn("PassportID").AsInt32().NotNullable().ForeignKey("Passport", "Id")
-            .WithColumn("MilitaryID").AsInt16().NotNullable().ForeignKey("IdMilitary", "Id");
+            .WithColumn("PassportID").AsInt64().NotNullable().ForeignKey("Passport", "Id")
+            .WithColumn("MilitaryID").AsInt64().NotNullable().ForeignKey("IdMilitary", "Id");
         Create.Table("DisciplineOfTeacher")
-            .WithColumn("IdTeacher").AsInt32().NotNullable().ForeignKey("Teacher", "Id")
-            .WithColumn("IdDiscipline").AsInt32().NotNullable().ForeignKey("Discipline", "Id");    
+            .WithColumn("IdTeacher").AsInt64().NotNullable().ForeignKey("Teacher", "Id")
+            .WithColumn("IdDiscipline").AsInt64().NotNullable().ForeignKey("Discipline", "Id");    
+        Create.PrimaryKey("PK_DisciplineOfTeacher").OnTable("DisciplineOfTeacher").Columns("IdTeacher", "IdDiscipline");
         for(int i = 0; i<5; ++i)
         {
             Insert.IntoTable("Passport")

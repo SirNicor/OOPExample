@@ -20,8 +20,7 @@ public class UniversityRepository : IUniversityRepository
     private const string SqlSelectRectorUniversityQuery = @"Select 
     un.Rector AS Rector
     FROM University un";
-    private const string SqsSelectPersonalOfAdministratorQuery = @"
-SELECT 
+    private const string SqsSelectPersonalOfAdministratorQuery = @"SELECT 
     IdUniversity,
     IdAdministrator
 FROM PersonalOfUniversity";
@@ -42,9 +41,9 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
         {
             List<Administrator> administrators = new List<Administrator>();
             var idadministrator = db.Query<int>(SqsSelectPersonalOfAdministratorQuery1, new { ID }).ToList();
-            foreach (int i in idadministrator)
+            foreach (int id in idadministrator)
             {
-                administrators.Add(_workerAdministratorRepository.Get(i));
+                administrators.Add(_workerAdministratorRepository.Get(id));
             }
             string nameUniversity = db.Query<string>(SqlSelectNameUniversityQuery + " Where ID = @ID", new { ID }).FirstOrDefault();
             int  budgetSize = db.Query<int>(SqlSelectBudgetUniversityQuery + " Where ID = @ID", new { ID }).FirstOrDefault();
@@ -85,7 +84,7 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
             return universities;
         }
     }
-    public int Create(UniversityForDB university)
+    public int Create(UniversityDto university)
     {
         List<int> idAdministrators = university.IdAdministrators;
         var budget = university.BudgetSize;
@@ -102,9 +101,10 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
                     SqlQuery = @"INSERT INTO UNIVERSITY VALUES(@nameUniversity, @IdRector, @budget) SELECT MAX(ID) FROM UNIVERSITY";
                     int idUniversity = db.QuerySingle<int>(SqlQuery, new { nameUniversity, IdRector = rector, budget }, transaction);
                     SqlQuery = @"INSERT INTO PersonalOfUniversity VALUES(@IDUniversity, @IDADMINISTRATOR)";
+                    db.Execute(SqlQuery,  idAdministrators , transaction);
                     for (int i = 0; i < idAdministrators.Count; i++)
                     {
-                        db.Execute(SqlQuery, new { IDUniversity = idUniversity, IDADMINISTRATOR = idAdministrators[i] }, transaction);
+                        
                     }
                     transaction.Commit();
                     return idUniversity;
@@ -120,10 +120,10 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
         }
     }
 
-    public int Update(Tuple<int, UniversityForDB> idAndUniversity)
+    public int Update(Tuple<int, UniversityDto> idAndUniversity)
     {
         int id = idAndUniversity.Item1;
-        UniversityForDB university = idAndUniversity.Item2;
+        UniversityDto university = idAndUniversity.Item2;
         List<int> idAdministrators = university.IdAdministrators;
         var budget = university.BudgetSize;
         var nameUniversity = university.NameUniversity;

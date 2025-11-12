@@ -22,8 +22,8 @@ static public class UniversityRequest
         {
             var request = context.Request;
             var service =  context.RequestServices.GetService<IUniversityRepository>();
-            UniversityForDB university = await request.ReadFromJsonAsync<UniversityForDB>();
-            Tuple<int, UniversityForDB> idAndUniversity = new Tuple<int, UniversityForDB>(id,  university);
+            UniversityDto university = await request.ReadFromJsonAsync<UniversityDto>();
+            Tuple<int, UniversityDto> idAndUniversity = new Tuple<int, UniversityDto>(id,  university);
             int ID = service.Update(idAndUniversity);
             await context.Response.WriteAsJsonAsync(ID);
         });
@@ -31,7 +31,7 @@ static public class UniversityRequest
         {
             var request = context.Request;
             var service =  context.RequestServices.GetService<IUniversityRepository>();
-            UniversityForDB university = await request.ReadFromJsonAsync<UniversityForDB>();
+            UniversityDto university = await request.ReadFromJsonAsync<UniversityDto>();
             int ID = service.Create(university);
             await context.Response.WriteAsJsonAsync(ID);
         });

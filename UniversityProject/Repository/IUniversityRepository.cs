@@ -4,9 +4,9 @@ using Logger;
 
 public interface IUniversityRepository
 {
-    public int Create(UniversityForDB university);
+    public int Create(UniversityDto university);
     public University Get(int ID);
     public List<University> ReturnList();
     public void Delete(int ID);
-    public int Update(Tuple<int, UniversityForDB> idAndUniversity);
+    public int Update(Tuple<int, UniversityDto> idAndUniversity);
 }
