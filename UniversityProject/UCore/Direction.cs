@@ -25,6 +25,7 @@ public class Direction
     {
         get { return _students; }
     }
+    public int DirectionId { get; set; }
     public readonly string NameDirection;
     private readonly Department _department;
     private int _numberOfCourse;

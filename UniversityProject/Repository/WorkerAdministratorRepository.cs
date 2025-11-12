@@ -8,21 +8,22 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
 {
     private const string SqlQuerySelect = @"
     SELECT 
-        ad.Salary AS Salary,
-        ad.CriminalRecord as CriminalRecord,
+        ad.Id as PersonId,
+        ad.Salary,
+        ad.CriminalRecord,
         im.LevelId AS MilitaryIdAvailability,
         p.ID as PassportID,
-        p.Serial AS Serial,
-        p.Number AS Number,
-        p.FirstName AS FirstName,
-        p.LastName AS LastName,
-        p.MiddleName AS MiddleName,
-        p.BirthData AS BirthDate,
+        p.Serial,
+        p.Number,
+        p.FirstName,
+        p.LastName,
+        p.MiddleName,
+        p.BirthData,
         a.ID as AddressID,
-        a.Country AS Country,
-        a.City AS City,
-        a.Street AS Street,
-        a.HouseNumber AS HouseNumber
+        a.Country,
+        a.City,
+        a.Street,
+        a.HouseNumber
     FROM Administrator ad
     INNER JOIN Passport p ON ad.PassportId = p.ID
     INNER JOIN Address a ON p.AddressId = a.ID

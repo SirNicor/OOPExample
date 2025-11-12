@@ -40,6 +40,6 @@ try
 }
 catch (Exception ex)
 {
-    logger.Error("Error in general trycatch " + ex.Message);
+    logger.Error("Error in general trycatch " + ex.Message + ex.Source + ex.StackTrace + ex.TargetSite);
 }
     

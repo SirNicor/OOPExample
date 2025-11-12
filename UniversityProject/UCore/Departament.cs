@@ -9,7 +9,8 @@ public class Department
         HeadDepartment = headDepartment;
         Administrators = administrators;
     }
-    
+
+    public int DepartmentId { get; set; }
     public readonly Faculty Faculty;
     protected Administrator HeadDepartment;
     protected List<Administrator> Administrators;

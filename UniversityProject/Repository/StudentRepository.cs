@@ -9,23 +9,24 @@ public class StudentRepository : IStudentRepository
 {
     const string SQlQuerySelect = @"
     SELECT 
-        s.SkipHours AS SkipHours,
-        s.CountOfExamsPassed AS CountOfExamsPassed, 
-        s.CreditScores AS CreditScores,
-        ds.LevelDegrees AS LevelDegrees,
+        s.Id as PersonId,
+        s.SkipHours,
+        s.CountOfExamsPassed, 
+        s.CreditScores,
+        ds.LevelDegrees,
         im.LevelId AS MilitaryIdAvailability,
         p.ID as PassportID,
-        p.Serial AS Serial,
-        p.Number AS Number,
-        p.FirstName AS FirstName,
-        p.LastName AS LastName,
-        p.MiddleName AS MiddleName,
-        p.BirthData AS BirthDate,
+        p.Serial,
+        p.Number,
+        p.FirstName,
+        p.LastName,
+        p.MiddleName,
+        p.BirthData,
         a.ID as AddressID,
-        a.Country AS Country,
-        a.City AS City,
-        a.Street AS Street,
-        a.HouseNumber AS HouseNumber
+        a.Country,
+        a.City,
+        a.Street,
+        a.HouseNumber
     FROM Student s
     INNER JOIN Passport p ON s.PassportId = p.ID
     INNER JOIN Address a ON p.AddressId = a.ID

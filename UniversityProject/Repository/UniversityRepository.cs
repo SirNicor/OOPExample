@@ -10,7 +10,7 @@ public class UniversityRepository : IUniversityRepository
     un.Id AS ID
     FROM University un";
     private const string SqlSelectNameUniversityQuery = @"Select 
-    un.NameUniversity AS NameUniversity
+    un.NameUniversity 
     FROM University un";
 
     private const string SqlSelectBudgetUniversityQuery = @"Select 
@@ -18,7 +18,7 @@ public class UniversityRepository : IUniversityRepository
     FROM University un";
 
     private const string SqlSelectRectorUniversityQuery = @"Select 
-    un.Rector AS Rector
+    un.Rector
     FROM University un";
     private const string SqsSelectPersonalOfAdministratorQuery = @"SELECT 
     IdUniversity,
