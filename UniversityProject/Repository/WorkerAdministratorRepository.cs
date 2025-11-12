@@ -8,18 +8,18 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
 {
     private const string SqlQuerySelect = @"
     SELECT 
-        ad.Id as PersonId,
+        ad.Id AS PersonId,
         ad.Salary,
         ad.CriminalRecord,
         im.LevelId AS MilitaryIdAvailability,
-        p.ID as PassportID,
+        p.ID AS PassportID,
         p.Serial,
         p.Number,
         p.FirstName,
         p.LastName,
         p.MiddleName,
         p.BirthData,
-        a.ID as AddressID,
+        a.ID AS AddressID,
         a.Country,
         a.City,
         a.Street,
@@ -143,7 +143,7 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
                     {
                         _myLogger.Error("An error occured during transaction" + ex.Message);
                         transaction.Rollback();
-                        return -1;
+                        throw;
                     }
                 }
         }
@@ -205,7 +205,7 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
                 {
                     _myLogger.Error("An error occured during transaction" + ex.Message);
                     transaction.Rollback();
-                    return -1;
+                    throw;
                 }
             }
         }

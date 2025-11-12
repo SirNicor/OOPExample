@@ -9,20 +9,20 @@ public class StudentRepository : IStudentRepository
 {
     const string SQlQuerySelect = @"
     SELECT 
-        s.Id as PersonId,
+        s.Id AS PersonId,
         s.SkipHours,
         s.CountOfExamsPassed, 
         s.CreditScores,
         ds.LevelDegrees,
         im.LevelId AS MilitaryIdAvailability,
-        p.ID as PassportID,
+        p.ID AS PassportID,
         p.Serial,
         p.Number,
         p.FirstName,
         p.LastName,
         p.MiddleName,
         p.BirthData,
-        a.ID as AddressID,
+        a.ID AS AddressID,
         a.Country,
         a.City,
         a.Street,
@@ -47,25 +47,8 @@ public class StudentRepository : IStudentRepository
 
     public int Create(Student student)
     {
-        var countOfExamsPassed = student.CountOfExamsPassed;
-        var course = student.Course;
-        var creditScores = student.CreditScores;
-        var skipHours = student.SkipHours;
-        var criminalRecord = student.CriminalRecord;
-        var militaryIdAvailability = student.MilitaryIdAvailability;
-        var passport = student.Passport;
-        var address = passport.Address;
-        var city =  address.City;
-        var houseNumber = address.HouseNumber;
-        var country = address.Country;
-        var street = address.Street;
-        var serial = passport.Serial;
-        var number = passport.Number;
-        var firstName = passport.FirstName;
-        var lastName = passport.LastName;
-        var middleName = passport.MiddleName;
-        var birthData =  passport.BirthData;
-        var placeReceipt = passport.PlaceReceipt;
+        Passport passport = student.Passport;
+        Address address = passport.Address;
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
             db.Open();
@@ -76,28 +59,27 @@ public class StudentRepository : IStudentRepository
                         myLogger.Info("Start Transaction");
                         var sqlQuery = @"
                 INSERT INTO Address 
-                VALUES(@country, @city, @street, @houseNumber)
+                VALUES(@address.country, @address.city, @address.street, @address.houseNumber)
                 INSERT INTO Passport
-                       VALUES(@serial,
-                           @number,
-                           @firstName,
-                           @lastName, 
-                           @middleName, 
-                           @birthData, 
+                       VALUES(@passport.serial,
+                           @passport.number,
+                           @passport.firstName,
+                           @passport.lastName, 
+                           @passport.middleName, 
+                           @passport.birthData, 
                            (SELECT MAX(ID) FROM ADDRESS), 
-                           @placeReceipt)
+                           @passport.placeReceipt)
                 INSERT INTO Student
                     VALUES((SELECT MAX(ID) FROM PASSPORT),
-                        @militaryIdAvailability + 1,
-                        @criminalRecord,
-                        @course,
-                        @skipHours,
-                        @countOfExamsPassed, 
-                        @creditScores)";
+                        @student.militaryIdAvailability + 1,
+                        @student.criminalRecord,
+                        @student.course,
+                        @student.skipHours,
+                        @student.countOfExamsPassed, 
+                        @student.creditScores)";
                         db.Execute(sqlQuery, new
                         {
-                            country, city, street, houseNumber, serial, number,firstName, lastName, middleName, birthData,placeReceipt, militaryIdAvailability,
-                            criminalRecord, course, skipHours,  countOfExamsPassed, creditScores
+                            address, passport, student
                         }, transaction);
                         transaction.Commit();
                         myLogger.Info("End Transaction");
@@ -108,7 +90,7 @@ public class StudentRepository : IStudentRepository
                     {
                         myLogger.Error("An error occured during transaction" + ex.Message);
                         transaction.Rollback();
-                        return -1;
+                        throw;
                     }
                 }
         }
@@ -173,29 +155,8 @@ public class StudentRepository : IStudentRepository
         }
     }
     
-    public int Update(Tuple<int, Student> idAndStudent)
+    public int Update(Student student)
     {
-        int Id = idAndStudent.Item1;
-        Student student = idAndStudent.Item2;
-        var countOfExamsPassed = student.CountOfExamsPassed;
-        var course = student.Course;
-        var creditScores = student.CreditScores;
-        var skipHours = student.SkipHours;
-        var criminalRecord = student.CriminalRecord;
-        var militaryIdAvailability = student.MilitaryIdAvailability;
-        var passport = student.Passport;
-        var address = passport.Address;
-        var city =  address.City;
-        var houseNumber = address.HouseNumber;
-        var country = address.Country;
-        var street = address.Street;
-        var serial = passport.Serial;
-        var number = passport.Number;
-        var firstName = passport.FirstName;
-        var lastName = passport.LastName;
-        var middleName = passport.MiddleName;
-        var birthData =  passport.BirthData;
-        var placeReceipt = passport.PlaceReceipt;
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
             db.Open();
@@ -205,34 +166,33 @@ public class StudentRepository : IStudentRepository
                 {
                     var sqlQuery = @"UPDATE Address 
                 SET Country = @country,  City = @city, Street = @street, HouseNumber = @houseNumber
-                WHERE ID = (SELECT AddressId FROM PASSPORT WHERE ID = (SELECT PassportId FROM STUDENT WHERE ID = @ID))";
-                    db.Execute(sqlQuery, new{country, city, street, houseNumber, ID = Id}, transaction);
+                WHERE ID = (SELECT AddressId FROM PASSPORT WHERE ID = (SELECT PassportId FROM STUDENT WHERE ID = @PersonId))";
+                    db.Execute(sqlQuery, new{student.Passport.Address, student}, transaction);
                     sqlQuery = @"UPDATE Passport 
                 SET Serial = @serial, Number = @number,  FirstName = @firstName, LastName = @lastName, MiddleName = @middleName, 
                     BirthData = @birthData, PlaceReceipt = @placeReceipt
-                WHERE ID = (SELECT PassportId FROM STUDENT WHERE ID = @ID)";
+                WHERE ID = (SELECT PassportId FROM STUDENT WHERE ID = @PersonId)";
                     db.Execute(sqlQuery, new
                     {
-                        serial, number, firstName, lastName, middleName,
-                        birthData, placeReceipt, ID = Id
+                        student.Passport, student
                     }, transaction);
                     sqlQuery = @"UPDATE STUDENT 
                 SET MilitaryId = @militaryIdAvailability, CriminalRecord = @criminalRecord, CourseId = @course, SkipHours = @skipHours,
                     CountOfExamsPassed = @countOfExamsPassed, CreditScores = @creditScores
-                WHERE ID = @ID";
+                WHERE ID = @PersonId";
                     db.Execute(sqlQuery, new
                     {
-                        militaryIdAvailability, criminalRecord, course, skipHours, countOfExamsPassed, creditScores, ID = Id
+                         student
                     }, transaction);
                     myLogger.Info("Transaction complete");
                     transaction.Commit();
-                    return Id;
+                    return student.PersonId;
                 }
                 catch (Exception ex)
                 {
                     myLogger.Error("An error occured during transaction" + ex.Message);
                     transaction.Rollback();
-                    return -1;
+                    throw;
                 }
             }
         }

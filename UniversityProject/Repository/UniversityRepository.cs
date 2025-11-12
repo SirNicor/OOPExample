@@ -113,7 +113,7 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
                 {
                     _myLogger.Error("An error occured during transaction" + ex.Message);
                     transaction.Rollback();
-                    return -1;
+                    throw;
                 }
             }
             
@@ -151,7 +151,7 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
                 {
                     _myLogger.Error("An error occured during transaction" + ex.Message);
                     transaction.Rollback();
-                    return -1;
+                    throw;
                 }
             }
         }

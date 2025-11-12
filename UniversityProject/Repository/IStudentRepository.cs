@@ -8,7 +8,7 @@ public interface IStudentRepository
     public void PrintAll();
     public List<Student> ReturnList();
     int Create(Student student);
-    int Update(Tuple<int, Student> student);
+    int Update(Student student);
     void Delete(int ID);
     void DeleteAddress(int ID);
     void DeletePassport(int ID);
