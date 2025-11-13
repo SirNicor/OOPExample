@@ -87,22 +87,8 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
     
     public int Create(Administrator worker)
     {
-        var salary = worker.Salary;
-        var criminalRecord = worker.CriminalRecord;
-        var millitaryIdAvailability = worker.MilitaryIdAvailability;
         var passport = worker.Passport;
         var address = passport.Address;
-        var city =  address.City;
-        var houseNumber = address.HouseNumber;
-        var country = address.Country;
-        var street = address.Street;
-        var serial = passport.Serial;
-        var number = passport.Number;
-        var firstName = passport.FirstName;
-        var lastName = passport.LastName;
-        var middleName = passport.MiddleName;
-        var birthData =  passport.BirthData;
-        var placeReceipt = passport.PlaceReceipt;
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
             db.Open();
@@ -112,28 +98,27 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
                     {
                         _myLogger.Info("Start Transaction");
                         var sqlQuery = @"
-                INSERT INTO Address 
-                VALUES(@country, @city, @street, @houseNumber)
-                INSERT INTO Passport
-                       VALUES(@serial,
-                           @number,
-                           @firstName,
-                           @lastName, 
-                           @middleName, 
-                           @birthData, 
+                INSERT INTO Address(Country, City, Street, HouseNumber)
+                VALUES(@Country, @City, @Street, @HouseNumber)";
+                        db.Execute(sqlQuery, address, transaction);
+                        sqlQuery = @"
+                INSERT INTO Passport(Serial, Number, FirstName, LastName, MiddleName, BirthData, AddressId, PlaceReceipt)
+                       VALUES(@Serial,
+                           @Number,
+                           @FirstName,
+                           @LastName, 
+                           @MiddleName, 
+                           @BirthData, 
                            (SELECT MAX(ID) FROM ADDRESS), 
-                           @placeReceipt)
-                INSERT INTO Administrator
-                    VALUES(@salary,
-                        @criminalRecord,
+                           @PlaceReceipt)";
+                        db.Execute(sqlQuery, passport, transaction);
+                        sqlQuery = @"
+                INSERT INTO Administrator(Salary, CriminalRecord, PassportId, MilitaryId)
+                    VALUES(@Salary,
+                        @CriminalRecord,
                         (SELECT MAX(ID) FROM PASSPORT),
-                        @millitaryIdAvailability + 1
-                        )";
-                        db.Execute(sqlQuery, new
-                        {
-                            country, city, street, houseNumber, serial, number,firstName, lastName, middleName, birthData,placeReceipt, salary,
-                            millitaryIdAvailability, criminalRecord
-                        }, transaction);
+                        @MilitaryIdAvailability + 1)";
+                        db.Execute(sqlQuery, worker, transaction);
                         transaction.Commit();
                         _myLogger.Info("End Transaction");
                         var id = db.QueryFirstOrDefault<int>("SELECT MAX(ID) FROM Administrator");
@@ -149,26 +134,10 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
         }
     }
 
-    public int Update(Tuple<int, Administrator> idAndAdministrator)
+    public int Update(Administrator administrator)
     {
-        int Id = idAndAdministrator.Item1;
-        Administrator worker = idAndAdministrator.Item2;
-        var salary = worker.Salary;
-        var criminalRecord = worker.CriminalRecord;
-        var millitaryIdAvailability = worker.MilitaryIdAvailability;
-        var passport = worker.Passport;
+        var passport = administrator.Passport;
         var address = passport.Address;
-        var city =  address.City;
-        var houseNumber = address.HouseNumber;
-        var country = address.Country;
-        var street = address.Street;
-        var serial = passport.Serial;
-        var number = passport.Number;
-        var firstName = passport.FirstName;
-        var lastName = passport.LastName;
-        var middleName = passport.MiddleName;
-        var birthData =  passport.BirthData;
-        var placeReceipt = passport.PlaceReceipt;
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
             db.Open();
@@ -176,30 +145,31 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
             {
                 try
                 {
-                    _myLogger.Info("Start Transaction");
-                    var sqlQuery = @"UPDATE Address 
-                SET Country = @country,  City = @city, Street = @street, HouseNumber = @houseNumber
-                WHERE ID = (SELECT AddressId FROM PASSPORT WHERE ID = (SELECT PassportId FROM Administrator WHERE ID = @ID))";
-                    db.Execute(sqlQuery, new{country, city, street, houseNumber, ID = Id}, transaction);
-                    sqlQuery = @"UPDATE Passport 
-                SET Serial = @serial, Number = @number,  FirstName = @firstName, LastName = @lastName, MiddleName = @middleName, 
-                    BirthData = @birthData, PlaceReceipt = @placeReceipt
-                WHERE ID = (SELECT PassportId FROM Administrator WHERE ID = @ID)";
-                    db.Execute(sqlQuery, new
-                    {
-                        serial, number, firstName, lastName, middleName,
-                        birthData, placeReceipt, ID = Id
-                    }, transaction);
+                    string sqlQuery = @"SELECT PassportID FROM Administrator WHERE Id = @PersonID";
+                    passport.PassportId = db.Query<int>(sqlQuery, administrator, transaction).First();
+                    sqlQuery = @"SELECT AddressId FROM Passport WHERE Id = @PassportID";
+                    address.AddressId = db.Query<int>(sqlQuery, passport, transaction).First();
+                    sqlQuery = @"UPDATE Address 
+                SET Country = @Country,  City = @City, Street = @Street, HouseNumber = @HouseNumber
+                WHERE ID = @AddressId";
+                    db.Execute(sqlQuery, address , transaction);
+                    sqlQuery = @"
+                    UPDATE PASSPORT 
+                    SET Serial = @Serial, 
+                        Number = @Number,  
+                        FirstName = @FirstName, 
+                        LastName = @LastName, 
+                        MiddleName = @MiddleName, 
+                        BirthData = @BirthData, 
+                        PlaceReceipt = @PlaceReceipt
+                    WHERE ID = @PassportID";
+                    db.Execute(sqlQuery, passport, transaction);
                     sqlQuery = @"UPDATE Administrator
-                    SET Salary = @salary, MilitaryId = @millitaryIdAvailability, CriminalRecord = @criminalRecord
-                    WHERE ID = @ID";
-                    db.Execute(sqlQuery, new
-                    {
-                        salary, millitaryIdAvailability, criminalRecord, ID = Id
-                    }, transaction);
+                    SET Salary = @Salary, MilitaryId = @MilitaryIdAvailability, CriminalRecord = @CriminalRecord
+                    WHERE ID = @PersonId";
+                    db.Execute(sqlQuery, administrator, transaction);
                     transaction.Commit();
-                    _myLogger.Info("End Transaction");
-                    return Id;
+                    return administrator.PersonId;
                 }
                 catch(Exception ex)
                 {

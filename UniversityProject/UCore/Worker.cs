@@ -17,10 +17,6 @@ public abstract class Worker : Person
     // protected DateTime StartWork;
     // protected DateTime EndWork;
 
-    public int Salary
-    {
-        get;
-        set;
-    }
+    public int Salary { get; set; }
 }
 

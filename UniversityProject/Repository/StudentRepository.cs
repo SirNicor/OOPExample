@@ -56,33 +56,33 @@ public class StudentRepository : IStudentRepository
                 {
                     try
                     {
-                        myLogger.Info("Start Transaction");
                         var sqlQuery = @"
-                INSERT INTO Address 
-                VALUES(@address.country, @address.city, @address.street, @address.houseNumber)
-                INSERT INTO Passport
-                       VALUES(@passport.serial,
-                           @passport.number,
-                           @passport.firstName,
-                           @passport.lastName, 
-                           @passport.middleName, 
-                           @passport.birthData, 
+                INSERT INTO Address(Country, City, Street, HouseNumber)
+                VALUES(@Country, @City, @Street, @HouseNumber)";
+                        db.Execute(sqlQuery, address, transaction);
+                        sqlQuery = @"
+                INSERT INTO Passport(Serial, Number, FirstName, LastName, MiddleName, BirthData, AddressId, PlaceReceipt)
+                       VALUES(@Serial,
+                           @Number,
+                           @FirstName,
+                           @LastName, 
+                           @MiddleName, 
+                           @BirthData, 
                            (SELECT MAX(ID) FROM ADDRESS), 
-                           @passport.placeReceipt)
-                INSERT INTO Student
+                           @PlaceReceipt)";
+                        db.Execute(sqlQuery, passport, transaction);
+                        sqlQuery = @"
+                INSERT INTO Student(PassportId, MilitaryId, CriminalRecord, CourseId, SkipHours, CountOfExamsPassed, CreditScores)
                     VALUES((SELECT MAX(ID) FROM PASSPORT),
-                        @student.militaryIdAvailability + 1,
-                        @student.criminalRecord,
-                        @student.course,
-                        @student.skipHours,
-                        @student.countOfExamsPassed, 
-                        @student.creditScores)";
-                        db.Execute(sqlQuery, new
-                        {
-                            address, passport, student
-                        }, transaction);
+                        @MilitaryIdAvailability + 1,
+                        @CriminalRecord,
+                        @Course,
+                        @SkipHours,
+                        @CountOfExamsPassed, 
+                        @CreditScores)";
+                        db.Execute(sqlQuery, student
+                            , transaction);
                         transaction.Commit();
-                        myLogger.Info("End Transaction");
                         var id = db.QueryFirstOrDefault<int>("SELECT MAX(ID) FROM Student");
                         return id;
                     }
@@ -157,34 +157,44 @@ public class StudentRepository : IStudentRepository
     
     public int Update(Student student)
     {
+        Passport passport = student.Passport;
+        Address address = passport.Address;
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
             db.Open();
             using (IDbTransaction transaction = db.BeginTransaction())
             {
                 try
-                {
-                    var sqlQuery = @"UPDATE Address 
-                SET Country = @country,  City = @city, Street = @street, HouseNumber = @houseNumber
-                WHERE ID = (SELECT AddressId FROM PASSPORT WHERE ID = (SELECT PassportId FROM STUDENT WHERE ID = @PersonId))";
-                    db.Execute(sqlQuery, new{student.Passport.Address, student}, transaction);
-                    sqlQuery = @"UPDATE Passport 
-                SET Serial = @serial, Number = @number,  FirstName = @firstName, LastName = @lastName, MiddleName = @middleName, 
-                    BirthData = @birthData, PlaceReceipt = @placeReceipt
-                WHERE ID = (SELECT PassportId FROM STUDENT WHERE ID = @PersonId)";
-                    db.Execute(sqlQuery, new
-                    {
-                        student.Passport, student
-                    }, transaction);
-                    sqlQuery = @"UPDATE STUDENT 
-                SET MilitaryId = @militaryIdAvailability, CriminalRecord = @criminalRecord, CourseId = @course, SkipHours = @skipHours,
-                    CountOfExamsPassed = @countOfExamsPassed, CreditScores = @creditScores
-                WHERE ID = @PersonId";
-                    db.Execute(sqlQuery, new
-                    {
-                         student
-                    }, transaction);
-                    myLogger.Info("Transaction complete");
+                { 
+                    string sqlQuery = @"SELECT PassportID FROM Student WHERE Id = @PersonID";
+                    passport.PassportId = db.Query<int>(sqlQuery, student, transaction).First();
+                    sqlQuery = @"SELECT AddressId FROM Passport WHERE Id = @PassportID";
+                    address.AddressId = db.Query<int>(sqlQuery, passport, transaction).First();
+                    sqlQuery = @"UPDATE Address 
+                SET Country = @Country,  City = @City, Street = @Street, HouseNumber = @HouseNumber
+                WHERE ID = @AddressId";
+                    db.Execute(sqlQuery, address, transaction);
+                    sqlQuery = @"
+                    UPDATE PASSPORT 
+                    SET Serial = @Serial, 
+                        Number = @Number,  
+                        FirstName = @FirstName, 
+                        LastName = @LastName, 
+                        MiddleName = @MiddleName, 
+                        BirthData = @BirthData, 
+                        PlaceReceipt = @PlaceReceipt
+                    WHERE ID = @PassportID";
+                    db.Execute(sqlQuery, passport, transaction);
+                    sqlQuery = @"
+                    UPDATE STUDENT 
+                    SET MilitaryId = @MilitaryIdAvailability + 1, 
+                        CriminalRecord = @CriminalRecord, 
+                        CourseId = @Course, 
+                        SkipHours = @SkipHours,
+                        CountOfExamsPassed = @CountOfExamsPassed, 
+                        CreditScores = @CreditScores
+                    WHERE ID = @PersonId";
+                    db.Execute(sqlQuery, student, transaction);
                     transaction.Commit();
                     return student.PersonId;
                 }
