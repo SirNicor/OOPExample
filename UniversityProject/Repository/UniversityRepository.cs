@@ -6,6 +6,21 @@ using System.Data;
 using System.Data.SqlClient;
 public class UniversityRepository : IUniversityRepository
 {
+    private const string SqlSelectUniversityQuery = @"SELECT un.ID as universityId, un.NameUniversity, un.Budget, ad.Id as AdministratorId, ad.Salary, ad.CriminalRecord,
+ad.MilitaryID, ad.PassportID, p.Serial, p.Number, p.FirstName, p.LastName,
+p.MiddleName, p.BirthData, p.AddressId, a.Country, a.City, a.Street, a.HouseNumber FROM University un
+JOIN Administrator ad ON ad.Id = un.Rector
+INNER JOIN Passport p ON ad.PassportId = p.ID
+INNER JOIN Address a ON p.AddressId = a.ID
+INNER JOIN IdMilitary im ON ad.MilitaryId = im.ID ";
+    private const string SqlSelectPersonalOfAdministratorQuery = @"SELECT ad.Id as AdministratorId, ad.Salary, ad.CriminalRecord,
+ad.MilitaryID, ad.PassportID, p.Serial, p.Number, p.FirstName, p.LastName,
+p.MiddleName, p.BirthData, p.AddressId, a.Country, a.City, a.Street, a.HouseNumber FROM PersonalOfUniversity PU
+JOIN Administrator ad ON ad.Id = PU.IdAdministrator
+INNER JOIN Passport p ON ad.PassportId = p.ID
+INNER JOIN Address a ON p.AddressId = a.ID
+INNER JOIN IdMilitary im ON ad.MilitaryId = im.ID ";
+    
     private const string SqlSelectIdUniversityQuery = @"Select 
     un.Id AS ID
     FROM University un";
@@ -20,10 +35,7 @@ public class UniversityRepository : IUniversityRepository
     private const string SqlSelectRectorUniversityQuery = @"Select 
     un.Rector
     FROM University un";
-    private const string SqsSelectPersonalOfAdministratorQuery = @"SELECT 
-    IdUniversity,
-    IdAdministrator
-FROM PersonalOfUniversity";
+    
     private const string SqsSelectPersonalOfAdministratorQuery1 = @"
 SELECT 
     IdAdministrator
@@ -39,19 +51,23 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
-            List<Administrator> administrators = new List<Administrator>();
-            var idadministrator = db.Query<int>(SqsSelectPersonalOfAdministratorQuery1, new { ID }).ToList();
-            foreach (int id in idadministrator)
-            {
-                administrators.Add(_workerAdministratorRepository.Get(id));
-            }
-            string nameUniversity = db.Query<string>(SqlSelectNameUniversityQuery + " Where ID = @ID", new { ID }).FirstOrDefault();
-            int  budgetSize = db.Query<int>(SqlSelectBudgetUniversityQuery + " Where ID = @ID", new { ID }).FirstOrDefault();
-            int idRector = db.Query<int>(SqlSelectRectorUniversityQuery + " Where ID = @ID", new { ID }).FirstOrDefault();
-            University university = new University();
-            university.NameUniversity = nameUniversity;
-            university.BudgetSize = budgetSize;
-            university.Rector = _workerAdministratorRepository.Get(idRector);
+            List<Administrator> administrators = db.Query<Administrator, Passport, Address, Administrator>(
+                SqlSelectPersonalOfAdministratorQuery + @"WHERE IdUniversity = @ID", 
+                (administrator, passport, address) =>
+                {
+                    passport.Address = address;
+                    administrator.Passport = passport;
+                    return administrator;
+                },
+                new { ID }, splitOn: "PassportId, AddressId").ToList();
+            University university = db.Query<University, Administrator, Passport, Address, University>(SqlSelectUniversityQuery + @"WHERE un.ID = @ID",
+                (university, administrator, passport, address) =>
+                {
+                    passport.Address = address;
+                    administrator.Passport = passport;
+                    university.Rector = administrator;
+                    return university;
+                }, new { ID }, splitOn: "AdministratorId, PassportId, AddressId").First();
             university.Administrators = administrators;
             return university;
         }
@@ -61,23 +77,28 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
-            int count = db.Query(SqlSelectIdUniversityQuery).ToList().Count;
+            List<int> idUniversity = db.Query<int>(SqlSelectIdUniversityQuery).ToList();
             List<University> universities = new List<University>();
-            for (int idUniversity = 1; idUniversity < count+1; idUniversity++)
+            foreach(int id in idUniversity)
             {
-                List<Administrator> administrators = new List<Administrator>();
-                var Idadministrator = db.Query<int>(SqsSelectPersonalOfAdministratorQuery1, new { ID = idUniversity }).ToList();
-                foreach (int i in Idadministrator)
-                {
-                    administrators.Add(_workerAdministratorRepository.Get(i));
-                }
-                string nameUniversity = db.Query<string>(SqlSelectNameUniversityQuery + " Where ID = @ID", new { ID = idUniversity }).FirstOrDefault();
-                int  budgetSize = db.Query<int>(SqlSelectBudgetUniversityQuery + " Where ID = @ID", new { ID = idUniversity }).FirstOrDefault();
-                int idRector = db.Query<int>(SqlSelectRectorUniversityQuery + " Where ID = @ID", new { ID = idUniversity }).FirstOrDefault();
-                University university = new University();
-                university.NameUniversity = nameUniversity;
-                university.BudgetSize = budgetSize;
-                university.Rector = _workerAdministratorRepository.Get(idRector);
+                List<Administrator> administrators = db.Query<Administrator, Passport, Address, Administrator>(
+                    SqlSelectPersonalOfAdministratorQuery + @"WHERE IdUniversity = @id", 
+                    (administrator, passport, address) =>
+                    {
+                        passport.Address = address;
+                        administrator.Passport = passport;
+                        return administrator;
+                    },
+                    new { id }, splitOn: "PassportId, AddressId").ToList();
+                University university = db.Query<University, Administrator, Passport, Address, University>(
+                    SqlSelectUniversityQuery + @"WHERE un.ID = @id",
+                    (university, administrator, passport, address) =>
+                    {
+                        passport.Address = address;
+                        administrator.Passport = passport;
+                        university.Rector = administrator;
+                        return university;
+                    }, new { id }, splitOn: "AdministratorId, PassportId, AddressId").First();
                 university.Administrators = administrators;
                 universities.Add(university);
             }
@@ -86,10 +107,6 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
     }
     public int Create(UniversityDto university)
     {
-        List<int> idAdministrators = university.IdAdministrators;
-        var budget = university.BudgetSize;
-        var nameUniversity = university.NameUniversity;
-        int rector = university.IdRector;
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
             db.Open();
@@ -98,16 +115,18 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
                 string SqlQuery;
                 try
                 {
-                    SqlQuery = @"INSERT INTO UNIVERSITY VALUES(@nameUniversity, @IdRector, @budget) SELECT MAX(ID) FROM UNIVERSITY";
-                    int idUniversity = db.QuerySingle<int>(SqlQuery, new { nameUniversity, IdRector = rector, budget }, transaction);
-                    SqlQuery = @"INSERT INTO PersonalOfUniversity VALUES(@IDUniversity, @IDADMINISTRATOR)";
-                    db.Execute(SqlQuery,  idAdministrators , transaction);
-                    for (int i = 0; i < idAdministrators.Count; i++)
+                    SqlQuery = @"INSERT INTO UNIVERSITY(NameUniversity, Rector, Budget) VALUES(@NameUniversity, @IdRector, @BudgetSize);
+                    SELECT SCOPE_IDENTITY();";
+                    university.IdUniversity = db.QuerySingle<int>(SqlQuery, university, transaction);
+                    var admin = university.IdAdministrators.Select(adminId => new
                     {
-                        
-                    }
+                        IdUniversity = university.IdUniversity,
+                        IdAdministrators = adminId
+                    }).ToList();
+                    SqlQuery = @"INSERT INTO PersonalOfUniversity(IdUniversity, IdAdministrator) VALUES(@IdUniversity, @IdAdministrators)";
+                    db.Execute(SqlQuery,  admin , transaction);
                     transaction.Commit();
-                    return idUniversity;
+                    return university.IdUniversity;
                 }
                 catch (Exception ex)
                 {
@@ -120,14 +139,9 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
         }
     }
 
-    public int Update(Tuple<int, UniversityDto> idAndUniversity)
+    public int Update(UniversityDto university)
     {
-        int id = idAndUniversity.Item1;
-        UniversityDto university = idAndUniversity.Item2;
         List<int> idAdministrators = university.IdAdministrators;
-        var budget = university.BudgetSize;
-        var nameUniversity = university.NameUniversity;
-        int rector = university.IdRector;
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
             db.Open();
@@ -136,16 +150,20 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
                 string SqlQuery;
                 try
                 {
-                    SqlQuery = @"UPDATE UNIVERSITY SET NameUniversity = @nameUniversity, Rector = @rector, Budget = @budget WHERE ID = @id";
-                    db.Execute(SqlQuery, new { nameUniversity, rector, budget, id }, transaction);
-                    SqlQuery = @"UPDATE PersonalOfUniversity SET IDADMINISTRATOR = @IDADMINISTRATOR WHERE IDUniversity = @id";
-                    for (int i = 0; i < idAdministrators.Count; i++)
+                    SqlQuery = @"UPDATE UNIVERSITY SET NameUniversity = @NameUniversity, Rector = @IdRector, Budget = @NameUniversity WHERE ID = @IdUniversity";
+                    db.Execute(SqlQuery, university, transaction);
+                    SqlQuery = @"DELETE FROM PersonalOfUniversity WHERE IdUniversity = @IdUniversity";
+                    db.Execute(SqlQuery, university, transaction);
+                    var admin = university.IdAdministrators.Select(adminId => new
                     {
-                        db.Execute(SqlQuery, new { IDADMINISTRATOR = idAdministrators[i], id }, transaction);
-                    }
+                        IdUniversity = university.IdUniversity,
+                        IdAdministrators = adminId
+                    }).ToList();
+                    SqlQuery = @"INSERT INTO PersonalOfUniversity(IdUniversity, IdAdministrator) VALUES(@IdUniversity, @IdAdministrators)";
+                    db.Execute(SqlQuery,  admin , transaction);
                     transaction.Commit();
                     _myLogger.Info("Successfully updated universities");
-                    return id;
+                    return university.IdUniversity;
                 }
                 catch (Exception ex)
                 {
@@ -161,16 +179,13 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
             db.Open();
-            List<int> IdAdministrator =  db.Query<int>(SqsSelectPersonalOfAdministratorQuery + " WHERE IDUniversity = @ID", new { ID }).ToList();
+            List<int> IdAdministrator =  db.Query<int>(SqlSelectPersonalOfAdministratorQuery + " WHERE IDUniversity = @ID", new { ID }).ToList();
             using (IDbTransaction transaction = db.BeginTransaction())
             {
                 try
                 {
                     string SqlQuery = @"DELETE FROM PersonalOfUniversity WHERE IDUniversity = @ID";
-                    for (int i = 0; i < IdAdministrator.Count; i++)
-                    {
-                        db.Execute(SqlQuery, new { ID = IdAdministrator[i]}, transaction);
-                    }
+                    db.Execute(SqlQuery, new { ID }, transaction);
                     SqlQuery = @"DELETE FROM University WHERE ID = @ID";
                     db.Execute(SqlQuery, new { ID },  transaction);
                     transaction.Commit();
@@ -181,7 +196,7 @@ FROM PersonalOfUniversity WHERE IdUniversity = @ID";
                     _myLogger.Error("An error occured during transaction" + ex.Message);
                     transaction.Rollback();
                 }
-            }
+            }   
         }
     }
     

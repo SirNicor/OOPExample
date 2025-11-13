@@ -23,8 +23,8 @@ static public class UniversityRequest
             var request = context.Request;
             var service =  context.RequestServices.GetService<IUniversityRepository>();
             UniversityDto university = await request.ReadFromJsonAsync<UniversityDto>();
-            Tuple<int, UniversityDto> idAndUniversity = new Tuple<int, UniversityDto>(id,  university);
-            int ID = service.Update(idAndUniversity);
+            university.IdUniversity = id;
+            int ID = service.Update(university);
             await context.Response.WriteAsJsonAsync(ID);
         });
         app.MapPost("/University", async context =>
