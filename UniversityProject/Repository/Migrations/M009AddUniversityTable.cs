@@ -1,4 +1,5 @@
-﻿using FluentMigrator;
+﻿using System.Data;
+using FluentMigrator;
 
 namespace Repository.Migrations;
 
@@ -13,7 +14,7 @@ public class M009AddUniversityTable : AutoReversingMigration
             .WithColumn("Rector").AsInt64().NotNullable().ForeignKey("Administrator", "Id")
             .WithColumn("Budget").AsString().NotNullable();
         Create.Table("PersonalOfUniversity")
-            .WithColumn("IdUniversity").AsInt64().ForeignKey("University", "Id")
+            .WithColumn("IdUniversity").AsInt64().ForeignKey("University", "Id").OnDelete(Rule.Cascade)
             .WithColumn("IdAdministrator").AsInt64().ForeignKey("Administrator", "Id");
         Create.PrimaryKey("PK_PersonalOfUniversity").OnTable("PersonalOfUniversity").Columns("IdUniversity", "IdAdministrator");
         Insert.IntoTable("University")
