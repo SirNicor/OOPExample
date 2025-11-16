@@ -27,6 +27,7 @@ try
     app.AddAdministratorRequest(app.Services.GetService<MyLogger>());
     app.AddUniversityRequest(app.Services.GetService<MyLogger>());
     app.AddFacultyRequest(app.Services.GetService<MyLogger>());
+    app.AddDepartmentRequest(app.Services.GetService<MyLogger>());
     app.MapGet("/", async (HttpContext context) =>
     {
         context.Response.Headers.ContentLanguage = "ru-RU";

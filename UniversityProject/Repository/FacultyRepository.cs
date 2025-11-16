@@ -20,15 +20,10 @@ JOIN University un ON un.Id = fc.IdUniversity ";
         INNER JOIN IdMilitary im ON ad.MilitaryId = im.ID ";
     private MyLogger _myLogger;
     private string _connectionString;
-    private IUniversityRepository _universityRepository;
-    private IWorkerAdministratorRepository _administratorRepository;
-    public FacultyRepository(IGetConnectionString getConnectionString, MyLogger logger, IUniversityRepository universityRepository, 
-        IWorkerAdministratorRepository administrationRepository)
+    public FacultyRepository(IGetConnectionString getConnectionString, MyLogger logger)
     {
         _connectionString =  getConnectionString.ReturnConnectionString();
         _myLogger = logger;
-        _universityRepository = universityRepository;
-        _administratorRepository =  administrationRepository;
     }
 
     public long Create(FacultyDto faculty)

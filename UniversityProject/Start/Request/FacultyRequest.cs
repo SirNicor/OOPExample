@@ -19,7 +19,7 @@ static public class FacultyRequest
             var faculties = service.ReturnList();            
             await context.Response.WriteAsJsonAsync(faculties);
         });
-        app.MapPut("/Faculty/{id}", async (int id, HttpContext context) =>
+        app.MapPut("/Faculty/{id}", async (long id, HttpContext context) =>
         {
             var request = context.Request;
             var service =  context.RequestServices.GetService<IFacultyRepository>();

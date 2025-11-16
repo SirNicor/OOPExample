@@ -8,7 +8,7 @@ public class DirectionRepository : IDirectionRepository
     {
         _departmentRepository = departmentRepository;
         _studentRepository = studentRepository;
-        Direction direction = new Direction(_departmentRepository.ReturnList(myLogger)[0], "Direction1", 
+        Direction direction = new Direction(_departmentRepository.ReturnList()[0], "Direction1", 
             DegreesStudy.bachelor, _studentRepository.ReturnList().GetRange(0, 5));
         _directions.Add(direction);
     }
