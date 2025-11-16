@@ -15,7 +15,7 @@ public class Address
     {
         myLogger.Info($"Id: {AddressId}, FullAddress: " + Country + " " + City + " " + Street + " " + HouseNumber);
     }
-    public int AddressId { get; set; }
+    public long AddressId { get; set; }
     public string Country { get; set; }
     public string City { get; set; }
     public string Street { get; set; }

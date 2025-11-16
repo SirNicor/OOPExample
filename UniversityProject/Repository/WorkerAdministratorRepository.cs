@@ -67,7 +67,7 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
         }
     }
 
-    public Administrator Get(int ID)
+    public Administrator Get(long ID)
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
@@ -85,7 +85,7 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
         }
     }   
     
-    public int Create(Administrator worker)
+    public long Create(Administrator worker)
     {
         var passport = worker.Passport;
         var address = passport.Address;
@@ -134,7 +134,7 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
         }
     }
 
-    public int Update(Administrator administrator)
+    public long Update(Administrator administrator)
     {
         var passport = administrator.Passport;
         var address = passport.Address;
@@ -180,7 +180,7 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
             }
         }
     }
-    public void Delete(int ID)
+    public void Delete(long ID)
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {

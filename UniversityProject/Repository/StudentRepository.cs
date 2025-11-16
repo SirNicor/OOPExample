@@ -45,7 +45,7 @@ public class StudentRepository : IStudentRepository
         myLogger = logger;
     }
 
-    public int Create(Student student)
+    public long Create(Student student)
     {
         Passport passport = student.Passport;
         Address address = passport.Address;
@@ -135,7 +135,7 @@ public class StudentRepository : IStudentRepository
         }
     }   
     
-    public Student Get(int id)
+    public Student Get(long id)
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
@@ -155,7 +155,7 @@ public class StudentRepository : IStudentRepository
         }
     }
     
-    public int Update(Student student)
+    public long Update(Student student)
     {
         Passport passport = student.Passport;
         Address address = passport.Address;
@@ -208,7 +208,7 @@ public class StudentRepository : IStudentRepository
         }
     }
 
-    public void Delete(int ID)
+    public void Delete(long ID)
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
@@ -217,7 +217,7 @@ public class StudentRepository : IStudentRepository
         }
     }
     
-    public void DeleteAddress(int ID)
+    public void DeleteAddress(long ID)
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
@@ -226,7 +226,7 @@ public class StudentRepository : IStudentRepository
         }
     }
     
-    public void DeletePassport(int ID)
+    public void DeletePassport(long ID)
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {

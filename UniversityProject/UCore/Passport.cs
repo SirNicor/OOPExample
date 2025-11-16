@@ -34,7 +34,7 @@ public class Passport
         myLogger.Info(message);
         Address.Print(myLogger);
     }
-    public int PassportId { get; set; }
+    public long PassportId { get; set; }
     public int Serial { get; set; }
     public int Number { get; set; }
     public string FirstName { get; set; }

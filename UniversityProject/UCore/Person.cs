@@ -23,7 +23,7 @@ public abstract class Person
     public abstract void PrintDerivedClass(MyLogger myLogger);
     
     protected Person(){}
-    public int PersonId { get; set; }
+    public long PersonId { get; set; }
     public Passport Passport { get; set; }
     public IdMillitary MilitaryIdAvailability { get; set; }
     public bool CriminalRecord { get; set; }

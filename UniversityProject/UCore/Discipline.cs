@@ -7,7 +7,7 @@ public class Discipline
         NameDiscipline = name;
         _directions = directions;
     }
-    public int DisciplineId { get; set; }
+    public long DisciplineId { get; set; }
     public readonly string NameDiscipline;
     private readonly List<Direction>  _directions = new List<Direction>();
     public List<Direction> Directions{get{return _directions;}}

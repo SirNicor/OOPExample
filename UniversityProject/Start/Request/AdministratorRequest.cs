@@ -25,10 +25,10 @@ static class AdministratorRequest
             var request = context.Request;
             var service =  context.RequestServices.GetService<IWorkerAdministratorRepository>();
             Administrator administrator = await request.ReadFromJsonAsync<Administrator>();
-            int id = service.Create(administrator);
+            var id = service.Create(administrator);
             await context.Response.WriteAsJsonAsync(id);
         });
-        app.MapPut("/Administrator/{id}", async (int id, HttpContext context) =>
+        app.MapPut("/Administrator/{id}", async (long id, HttpContext context) =>
         {
             var request = context.Request;
             var service =  context.RequestServices.GetService<IWorkerAdministratorRepository>();
@@ -37,7 +37,7 @@ static class AdministratorRequest
             id = service.Update(administrator);
             await context.Response.WriteAsJsonAsync(id);
         });
-        app.MapDelete("/Administrator/{id}", async (int id, HttpContext context) =>
+        app.MapDelete("/Administrator/{id}", async (long id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IWorkerAdministratorRepository>();
             service.Delete(id);

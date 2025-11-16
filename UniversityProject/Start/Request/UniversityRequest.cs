@@ -24,7 +24,7 @@ static public class UniversityRequest
             var service =  context.RequestServices.GetService<IUniversityRepository>();
             UniversityDto university = await request.ReadFromJsonAsync<UniversityDto>();
             university.IdUniversity = id;
-            int ID = service.Update(university);
+            var ID = service.Update(university);
             await context.Response.WriteAsJsonAsync(ID);
         });
         app.MapPost("/University", async context =>
@@ -32,10 +32,10 @@ static public class UniversityRequest
             var request = context.Request;
             var service =  context.RequestServices.GetService<IUniversityRepository>();
             UniversityDto university = await request.ReadFromJsonAsync<UniversityDto>();
-            int ID = service.Create(university);
+            var ID = service.Create(university);
             await context.Response.WriteAsJsonAsync(ID);
         });
-        app.MapDelete("/University/{id}", async (int id, HttpContext context) =>
+        app.MapDelete("/University/{id}", async (long id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IUniversityRepository>();
             service.Delete(id);

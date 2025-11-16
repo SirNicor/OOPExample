@@ -11,7 +11,7 @@ public class Faculty
         DeputyDean = deputyDean;
     }
     public string ReturnNameFaculty { get; }
-    public int FacultyId { get; set; }
+    public long FacultyId { get; set; }
     public readonly University University;
     public readonly string NameFaculty;  
     protected Administrator Dean;

@@ -5,9 +5,9 @@ using Logger;
 public interface IWorkerAdministratorRepository
 {
     public void PrintAll();
-    public int Create(Administrator administrator);
+    public long Create(Administrator administrator);
     public List<Administrator> ReturnListAdministrator();
-    Administrator Get(int ID);
-    public void Delete(int ID);
-    public int Update(Administrator idAndAdministrator);
+    Administrator Get(long ID);
+    public void Delete(long ID);
+    public long Update(Administrator idAndAdministrator);
 }

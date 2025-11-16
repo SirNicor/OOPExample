@@ -7,10 +7,10 @@ public interface IStudentRepository
 {
     public void PrintAll();
     public List<Student> ReturnList();
-    int Create(Student student);
-    int Update(Student student);
-    void Delete(int ID);
-    void DeleteAddress(int ID);
-    void DeletePassport(int ID);
-    Student Get(int ID);
+    long Create(Student student);
+    long Update(Student student);
+    void Delete(long ID);
+    void DeleteAddress(long ID);
+    void DeletePassport(long ID);
+    Student Get(long ID);
 }

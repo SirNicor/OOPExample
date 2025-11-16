@@ -31,7 +31,7 @@ INNER JOIN IdMilitary im ON ad.MilitaryId = im.ID ";
         _workerAdministratorRepository = workerAdministratorRepository;
     }
 
-    public University Get(int ID)
+    public University Get(long ID)
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
@@ -88,34 +88,10 @@ INNER JOIN IdMilitary im ON ad.MilitaryId = im.ID ";
             {
                 university.Administrators = personalOfUniversity.GetValueOrDefault(university.UniversityId);
             }
-            /*List<University> universities = new List<University>();
-            foreach(int id in idUniversity)
-            {
-                List<Administrator> administrators = db.Query<Administrator, Passport, Address, Administrator>(
-                    SqlSelectPersonalOfAdministratorQuery + @"WHERE IdUniversity = @id", 
-                    (administrator, passport, address) =>
-                    {
-                        passport.Address = address;
-                        administrator.Passport = passport;
-                        return administrator;
-                    },
-                    new { id }, splitOn: "PassportId, AddressId").ToList();
-                University university = db.Query<University, Administrator, Passport, Address, University>(
-                    SqlSelectUniversityQuery + @"WHERE un.ID = @id",
-                    (university, administrator, passport, address) =>
-                    {
-                        passport.Address = address;
-                        administrator.Passport = passport;
-                        university.Rector = administrator;
-                        return university;
-                    }, new { id }, splitOn: "AdministratorId, PassportId, AddressId").First();
-                university.Administrators = administrators;
-                universities.Add(university);
-            }*/
             return universities;
         }
     }
-    public int Create(UniversityDto university)
+    public long Create(UniversityDto university)
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
@@ -149,7 +125,7 @@ INNER JOIN IdMilitary im ON ad.MilitaryId = im.ID ";
         }
     }
 
-    public int Update(UniversityDto university)
+    public long Update(UniversityDto university)
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
@@ -183,7 +159,7 @@ INNER JOIN IdMilitary im ON ad.MilitaryId = im.ID ";
             }
         }
     }
-    public void Delete(int ID)
+    public void Delete(long ID)
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {

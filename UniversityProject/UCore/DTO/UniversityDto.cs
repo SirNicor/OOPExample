@@ -2,9 +2,9 @@
 
 public class UniversityDto
 {
-    public int IdUniversity { get; set; }
+    public long IdUniversity { get; set; }
     public string NameUniversity { get; set; }
-    public int IdRector { get; set; }
-    public List<int> IdAdministrators { get; set; }
-    public int BudgetSize { get; set; }
+    public long IdRector { get; set; }
+    public List<long> IdAdministrators { get; set; }
+    public long BudgetSize { get; set; }
 }

@@ -13,7 +13,7 @@ public class University
      public University()
      {
      }
-     public int UniversityId { get; set; }
+     public long UniversityId { get; set; }
      public string NameUniversity { get; set; }
      public Administrator Rector { get; set; }
      public List<Administrator> Administrators { get; set; }
