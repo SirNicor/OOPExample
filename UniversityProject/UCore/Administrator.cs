@@ -23,4 +23,6 @@ public class Administrator : Worker
     {
         throw new NotImplementedException();
     }
+    
+    public string Post { get; set; }
 }

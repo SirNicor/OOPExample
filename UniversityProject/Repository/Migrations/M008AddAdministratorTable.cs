@@ -13,7 +13,8 @@ public class M008AddAdministratorTable : AutoReversingMigration
             .WithColumn("Salary").AsInt64().NotNullable()
             .WithColumn("CriminalRecord").AsBoolean()
             .WithColumn("PassportID").AsInt64().NotNullable().ForeignKey("Passport", "Id")
-            .WithColumn("MilitaryID").AsInt64().NotNullable().ForeignKey("IdMilitary", "Id");
+            .WithColumn("MilitaryID").AsInt64().NotNullable().ForeignKey("IdMilitary", "Id")
+            .WithColumn("Post").AsString().NotNullable();
         for(int i = 0; i<10; ++i)
         {
             Insert.IntoTable("Passport")
@@ -36,7 +37,7 @@ public class M008AddAdministratorTable : AutoReversingMigration
         for (int i = 0; i < 15; i++)
         {
             Insert.IntoTable("Administrator")
-                .Row(new { Salary = random.Next(50000, 100000).ToString(), PassportId = 11+i, MilitaryId = 1, CriminalRecord = false});
+                .Row(new { Salary = random.Next(50000, 100000).ToString(), PassportId = 11+i, MilitaryId = 1, CriminalRecord = false, Post = "1"});
         }
     }
 }

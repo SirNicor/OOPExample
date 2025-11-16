@@ -1,4 +1,5 @@
-﻿using FluentMigrator;
+﻿using System.Data;
+using FluentMigrator;
 
 namespace Repository.Migrations;
 using Migrations;
@@ -12,7 +13,7 @@ public class M013AddDisciplineTable : AutoReversingMigration
             .WithColumn("Id").AsInt64().Identity().PrimaryKey()
             .WithColumn("NameDiscipline").AsString(100).NotNullable();
         Create.Table("DirectionsOfDiscipline")
-            .WithColumn("IdDiscipline").AsInt64().ForeignKey("Discipline", "Id")
+            .WithColumn("IdDiscipline").AsInt64().ForeignKey("Discipline", "Id").OnDelete(Rule.Cascade)
             .WithColumn("IdDirection").AsInt64().ForeignKey("Direction", "Id");
         Create.PrimaryKey("PK_DirectionsOfDiscipline").OnTable("DirectionsOfDiscipline").Columns("IdDiscipline", "IdDirection");
         for (int i = 0; i < 10; i++)

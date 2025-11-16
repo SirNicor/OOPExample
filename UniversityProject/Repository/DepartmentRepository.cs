@@ -15,7 +15,7 @@ public class DepartmentRepository: IDepartmentRepository
                 _workerRep.Add((Administrator)worker);
             }
         } 
-        _departments.Add(new Department("IIST", _workerRep[5],  _workerRep.GetRange(6, 1), _facultyRepository.ReturnList(myLogger)[0]));
+        _departments.Add(new Department("IIST", _workerRep.GetRange(6, 1), _facultyRepository.ReturnList()[0]));
     }
     
     public void Add(Department department, MyLogger myLogger)

@@ -1,9 +1,9 @@
 ﻿namespace UCore;
 
-public class UniversityDto
+public class FacultyDto
 {
+    public long IdFaculty { get; set; }
     public long IdUniversity { get; set; }
-    public string NameUniversity { get; set; }
+    public string NameFaculty { get; set; }
     public List<long> IdAdministrators { get; set; }
-    public long BudgetSize { get; set; }
 }

@@ -113,11 +113,12 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
                            @PlaceReceipt)";
                         db.Execute(sqlQuery, passport, transaction);
                         sqlQuery = @"
-                INSERT INTO Administrator(Salary, CriminalRecord, PassportId, MilitaryId)
+                INSERT INTO Administrator(Salary, CriminalRecord, PassportId, MilitaryId, Post)
                     VALUES(@Salary,
                         @CriminalRecord,
                         (SELECT MAX(ID) FROM PASSPORT),
-                        @MilitaryIdAvailability + 1)";
+                        @MilitaryIdAvailability + 1)
+                        @Post";
                         db.Execute(sqlQuery, worker, transaction);
                         transaction.Commit();
                         _myLogger.Info("End Transaction");

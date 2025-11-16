@@ -2,19 +2,19 @@
 
 public class Faculty
 {
-    public Faculty(string nameFaculty, Administrator dean, Administrator deputyDean, List<Administrator> administrationOfDeanOffice,University university) 
+    public Faculty(string nameFaculty, List<Administrator> administrationOfFaculty,University university) 
     {
         University = university;
         NameFaculty = nameFaculty;
-        Dean = dean;
-        AdministrationOfDeanOffice = administrationOfDeanOffice;
-        DeputyDean = deputyDean;
+        AdministrationOfFaculty = administrationOfFaculty;
     }
-    public string ReturnNameFaculty { get; }
+
+    public Faculty()
+    {
+        
+    }
     public long FacultyId { get; set; }
-    public readonly University University;
-    public readonly string NameFaculty;  
-    protected Administrator Dean;
-    protected Administrator DeputyDean;
-    protected List<Administrator> AdministrationOfDeanOffice;
+    public University University { get; set; }
+    public string NameFaculty { get; set; }
+    public List<Administrator> AdministrationOfFaculty { get; set; }
 }

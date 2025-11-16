@@ -1,4 +1,5 @@
-﻿using FluentMigrator;
+﻿using System.Data;
+using FluentMigrator;
 
 namespace Repository.Migrations;
 using Migrations;
@@ -15,7 +16,7 @@ public class M014AddTeacherWorkTable : AutoReversingMigration
             .WithColumn("PassportID").AsInt64().NotNullable().ForeignKey("Passport", "Id")
             .WithColumn("MilitaryID").AsInt64().NotNullable().ForeignKey("IdMilitary", "Id");
         Create.Table("DisciplineOfTeacher")
-            .WithColumn("IdTeacher").AsInt64().NotNullable().ForeignKey("Teacher", "Id")
+            .WithColumn("IdTeacher").AsInt64().NotNullable().ForeignKey("Teacher", "Id").OnDelete(Rule.Cascade)
             .WithColumn("IdDiscipline").AsInt64().NotNullable().ForeignKey("Discipline", "Id");    
         Create.PrimaryKey("PK_DisciplineOfTeacher").OnTable("DisciplineOfTeacher").Columns("IdTeacher", "IdDiscipline");
         for(int i = 0; i<5; ++i)

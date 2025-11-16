@@ -1,4 +1,5 @@
-﻿using System.Runtime.Intrinsics.X86;
+﻿using System.Data;
+using System.Runtime.Intrinsics.X86;
 using FluentMigrator;
 
 namespace Repository.Migrations;
@@ -13,13 +14,14 @@ public class M012AddDirectionTable : AutoReversingMigration
             .WithColumn("Id").AsInt64().Identity().PrimaryKey()
             .WithColumn("IdDepartment").AsInt64().NotNullable().ForeignKey("University", "Id")
             .WithColumn("IdDegreesStudy").AsInt64().NotNullable().ForeignKey("DegreesStudy", "Id")
-            .WithColumn("NameDirection").AsString(100).NotNullable();
+            .WithColumn("NameDirection").AsString(100).NotNullable()
+            .WithColumn("IdChat").AsString(100);
         Create.Table("StudentOfDirection")
-            .WithColumn("IdDirection").AsInt64().ForeignKey("Direction", "Id")
+            .WithColumn("IdDirection").AsInt64().ForeignKey("Direction", "Id").OnDelete(Rule.Cascade)
             .WithColumn("IdStudent").AsInt64().ForeignKey("Student", "Id");
         Create.PrimaryKey("PK_StudentOfDirection").OnTable("StudentOfDirection").Columns("IdDirection", "IdStudent");
         Insert.IntoTable("Direction")
-            .Row(new {IdDepartment = 1, IdDegreesStudy = 1, NameDirection = "Direction1"});
+            .Row(new {IdDepartment = 1, IdDegreesStudy = 1, NameDirection = "Direction1", IdChat = ""});
         for(int i = 1; i<11; i++)
         {
             Insert.IntoTable("StudentOfDirection")

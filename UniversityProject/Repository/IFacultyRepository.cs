@@ -4,6 +4,9 @@ using Logger;
 
 public interface IFacultyRepository
 {
-    public void Add(Faculty faculty, MyLogger myLogger);
-    public List<Faculty> ReturnList(MyLogger myLogger);
+    public long Create(FacultyDto facutly);
+    public Faculty Get(long Id);
+    public List<Faculty> ReturnList();
+    public void Delete(long ID);
+    public long Update(FacultyDto faculty);
 }
