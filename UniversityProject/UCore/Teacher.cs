@@ -3,13 +3,6 @@ using Logger;
 using System.Linq;
 public class Teacher:Worker
 {
-    public Teacher(int salary, 
-        Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord) 
-        : base(salary,  passport, militaryIdAvailability, criminalRecord)
-    {
-        
-    }
-
     public Teacher()
     {
         

@@ -105,7 +105,6 @@ INNER JOIN IdMilitary im ON ad.MilitaryId = im.ID";
                     throw;
                 }
             }
-            
         }
     }
 

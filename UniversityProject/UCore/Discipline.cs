@@ -6,8 +6,13 @@ public class Discipline
     {
         NameDiscipline = name;
     }
+
+    public Discipline()
+    {
+        
+    }
     public long DisciplineId { get; set; }
-    public readonly string NameDiscipline;
-    public List<Teacher> Teachers { get; set; } = new List<Teacher>();
+    public string NameDiscipline{ get; set; }
+    public List<Teacher> Teachers { get; set; }
     //private FileInfo ProgrammDiscipline
 }
