@@ -6,11 +6,9 @@ public class DisciplineRepository : IDisciplineRepository
 {
     public DisciplineRepository(MyLogger myLogger,IDirectionRepository directionRepository)
     {
-        _directions = directionRepository;
-        List<Direction> directions = _directions.ReturnList(myLogger);
         for (int i = 0; i < 12; i++)
         {
-            Discipline discipline = new Discipline($"Discipline{i}", directions);
+            Discipline discipline = new Discipline($"Discipline{i}");
             _disciplines.Add(discipline);
         }
         Console.WriteLine(_disciplines.Count);

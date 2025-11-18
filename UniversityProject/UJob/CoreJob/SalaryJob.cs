@@ -18,7 +18,7 @@ public class SalaryJob:IJob, ISalaryJob
 
     public void DoWork()
     {
-        List<Teacher> teachers = _workerTeacherRepository.ReturnListTeachers(_myLogger);
+        List<Teacher> teachers = _workerTeacherRepository.ReturnList();
         List<Administrator> administrators = _workerAdministratorsRepository.ReturnListAdministrator();
         List<Worker> workers = new List<Worker>();
         foreach(var worker in teachers)

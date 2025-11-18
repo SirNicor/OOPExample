@@ -181,12 +181,12 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
             }
         }
     }
-    public void Delete(long ID)
+    public void Delete(long Id)
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
-            db.Execute("DELETE FROM Address WHERE ID = @ID", new {ID});
-            _myLogger.Info("Delete administrator - " + ID);
+            db.Execute("DELETE FROM Administrator WHERE ID = @ID", new { ID = Id});
+            _myLogger.Info("Delete administrator - " + Id);
         }
     }
     

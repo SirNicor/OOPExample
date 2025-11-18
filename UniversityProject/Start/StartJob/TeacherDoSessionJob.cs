@@ -12,7 +12,7 @@ public class TeacherDoSessionJob : CronJobService
     {
         _loggerMain = loggerMain;
         _myLogger = myLogger;
-        _teachers = teachers.ReturnListTeachers(_myLogger);
+        _teachers = teachers.ReturnList();
     }
 
     public override Task StartAsync(CancellationToken cancellationToken)
@@ -28,7 +28,6 @@ public class TeacherDoSessionJob : CronJobService
         _myLogger.Info($"{DateTime.Now:hh:mm:ss} Выполняется задача");
         foreach (var teacher in _teachers)
         {
-            teacher.DoSession(_myLogger);
             Thread.Sleep(120000);
         }
         return Task.CompletedTask;

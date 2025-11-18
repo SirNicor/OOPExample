@@ -13,7 +13,7 @@ public class TeacherDoWorkJob : CronJobService
     {
         _loggerMain = loggerMain;
         _myLogger = myLogger;
-        _teachers = teachers.ReturnListTeachers(_myLogger);
+        _teachers = teachers.ReturnList();
     }
 
     public override Task StartAsync(CancellationToken cancellationToken)

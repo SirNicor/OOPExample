@@ -9,25 +9,24 @@ public class Direction
 
     public Direction(Department department, string nameDirection, DegreesStudy degreesStudy, List<Student> students)
     {
-        _department = department;
+        Department = department;
         NameDirection = nameDirection;
         DegreesStudy =  degreesStudy;    
-        _students = students;
+        Students = students;
     }
 
     public string ReturnGroupCipher()
     {
-        return $"{_department.Faculty.University.NameUniversity}.{_department.Faculty.NameFaculty}.{_department.NameDepartment}.{NameDirection}.courses:{_numberOfCourse}";
+        return $"{Department.Faculty.University.NameUniversity}.{Department.Faculty.NameFaculty}.{Department.NameDepartment}.{NameDirection}.courses:{NumberOfCourse}";
     }
     
     public DegreesStudy DegreesStudy { get; }
-    public List<Student> Students
-    {
-        get { return _students; }
-    }
+
+    public string NameDirection { get; set; }
+    public Department Department { get; set; }
     public long DirectionId { get; set; }
-    public readonly string NameDirection;
-    private readonly Department _department;
-    private int _numberOfCourse;
-    private List<Student> _students;
+    public string ChatId { get; set; }
+    public int NumberOfCourse { get; set; }
+    public List<Student> Students { get; set; }
+    public List<Discipline> Disciplines { get; set; }
 }

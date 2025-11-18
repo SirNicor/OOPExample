@@ -1,78 +1,191 @@
 ﻿namespace Repository;
 using UCore;
 using Logger;
-
+using Dapper;
+using System.Data;
+using System.Data.SqlClient;
 public class WorkerTeacherRepository : IWorkerTeacherRepository
 {
-    public WorkerTeacherRepository(MyLogger myLogger, IDisciplineRepository disciplineRepository)
+    private string SqlQuerySelect = @"
+SELECT 
+        tc.Id AS PersonId,
+        tc.Salary,
+        tc.CriminalRecord,
+        im.LevelId AS MilitaryIdAvailability,
+        p.ID AS PassportID,
+        p.Serial,
+        p.Number,
+        p.FirstName,
+        p.LastName,
+        p.MiddleName,
+        p.BirthData,
+        a.ID AS AddressID,
+        a.Country,
+        a.City,
+        a.Street,
+        a.HouseNumber
+    FROM Teacher tc
+    INNER JOIN Passport p ON tc.PassportId = p.ID
+    INNER JOIN Address a ON p.AddressId = a.ID
+    INNER JOIN IdMilitary im ON tc.MilitaryId = im.ID";
+    private MyLogger _logger;
+    private string _connectionString;
+    public WorkerTeacherRepository(IGetConnectionString getConnectionString, MyLogger logger)
     {
-        try
+        _connectionString = getConnectionString.ReturnConnectionString();
+        _logger = logger;
+    }
+    public Teacher Get(long Id)
+    {
+        using (IDbConnection db = new SqlConnection(_connectionString))
         {
-            Passport passport;
-            Teacher worker;
-            List<Discipline> disciplines;   
-            _disciplines = disciplineRepository;
-            List<Discipline> allDisciplines = _disciplines.ReturnList(myLogger);
-            disciplines = new List<Discipline>(){allDisciplines[0], allDisciplines[1]};
-            passport = new Passport(1111, 123456, "Grigory", "Novikov", 
-                new DateTime(2000,01,01), new Address("Russia", "Saint Petersburg", "Sredniy Avenue", 35), "1");
-            worker = new Teacher(35000,  passport, IdMillitary.InStock, false, disciplines);
-            _workersTeachers.Add(worker);
-            disciplines = new List<Discipline>(){allDisciplines[3], allDisciplines[4], allDisciplines[5]};
-            passport = new Passport(1112, 123457, "Yelisey", "Koltsov", 
-                new DateTime(2001,02,03), new Address("Russia", "Saint Petersburg", "Sredniy Avenue", 37), "1");
-            worker = new Teacher(45000,  passport, IdMillitary.InStock, false,  disciplines);
-            _workersTeachers.Add(worker);
-            disciplines = new List<Discipline>(){allDisciplines[6], allDisciplines[7], allDisciplines[8], allDisciplines[9]};
-            passport = new Passport(1113, 133457, "Mikhail", "Alexandrov", 
-                new DateTime(1980,02,03), new Address("Russia", "Saint Petersburg", "Nalichnaya Street", 38), "1");
-            worker = new Teacher(55000,  passport, IdMillitary.InStock, false,  disciplines);
-            _workersTeachers.Add(worker);
-            disciplines = new List<Discipline>(){allDisciplines[10], allDisciplines[1], allDisciplines[3]};
-            passport = new Passport(1122, 123466, "Yaroslav", "Sakharov", 
-                new DateTime(1988,12,03), new Address("Russia", "Saint Petersburg", "Nalichnaya Street", 38), "1");
-            worker = new Teacher(50234,  passport, IdMillitary.InStock, false, disciplines);
-            _workersTeachers.Add(worker);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
+            var teacher = db.Query<Teacher, Passport, Address, Teacher>(
+                SqlQuerySelect + " WHERE tc.ID = @ID",
+                (teacher, Passport, Address) =>
+                {
+                    Passport.Address = Address;
+                    teacher.Passport = Passport;
+                    return teacher;
+                }, new{ ID = Id},
+                splitOn: "PassportId, AddressId").FirstOrDefault();
+            return teacher;
         }
     }
-    
-    
-    
-    public void Add(Teacher worker, MyLogger myLogger) 
+    public void PrintAll()
     {
-        try
+        using (IDbConnection db = new SqlConnection(_connectionString))
         {
-            _workersTeachers.Add(worker);
-            myLogger.Debug("Worker added" + Environment.NewLine);
-            throw new Exception("Worker not added");
-        }
-        catch(Exception exception)
-        {
-            myLogger.Error("Worker not added, The information is incomplete " + Environment.NewLine, exception);
-            throw exception;
-        }
-    }
-    
-    
-
-    public void PrintAll(MyLogger myLogger)
-    {
-        foreach (Worker worker in _workersTeachers)
-        {
-            worker.PrintInfo(myLogger);
+            var teachers = db.Query<Teacher, Passport, Address, Teacher>(
+                SqlQuerySelect,
+                (teacher, Passport, Address) =>
+                {
+                    Passport.Address = Address;
+                    teacher.Passport = Passport;
+                    return teacher;
+                },
+                splitOn: "PassportId, AddressId").ToList();
+            foreach (var teacher in teachers)
+            {
+                teacher.PrintInfo(_logger);
+            }
         }
     }
-
-    public List<Teacher> ReturnListTeachers(MyLogger myLogger)
+    public long Create(Teacher teacher)
     {
-        myLogger.Debug("Return list" + Environment.NewLine);
-        return _workersTeachers;
+        var passport = teacher.Passport;
+        var address = passport.Address;
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            db.Open();
+            using(IDbTransaction transaction = db.BeginTransaction())
+                {
+                    try
+                    {
+                        _logger.Info("Start Transaction");
+                        var sqlQuery = @"
+                INSERT INTO Address(Country, City, Street, HouseNumber)
+                VALUES(@Country, @City, @Street, @HouseNumber)";
+                        db.Execute(sqlQuery, address, transaction);
+                        sqlQuery = @"
+                INSERT INTO Passport(Serial, Number, FirstName, LastName, MiddleName, BirthData, AddressId, PlaceReceipt)
+                       VALUES(@Serial,
+                           @Number,
+                           @FirstName,
+                           @LastName, 
+                           @MiddleName, 
+                           @BirthData, 
+                           (SELECT MAX(ID) FROM ADDRESS), 
+                           @PlaceReceipt)";
+                        db.Execute(sqlQuery, passport, transaction);
+                        sqlQuery = @"
+                INSERT INTO Teacher(Salary, CriminalRecord, PassportId, MilitaryId)
+                    VALUES(@Salary,
+                        @CriminalRecord,
+                        (SELECT MAX(ID) FROM PASSPORT),
+                        @MilitaryIdAvailability + 1)
+                        ";
+                        db.Execute(sqlQuery, teacher, transaction);
+                        transaction.Commit();
+                        var id = db.QueryFirstOrDefault<int>("SELECT MAX(ID) FROM Teacher");
+                        return id;
+                    }
+                    catch(Exception ex)
+                    {
+                        _logger.Error("An error occured during transaction" + ex.Message);
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+        }
     }
-    
-    private static List<Teacher> _workersTeachers = new List<Teacher>();
-    static IDisciplineRepository _disciplines;
+    public List<Teacher> ReturnList()
+    {
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            var teachers = db.Query<Teacher, Passport, Address, Teacher>(
+                SqlQuerySelect,
+                (teacher, Passport, Address) =>
+                {
+                    Passport.Address = Address;
+                    teacher.Passport = Passport;
+                    return teacher;
+                },
+                splitOn: "PassportId, AddressId").ToList();
+            return teachers;
+        }
+    }
+    public void Delete(long Id)
+    {
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            db.Execute("DELETE FROM Teacher WHERE ID = @ID", new { ID = Id});
+            _logger.Info("Delete administrator - " + Id);
+        }
+    }
+    public long Update(Teacher teacher)
+    {
+        var passport = teacher.Passport;
+        var address = passport.Address;
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            db.Open();
+            using (IDbTransaction transaction = db.BeginTransaction())
+            {
+                try
+                {
+                    string sqlQuery = @"SELECT PassportID FROM Teacher WHERE Id = @PersonID";
+                    passport.PassportId = db.Query<int>(sqlQuery, teacher, transaction).First();
+                    sqlQuery = @"SELECT AddressId FROM Passport WHERE Id = @PassportID";
+                    address.AddressId = db.Query<int>(sqlQuery, passport, transaction).First();
+                    sqlQuery = @"UPDATE Address 
+                SET Country = @Country,  City = @City, Street = @Street, HouseNumber = @HouseNumber
+                WHERE ID = @AddressId";
+                    db.Execute(sqlQuery, address , transaction);
+                    sqlQuery = @"
+                    UPDATE PASSPORT 
+                    SET Serial = @Serial, 
+                        Number = @Number,  
+                        FirstName = @FirstName, 
+                        LastName = @LastName, 
+                        MiddleName = @MiddleName, 
+                        BirthData = @BirthData, 
+                        PlaceReceipt = @PlaceReceipt
+                    WHERE ID = @PassportID";
+                    db.Execute(sqlQuery, passport, transaction);
+                    sqlQuery = @"UPDATE Teacher
+                    SET Salary = @Salary, MilitaryId = @MilitaryIdAvailability, CriminalRecord = @CriminalRecord
+                    WHERE ID = @PersonId";
+                    db.Execute(sqlQuery, teacher, transaction);
+                    transaction.Commit();
+                    return teacher.PersonId;
+                }
+                catch(Exception ex)
+                {
+                    _logger.Error("An error occured during transaction" + ex.Message);
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+    }
 }
