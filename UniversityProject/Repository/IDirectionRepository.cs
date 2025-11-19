@@ -4,6 +4,9 @@ using Logger;
 
 public interface IDirectionRepository
 {
-    public void Add(Direction direction, MyLogger myLogger);
-    public List<Direction> ReturnList(MyLogger myLogger);
+    public long Create(DirectionDto direction);
+    public Direction Get(long Id);
+    public List<Direction> ReturnList();
+    public void Delete(long ID);
+    public long Update(DirectionDto direction);
 }

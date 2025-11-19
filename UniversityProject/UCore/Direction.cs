@@ -20,12 +20,21 @@ public class Direction
         return $"{Department.Faculty.University.NameUniversity}.{Department.Faculty.NameFaculty}.{Department.NameDepartment}.{NameDirection}.courses:{NumberOfCourse}";
     }
     
-    public DegreesStudy DegreesStudy { get; }
+    public DegreesStudy DegreesStudy { get; set; }
 
     public string NameDirection { get; set; }
     public Department Department { get; set; }
     public long DirectionId { get; set; }
-    public string ChatId { get; set; }
+    public string ChatId
+    {
+        get { return ChatId;}
+        set
+        {
+            if (value != null)
+            {
+                ChatId = value;
+            }
+        } }
     public int NumberOfCourse { get; set; }
     public List<Student> Students { get; set; }
     public List<Discipline> Disciplines { get; set; }

@@ -1,39 +1,116 @@
 ﻿namespace Repository;
 using UCore;
 using Logger;
-
+using Dapper;
+using System.Data;
+using System.Data.SqlClient;
 public class DirectionRepository : IDirectionRepository
 {
-    public DirectionRepository(MyLogger myLogger, IStudentRepository studentRepository, IDepartmentRepository departmentRepository)
+    private string _connectionString;
+    private MyLogger _logger;
+
+    private const string SqlSelectDirectionQuery =
+        @"SELECT dr.Id AS DirectionId, dr.DegreesStudyId as NumberOfCourse, dr.NameDirection, 
+       dr.ChatId, dp.Id as DepartmentId, dp.NameDepartment, fc.ID AS FacultyId, 
+       fc.NameFaculty, fc.IdUniversity AS UniversityId, un.Budget FROM Direction dr
+JOIN Department dp ON dp.Id = dr.DepartmentId
+JOIN Faculty fc ON fc.Id = dp.FacultyId
+JOIN University un ON un.Id = fc.IdUniversity ";
+    private const string SqlSelectStudentOfDirectionQuery =
+        @"SELECT SoD.DirectionId, s.Id AS PersonId,s.SkipHours,s.CountOfExamsPassed, 
+s.CreditScores,ds.LevelDegrees,im.LevelId AS MilitaryIdAvailability,p.ID AS PassportID,
+p.Serial,p.Number,p.FirstName,p.LastName,p.MiddleName,p.BirthData,
+a.ID AS AddressID,a.Country,a.City,a.Street,a.HouseNumber 
+FROM StudentOfDirection SoD
+INNER JOIN Student s ON s.Id = SoD.DirectionId
+INNER JOIN Passport p ON s.PassportId = p.ID
+INNER JOIN Address a ON p.AddressId = a.ID
+INNER JOIN DegreesStudy ds ON s.CourseId = ds.ID
+INNER JOIN IdMilitary im ON s.MilitaryId = im.ID ";
+
+    private const string SqlSelectDisciplineOfDirectionQuery =
+        @"SELECT DoD.DirectionId, DoD.DisciplineId, ds.NameDiscipline 
+FROM DisciplineOfDirection DoD
+JOIN Discipline ds ON ds.Id = DoD.DisciplineId";
+    public DirectionRepository(IGetConnectionString getConnectionString, MyLogger logger)
     {
-        _departmentRepository = departmentRepository;
-        _studentRepository = studentRepository;
-        Direction direction = new Direction(_departmentRepository.ReturnList()[0], "Direction1", 
-            DegreesStudy.bachelor, _studentRepository.ReturnList().GetRange(0, 5));
-        _directions.Add(direction);
+        _connectionString = getConnectionString.ReturnConnectionString();
+        _logger = logger;
     }
-    
-    public void Add(Direction direction, MyLogger myLogger)
+    public long Create(DirectionDto direction)
     {
-        try
-        {
-            _directions.Add(direction);
-            myLogger.Debug("Direction added" + Environment.NewLine);
-        }
-        catch(Exception exception)
-        {
-            myLogger.Error("Direction not added, The information is incomplete " + Environment.NewLine, exception);
-        }
-    }
-    
-    public List<Direction> ReturnList(MyLogger myLogger)
-    {
-        myLogger.Debug("Return list" + Environment.NewLine);
-        return _directions;
+        throw new NotImplementedException();
     }
 
-    private static IStudentRepository _studentRepository;
-    private static IDepartmentRepository _departmentRepository;
-    private static List<Direction> _directions = new List<Direction>();
-    private static MyLogger _myLogger;
+    public Direction Get(long Id)
+    {
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            List<Student> students = db.Query<Student, Passport, Address, Student>(SqlSelectStudentOfDirectionQuery + "WHERE SoD.DirectionId = @Id",
+                (student, passport, address) =>
+                {
+                    passport.Address = address;
+                    student.Passport = passport;
+                    return student;
+                },
+                new { Id = Id }, splitOn: "PassportID, AddressID").ToList();
+            List<Discipline> disciplines = db.Query<Discipline>(SqlSelectDisciplineOfDirectionQuery + "WHERE DoD.DirectionId = @Id", new { Id = Id }).ToList();
+            Direction direction = db.Query<Direction, Department, Faculty, University, Direction>(SqlSelectDirectionQuery + "WHERE dr.Id = @Id",
+                (direction, department, faculty, university) =>
+                {
+                    faculty.University = university;
+                    department.Faculty = faculty;
+                    direction.Department = department;
+                    return direction;
+                },
+                new{Id}, splitOn: "DepartmentId, FacultyId, UniversityId").Single();
+            direction.Students = students;
+            direction.Disciplines = disciplines;
+            return direction;
+        }
+    }
+
+    public List<Direction> ReturnList()
+    {
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            List<StudentOfDirectionDto> students = db.Query<StudentOfDirectionDto,Student, Passport, Address, StudentOfDirectionDto>(SqlSelectStudentOfDirectionQuery,
+                (studentOfDirectionDto ,student, passport, address) =>
+                {
+                    passport.Address = address;
+                    student.Passport = passport;
+                    studentOfDirectionDto.Student = student;
+                    return studentOfDirectionDto;
+                }, splitOn: "PassportID, AddressID").ToList();
+            List<DisciplineOfDirectionDto> disciplines = db.Query<DisciplineOfDirectionDto>(SqlSelectDisciplineOfDirectionQuery).ToList();
+            List<Direction> directions = db.Query<Direction, Department, Faculty, University, Direction>(SqlSelectDirectionQuery,
+                (direction, department, faculty, university) =>
+                {
+                    faculty.University = university;
+                    department.Faculty = faculty;
+                    direction.Department = department;
+                    return direction;
+                }, splitOn: "DepartmentId, FacultyId, UniversityId").ToList();
+            var dirStudents = students.GroupBy(x => x.DirectionId)
+                .ToDictionary(x => x.Key, x => x.Select(x1 => x1.Student).ToList());
+            var dirDisciplines = disciplines.GroupBy(x => x.DirectionId)
+                .ToDictionary(x => x.Key, x => x.Select(x1 => x1.Discipline).ToList());
+            foreach (var direction in directions)
+            {
+                direction.Students = dirStudents.GetValueOrDefault(direction.DirectionId);
+                direction.Disciplines = dirDisciplines.GetValueOrDefault(direction.DirectionId);
+            }
+            return directions;
+        }
+    }
+
+    public void Delete(long ID)
+    {
+        throw new NotImplementedException();
+    }
+
+    public long Update(DirectionDto direction)
+    {
+        throw new NotImplementedException();
+    }
 }

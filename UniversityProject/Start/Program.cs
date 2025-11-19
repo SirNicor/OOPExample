@@ -30,6 +30,7 @@ try
     app.AddDepartmentRequest(app.Services.GetService<MyLogger>());
     app.AddTeacherRequest(app.Services.GetService<MyLogger>());
     app.AddDisciplineRequest(app.Services.GetService<MyLogger>());
+    app.AddDirectionRequest(app.Services.GetService<MyLogger>());
     app.MapGet("/", async (HttpContext context) =>
     {
         context.Response.Headers.ContentLanguage = "ru-RU";
