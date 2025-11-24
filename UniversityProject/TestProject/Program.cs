@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 using UCore;
-
 MyLogger logger = new ConsoleMyLogger();
 DebugColumnOrder();
 StudentRepository studentRepository = new StudentRepository(
@@ -66,6 +65,7 @@ static void DebugColumnOrder()
                     Console.WriteLine($"{i}: {reader.GetName(i)}");
                 }
             }
+            
         }
     }
 }

@@ -7,6 +7,8 @@ using UCore;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using Repository.Migrations;
+using ApiTelegramBot;
+using Telegram.Bot;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json");
@@ -20,17 +22,25 @@ try
     builder.Services.AddInfrastructureServices(logger, appConfig);
     builder.Services.MakeCronJob(appConfig);
     var app = builder.Build();
-    app.AddStudentRequest(app.Services.GetService<MyLogger>(), app.Services.GetService<IConfiguration>());
-    app.AddOtherRequest(app.Services.GetService<MyLogger>(), app.Services.GetService<IConfiguration>());
-    app.AddAddressRequest(app.Services.GetService<MyLogger>());
-    app.AddPassportRequest(app.Services.GetService<MyLogger>());
-    app.AddAdministratorRequest(app.Services.GetService<MyLogger>());
-    app.AddUniversityRequest(app.Services.GetService<MyLogger>());
-    app.AddFacultyRequest(app.Services.GetService<MyLogger>());
-    app.AddDepartmentRequest(app.Services.GetService<MyLogger>());
-    app.AddTeacherRequest(app.Services.GetService<MyLogger>());
-    app.AddDisciplineRequest(app.Services.GetService<MyLogger>());
-    app.AddDirectionRequest(app.Services.GetService<MyLogger>());
+    using (var scope = app.Services.CreateScope())
+    {
+        
+        app.AddStudentRequest(scope.ServiceProvider.GetRequiredService<MyLogger>(), 
+            scope.ServiceProvider.GetRequiredService<IConfiguration>());
+        app.AddOtherRequest(scope.ServiceProvider.GetRequiredService<MyLogger>(), 
+            scope.ServiceProvider.GetRequiredService<IConfiguration>());
+        app.AddAddressRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
+        app.AddPassportRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
+        app.AddAdministratorRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
+        app.AddUniversityRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
+        app.AddFacultyRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
+        app.AddDepartmentRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
+        app.AddTeacherRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
+        app.AddDisciplineRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
+        app.AddDirectionRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
+        var bot = scope.ServiceProvider.GetRequiredService<IStartBot>();
+        await bot.ListenForMessagesAsync();
+    }
     app.MapGet("/", async (HttpContext context) =>
     {
         context.Response.Headers.ContentLanguage = "ru-RU";

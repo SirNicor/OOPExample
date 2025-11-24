@@ -2,7 +2,7 @@
 
 public class Direction 
 {
-    static Direction()
+    public Direction()
     {
         
     }
@@ -25,16 +25,23 @@ public class Direction
     public string NameDirection { get; set; }
     public Department Department { get; set; }
     public long DirectionId { get; set; }
+    private string _chatId;
     public string ChatId
     {
-        get { return ChatId;}
+        get { return _chatId;}
         set
         {
             if (value != null)
             {
-                ChatId = value;
+                _chatId = value;
             }
-        } }
+            else
+            {
+                _chatId = "";
+            }
+        }
+        
+    }
     public int NumberOfCourse { get; set; }
     public List<Student> Students { get; set; }
     public List<Discipline> Disciplines { get; set; }

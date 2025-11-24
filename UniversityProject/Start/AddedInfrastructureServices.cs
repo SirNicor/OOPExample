@@ -1,4 +1,5 @@
-﻿using Logger;
+﻿using ApiTelegramBot;
+using Logger;
 
 namespace Start;
 using UCore;
@@ -31,5 +32,10 @@ public static class AddedInfrastructureServices
         services.AddSingleton<ReturnOneAdministrator>();
         services.AddTransient<ReturnListOfUniversity>();
         services.AddSingleton<ReturnOneUniversity>();
+        services.AddTransient<IGetToken, GetToken>();
+        services.AddSingleton<IStartBot, StartBot>();
+        services.AddTransient<IStartUpdate, StartUpdate>();
+        services.AddTransient<IDisciplineUpdate, DisciplineUpdate>();
+        services.AddTransient<IStudentUpdate, StudentUpdate>();
     }
 }
