@@ -19,17 +19,33 @@ public class StartBot : IStartBot
     private string _token;
     private ReceiverOptions _receiverOptions;
     private MyLogger _logger;
-    private IStartUpdate _startUpdate;
-    private IDisciplineUpdate _disciplineUpdate;
-    private IStudentUpdate _studentUpdate;
-    public StartBot(IGetToken getToken, MyLogger logger, IStartUpdate startUpdate, 
-        IDisciplineUpdate disciplineUpdate, IStudentUpdate studentUpdate)
+    private IStartFunctionalForGroup _startFunctionalForGroup;
+    private static Dictionary<long, UserStateRegistration> _userStateReg = new Dictionary<long, UserStateRegistration>();
+    private IInitializedClass _initializedClass;
+    private IRegistrationClass _registrationClass;
+    private IRegistrationForDepartment _registrationForDepartment;
+    private IRegistrationForLastName _registrationForLastName;
+    private IRegistrationForFirstName _registrationForFirstName;
+    private IRegistrationForUniversity _registrationForUniversity;
+    private IRegistrationForFaculty _registrationForFaculty;
+    private IRegistrationForDirection _registrationForDirection;
+    public StartBot(IGetToken getToken, MyLogger logger, IStartFunctionalForGroup startFunctionalForGroup,
+        IInitializedClass initializedClass, IRegistrationClass registrationClass, IRegistrationForFaculty registrationForFaculty,
+        IRegistrationForDepartment registrationForDepartment, IRegistrationForDirection registrationForDirection,
+        IRegistrationForLastName registrationForLastName, IRegistrationForFirstName registrationForFirstName, 
+        IRegistrationForUniversity registrationForUniversity)
     {
         _token = getToken.ReturnToken();
         _logger = logger;
-        _startUpdate = startUpdate;
-        _disciplineUpdate = disciplineUpdate;
-        _studentUpdate = studentUpdate;
+        _startFunctionalForGroup = startFunctionalForGroup;
+        _initializedClass = initializedClass;
+        _registrationClass = registrationClass;
+        _registrationForDepartment = registrationForDepartment;
+        _registrationForLastName = registrationForLastName;
+        _registrationForFirstName = registrationForFirstName;
+        _registrationForUniversity = registrationForUniversity;
+        _registrationForFaculty = registrationForFaculty;
+        _registrationForDirection =  registrationForDirection;
     }
     public async Task ListenForMessagesAsync()
     {
@@ -60,42 +76,72 @@ public class StartBot : IStartBot
         }
         var id = message.Chat.Id;
         var type = message.Chat.Type;
-        switch (update.Type)
+        _logger.Info(messageText);
+        if (!_userStateReg.ContainsKey(id))
         {
-            case UpdateType.Message:
+            _userStateReg.Add(id, new UserStateRegistration());
+            _userStateReg[id].SetUserStateAsync(id, UserStateRegEnum.notInitialized);
+        }
+        switch (type)
+        {
+            case ChatType.Private:
             {
-                switch (message.Type)
+                switch (_userStateReg[id].UserState)
                 {
-                    case MessageType.Text:
+                    case UserStateRegEnum.notInitialized:
                     {
-                        switch (message.Text)
-                        {
-                            case "/start":
-                            {
-                                _startUpdate.Start(type, id, _botClient);
-                                return;
-                            }
-                            case "Список дисциплин":
-                            {
-                                _disciplineUpdate.DisciplineUpdateAsync(type, id, _botClient);
-                                return;
-                            }
-                            case "Список студентов":
-                            {
-                                _studentUpdate.StudentUpdateAsync(type, id, _botClient);
-                                return;
-                            }
-                        }
-
+                        _initializedClass.Initialize(id, _botClient, messageText, _userStateReg[id]);
+                        return;
+                    }
+                    case UserStateRegEnum.forRegistration:
+                    {
+                        _registrationClass.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        return;
+                    }
+                    case UserStateRegEnum.waitingForUniversityInput:
+                    {   
+                        _registrationForUniversity.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        return;
+                    }
+                    case UserStateRegEnum.waitingForFacultyInput:
+                    {
+                        _registrationForFaculty.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        return;
+                    }
+                    case UserStateRegEnum.waitingForDepartmentInput:
+                    {
+                        _registrationForDepartment.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        return;
+                    }
+                    case UserStateRegEnum.waitingForDirectionInput:
+                    {
+                        _registrationForDirection.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        return;
+                    }
+                    case UserStateRegEnum.waitingForLastNameInput:
+                    {
+                        _registrationForLastName.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        return;
+                    }
+                    case UserStateRegEnum.waitingForFirstNameInput:
+                    {
+                        _registrationForFirstName.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        return;
+                    }
+                    case UserStateRegEnum.fullRegistration:
+                    {
+                        _startFunctionalForGroup.Functional(id, messageText ,_botClient);
                         return;
                     }
                 }
-
                 return;
             }
-
+            case ChatType.Group:
+            {
+                _startFunctionalForGroup.Functional(id, messageText ,_botClient);
+                return;
+            }
         }
-        
     }
     public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
     {

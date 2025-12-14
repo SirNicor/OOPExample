@@ -13,7 +13,7 @@ public class DisciplineUpdate : IDisciplineUpdate
     {
         _dirRepository = dirRepository;
     }
-    public async void DisciplineUpdateAsync(ChatType type, ChatId id, 
+    public async void DisciplineUpdateAsync(ChatId id, 
         TelegramBotClient botClient)
     {
         var disciplinesJson = JsonSerializer.Serialize(_dirRepository.Get(1).Disciplines);

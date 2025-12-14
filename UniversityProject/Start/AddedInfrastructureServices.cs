@@ -1,8 +1,6 @@
 ﻿using ApiTelegramBot;
-using Logger;
 
 namespace Start;
-using UCore;
 using Repository;
 using Logger;
 using UJob;
@@ -34,8 +32,16 @@ public static class AddedInfrastructureServices
         services.AddSingleton<ReturnOneUniversity>();
         services.AddTransient<IGetToken, GetToken>();
         services.AddSingleton<IStartBot, StartBot>();
-        services.AddTransient<IStartUpdate, StartUpdate>();
+        services.AddSingleton<IStartFunctionalForGroup, StartFunctionalForGroupForGroup>();
         services.AddTransient<IDisciplineUpdate, DisciplineUpdate>();
         services.AddTransient<IStudentUpdate, StudentUpdate>();
+        services.AddSingleton<IInitializedClass, InitializedClass>();
+        services.AddSingleton<IRegistrationClass, RegistrationClass>();
+        services.AddSingleton<IRegistrationForUniversity, RegistrationForUniversity>();
+        services.AddSingleton<IRegistrationForDepartment, RegistrationForDepartment>();
+        services.AddSingleton<IRegistrationForFaculty, RegistrationForFaculty>();
+        services.AddSingleton<IRegistrationForDirection, RegistrationForDirection>();
+        services.AddSingleton<IRegistrationForLastName, RegistrationForLastName>();
+        services.AddSingleton<IRegistrationForFirstName, RegistrationForFirstName>();
     }
 }

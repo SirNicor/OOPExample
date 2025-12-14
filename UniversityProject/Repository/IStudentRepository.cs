@@ -13,4 +13,6 @@ public interface IStudentRepository
     void DeleteAddress(long ID);
     void DeletePassport(long ID);
     Student Get(long ID);
+    public Student? GetStudentForChatId(string chatId);
+    public long? CheckName(string firstName, string LastName);
 }

@@ -13,7 +13,7 @@ public class StudentUpdate : IStudentUpdate
     {
         _directionRepository = directionRepository;
     }
-    public async void StudentUpdateAsync(ChatType type, ChatId id, TelegramBotClient botClient)
+    public async void StudentUpdateAsync(ChatId id, TelegramBotClient botClient)
     {
         var students = JsonSerializer.Serialize(_directionRepository.Get(1).Students);
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(students));

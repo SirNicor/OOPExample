@@ -9,4 +9,7 @@ public interface IDirectionRepository
     public List<Direction> ReturnList();
     public void Delete(long ID);
     public long Update(DirectionDto direction);
-}
+    public long? CheckNameDirection(string nameDirection, long departmentId);
+    public bool AuthorizationVerification(long chatId);
+    public bool CheckStudent(long StudentId);
+}   

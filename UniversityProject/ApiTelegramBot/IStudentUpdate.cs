@@ -5,5 +5,5 @@ using Telegram.Bot.Types.Enums;
 using Repository;
 public interface IStudentUpdate
 {
-    public void StudentUpdateAsync(ChatType type, ChatId id, TelegramBotClient botClient);
+    public void StudentUpdateAsync(ChatId id, TelegramBotClient botClient);
 }

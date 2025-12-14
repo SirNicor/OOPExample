@@ -49,6 +49,17 @@ INNER JOIN IdMilitary im ON ad.MilitaryId = im.ID";
         }
     }
 
+    public long? CheckNameInUniversity(string nameUniversity)
+    {
+        string SqlQuery = "SELECT ID FROM UNIVERSITY WHERE NameUniversity = @nameUniversity";
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            var check = db.Query<long?>(SqlQuery, new {  nameUniversity }).FirstOrDefault();
+            check = check == 0 ? null : check;
+            return check;
+        }
+    }
+
     public List<University> ReturnList()
     {
         using (IDbConnection db = new SqlConnection(_connectionString))

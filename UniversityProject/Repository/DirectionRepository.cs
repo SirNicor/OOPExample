@@ -113,4 +113,51 @@ JOIN Discipline ds ON ds.Id = DoD.DisciplineId";
     {
         throw new NotImplementedException();
     }
+
+    public long? CheckNameDirection(string nameDirection, long departmentId)
+    {
+        string SqlQuery = "SELECT ID FROM Direction WHERE NameDirection = @nameDirection AND DepartmentId = @departmentId";
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            var check = db.Query<long?>(SqlQuery, new {  nameDirection, departmentId }).FirstOrDefault();
+            check = check == 0 ? null : check;
+            return check;
+        }
+    }
+
+    public bool AuthorizationVerification(long chatId)
+    {
+        string SqlQuery = "SELECT DirectionId FROM StudentOfDirection WHERE ChatId = @chatId";
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            var check = db.Query<long?>(SqlQuery, new { chatId }).FirstOrDefault();
+            check = check == 0 ? null : check;
+            if (check == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
+
+    public bool CheckStudent(long StudentId)
+    {
+        string SqlQuery = "SELECT DirectionId FROM StudentOfDirection WHERE StudentId = @StudentId";
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            var check = db.Query<long?>(SqlQuery, new { StudentId }).FirstOrDefault();
+            check = check == 0 ? null : check;
+            if (check == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
 }

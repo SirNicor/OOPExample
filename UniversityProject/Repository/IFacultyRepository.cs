@@ -9,4 +9,5 @@ public interface IFacultyRepository
     public List<Faculty> ReturnList();
     public void Delete(long ID);
     public long Update(FacultyDto faculty);
+    public long? CheckNameFaculty(string nameFaculty, long universityId);
 }

@@ -154,7 +154,37 @@ public class StudentRepository : IStudentRepository
             return student;
         }
     }
-    
+    public Student? GetStudentForChatId(string chatId)
+    {
+        using (IDbConnection db = new SqlConnection(ConnectionString))
+        {
+            var sqlQuery = SQlQuerySelect + " WHERE s.ChatId = @chatId";
+            var student = db.Query<Student, Passport, Address, Student>(sqlQuery,
+                (student, passport, address) =>
+                {
+                    passport.Address = address;
+                    student.Passport = passport;
+                    return student;
+                },
+                (new { chatId }),
+                splitOn: "PassportID, AddressID"
+            ).FirstOrDefault();
+            return student;
+        }
+    }
+
+    public long? CheckName(string firstName, string lastName)
+    {
+        string SqlQuery = @"SELECT s.ID FROM Student S 
+    INNER JOIN Passport p ON s.PassportId = p.ID
+    WHERE p.FirstName = @firstName AND p.LastName = @lastName";
+        using (IDbConnection db = new SqlConnection(ConnectionString))
+        {
+            var check = db.Query<long?>(SqlQuery, new {  firstName, lastName }).FirstOrDefault();
+            check = check == 0 ? null : check;
+            return check;
+        }
+    }
     public long Update(Student student)
     {
         Passport passport = student.Passport;

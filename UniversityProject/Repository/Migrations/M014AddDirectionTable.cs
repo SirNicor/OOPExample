@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using FluentMigrator;
+using FluentMigrator.Builders;
 
 namespace Repository.Migrations;
 using Migrations;
@@ -17,7 +18,8 @@ public class M014AddDirectionTable : AutoReversingMigration
             .WithColumn("ChatId").AsString(100).Nullable();
         Create.Table("StudentOfDirection")
             .WithColumn("DirectionId").AsInt64().ForeignKey("Direction", "Id").OnDelete(Rule.Cascade)
-            .WithColumn("StudentId").AsInt64().ForeignKey("Student", "Id").OnDelete(Rule.Cascade);
+            .WithColumn("StudentId").AsInt64().ForeignKey("Student", "Id").OnDelete(Rule.Cascade)
+            .WithColumn("ChatId").AsString(100).Nullable();
         Create.PrimaryKey("PK_StudentOfDirection").OnTable("StudentOfDirection").Columns("DirectionId", "StudentId");
         Create.Table("DisciplineOfDirection")
             .WithColumn("DirectionId").AsInt64().ForeignKey("Direction", "Id").OnDelete(Rule.Cascade)

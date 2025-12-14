@@ -167,4 +167,14 @@ JOIN University un ON un.Id = fc.IdUniversity ";
             }
         }
     }
+
+    public long? CheckNameDepartment(string nameDepartment, long facultyId)
+    {
+        string SqlQuery = "SELECT ID FROM Department WHERE NameDepartment = @nameDepartment AND FacultyId = @facultyId";
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            var check = db.Query<long?>(SqlQuery, new {  nameDepartment, facultyId}).FirstOrDefault();
+            return check;
+        }
+    }
 }

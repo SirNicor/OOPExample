@@ -1,14 +1,8 @@
-using System.ComponentModel.DataAnnotations;
 using Logger;
-using Repository;
 using UJob;
 using Start;
-using UCore;
-using FluentMigrator.Runner;
-using Microsoft.Extensions.DependencyInjection;
 using Repository.Migrations;
 using ApiTelegramBot;
-using Telegram.Bot;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json");
@@ -22,24 +16,23 @@ try
     builder.Services.AddInfrastructureServices(logger, appConfig);
     builder.Services.MakeCronJob(appConfig);
     var app = builder.Build();
-    using (var scope = app.Services.CreateScope())
+    app.AddStudentRequest(app.Services.GetRequiredService<MyLogger>(), 
+        app.Services.GetRequiredService<IConfiguration>());
+    app.AddOtherRequest(app.Services.GetRequiredService<MyLogger>(), 
+        app.Services.GetRequiredService<IConfiguration>());
+    app.AddAddressRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddPassportRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddAdministratorRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddUniversityRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddFacultyRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddDepartmentRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddTeacherRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddDisciplineRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddDirectionRequest(app.Services.GetRequiredService<MyLogger>());
+    using (var botScope = app.Services.CreateScope())
     {
-        
-        app.AddStudentRequest(scope.ServiceProvider.GetRequiredService<MyLogger>(), 
-            scope.ServiceProvider.GetRequiredService<IConfiguration>());
-        app.AddOtherRequest(scope.ServiceProvider.GetRequiredService<MyLogger>(), 
-            scope.ServiceProvider.GetRequiredService<IConfiguration>());
-        app.AddAddressRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
-        app.AddPassportRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
-        app.AddAdministratorRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
-        app.AddUniversityRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
-        app.AddFacultyRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
-        app.AddDepartmentRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
-        app.AddTeacherRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
-        app.AddDisciplineRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
-        app.AddDirectionRequest(scope.ServiceProvider.GetRequiredService<MyLogger>());
-        var bot = scope.ServiceProvider.GetRequiredService<IStartBot>();
-        await bot.ListenForMessagesAsync();
+        var bot = botScope.ServiceProvider.GetRequiredService<IStartBot>();
+        _ = Task.Run(async () => await bot.ListenForMessagesAsync());
     }
     app.MapGet("/", async (HttpContext context) =>
     {

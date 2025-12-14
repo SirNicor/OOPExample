@@ -12,4 +12,5 @@ public interface IDepartmentRepository
     public List<Department> ReturnList();
     public void Delete(long ID);
     public long Update(DepartmentDto department);
+    public long? CheckNameDepartment(string nameDepartment, long facultyId);
 }
