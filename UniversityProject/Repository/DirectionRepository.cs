@@ -132,14 +132,7 @@ JOIN Discipline ds ON ds.Id = DoD.DisciplineId";
         {
             var check = db.Query<long?>(SqlQuery, new { chatId }).FirstOrDefault();
             check = check == 0 ? null : check;
-            if (check == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return check != null;
         }
     }
 
@@ -150,14 +143,7 @@ JOIN Discipline ds ON ds.Id = DoD.DisciplineId";
         {
             var check = db.Query<long?>(SqlQuery, new { StudentId }).FirstOrDefault();
             check = check == 0 ? null : check;
-            if (check == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return check != null;
         }
     }
 }

@@ -5,11 +5,11 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using Repository;
 using UCore;
-public class StartFunctionalForGroupForGroup : IStartFunctionalForGroup
+public class StartFunctionalForGroup : IStartFunctionalForGroup
 {
     private IDisciplineUpdate _disSend;
     private IStudentUpdate _studentUpdate;
-    public StartFunctionalForGroupForGroup(IStudentRepository studentRepository, IDisciplineUpdate disSend, IStudentUpdate studentUpdate)
+    public StartFunctionalForGroup(IStudentRepository studentRepository, IDisciplineUpdate disSend, IStudentUpdate studentUpdate)
     {
         _studentUpdate = studentUpdate;
         _disSend = disSend;

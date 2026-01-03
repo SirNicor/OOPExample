@@ -82,6 +82,7 @@ public class StartBot : IStartBot
             _userStateReg.Add(id, new UserStateRegistration());
             _userStateReg[id].SetUserStateAsync(id, UserStateRegEnum.notInitialized);
         }
+        IRegistrationClass registrationClass = null;
         switch (type)
         {
             case ChatType.Private:

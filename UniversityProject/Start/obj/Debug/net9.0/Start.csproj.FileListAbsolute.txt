@@ -129,3 +129,4 @@ D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\run
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Telegram.Bot.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\ApiTelegramBot.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\ApiTelegramBot.pdb
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

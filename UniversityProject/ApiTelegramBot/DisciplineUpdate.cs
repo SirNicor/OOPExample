@@ -17,8 +17,10 @@ public class DisciplineUpdate : IDisciplineUpdate
         TelegramBotClient botClient)
     {
         var disciplinesJson = JsonSerializer.Serialize(_dirRepository.Get(1).Disciplines);
-        var stream = new MemoryStream(Encoding.UTF8.GetBytes(disciplinesJson));
-        await botClient.SendDocument(id, InputFile.FromStream(stream, "json"), parseMode: ParseMode.Html);
-        return;
+        var disciplineArray = disciplinesJson.SplitMessage();
+        foreach (var discipline in disciplineArray)
+        {
+            await botClient.SendMessage(id, discipline);
+        }
     }
 }

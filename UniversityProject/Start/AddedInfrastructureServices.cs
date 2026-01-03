@@ -17,6 +17,7 @@ public static class AddedInfrastructureServices
         services.AddSingleton<IDisciplineRepository,  DisciplineRepository>();
         services.AddSingleton<IFacultyRepository, FacultyRepository>();
         services.AddSingleton<IUniversityRepository, UniversityRepository>();
+        services.AddSingleton<IScheduleRepository, ScheduleRepository>();
         services.AddSingleton<IWorkerTeacherRepository, WorkerTeacherRepository>();
         services.AddSingleton<IWorkerAdministratorRepository, WorkerAdministratorRepository>();
         services.AddTransient<IInfoCouplesAttendanceJob, InfoCouplesAttendanceJob>();
@@ -32,7 +33,7 @@ public static class AddedInfrastructureServices
         services.AddSingleton<ReturnOneUniversity>();
         services.AddTransient<IGetToken, GetToken>();
         services.AddSingleton<IStartBot, StartBot>();
-        services.AddSingleton<IStartFunctionalForGroup, StartFunctionalForGroupForGroup>();
+        services.AddSingleton<IStartFunctionalForGroup, StartFunctionalForGroup>();
         services.AddTransient<IDisciplineUpdate, DisciplineUpdate>();
         services.AddTransient<IStudentUpdate, StudentUpdate>();
         services.AddSingleton<IInitializedClass, InitializedClass>();

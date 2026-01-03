@@ -16,8 +16,10 @@ public class StudentUpdate : IStudentUpdate
     public async void StudentUpdateAsync(ChatId id, TelegramBotClient botClient)
     {
         var students = JsonSerializer.Serialize(_directionRepository.Get(1).Students);
-        var stream = new MemoryStream(Encoding.UTF8.GetBytes(students));
-        await botClient.SendDocument(id, InputFile.FromStream(stream, "json"), parseMode: ParseMode.Html);
-        return;
+        var studentsMessage = students.SplitMessage();
+        foreach (var student in studentsMessage)
+        {
+            await botClient.SendMessage(id, student);
+        }
     }
 }

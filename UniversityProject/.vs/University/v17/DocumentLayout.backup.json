@@ -1,7 +1,48 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\repository\\schedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|solutionrelative:repository\\schedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A60225A-7035-4FBB-A5CC-6C84C135E05E}|Start\\Start.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\start\\request\\schedulerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A60225A-7035-4FBB-A5CC-6C84C135E05E}|Start\\Start.csproj|solutionrelative:start\\request\\schedulerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\repository\\facultyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|solutionrelative:repository\\facultyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\ucore\\schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|solutionrelative:ucore\\schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\ucore\\dto\\teacherofscheduledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|solutionrelative:ucore\\dto\\teacherofscheduledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\ucore\\dto\\teacherofdisciplinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|solutionrelative:ucore\\dto\\teacherofdisciplinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\ucore\\dto\\universitydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|solutionrelative:ucore\\dto\\universitydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\ucore\\ucore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|solutionrelative:ucore\\ucore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\ucore\\dto\\scheduledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|solutionrelative:ucore\\dto\\scheduledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\startfunctionalforgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\startfunctionalforgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +50,140 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ScheduleRequest.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Start\\Request\\ScheduleRequest.cs",
+              "RelativeDocumentMoniker": "Start\\Request\\ScheduleRequest.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Start\\Request\\ScheduleRequest.cs",
+              "RelativeToolTip": "Start\\Request\\ScheduleRequest.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwA8AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T21:25:07.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TeacherOfDisciplineDto.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\DTO\\TeacherOfDisciplineDto.cs",
+              "RelativeDocumentMoniker": "UCore\\DTO\\TeacherOfDisciplineDto.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\DTO\\TeacherOfDisciplineDto.cs",
+              "RelativeToolTip": "UCore\\DTO\\TeacherOfDisciplineDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T21:19:16.873Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TeacherOfScheduleDTO.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\DTO\\TeacherOfScheduleDTO.cs",
+              "RelativeDocumentMoniker": "UCore\\DTO\\TeacherOfScheduleDTO.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\DTO\\TeacherOfScheduleDTO.cs",
+              "RelativeToolTip": "UCore\\DTO\\TeacherOfScheduleDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T21:19:43.863Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UniversityDto.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\DTO\\UniversityDto.cs",
+              "RelativeDocumentMoniker": "UCore\\DTO\\UniversityDto.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\DTO\\UniversityDto.cs",
+              "RelativeToolTip": "UCore\\DTO\\UniversityDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T21:19:19.247Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FacultyRepository.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\FacultyRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\FacultyRepository.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\FacultyRepository.cs",
+              "RelativeToolTip": "Repository\\FacultyRepository.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAADwv2QAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T20:53:06.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ScheduleDto.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\DTO\\ScheduleDto.cs",
+              "RelativeDocumentMoniker": "UCore\\DTO\\ScheduleDto.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\DTO\\ScheduleDto.cs",
+              "RelativeToolTip": "UCore\\DTO\\ScheduleDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T20:52:55.744Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Schedule.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\Schedule.cs",
+              "RelativeDocumentMoniker": "UCore\\Schedule.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\Schedule.cs",
+              "RelativeToolTip": "UCore\\Schedule.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T20:49:25.699Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ScheduleRepository.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\ScheduleRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\ScheduleRepository.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\ScheduleRepository.cs*",
+              "RelativeToolTip": "Repository\\ScheduleRepository.cs*",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAAF4AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T17:53:08.462Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UCore.csproj",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\UCore.csproj",
+              "RelativeDocumentMoniker": "UCore\\UCore.csproj",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\UCore.csproj",
+              "RelativeToolTip": "UCore\\UCore.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-02T11:49:58.159Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "StartFunctionalForGroup.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\StartFunctionalForGroup.cs",
+              "RelativeDocumentMoniker": "ApiTelegramBot\\StartFunctionalForGroup.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\StartFunctionalForGroup.cs",
+              "RelativeToolTip": "ApiTelegramBot\\StartFunctionalForGroup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T11:42:34.861Z"
             }
           ]
         }

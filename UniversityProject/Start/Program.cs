@@ -29,6 +29,7 @@ try
     app.AddTeacherRequest(app.Services.GetRequiredService<MyLogger>());
     app.AddDisciplineRequest(app.Services.GetRequiredService<MyLogger>());
     app.AddDirectionRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddScheduleRequest(app.Services.GetRequiredService<MyLogger>());
     using (var botScope = app.Services.CreateScope())
     {
         var bot = botScope.ServiceProvider.GetRequiredService<IStartBot>();

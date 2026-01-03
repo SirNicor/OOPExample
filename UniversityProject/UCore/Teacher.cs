@@ -3,10 +3,6 @@ using Logger;
 using System.Linq;
 public class Teacher:Worker
 {
-    public Teacher()
-    {
-        
-    }
     public override void DoWork(MyLogger myLogger)
     {
     }
