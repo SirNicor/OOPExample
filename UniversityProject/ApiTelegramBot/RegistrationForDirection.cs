@@ -35,7 +35,6 @@ public class RegistrationForDirection : IRegistrationForDirection
                     {
                         new KeyboardButton[] { ("/RegistrationForDirection"), }
                     }){ResizeKeyboard = true};
-                userStateReg.DecrementUserStateAsync();
                 await botClient.SendMessage(chatId, "Такая группа существует, далее введите вашу фамилию: ", replyMarkup: replyKeyboard);
                 userStateReg.DirectionId = (long)id;
                 userStateReg.IncrementUserStateAsync();

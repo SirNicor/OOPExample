@@ -1,4 +1,4 @@
-﻿namespace ApiTelegramBot;
+﻿namespace UCore;
 public interface IUserStateRegistration
 {  
     public void SetUserStateAsync(long chatId, UserStateRegEnum userState);

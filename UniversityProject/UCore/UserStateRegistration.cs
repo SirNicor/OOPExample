@@ -1,10 +1,10 @@
-﻿namespace ApiTelegramBot;
+﻿namespace UCore;
 
 public class UserStateRegistration : IUserStateRegistration
 {
     public void SetUserStateAsync(long chatId, UserStateRegEnum userState)
     {
-        _chatId = chatId;
+        ChatId = chatId;
         UserState = userState;
     }
 
@@ -23,7 +23,7 @@ public class UserStateRegistration : IUserStateRegistration
         UserState = 0;
     }
     
-    public long _chatId { get; set; }
+    public long ChatId { get; set; }
     public UserStateRegEnum UserState { get; set; }
     public long UniversityId { get; set; }
     public long FacultyId{ get; set; }

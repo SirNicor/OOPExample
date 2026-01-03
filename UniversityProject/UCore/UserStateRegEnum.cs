@@ -1,4 +1,4 @@
-﻿namespace ApiTelegramBot;
+﻿namespace UCore;
 
 public enum UserStateRegEnum
 {

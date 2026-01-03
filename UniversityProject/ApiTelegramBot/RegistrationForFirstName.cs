@@ -25,7 +25,13 @@ public class RegistrationForFirstName : IRegistrationForFirstName
             if (_directionRepository.CheckStudent(userStateReg.StudentId))
             {
                 userStateReg.IncrementUserStateAsync();
-                await botClient.SendMessage(chatId, "Регистрация успешно завершена");
+                var replyKeyboard = new ReplyKeyboardMarkup(
+                new List<KeyboardButton[]>()
+                {
+                    new KeyboardButton[] { ("/Start"), }
+                })
+                { ResizeKeyboard = true };
+                await botClient.SendMessage(chatId, "Регистрация успешно завершена", replyMarkup: replyKeyboard);
             }
             else
             {

@@ -18,7 +18,7 @@ public class InitializedClass : IInitializedClass
     {
         if (messageText.ToLower() == "/start")
         {
-            if (_directionRepository.AuthorizationVerification(userStateReg._chatId))
+            if (_directionRepository.AuthorizationVerification(userStateReg.ChatId))
             {
                 userStateReg.SetUserStateAsync(chatId, UserStateRegEnum.fullRegistration);
             }
