@@ -9,9 +9,11 @@ using UCore;
 public class RegistrationForDepartment : IRegistrationForDepartment
 {
     private IDepartmentRepository _repository;
-    public RegistrationForDepartment(IDepartmentRepository repository)
+    private IUserStateRepository _userStateRepository;
+    public RegistrationForDepartment(IDepartmentRepository repository, IUserStateRepository userStateRepository)
     {
         _repository = repository;
+        _userStateRepository = userStateRepository;
     }
     public async void Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
@@ -27,7 +29,7 @@ public class RegistrationForDepartment : IRegistrationForDepartment
         }
         else
         {
-            var id = _repository.CheckNameDepartment(messageText, userStateReg.FacultyId);
+            var id = _repository.CheckNameDepartment(messageText, (long)userStateReg.FacultyId);
             if (id != null)
             {
                 var replyKeyboard = new ReplyKeyboardMarkup(
@@ -43,6 +45,7 @@ public class RegistrationForDepartment : IRegistrationForDepartment
             {
                 botClient.SendMessage(chatId, "Такой кафедры нет. Введите снова");
             }
+            _userStateRepository.Update(userStateReg);
         }
     }
 }

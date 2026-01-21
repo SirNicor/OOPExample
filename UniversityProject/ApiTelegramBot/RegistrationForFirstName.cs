@@ -10,10 +10,13 @@ public class RegistrationForFirstName : IRegistrationForFirstName
 {
     private IStudentRepository _repository;
     private IDirectionRepository _directionRepository;
-    public RegistrationForFirstName(IStudentRepository repository, IDirectionRepository directionRepository)
+    private IUserStateRepository _userStateRepository;
+    public RegistrationForFirstName(IStudentRepository repository,
+        IDirectionRepository directionRepository, IUserStateRepository userStateRepository)
     {
         _repository = repository;
         _directionRepository = directionRepository;
+        _userStateRepository = userStateRepository;
     }
     public async void Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
@@ -22,7 +25,7 @@ public class RegistrationForFirstName : IRegistrationForFirstName
         {
             userStateReg.StudentFirstName = messageText;
             userStateReg.StudentId = (long)id;
-            if (_directionRepository.CheckStudent(userStateReg.StudentId))
+            if (_directionRepository.CheckStudent((long)userStateReg.StudentId))
             {
                 userStateReg.IncrementUserStateAsync();
                 var replyKeyboard = new ReplyKeyboardMarkup(
@@ -44,5 +47,6 @@ public class RegistrationForFirstName : IRegistrationForFirstName
             botClient.SendMessage(chatId, "Такого сочетания имени и фамилии нет. Введите снова фамилию");
             userStateReg.DecrementUserStateAsync();
         }
+        _userStateRepository.Update(userStateReg);
     }   
 }

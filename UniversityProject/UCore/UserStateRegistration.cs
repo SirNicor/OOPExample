@@ -2,6 +2,15 @@
 
 public class UserStateRegistration : IUserStateRegistration
 {
+    public UserStateRegistration(long Id)
+    {
+        ChatId = Id;
+        UserState = UserStateRegEnum.notInitialized;
+    }
+    public UserStateRegistration()
+    {
+
+    }
     public void SetUserStateAsync(long chatId, UserStateRegEnum userState)
     {
         ChatId = chatId;
@@ -25,11 +34,11 @@ public class UserStateRegistration : IUserStateRegistration
     
     public long ChatId { get; set; }
     public UserStateRegEnum UserState { get; set; }
-    public long UniversityId { get; set; }
-    public long FacultyId{ get; set; }
-    public long DepartmentId{ get; set; }
-    public long DirectionId{ get; set; }
-    public long StudentId{ get; set; }
-    public string StudentFirstName{ get; set; }
-    public string StudentLastName{ get; set; }
+    public long? UniversityId { get; set; }
+    public long? FacultyId { get; set; }
+    public long? DepartmentId { get; set; }
+    public long? DirectionId { get; set; }
+    public long? StudentId { get; set; }
+    public string? StudentFirstName { get; set; }
+    public string? StudentLastName { get; set; }
 }

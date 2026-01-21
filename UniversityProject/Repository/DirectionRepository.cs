@@ -125,14 +125,13 @@ JOIN Discipline ds ON ds.Id = DoD.DisciplineId";
         }
     }
 
-    public bool AuthorizationVerification(long chatId)
+    public long AuthorizationVerification(long chatId)
     {
-        string SqlQuery = "SELECT DirectionId FROM StudentOfDirection WHERE ChatId = @chatId";
+        string SqlQuery = "SELECT Id FROM Direction WHERE ChatId = @chatId";
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
-            var check = db.Query<long?>(SqlQuery, new { chatId }).FirstOrDefault();
-            check = check == 0 ? null : check;
-            return check != null;
+            var check = db.Query<long>(SqlQuery, new { chatId }).FirstOrDefault();
+            return check;
         }
     }
 

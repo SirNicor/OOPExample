@@ -14,9 +14,9 @@ public class DisciplineUpdate : IDisciplineUpdate
         _dirRepository = dirRepository;
     }
     public async void DisciplineUpdateAsync(ChatId id, 
-        TelegramBotClient botClient)
+        TelegramBotClient botClient, long dirId)
     {
-        var disciplinesJson = JsonSerializer.Serialize(_dirRepository.Get(1).Disciplines);
+        var disciplinesJson = JsonSerializer.Serialize(_dirRepository.Get(dirId).Disciplines);
         var disciplineArray = disciplinesJson.SplitMessage();
         foreach (var discipline in disciplineArray)
         {

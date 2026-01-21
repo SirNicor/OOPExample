@@ -3,16 +3,68 @@
   "WorkspaceRootPath": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\registrationforfirstname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\registrationforfirstname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\scheduleupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\scheduleupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\registrationforlastname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\registrationforlastname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\repository\\schedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|solutionrelative:repository\\schedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\registrationfordirection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\registrationfordirection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\repository\\ischedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|solutionrelative:repository\\ischedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\repository\\repository.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|solutionrelative:repository\\repository.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\repository\\directionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|solutionrelative:repository\\directionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\startfunctionalforgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\startfunctionalforgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\startbot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\startbot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\studentupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\studentupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\istudentupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\istudentupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\ischeduleupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\ischeduleupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\disciplineupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\disciplineupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\idisciplineupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\idisciplineupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\repository\\migrations\\m014adddirectiontable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}|Repository\\Repository.csproj|solutionrelative:repository\\migrations\\m014adddirectiontable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A60225A-7035-4FBB-A5CC-6C84C135E05E}|Start\\Start.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\start\\addedinfrastructureservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A60225A-7035-4FBB-A5CC-6C84C135E05E}|Start\\Start.csproj|solutionrelative:start\\addedinfrastructureservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\ucore\\userstateregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BC46E99-284E-4EBC-96A0-62364EB15509}|UCore\\UCore.csproj|solutionrelative:ucore\\userstateregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|d:\\lessonsrep\\oopexample\\oopexample\\universityproject\\apitelegrambot\\istartfunctionalforgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9547D2DA-FB63-475B-A793-C923703B2E0E}|ApiTelegramBot\\ApiTelegramBot.csproj|solutionrelative:apitelegrambot\\istartfunctionalforgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +74,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,41 +82,207 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RegistrationForLastName.cs",
-              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\RegistrationForLastName.cs",
-              "RelativeDocumentMoniker": "ApiTelegramBot\\RegistrationForLastName.cs",
-              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\RegistrationForLastName.cs",
-              "RelativeToolTip": "ApiTelegramBot\\RegistrationForLastName.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAzwBcAAAAqAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "IScheduleRepository.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\IScheduleRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\IScheduleRepository.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\IScheduleRepository.cs",
+              "RelativeToolTip": "Repository\\IScheduleRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T14:21:22.64Z",
+              "WhenOpened": "2026-01-07T17:26:53.265Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ScheduleRepository.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\ScheduleRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\ScheduleRepository.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\ScheduleRepository.cs",
+              "RelativeToolTip": "Repository\\ScheduleRepository.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAkwH8AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T17:26:17.775Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Repository",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\Repository.csproj",
+              "RelativeDocumentMoniker": "Repository\\Repository.csproj",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\Repository.csproj",
+              "RelativeToolTip": "Repository\\Repository.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-07T17:26:12.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DirectionRepository.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\DirectionRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\DirectionRepository.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\DirectionRepository.cs",
+              "RelativeToolTip": "Repository\\DirectionRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T17:20:32.279Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "StudentUpdate.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\StudentUpdate.cs",
+              "RelativeDocumentMoniker": "ApiTelegramBot\\StudentUpdate.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\StudentUpdate.cs",
+              "RelativeToolTip": "ApiTelegramBot\\StudentUpdate.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwAwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T17:15:00.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IStudentUpdate.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\IStudentUpdate.cs",
+              "RelativeDocumentMoniker": "ApiTelegramBot\\IStudentUpdate.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\IStudentUpdate.cs",
+              "RelativeToolTip": "ApiTelegramBot\\IStudentUpdate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T17:14:52.403Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "M014AddDirectionTable.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\Migrations\\M014AddDirectionTable.cs",
+              "RelativeDocumentMoniker": "Repository\\Migrations\\M014AddDirectionTable.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\Migrations\\M014AddDirectionTable.cs",
+              "RelativeToolTip": "Repository\\Migrations\\M014AddDirectionTable.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAzwBQAAABiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T16:17:11.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "UserStateRegistration.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\UserStateRegistration.cs",
+              "RelativeDocumentMoniker": "UCore\\UserStateRegistration.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\UCore\\UserStateRegistration.cs",
+              "RelativeToolTip": "UCore\\UserStateRegistration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:18:57.768Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IStartFunctionalForGroup.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\IStartFunctionalForGroup.cs",
+              "RelativeDocumentMoniker": "ApiTelegramBot\\IStartFunctionalForGroup.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\IStartFunctionalForGroup.cs",
+              "RelativeToolTip": "ApiTelegramBot\\IStartFunctionalForGroup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:08:15.791Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "StartBot.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\StartBot.cs",
+              "RelativeDocumentMoniker": "ApiTelegramBot\\StartBot.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\StartBot.cs",
+              "RelativeToolTip": "ApiTelegramBot\\StartBot.cs",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAUwI8AAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:04:14.63Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "RegistrationForFirstName.cs",
-              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\RegistrationForFirstName.cs",
-              "RelativeDocumentMoniker": "ApiTelegramBot\\RegistrationForFirstName.cs",
-              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\RegistrationForFirstName.cs*",
-              "RelativeToolTip": "ApiTelegramBot\\RegistrationForFirstName.cs*",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAwwB8AAAAzAAAAAAAAAA==",
+              "Title": "ScheduleUpdate.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\ScheduleUpdate.cs",
+              "RelativeDocumentMoniker": "ApiTelegramBot\\ScheduleUpdate.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\ScheduleUpdate.cs",
+              "RelativeToolTip": "ApiTelegramBot\\ScheduleUpdate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T14:21:22.142Z",
+              "WhenOpened": "2026-01-07T10:49:56.737Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RegistrationForDirection.cs",
-              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\RegistrationForDirection.cs",
-              "RelativeDocumentMoniker": "ApiTelegramBot\\RegistrationForDirection.cs",
-              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\RegistrationForDirection.cs",
-              "RelativeToolTip": "ApiTelegramBot\\RegistrationForDirection.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAowCQAAAAuAAAAAAAAAA==",
+              "DocumentIndex": 11,
+              "Title": "IDisciplineUpdate.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\IDisciplineUpdate.cs",
+              "RelativeDocumentMoniker": "ApiTelegramBot\\IDisciplineUpdate.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\IDisciplineUpdate.cs",
+              "RelativeToolTip": "ApiTelegramBot\\IDisciplineUpdate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T14:21:20.768Z",
+              "WhenOpened": "2026-01-07T10:48:51.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "StartFunctionalForGroup.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\StartFunctionalForGroup.cs",
+              "RelativeDocumentMoniker": "ApiTelegramBot\\StartFunctionalForGroup.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\StartFunctionalForGroup.cs",
+              "RelativeToolTip": "ApiTelegramBot\\StartFunctionalForGroup.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwCAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T10:47:53.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AddedInfrastructureServices.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Start\\AddedInfrastructureServices.cs",
+              "RelativeDocumentMoniker": "Start\\AddedInfrastructureServices.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Start\\AddedInfrastructureServices.cs",
+              "RelativeToolTip": "Start\\AddedInfrastructureServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T10:55:41.456Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DisciplineUpdate.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\DisciplineUpdate.cs",
+              "RelativeDocumentMoniker": "ApiTelegramBot\\DisciplineUpdate.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\DisciplineUpdate.cs",
+              "RelativeToolTip": "ApiTelegramBot\\DisciplineUpdate.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T10:48:05.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IScheduleUpdate.cs",
+              "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\IScheduleUpdate.cs",
+              "RelativeDocumentMoniker": "ApiTelegramBot\\IScheduleUpdate.cs",
+              "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\IScheduleUpdate.cs",
+              "RelativeToolTip": "ApiTelegramBot\\IScheduleUpdate.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T10:48:44.92Z",
               "EditorCaption": ""
             }
           ]

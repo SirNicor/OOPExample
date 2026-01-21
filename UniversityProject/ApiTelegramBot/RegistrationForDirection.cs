@@ -9,9 +9,11 @@ using UCore;
 public class RegistrationForDirection : IRegistrationForDirection
 {
     private IDirectionRepository _repository;
-    public RegistrationForDirection(IDirectionRepository repository)
+    private IUserStateRepository _userStateRepository;
+    public RegistrationForDirection(IDirectionRepository repository, IUserStateRepository userStateRepository)
     {
         _repository = repository;
+        _userStateRepository = userStateRepository;
     }
     public async void Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
@@ -27,7 +29,7 @@ public class RegistrationForDirection : IRegistrationForDirection
         }
         else
         {
-            var id = _repository.CheckNameDirection(messageText, userStateReg.DepartmentId);
+            var id = _repository.CheckNameDirection(messageText, (long)userStateReg.DepartmentId);
             if (id != null)
             {
                 var replyKeyboard = new ReplyKeyboardMarkup(
@@ -43,6 +45,7 @@ public class RegistrationForDirection : IRegistrationForDirection
             {
                 await botClient.SendMessage(chatId, "Такой группы нет. Введите снова");
             }
+            _userStateRepository.Update(userStateReg);
         }
     }
 }

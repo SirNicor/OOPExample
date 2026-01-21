@@ -11,6 +11,7 @@ public static class AddedInfrastructureServices
     {
         services.AddSingleton<MyLogger>(logger);
         services.AddSingleton<IGetConnectionString, GetConnectionString>();
+        services.AddSingleton<IScheduleUpdate, ScheduleUpdate>();
         services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
         services.AddSingleton<IStudentRepository, StudentRepository>();
         services.AddSingleton<IDirectionRepository, DirectionRepository>();
@@ -20,6 +21,7 @@ public static class AddedInfrastructureServices
         services.AddSingleton<IScheduleRepository, ScheduleRepository>();
         services.AddSingleton<IWorkerTeacherRepository, WorkerTeacherRepository>();
         services.AddSingleton<IWorkerAdministratorRepository, WorkerAdministratorRepository>();
+        services.AddSingleton<IUserStateRepository, UserStateRepository>();
         services.AddTransient<IInfoCouplesAttendanceJob, InfoCouplesAttendanceJob>();
         services.AddTransient<IPrintStudentJob, PrintStudentsJob>();
         services.AddTransient<IPrintWorkersJob, PrintWorkersJob>();

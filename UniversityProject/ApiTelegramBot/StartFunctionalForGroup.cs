@@ -9,44 +9,67 @@ public class StartFunctionalForGroup : IStartFunctionalForGroup
 {
     private IDisciplineUpdate _disSend;
     private IStudentUpdate _studentUpdate;
-    public StartFunctionalForGroup(IStudentRepository studentRepository, IDisciplineUpdate disSend, IStudentUpdate studentUpdate)
+    private IScheduleUpdate _scheduleUpdate;
+    private IDirectionRepository _directionRepository;
+    private IUserStateRepository _userStateRepository;  
+    private long dirId;
+    public StartFunctionalForGroup(IStudentRepository studentRepository, IDirectionRepository directionRepository, 
+        IDisciplineUpdate disSend, IStudentUpdate studentUpdate, IUserStateRepository userStateRepository,
+        IScheduleUpdate scheduleUpdate)
     {
         _studentUpdate = studentUpdate;
         _disSend = disSend;
+        _scheduleUpdate = scheduleUpdate;
+        _directionRepository = directionRepository;
+        _userStateRepository = userStateRepository;
     }
-    public async void Functional(ChatId id, string messageText, TelegramBotClient botClient)
+    public async void Functional(ChatId id, string messageText, TelegramBotClient botClient, ChatType type)
     {
-        switch (messageText)
+        if(type == ChatType.Private)
         {
-            case "/start": case "/Start":
+            dirId = (long)_userStateRepository.Get((long)id.Identifier).DirectionId;
+        }
+        else if(type == ChatType.Group)
+        {
+            dirId = _directionRepository.AuthorizationVerification((long)id.Identifier);
+        }
+        switch (messageText)
             {
-                var replyKeyboard = new ReplyKeyboardMarkup(
-                    new List<KeyboardButton[]>()
+                case "/start":
+                case "/Start":
                     {
+                        var replyKeyboard = new ReplyKeyboardMarkup(
+                            new List<KeyboardButton[]>()
+                            {
                         new KeyboardButton[] { ("Список дисциплин"), "Список студентов", },
                         new KeyboardButton[] { "Расписание" },
-                    })
-                {
-                    ResizeKeyboard = true,
-                };
+                            })
+                        {
+                            ResizeKeyboard = true,
+                        };
 
-                await botClient.SendMessage(
-                    id,
-                    "Функционал:",
-                    replyMarkup: replyKeyboard);
-                return;
+                        await botClient.SendMessage(
+                            id,
+                            "Функционал:",
+                            replyMarkup: replyKeyboard);
+                        return;
+                    }
+                case "Список дисциплин":
+                    {
+                        _disSend.DisciplineUpdateAsync(id, botClient, dirId);
+                        return;
+                    }
+                case "Список студентов":
+                    {
+                        _studentUpdate.StudentUpdateAsync(id, botClient, dirId);
+                        return;
+                    }
+                case "Расписание":
+                    {
+                        _scheduleUpdate.ScheduleUpdateAsync(id, botClient, dirId);
+                        return;
+                    }
             }
-            case "Список дисциплин":
-            {
-                _disSend.DisciplineUpdateAsync(id, botClient);
-                return;
-            }
-            case "Список студентов":
-            {
-                _studentUpdate.StudentUpdateAsync(id, botClient);
-                return;
-            }
-        }
     }
         
 }

@@ -10,26 +10,26 @@ public class M016AddUserStateTable : AutoReversingMigration
     {
         Create.Table("ListUserState")
             .WithColumn("Id").AsInt16().Unique().Identity()
-            .WithColumn("Status").AsString();
+            .WithColumn("UserStatus").AsString();
         Insert.IntoTable("ListUserState")
-            .Row(new { Status = "notInitialized" })
-            .Row(new { Status = "forRegistration" })
-            .Row(new { Status = "waitingForUniversityInput" })
-            .Row(new { Status = "waitingForFacultyInput" })
-            .Row(new { Status = "waitingForDepartmentInput" })
-            .Row(new { Status = "waitingForDirectionInput" })
-            .Row(new { Status = "waitingForLastNameInput" })
-            .Row(new { Status = "waitingForFirstNameInput" })
-            .Row(new { Status = "fullRegistration" });
+            .Row(new { UserStatus = "notInitialized" })
+            .Row(new { UserStatus = "forRegistration" })
+            .Row(new { UserStatus = "waitingForUniversityInput" })
+            .Row(new { UserStatus = "waitingForFacultyInput" })
+            .Row(new { UserStatus = "waitingForDepartmentInput" })
+            .Row(new { UserStatus = "waitingForDirectionInput" })
+            .Row(new { UserStatus = "waitingForLastNameInput" })
+            .Row(new { UserStatus = "waitingForFirstNameInput" })
+            .Row(new { UserStatus = "fullRegistration" });
         Create.Table("UserState")
-           .WithColumn("Id").AsInt64().Identity()
-           .WithColumn("ListUserStateId").AsInt16().ForeignKey("ListUserState", "Id")
-           .WithColumn("UniversityId").AsInt64().ForeignKey("University", "Id")
-           .WithColumn("FacultyId").AsInt64().ForeignKey("Faculty", "Id")
-           .WithColumn("DepartmentId").AsInt64().ForeignKey("Department", "Id")
-           .WithColumn("DirectionId").AsInt64().ForeignKey("Direction", "Id")
-           .WithColumn("StudentId").AsInt64().ForeignKey("Student", "Id")
-           .WithColumn("FirstName").AsString()
-           .WithColumn("LastName").AsString();
+           .WithColumn("Id").AsInt64().PrimaryKey().NotNullable()
+           .WithColumn("ListUserStateId").AsInt16().ForeignKey("ListUserState", "Id").NotNullable()
+           .WithColumn("UniversityId").AsInt64().ForeignKey("University", "Id").Nullable()
+           .WithColumn("FacultyId").AsInt64().ForeignKey("Faculty", "Id").Nullable()
+           .WithColumn("DepartmentId").AsInt64().ForeignKey("Department", "Id").Nullable()
+           .WithColumn("DirectionId").AsInt64().ForeignKey("Direction", "Id").Nullable()
+           .WithColumn("StudentId").AsInt64().ForeignKey("Student", "Id").Nullable()
+           .WithColumn("FirstName").AsString().Nullable()
+           .WithColumn("LastName").AsString().Nullable();
     }
 }

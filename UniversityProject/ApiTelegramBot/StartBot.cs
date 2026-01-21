@@ -20,7 +20,6 @@ public class StartBot : IStartBot
     private ReceiverOptions _receiverOptions;
     private MyLogger _logger;
     private IStartFunctionalForGroup _startFunctionalForGroup;
-    private static Dictionary<long, UserStateRegistration> _userStateReg = new Dictionary<long, UserStateRegistration>();
     private IInitializedClass _initializedClass;
     private IRegistrationClass _registrationClass;
     private IRegistrationForDepartment _registrationForDepartment;
@@ -29,11 +28,12 @@ public class StartBot : IStartBot
     private IRegistrationForUniversity _registrationForUniversity;
     private IRegistrationForFaculty _registrationForFaculty;
     private IRegistrationForDirection _registrationForDirection;
+    private IUserStateRepository _userStateRepository;
     public StartBot(IGetToken getToken, MyLogger logger, IStartFunctionalForGroup startFunctionalForGroup,
         IInitializedClass initializedClass, IRegistrationClass registrationClass, IRegistrationForFaculty registrationForFaculty,
         IRegistrationForDepartment registrationForDepartment, IRegistrationForDirection registrationForDirection,
         IRegistrationForLastName registrationForLastName, IRegistrationForFirstName registrationForFirstName, 
-        IRegistrationForUniversity registrationForUniversity)
+        IRegistrationForUniversity registrationForUniversity, IUserStateRepository userStateRepository)
     {
         _token = getToken.ReturnToken();
         _logger = logger;
@@ -46,6 +46,7 @@ public class StartBot : IStartBot
         _registrationForUniversity = registrationForUniversity;
         _registrationForFaculty = registrationForFaculty;
         _registrationForDirection =  registrationForDirection;
+        _userStateRepository = userStateRepository;
     }
     public async Task ListenForMessagesAsync()
     {
@@ -77,61 +78,62 @@ public class StartBot : IStartBot
         var id = message.Chat.Id;
         var type = message.Chat.Type;
         _logger.Info(messageText);
-        if (!_userStateReg.ContainsKey(id))
+        var userStateReg = _userStateRepository.Get(id);
+        if (userStateReg == null)
         {
-            _userStateReg.Add(id, new UserStateRegistration());
-            _userStateReg[id].SetUserStateAsync(id, UserStateRegEnum.notInitialized);
+            userStateReg = new UserStateRegistration(id);
+            _userStateRepository.Create(userStateReg);
         }
         IRegistrationClass registrationClass = null;
         switch (type)
         {
             case ChatType.Private:
             {
-                switch (_userStateReg[id].UserState)
+                switch (userStateReg.UserState)
                 {
                     case UserStateRegEnum.notInitialized:
                     {
-                        _initializedClass.Initialize(id, _botClient, messageText, _userStateReg[id]);
+                        _initializedClass.Initialize(id, _botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.forRegistration:
                     {
-                        _registrationClass.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        _registrationClass.Registration(id, _botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForUniversityInput:
                     {   
-                        _registrationForUniversity.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        _registrationForUniversity.Registration(id, _botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForFacultyInput:
                     {
-                        _registrationForFaculty.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        _registrationForFaculty.Registration(id, _botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForDepartmentInput:
                     {
-                        _registrationForDepartment.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        _registrationForDepartment.Registration(id, _botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForDirectionInput:
                     {
-                        _registrationForDirection.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        _registrationForDirection.Registration(id, _botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForLastNameInput:
                     {
-                        _registrationForLastName.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        _registrationForLastName.Registration(id, _botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForFirstNameInput:
                     {
-                        _registrationForFirstName.Registration(id, _botClient, messageText, _userStateReg[id]);
+                        _registrationForFirstName.Registration(id, _botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.fullRegistration:
                     {
-                        _startFunctionalForGroup.Functional(id, messageText ,_botClient);
+                        _startFunctionalForGroup.Functional(id, messageText ,_botClient, ChatType.Private);
                         return;
                     }
                 }
@@ -139,7 +141,7 @@ public class StartBot : IStartBot
             }
             case ChatType.Group:
             {
-                _startFunctionalForGroup.Functional(id, messageText ,_botClient);
+                _startFunctionalForGroup.Functional(id, messageText ,_botClient, ChatType.Group);
                 return;
             }
         }

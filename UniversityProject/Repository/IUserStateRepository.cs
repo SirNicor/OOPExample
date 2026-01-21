@@ -7,9 +7,9 @@ using UCore;
 
 namespace Repository
 {
-    internal interface IUserStateRepository
+    public interface IUserStateRepository
     {
-        public UserStateRegistration Get(long Id);
+        public UserStateRegistration? Get(long Id);
         public long Update(UserStateRegistration registration);
         public long Create(UserStateRegistration registration);
     }

@@ -13,9 +13,9 @@ public class StudentUpdate : IStudentUpdate
     {
         _directionRepository = directionRepository;
     }
-    public async void StudentUpdateAsync(ChatId id, TelegramBotClient botClient)
+    public async void StudentUpdateAsync(ChatId id, TelegramBotClient botClient, long dirId)
     {
-        var students = JsonSerializer.Serialize(_directionRepository.Get(1).Students);
+        var students = JsonSerializer.Serialize(_directionRepository.Get(dirId).Students);
         var studentsMessage = students.SplitMessage();
         foreach (var student in studentsMessage)
         {

@@ -10,20 +10,16 @@ using UCore;
 public class InitializedClass : IInitializedClass
 {
     private IDirectionRepository _directionRepository;
-    public InitializedClass(IDirectionRepository directionRepository)
+    private IUserStateRepository _userStateRepository;
+    public InitializedClass(IDirectionRepository directionRepository, IUserStateRepository userStateRepository)
     {
         _directionRepository = directionRepository;
+        _userStateRepository = userStateRepository;
     }
     public async void Initialize(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
         if (messageText.ToLower() == "/start")
         {
-            if (_directionRepository.AuthorizationVerification(userStateReg.ChatId))
-            {
-                userStateReg.SetUserStateAsync(chatId, UserStateRegEnum.fullRegistration);
-            }
-            else
-            {
                 var replyKeyboard = new ReplyKeyboardMarkup(
                     new List<KeyboardButton[]>()
                     {
@@ -31,7 +27,7 @@ public class InitializedClass : IInitializedClass
                     }){ResizeKeyboard = true};
                 await botClient.SendMessage(chatId, "Вы не зарегистрированы. Пройдите регистрацию", replyMarkup: replyKeyboard);
                 userStateReg.IncrementUserStateAsync();
-            }
+                _userStateRepository.Update(userStateReg);
         }
     }
 }

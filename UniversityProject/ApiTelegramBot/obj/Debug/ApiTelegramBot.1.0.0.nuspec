@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ApiTelegramBot</id>
+    <version>1.0.0</version>
+    <authors>ApiTelegramBot</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="f5482bce41c1f54edaa5fbd75906255e303dffc5" />
+    <dependencies>
+      <group targetFramework="net9.0">
+        <dependency id="Logger" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Repository" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="UCore" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="UJob" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Telegram.Bot" version="22.7.5" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net9.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="D:\LessonsRep\OOPExample\OOPExample\UniversityProject\ApiTelegramBot\bin\Debug\net9.0\ApiTelegramBot.dll" target="lib\net9.0\ApiTelegramBot.dll" />
+  </files>
+</package>

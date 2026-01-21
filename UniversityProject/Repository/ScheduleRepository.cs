@@ -102,7 +102,39 @@ public class ScheduleRepository : IScheduleRepository
             return schedules;
         }
     }
-
+    public List<Schedule> ReturnListForDirectionId(long dirId)
+    {
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            db.Open();
+            List<Schedule> schedules = db.Query<Schedule, Direction, Department, Faculty, University, Discipline, Schedule>(
+                SqlQuery + " WHERE dr.Id = @dirId", (schedule, direction, department, faculty, universtity, discipline) =>
+                {
+                    faculty.University = universtity;
+                    department.Faculty = faculty;
+                    direction.Department = department;
+                    schedule.Direction = direction;
+                    schedule.Discipline = discipline;
+                    return schedule;
+                }, new {dirId} , splitOn: "DirectionId,DepartmentId,FacultyId,UniversityId, DisciplineId").AsList();
+            List<TeacherOfScheduleDTO> teachers = db.Query<TeacherOfScheduleDTO, Teacher, Passport, Address, TeacherOfScheduleDTO>(
+                SqlQuery + " WHERE dr.Id = @dirId",
+                (TeacherDTO, teacher, passport, Address) =>
+                {
+                    passport.Address = Address;
+                    teacher.Passport = passport;
+                    TeacherDTO.Teacher = teacher;
+                    return TeacherDTO;
+                }, new { dirId }, splitOn: "TeacherId, PassportId, AddressId").ToList();
+            var TeachersDir = teachers.GroupBy(x => x.Id)
+                .ToDictionary(x => x.Key, x => x.Select(teachers => teachers.Teacher).First());
+            foreach (var schedule in schedules)
+            {
+                schedule.Teacher = TeachersDir.GetValueOrDefault(schedule.Id);
+            }
+            return schedules;
+        }
+    }
     public void Delete(long ID)
     {
         throw new NotImplementedException();
