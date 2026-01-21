@@ -9,18 +9,19 @@ namespace ApiTelegramBot;
 public class DisciplineUpdate : IDisciplineUpdate
 {
     private IDirectionRepository _dirRepository;
-    public DisciplineUpdate(IDirectionRepository dirRepository)
+    private ICreateMessageClass _createMessageClass;
+    public DisciplineUpdate(IDirectionRepository dirRepository, ICreateMessageClass createMessageClass)
     {
         _dirRepository = dirRepository;
+        _createMessageClass = createMessageClass;
     }
     public async void DisciplineUpdateAsync(ChatId id, 
         TelegramBotClient botClient, long dirId)
     {
-        var disciplinesJson = JsonSerializer.Serialize(_dirRepository.Get(dirId).Disciplines);
-        var disciplineArray = disciplinesJson.SplitMessage();
-        foreach (var discipline in disciplineArray)
+        var htmlOfDisciplines = _createMessageClass.DisciplineMessage(_dirRepository.Get(dirId).Disciplines);
+        foreach (var discipline in htmlOfDisciplines) 
         {
-            await botClient.SendMessage(id, discipline);
+            await botClient.SendMessage(id, discipline, ParseMode.Html);
         }
     }
 }

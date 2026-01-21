@@ -8,6 +8,7 @@ using Telegram.Bot;
 using System.Text.Json;
 using Telegram.Bot.Types;
 using Repository;
+using Telegram.Bot.Types.Enums;
 
 namespace ApiTelegramBot
 {
@@ -15,17 +16,18 @@ namespace ApiTelegramBot
     {
 
         private IScheduleRepository _scheduleRepository;
-        public ScheduleUpdate(IScheduleRepository scheduleRepository)
+        private ICreateMessageClass _createMessageClass;
+        public ScheduleUpdate(IScheduleRepository scheduleRepository, ICreateMessageClass createMessageClass)
         {
             _scheduleRepository = scheduleRepository;
+            _createMessageClass = createMessageClass;
         }
         public async void ScheduleUpdateAsync(ChatId id, TelegramBotClient botClient, long dirId)
         {
-            var scheduleJson = JsonSerializer.Serialize(_scheduleRepository.ReturnListForDirectionId(dirId));
-            var scheduleArray = scheduleJson.SplitMessage();
-            foreach (var schedule in scheduleArray)
+            var htmlOfSchedule = _createMessageClass.ScheduleMessage(_scheduleRepository.ReturnListForDirectionId(dirId));
+            foreach (var schedule in htmlOfSchedule)
             {
-                await botClient.SendMessage(id, schedule);
+                await botClient.SendMessage(id, schedule, ParseMode.Html);
             }
         }
     }

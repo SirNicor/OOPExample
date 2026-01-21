@@ -46,5 +46,6 @@ public static class AddedInfrastructureServices
         services.AddSingleton<IRegistrationForDirection, RegistrationForDirection>();
         services.AddSingleton<IRegistrationForLastName, RegistrationForLastName>();
         services.AddSingleton<IRegistrationForFirstName, RegistrationForFirstName>();
+        services.AddTransient<ICreateMessageClass, CreateMessageClass>();
     }
 }
