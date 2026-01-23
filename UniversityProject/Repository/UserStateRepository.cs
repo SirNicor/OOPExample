@@ -14,9 +14,9 @@ namespace Repository
     {
         private const string _sqlQuery = @"SELECT us.Id as ChatId, us.ListUserStateId, LUS.UserStatus AS UserState, 
 us.UniversityId, us.FacultyId, us.DepartmentId, us.DirectionId,
-us.StudentId, us.LastName AS StudentLastName, us.FirstName AS StudentFirstName
-FROM UserState us
-JOIN ListUserState LUS ON LUS.Id = us.ListUserStateId
+us.StudentId, us.LastName AS StudentLastName, us.FirstName AS StudentFirstName, us.RequestType
+FROM UserStateTelegram us
+JOIN ListUserStateTelegram LUS ON LUS.Id = us.ListUserStateId
 WHERE us.Id = @Id";
         private string _connectionString;
         public UserStateRepository(IGetConnectionString getConnectionString)
@@ -32,15 +32,15 @@ WHERE us.Id = @Id";
                 {
                     try
                     {
-                        string SqlQuery = @"INSERT INTO UserState(Id, ListUserStateId, 
-                            UniversityId, FacultyId, DepartmentId, DirectionId, StudentId, FirstName, LastName)
-                            VALUES(@ChatId, (SELECT Id FROM ListUserState WHERE UserStatus = @UserState), @UniversityId, 
-                            @FacultyId, @DepartmentId, @DirectionId, @StudentId, @StudentFirstName, @StudentLastName)";
+                        string SqlQuery = @"INSERT INTO UserStateTelegram(Id, ListUserStateId, 
+                            UniversityId, FacultyId, DepartmentId, DirectionId, StudentId, FirstName, LastName, RequestType)
+                            VALUES(@ChatId, (SELECT Id FROM ListUserStateTelegram WHERE UserStatus = @UserState), @UniversityId, 
+                            @FacultyId, @DepartmentId, @DirectionId, @StudentId, @StudentFirstName, @StudentLastName, @RequestType)";
                         db.Execute(SqlQuery, new
                         {
                             registration.ChatId, UserState =registration.UserState.ToString(), registration.UniversityId,
                             registration.FacultyId, registration.DepartmentId, registration.DirectionId, registration.StudentId,
-                            registration.StudentFirstName, registration.StudentLastName
+                            registration.StudentFirstName, registration.StudentLastName,RequestType = registration.RequestType.ToString()
                         }
                             , transaction);
 
@@ -75,10 +75,12 @@ WHERE us.Id = @Id";
                 {
                     try
                     {
-                        string SqlQuery = @"UPDATE UserState 
-                        SET ListUserStateId = (SELECT Id FROM ListUserState WHERE UserStatus = @UserState), 
+                        string SqlQuery = @"UPDATE UserStateTelegram 
+                        SET ListUserStateId = (SELECT Id FROM ListUserStateTelegram  WHERE UserStatus = @UserState), 
                         UniversityId = @UniversityId, FacultyId = @FacultyId, DepartmentId = @DepartmentId,
-                        DirectionId = @DirectionId, StudentId = @StudentId, FirstName = @StudentFirstName, LastName = @StudentLastName;";
+                        DirectionId = @DirectionId, StudentId = @StudentId, FirstName = @StudentFirstName, 
+                        LastName = @StudentLastName,  RequestType = @RequestType
+                        WHERE Id = @ChatId";
                         db.Execute(SqlQuery, new
                         {
                             registration.ChatId,
@@ -89,7 +91,8 @@ WHERE us.Id = @Id";
                             registration.DirectionId,
                             registration.StudentId,
                             registration.StudentFirstName,
-                            registration.StudentLastName
+                            registration.StudentLastName,
+                            RequestType = registration.RequestType.ToString()
                         }, transaction);
                         transaction.Commit();
                         return registration.ChatId;

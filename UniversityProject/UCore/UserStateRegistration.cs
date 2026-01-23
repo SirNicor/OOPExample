@@ -41,4 +41,5 @@ public class UserStateRegistration : IUserStateRegistration
     public long? StudentId { get; set; }
     public string? StudentFirstName { get; set; }
     public string? StudentLastName { get; set; }
+    public UserStateTypeRequest RequestType { get; set; }
 }

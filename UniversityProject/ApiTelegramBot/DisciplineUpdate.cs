@@ -4,24 +4,49 @@ using Telegram.Bot.Types.Enums;
 using System.Text.Json;
 using System.Text;
 using Repository;
+using SelectPdf;
+using Logger;
 namespace ApiTelegramBot;
 
 public class DisciplineUpdate : IDisciplineUpdate
 {
     private IDirectionRepository _dirRepository;
     private ICreateMessageClass _createMessageClass;
-    public DisciplineUpdate(IDirectionRepository dirRepository, ICreateMessageClass createMessageClass)
+    private MyLogger _logger;
+    public DisciplineUpdate(IDirectionRepository dirRepository, ICreateMessageClass createMessageClass, MyLogger logger)
     {
         _dirRepository = dirRepository;
         _createMessageClass = createMessageClass;
+        _logger = logger;
     }
-    public async void DisciplineUpdateAsync(ChatId id, 
-        TelegramBotClient botClient, long dirId)
+    public async Task DisciplineUpdateAsync(ChatId id, 
+        ITelegramBotClient botClient, long dirId, string type)
     {
         var htmlOfDisciplines = _createMessageClass.DisciplineMessage(_dirRepository.Get(dirId).Disciplines);
-        foreach (var discipline in htmlOfDisciplines) 
+        if (type == "text")
         {
-            await botClient.SendMessage(id, discipline, ParseMode.Html);
+            foreach (var discipline in htmlOfDisciplines) 
+            {
+                await botClient.SendMessage(id, discipline, ParseMode.Html);
+            }
+        }
+        else
+        {
+            try
+            {
+                var allHtml = htmlOfDisciplines.Aggregate((x, y) => $"{x}\n{y}");
+                HtmlToPdf converter = new HtmlToPdf();
+                PdfDocument doc = converter.ConvertHtmlString(allHtml);
+                var result = new MemoryStream();
+                doc.Save(result);
+                result.Position = 0;
+                await botClient.SendDocument(id, InputFile.FromStream(result, "Дисциплины.pdf"));
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
         }
     }
 }

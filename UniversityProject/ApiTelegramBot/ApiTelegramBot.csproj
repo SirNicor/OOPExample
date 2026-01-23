@@ -14,7 +14,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="BitMiracle.Docotic.Pdf.HtmlToPdf" Version="9.8.19414-dev" />
       <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
+      <PackageReference Include="Select.HtmlToPdf.NetCore" Version="25.2.0" />
       <PackageReference Include="Telegram.Bot" Version="22.7.5" />
     </ItemGroup>
 

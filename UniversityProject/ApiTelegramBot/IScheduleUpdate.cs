@@ -12,6 +12,6 @@ namespace ApiTelegramBot
 {
     public interface IScheduleUpdate
     {
-        public void ScheduleUpdateAsync(ChatId id, TelegramBotClient botClient, long dirId);
+        public Task ScheduleUpdateAsync(ChatId id, ITelegramBotClient botClient, long dirId, string type);
     }
 }

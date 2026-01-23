@@ -47,5 +47,6 @@ public static class AddedInfrastructureServices
         services.AddSingleton<IRegistrationForLastName, RegistrationForLastName>();
         services.AddSingleton<IRegistrationForFirstName, RegistrationForFirstName>();
         services.AddTransient<ICreateMessageClass, CreateMessageClass>();
+        services.AddSingleton<FunctionOfBot, FunctionOfBot>();
     }
 }

@@ -5,7 +5,7 @@ namespace ApiTelegramBot;
 using Microsoft.AspNetCore.Html;
 public class CreateMessageClass : ICreateMessageClass
 {
-    const int _maxLength = 400;
+    const int _maxLength = 4096;
     
     public List<string> StudentMessage(List<Student> students)
     {

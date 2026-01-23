@@ -23,3 +23,4 @@ D:\LessonsRep\OOPExample\OOPExample\UniversityProject\ApiTelegramBot\obj\Debug\n
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\ApiTelegramBot\obj\Debug\net9.0\refint\ApiTelegramBot.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\ApiTelegramBot\obj\Debug\net9.0\ApiTelegramBot.pdb
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\ApiTelegramBot\obj\Debug\net9.0\ref\ApiTelegramBot.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\ApiTelegramBot\bin\Debug\net9.0\Select.Html.dep

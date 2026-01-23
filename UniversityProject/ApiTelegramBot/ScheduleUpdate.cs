@@ -9,6 +9,8 @@ using System.Text.Json;
 using Telegram.Bot.Types;
 using Repository;
 using Telegram.Bot.Types.Enums;
+using SelectPdf;
+using Logger;
 
 namespace ApiTelegramBot
 {
@@ -17,17 +19,40 @@ namespace ApiTelegramBot
 
         private IScheduleRepository _scheduleRepository;
         private ICreateMessageClass _createMessageClass;
-        public ScheduleUpdate(IScheduleRepository scheduleRepository, ICreateMessageClass createMessageClass)
+        private MyLogger _logger;
+        public ScheduleUpdate(IScheduleRepository scheduleRepository, ICreateMessageClass createMessageClass, MyLogger myLogger)
         {
             _scheduleRepository = scheduleRepository;
             _createMessageClass = createMessageClass;
+            _logger = myLogger;
         }
-        public async void ScheduleUpdateAsync(ChatId id, TelegramBotClient botClient, long dirId)
+        public async Task ScheduleUpdateAsync(ChatId id, ITelegramBotClient botClient, long dirId, string type)
         {
             var htmlOfSchedule = _createMessageClass.ScheduleMessage(_scheduleRepository.ReturnListForDirectionId(dirId));
-            foreach (var schedule in htmlOfSchedule)
+            if (type == "text")
             {
-                await botClient.SendMessage(id, schedule, ParseMode.Html);
+                foreach (var schedule in htmlOfSchedule)
+                {
+                    await botClient.SendMessage(id, schedule, ParseMode.Html);
+                }
+            }
+            else
+            {
+                try
+                {
+                    var allHtml = htmlOfSchedule.Aggregate((x, y) => $"{x}\n{y}");
+                    HtmlToPdf converter = new HtmlToPdf();
+                    PdfDocument doc = converter.ConvertHtmlString(allHtml);
+                    var result = new MemoryStream();
+                    doc.Save(result);
+                    result.Position = 0;
+                    await botClient.SendDocument(id, InputFile.FromStream(result, "Расписание.pdf"));
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex.Message);
+                    throw;
+                }
             }
         }
     }

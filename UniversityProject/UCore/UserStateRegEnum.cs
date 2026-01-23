@@ -23,3 +23,13 @@ public enum UserStateRegEnum
     [Description("fullRegistration")]
     fullRegistration
 }
+
+public enum UserStateTypeRequest
+{
+    [Description("Send discipline")]
+    DisciplineUpdate,
+    [Description("Send Schedule")]
+    ScheduleUpdate,
+    [Description("Send Student")]
+    StudentUpdate
+}
