@@ -20,7 +20,7 @@ public class RegistrationClass : IRegistrationClass
         {
             userStateReg.IncrementUserStateAsync();
             await botClient.SendMessage(chatId, "Введите свой ВУЗ: ");
-            _userStateRepository.Update(userStateReg);
         }
+        _userStateRepository.Update(userStateReg);
     }
 }

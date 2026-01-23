@@ -40,7 +40,7 @@ public class RegistrationForFaculty : IRegistrationForFaculty
             {
                 await botClient.SendMessage(chatId, "Такого факультета нет. Введите снова");
             }
-            _userStateRepository.Update(userStateReg);
         }
+        _userStateRepository.Update(userStateReg);
     }
 }

@@ -45,7 +45,7 @@ public class RegistrationForDirection : IRegistrationForDirection
             {
                 await botClient.SendMessage(chatId, "Такой группы нет. Введите снова");
             }
-            _userStateRepository.Update(userStateReg);
         }
+        _userStateRepository.Update(userStateReg);
     }
 }

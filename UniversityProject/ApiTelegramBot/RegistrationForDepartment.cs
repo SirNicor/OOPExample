@@ -45,7 +45,7 @@ public class RegistrationForDepartment : IRegistrationForDepartment
             {
                 botClient.SendMessage(chatId, "Такой кафедры нет. Введите снова");
             }
-            _userStateRepository.Update(userStateReg);
         }
+        _userStateRepository.Update(userStateReg);
     }
 }
