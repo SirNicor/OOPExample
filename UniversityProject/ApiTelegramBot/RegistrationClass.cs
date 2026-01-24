@@ -14,7 +14,7 @@ public class RegistrationClass : IRegistrationClass
     {
         _userStateRepository = userStateRepository;
     }
-    public async void Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
+    public async Task Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
         if (messageText.ToLower() == "/registration")
         {

@@ -7,5 +7,5 @@ using UCore;
 namespace ApiTelegramBot;
 public interface IInitializedClass
 {
-    public void Initialize(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg);
+    public Task Initialize(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg);
 }

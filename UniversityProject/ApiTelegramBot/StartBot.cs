@@ -75,47 +75,47 @@ public class StartBot : IStartBot
                 {
                     case UserStateRegEnum.notInitialized:
                     {
-                        _functionOfBot.InitializedClass.Initialize(id, botClient, messageText, userStateReg);
+                        await _functionOfBot.InitializedClass.Initialize(id, botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.forRegistration:
                     {
-                        _functionOfBot.RegistrationClass.Registration(id, botClient, messageText, userStateReg);
+                        await _functionOfBot.RegistrationClass.Registration(id, botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForUniversityInput:
                     {   
-                        _functionOfBot.RegistrationForUniversity.Registration(id, botClient, messageText, userStateReg);
+                        await _functionOfBot.RegistrationForUniversity.Registration(id, botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForFacultyInput:
                     {
-                        _functionOfBot.RegistrationForFaculty.Registration(id, botClient, messageText, userStateReg);
+                        await _functionOfBot.RegistrationForFaculty.Registration(id, botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForDepartmentInput:
                     {
-                        _functionOfBot.RegistrationForDepartment.Registration(id, botClient, messageText, userStateReg);
+                        await _functionOfBot.RegistrationForDepartment.Registration(id, botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForDirectionInput:
                     {
-                        _functionOfBot.RegistrationForDirection.Registration(id, botClient, messageText, userStateReg);
+                        await _functionOfBot.RegistrationForDirection.Registration(id, botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForLastNameInput:
                     {
-                        _functionOfBot.RegistrationForLastName.Registration(id, botClient, messageText, userStateReg);
+                        await _functionOfBot.RegistrationForLastName.Registration(id, botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.waitingForFirstNameInput:
                     {
-                        _functionOfBot.RegistrationForFirstName.Registration(id, botClient, messageText, userStateReg);
+                        await _functionOfBot.RegistrationForFirstName.Registration(id, botClient, messageText, userStateReg);
                         return;
                     }
                     case UserStateRegEnum.fullRegistration:
                     {
-                        _functionOfBot.StartFunctionalForGroup.Functional(id, messageText, botClient, ChatType.Private, userStateReg);
+                        await _functionOfBot.StartFunctionalForGroup.Functional(id, messageText, botClient, ChatType.Private, userStateReg);
                         return;
                     }
                 }

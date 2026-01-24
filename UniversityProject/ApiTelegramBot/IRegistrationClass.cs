@@ -6,5 +6,5 @@ using Telegram.Bot.Types.ReplyMarkups;
 using UCore;
 public interface IRegistrationClass
 {
-    public void Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg);
+    public Task Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg);
 }

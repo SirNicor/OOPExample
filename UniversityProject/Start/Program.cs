@@ -30,11 +30,15 @@ try
     app.AddDisciplineRequest(app.Services.GetRequiredService<MyLogger>());
     app.AddDirectionRequest(app.Services.GetRequiredService<MyLogger>());
     app.AddScheduleRequest(app.Services.GetRequiredService<MyLogger>());
-    using (var botScope = app.Services.CreateScope())
+    Thread botThread = new Thread(()=>
     {
-        var bot = botScope.ServiceProvider.GetRequiredService<IStartBot>();
-        _ = Task.Run(async () => await bot.ListenForMessagesAsync());
-    }
+        using (var botScope = app.Services.CreateScope())
+        {
+            var bot = botScope.ServiceProvider.GetRequiredService<IStartBot>();
+            _ = Task.Run(async () => await bot.ListenForMessagesAsync());
+        }
+    });
+    botThread.Start();
     app.MapGet("/", async (HttpContext context) =>
     {
         context.Response.Headers.ContentLanguage = "ru-RU";

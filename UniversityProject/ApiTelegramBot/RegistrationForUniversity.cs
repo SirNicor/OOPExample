@@ -15,7 +15,7 @@ public class RegistrationForUniversity : IRegistrationForUniversity
         _repository = repository;
         _userStateRepository = userStateRepository;
     }
-    public async void Registration(long chatId, ITelegramBotClient botClient, string messageText,UserStateRegistration userStateRegistration)
+    public async Task Registration(long chatId, ITelegramBotClient botClient, string messageText,UserStateRegistration userStateRegistration)
     {
         var id = _repository.CheckNameInUniversity(messageText);
         if (id != null)

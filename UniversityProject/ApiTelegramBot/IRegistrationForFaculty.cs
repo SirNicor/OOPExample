@@ -8,5 +8,5 @@ using Repository;
 using UCore;
 public interface IRegistrationForFaculty
 {
-    public void Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg);
+    public Task Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg);
 }

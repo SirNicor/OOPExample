@@ -16,7 +16,7 @@ public class InitializedClass : IInitializedClass
         _directionRepository = directionRepository;
         _userStateRepository = userStateRepository;
     }
-    public async void Initialize(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
+    public async Task Initialize(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
         if (messageText.ToLower() == "/start")
         {

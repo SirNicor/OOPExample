@@ -18,7 +18,7 @@ public class RegistrationForFirstName : IRegistrationForFirstName
         _directionRepository = directionRepository;
         _userStateRepository = userStateRepository;
     }
-    public async void Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
+    public async Task Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
         var id = _repository.CheckName(messageText, userStateReg.StudentLastName);
         if (id != null)
