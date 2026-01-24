@@ -19,11 +19,14 @@ namespace ApiTelegramBot
 
         private IScheduleRepository _scheduleRepository;
         private ICreateMessageClass _createMessageClass;
+        private CreateFileClass _createFileClass;
         private MyLogger _logger;
-        public ScheduleUpdate(IScheduleRepository scheduleRepository, ICreateMessageClass createMessageClass, MyLogger myLogger)
+        public ScheduleUpdate(IScheduleRepository scheduleRepository, ICreateMessageClass createMessageClass,
+            MyLogger myLogger, CreateFileClass createFileClass)
         {
             _scheduleRepository = scheduleRepository;
             _createMessageClass = createMessageClass;
+            _createFileClass = createFileClass;
             _logger = myLogger;
         }
         public async Task ScheduleUpdateAsync(ChatId id, ITelegramBotClient botClient, long dirId, string type)
@@ -40,12 +43,7 @@ namespace ApiTelegramBot
             {
                 try
                 {
-                    var allHtml = htmlOfSchedule.Aggregate((x, y) => $"{x}\n{y}");
-                    HtmlToPdf converter = new HtmlToPdf();
-                    PdfDocument doc = converter.ConvertHtmlString(allHtml);
-                    var result = new MemoryStream();
-                    doc.Save(result);
-                    result.Position = 0;
+                    var result = _createFileClass.ScheduleMessage(_scheduleRepository.ReturnListForDirectionId(dirId));
                     await botClient.SendDocument(id, InputFile.FromStream(result, "Расписание.pdf"));
                 }
                 catch (Exception ex)

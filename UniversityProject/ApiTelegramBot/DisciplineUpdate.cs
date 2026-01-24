@@ -12,11 +12,13 @@ public class DisciplineUpdate : IDisciplineUpdate
 {
     private IDirectionRepository _dirRepository;
     private ICreateMessageClass _createMessageClass;
+    private CreateFileClass _createFileClass;
     private MyLogger _logger;
-    public DisciplineUpdate(IDirectionRepository dirRepository, ICreateMessageClass createMessageClass, MyLogger logger)
+    public DisciplineUpdate(IDirectionRepository dirRepository, ICreateMessageClass createMessageClass, MyLogger logger, CreateFileClass createFileClass)
     {
         _dirRepository = dirRepository;
         _createMessageClass = createMessageClass;
+        _createFileClass = createFileClass;
         _logger = logger;
     }
     public async Task DisciplineUpdateAsync(ChatId id, 
@@ -34,12 +36,7 @@ public class DisciplineUpdate : IDisciplineUpdate
         {
             try
             {
-                var allHtml = htmlOfDisciplines.Aggregate((x, y) => $"{x}\n{y}");
-                HtmlToPdf converter = new HtmlToPdf();
-                PdfDocument doc = converter.ConvertHtmlString(allHtml);
-                var result = new MemoryStream();
-                doc.Save(result);
-                result.Position = 0;
+                var result = _createFileClass.DisciplineMessage(_dirRepository.Get(dirId).Disciplines);
                 await botClient.SendDocument(id, InputFile.FromStream(result, "Дисциплины.pdf"));
             }
             catch (Exception ex)

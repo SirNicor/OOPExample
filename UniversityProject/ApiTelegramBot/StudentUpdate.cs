@@ -15,10 +15,13 @@ public class StudentUpdate : IStudentUpdate
     private IDirectionRepository _directionRepository;
     private ICreateMessageClass _createMessageClass;
     private MyLogger _logger;
-    public StudentUpdate(IDirectionRepository directionRepository, ICreateMessageClass createMessageClass, MyLogger logger)
+    private CreateFileClass _createFileClass;
+    public StudentUpdate(IDirectionRepository directionRepository, ICreateMessageClass createMessageClass, 
+        MyLogger logger, CreateFileClass createFileClass)
     {
         _directionRepository = directionRepository;
         _createMessageClass = createMessageClass;
+        _createFileClass = createFileClass;
         _logger = logger;
     }
     public async Task StudentUpdateAsync(ChatId id, ITelegramBotClient botClient, long dirId, string type)
@@ -35,12 +38,7 @@ public class StudentUpdate : IStudentUpdate
         {
             try
             {
-                var allHtml = htmlOfstudents.Aggregate((x, y) => $"{x}\n{y}");
-                HtmlToPdf converter = new HtmlToPdf();
-                PdfDocument doc = converter.ConvertHtmlString(allHtml);
-                var result = new MemoryStream();
-                doc.Save(result);
-                result.Position = 0;
+                var result = _createFileClass.StudentMessage(_directionRepository.Get(dirId).Students);
                 await botClient.SendDocument(id, InputFile.FromStream(result, "Студенты.pdf"));
             }
             catch (Exception ex)
