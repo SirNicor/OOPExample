@@ -9,11 +9,11 @@ using UCore;
 public class RegistrationForDirection : IRegistrationForDirection
 {
     private IDirectionRepository _repository;
-    private IUserStateRepository _userStateRepository;
-    public RegistrationForDirection(IDirectionRepository repository, IUserStateRepository userStateRepository)
+    private IUserStateTelegramRepository _userStateTelegramRepository;
+    public RegistrationForDirection(IDirectionRepository repository, IUserStateTelegramRepository userStateTelegramRepository)
     {
         _repository = repository;
-        _userStateRepository = userStateRepository;
+        _userStateTelegramRepository = userStateTelegramRepository;
     }
     public async Task Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
@@ -46,6 +46,6 @@ public class RegistrationForDirection : IRegistrationForDirection
                 await botClient.SendMessage(chatId, "Такой группы нет. Введите снова");
             }
         }
-        _userStateRepository.Update(userStateReg);
+        _userStateTelegramRepository.Update(userStateReg);
     }
 }

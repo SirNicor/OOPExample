@@ -14,7 +14,7 @@ public class StartFunctionalForGroup : IStartFunctionalForGroup
     private IStudentUpdate _studentUpdate;
     private IScheduleUpdate _scheduleUpdate;
     private IDirectionRepository _directionRepository;
-    private IUserStateRepository _userStateRepository;
+    private IUserStateTelegramRepository _userStateTelegramRepository;
     private MyLogger _logger;
     private long dirId;
 
@@ -36,14 +36,14 @@ public class StartFunctionalForGroup : IStartFunctionalForGroup
             replyMarkup: replyKeyboard);
     }
     public StartFunctionalForGroup(IStudentRepository studentRepository, IDirectionRepository directionRepository, 
-        IDisciplineUpdate disSend, IStudentUpdate studentUpdate, IUserStateRepository userStateRepository,
+        IDisciplineUpdate disSend, IStudentUpdate studentUpdate, IUserStateTelegramRepository userStateTelegramRepository,
         IScheduleUpdate scheduleUpdate, MyLogger logger)
     {
         _studentUpdate = studentUpdate;
         _disSend = disSend;
         _scheduleUpdate = scheduleUpdate;
         _directionRepository = directionRepository;
-        _userStateRepository = userStateRepository;
+        _userStateTelegramRepository = userStateTelegramRepository;
         _logger = logger;
     }
     public async Task Functional(ChatId id, string messageText, ITelegramBotClient botClient, ChatType type,  UserStateRegistration userState)
@@ -52,7 +52,7 @@ public class StartFunctionalForGroup : IStartFunctionalForGroup
                      $"UserState: {userState.RequestType}");
         if(type == ChatType.Private)
         {
-            dirId = (long)_userStateRepository.Get((long)id.Identifier).DirectionId;
+            dirId = (long)_userStateTelegramRepository.Get((long)id.Identifier).DirectionId;
         }
         else if(type == ChatType.Group)
         {
@@ -78,7 +78,7 @@ public class StartFunctionalForGroup : IStartFunctionalForGroup
                             "Выберите нужный тип отправки:",
                             replyMarkup: replyKeyboard);
                         userState.RequestType = UserStateTypeRequest.DisciplineUpdate;
-                        _userStateRepository.Update(userState);
+                        _userStateTelegramRepository.Update(userState);
                         return;
                     }
                 case "Список студентов":
@@ -93,7 +93,7 @@ public class StartFunctionalForGroup : IStartFunctionalForGroup
                             "Выберите нужный тип отправки:",
                             replyMarkup: replyKeyboard);
                         userState.RequestType = UserStateTypeRequest.StudentUpdate;
-                        _userStateRepository.Update(userState);
+                        _userStateTelegramRepository.Update(userState);
                         return;
                     }
                 case "Расписание":
@@ -108,7 +108,7 @@ public class StartFunctionalForGroup : IStartFunctionalForGroup
                             "Выберите нужный тип отправки:",
                             replyMarkup: replyKeyboard);
                         userState.RequestType = UserStateTypeRequest.ScheduleUpdate;
-                        _userStateRepository.Update(userState);
+                        _userStateTelegramRepository.Update(userState);
                         return;
                     }
                 case "Сообщение":

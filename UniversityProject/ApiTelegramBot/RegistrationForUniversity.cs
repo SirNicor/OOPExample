@@ -9,11 +9,11 @@ using UCore;
 public class RegistrationForUniversity : IRegistrationForUniversity
 {
     private IUniversityRepository _repository;
-    private IUserStateRepository _userStateRepository;
-    public RegistrationForUniversity(IUniversityRepository repository, IUserStateRepository userStateRepository )
+    private IUserStateTelegramRepository _userStateTelegramRepository;
+    public RegistrationForUniversity(IUniversityRepository repository, IUserStateTelegramRepository userStateTelegramRepository )
     {
         _repository = repository;
-        _userStateRepository = userStateRepository;
+        _userStateTelegramRepository = userStateTelegramRepository;
     }
     public async Task Registration(long chatId, ITelegramBotClient botClient, string messageText,UserStateRegistration userStateRegistration)
     {
@@ -33,6 +33,6 @@ public class RegistrationForUniversity : IRegistrationForUniversity
         {
             await botClient.SendMessage(chatId, "Такого университета нет. Введите снова");
         }
-        _userStateRepository.Update(userStateRegistration);
+        _userStateTelegramRepository.Update(userStateRegistration);
     }
 }

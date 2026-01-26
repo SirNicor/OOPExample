@@ -9,11 +9,11 @@ using UCore;
 public class RegistrationForLastName : IRegistrationForLastName
 {
     private IStudentRepository _repository;
-    private IUserStateRepository _userStateRepository;
-    public RegistrationForLastName(IStudentRepository repository, IUserStateRepository userStateRepository)
+    private IUserStateTelegramRepository _userStateTelegramRepository;
+    public RegistrationForLastName(IStudentRepository repository, IUserStateTelegramRepository userStateTelegramRepository)
     {
         _repository = repository;
-        _userStateRepository = userStateRepository;
+        _userStateTelegramRepository = userStateTelegramRepository;
     }
     public async Task Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
@@ -33,6 +33,6 @@ public class RegistrationForLastName : IRegistrationForLastName
             userStateReg.IncrementUserStateAsync();
             await botClient.SendMessage(chatId, "Введите свое имя: "); 
         } 
-        _userStateRepository.Update(userStateReg);
+        _userStateTelegramRepository.Update(userStateReg);
     }
 }

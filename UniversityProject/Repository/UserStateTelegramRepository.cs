@@ -10,7 +10,7 @@ using UCore;
 
 namespace Repository
 {
-    public class UserStateRepository : IUserStateRepository
+    public class UserStateTelegramRepository : IUserStateTelegramRepository
     {
         private const string _sqlQuery = @"SELECT us.Id as ChatId, us.ListUserStateId, LUS.UserStatus AS UserState, 
 us.UniversityId, us.FacultyId, us.DepartmentId, us.DirectionId,
@@ -19,7 +19,7 @@ FROM UserStateTelegram us
 JOIN ListUserStateTelegram LUS ON LUS.Id = us.ListUserStateId
 WHERE us.Id = @Id";
         private string _connectionString;
-        public UserStateRepository(IGetConnectionString getConnectionString)
+        public UserStateTelegramRepository(IGetConnectionString getConnectionString)
         {
             _connectionString = getConnectionString.ReturnConnectionString();
         }
@@ -63,6 +63,15 @@ WHERE us.Id = @Id";
                 db.Open();
                 var UserState = db.Query<UserStateRegistration>(_sqlQuery, new { Id }).FirstOrDefault();
                 return UserState;
+            }
+        }
+
+        public void Delete(long Id)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery = "DELETE FROM UserStateTelegram where ID = @Id;";
+                db.Execute(sqlQuery, new{Id});
             }
         }
 

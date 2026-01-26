@@ -20,12 +20,12 @@ public class FunctionOfBot
     public IRegistrationForUniversity RegistrationForUniversity;
     public IRegistrationForFaculty RegistrationForFaculty;
     public IRegistrationForDirection RegistrationForDirection;
-    public IUserStateRepository UserStateRepository;
+    public IUserStateTelegramRepository UserStateTelegramRepository;
     public FunctionOfBot(IStartFunctionalForGroup startFunctionalForGroup,
         IInitializedClass initializedClass, IRegistrationClass registrationClass, IRegistrationForFaculty registrationForFaculty,
         IRegistrationForDepartment registrationForDepartment, IRegistrationForDirection registrationForDirection,
         IRegistrationForLastName registrationForLastName, IRegistrationForFirstName registrationForFirstName, 
-        IRegistrationForUniversity registrationForUniversity, IUserStateRepository userStateRepository)
+        IRegistrationForUniversity registrationForUniversity, IUserStateTelegramRepository userStateTelegramRepository)
     {
         StartFunctionalForGroup = startFunctionalForGroup;
         InitializedClass = initializedClass;
@@ -36,6 +36,6 @@ public class FunctionOfBot
         RegistrationForUniversity = registrationForUniversity;
         RegistrationForFaculty = registrationForFaculty;
         RegistrationForDirection =  registrationForDirection;
-        UserStateRepository = userStateRepository;
+        UserStateTelegramRepository = userStateTelegramRepository;
     }
 }

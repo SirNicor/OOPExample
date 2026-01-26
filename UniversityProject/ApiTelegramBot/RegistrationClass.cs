@@ -9,10 +9,10 @@ namespace ApiTelegramBot;
 
 public class RegistrationClass : IRegistrationClass
 {
-    private IUserStateRepository _userStateRepository;
-    public RegistrationClass(IUserStateRepository userStateRepository)
+    private IUserStateTelegramRepository _userStateTelegramRepository;
+    public RegistrationClass(IUserStateTelegramRepository userStateTelegramRepository)
     {
-        _userStateRepository = userStateRepository;
+        _userStateTelegramRepository = userStateTelegramRepository;
     }
     public async Task Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
@@ -21,6 +21,6 @@ public class RegistrationClass : IRegistrationClass
             userStateReg.IncrementUserStateAsync();
             await botClient.SendMessage(chatId, "Введите свой ВУЗ: ");
         }
-        _userStateRepository.Update(userStateReg);
+        _userStateTelegramRepository.Update(userStateReg);
     }
 }

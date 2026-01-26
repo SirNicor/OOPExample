@@ -21,7 +21,7 @@ public static class AddedInfrastructureServices
         services.AddSingleton<IScheduleRepository, ScheduleRepository>();
         services.AddSingleton<IWorkerTeacherRepository, WorkerTeacherRepository>();
         services.AddSingleton<IWorkerAdministratorRepository, WorkerAdministratorRepository>();
-        services.AddSingleton<IUserStateRepository, UserStateRepository>();
+        services.AddSingleton<IUserStateTelegramRepository, UserStateTelegramRepository>();
         services.AddTransient<IInfoCouplesAttendanceJob, InfoCouplesAttendanceJob>();
         services.AddTransient<IPrintStudentJob, PrintStudentsJob>();
         services.AddTransient<IPrintWorkersJob, PrintWorkersJob>();

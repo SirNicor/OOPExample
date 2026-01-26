@@ -55,11 +55,11 @@ public class StartBot : IStartBot
         }
         var id = message.Chat.Id;
         var type = message.Chat.Type;
-        var userStateReg = _functionOfBot.UserStateRepository.Get(id);
+        var userStateReg = _functionOfBot.UserStateTelegramRepository.Get(id);
         if (userStateReg == null)
         {
             userStateReg = new UserStateRegistration(id);
-            _functionOfBot.UserStateRepository.Create(userStateReg);
+            _functionOfBot.UserStateTelegramRepository.Create(userStateReg);
         }
         string loggerInfo = $"ChatId: {id}, UserName:{message.Chat.Username}, FirstName: {message.Chat.FirstName}, LastName: {message.Chat.LastName}," +
                             $" ChatType: {type}, MessageText: {messageText}, Photo: {message.Photo}" +

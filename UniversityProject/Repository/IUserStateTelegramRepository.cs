@@ -7,9 +7,10 @@ using UCore;
 
 namespace Repository
 {
-    public interface IUserStateRepository
+    public interface IUserStateTelegramRepository
     {
         public UserStateRegistration? Get(long Id);
+        public void Delete(long Id);
         public long Update(UserStateRegistration registration);
         public long Create(UserStateRegistration registration);
     }

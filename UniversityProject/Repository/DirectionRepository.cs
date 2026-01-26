@@ -39,7 +39,33 @@ JOIN Discipline ds ON ds.Id = DoD.DisciplineId";
     }
     public long Create(DirectionDto direction)
     {
-        throw new NotImplementedException();
+        using(IDbConnection db = new SqlConnection(_connectionString))
+        {
+            db.Open();
+            using (IDbTransaction transaction = db.BeginTransaction())
+            {
+                try
+                {
+                    var sqlQuery = @"
+    INSERT INTO Direction (DepartmentId, DegreesStudyId, NameDirection, ChatId)
+    OUTPUT INSERTED.ID
+    VALUES (@DepartmentId, (SELECT Id FROM DegreesStudy WHERE LevelDegrees = @DegreesStudy), @NameDirection, @ChatId)";
+                    long id = db.QuerySingle<long>(sqlQuery, new
+                    {
+                        direction.DepartmentId, DegreesStudy = direction.DegreesStudy.ToString(),
+                        direction.NameDirection, direction.ChatId
+                    }, transaction);
+                    transaction.Commit();
+                    return id;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+            }
+        }
     }
 
     public Direction Get(long Id)
@@ -106,12 +132,42 @@ JOIN Discipline ds ON ds.Id = DoD.DisciplineId";
 
     public void Delete(long ID)
     {
-        throw new NotImplementedException();
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            var sqlQuery = "DELETE FROM Direction where ID = @ID;";
+            db.Execute(sqlQuery, new{ID});
+        }
     }
 
     public long Update(DirectionDto direction)
     {
-        throw new NotImplementedException();
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            db.Open();
+            using (IDbTransaction transaction = db.BeginTransaction())
+            {
+                try
+                {
+                    var sqlQuery = @"UPDATE Direction 
+    SET DepartmentId = @DepartmentId, DegreesStudyId = (SELECT Id FROM DegreesStudy WHERE LevelDegrees = @DegreesStudy),
+    NameDirection = @NameDirection, ChatId = @ChatId
+    WHERE Id = @Id";
+                    long id = db.QuerySingle<long>(sqlQuery, new
+                    {
+                        direction.DepartmentId, DegreesStudy = direction.DegreesStudy.ToString(),
+                        direction.NameDirection, direction.ChatId, Id = direction.DirectionId
+                    }, transaction);
+                    transaction.Commit();
+                    return direction.DirectionId;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+            }
+        }
     }
 
     public long? CheckNameDirection(string nameDirection, long departmentId)

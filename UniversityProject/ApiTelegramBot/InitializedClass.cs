@@ -10,11 +10,11 @@ using UCore;
 public class InitializedClass : IInitializedClass
 {
     private IDirectionRepository _directionRepository;
-    private IUserStateRepository _userStateRepository;
-    public InitializedClass(IDirectionRepository directionRepository, IUserStateRepository userStateRepository)
+    private IUserStateTelegramRepository _userStateTelegramRepository;
+    public InitializedClass(IDirectionRepository directionRepository, IUserStateTelegramRepository userStateTelegramRepository)
     {
         _directionRepository = directionRepository;
-        _userStateRepository = userStateRepository;
+        _userStateTelegramRepository = userStateTelegramRepository;
     }
     public async Task Initialize(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
@@ -27,7 +27,7 @@ public class InitializedClass : IInitializedClass
                     }){ResizeKeyboard = true};
                 await botClient.SendMessage(chatId, "Вы не зарегистрированы. Пройдите регистрацию", replyMarkup: replyKeyboard);
                 userStateReg.IncrementUserStateAsync();
-                _userStateRepository.Update(userStateReg);
+                _userStateTelegramRepository.Update(userStateReg);
         }
     }
 }

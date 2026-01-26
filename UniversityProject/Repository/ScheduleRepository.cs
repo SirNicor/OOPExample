@@ -36,7 +36,36 @@ public class ScheduleRepository : IScheduleRepository
     }
     public long Create(ScheduleDto schedule)
     {
-        throw new NotImplementedException();
+        using(IDbConnection db = new SqlConnection(_connectionString))
+        {
+            db.Open();
+            using (IDbTransaction transaction = db.BeginTransaction())
+            {
+                try
+                {
+                    var sqlQuery = @"
+    INSERT INTO Schedule (DirectionId, DisciplineId, TeacherId, DataWeekForScheduleId, DataСoupleForScheduleId)
+    OUTPUT INSERTED.ID
+    VALUES (@DirectionId, @DisciplineId, @TeacherId, 
+            (SELECT ID FROM DataWeekForSchedule WHERE DaysOfWeek = @DataWeek),
+            (SELECT ID FROM DataСoupleForSchedule WHERE StartCouple = @StartCouple AND EndCouple = @EndCouple))";
+                    long id = db.QuerySingle<long>(sqlQuery, new
+                    {
+                        schedule.DirectionId, schedule.DisciplineId, schedule.TeacherId,
+                        DataWeek = schedule.DataWeek.ToString(), StartCouple = schedule.StartCouple, 
+                        EndCouple = schedule.EndCouple
+                    }, transaction);
+                    transaction.Commit();
+                    return id;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+            }
+        }
     }
 
     public Schedule Get(long Id)
@@ -137,11 +166,43 @@ public class ScheduleRepository : IScheduleRepository
     }
     public void Delete(long ID)
     {
-        throw new NotImplementedException();
+        using (IDbConnection db = new SqlConnection(_connectionString))
+        {
+            var sqlQuery = "DELETE FROM Schedule where ID = @ID;";
+            db.Execute(sqlQuery, new{ID});
+        }
     }
 
     public long Update(ScheduleDto schedule)
     {
-        throw new NotImplementedException();
+        using(IDbConnection db = new SqlConnection(_connectionString))
+        {
+            db.Open();
+            using (IDbTransaction transaction = db.BeginTransaction())
+            {
+                try
+                {
+                    var sqlQuery = @"
+    UPDATE Schedule SET DirectionId = @DirectionId, DisciplineId = @DisciplineId, TeacherId = @TeacherId,
+                        DataWeekForScheduleId = (SELECT ID FROM DataWeekForSchedule WHERE DaysOfWeek = @DataWeek),
+                        DataСoupleForScheduleId = (SELECT ID FROM DataСoupleForSchedule WHERE StartCouple = @StartCouple AND EndCouple = @EndCouple)
+                        WHERE ID = @iId";
+                    db.Execute(sqlQuery, new
+                    {
+                        schedule.DirectionId, schedule.DisciplineId, schedule.TeacherId,
+                        DataWeek = schedule.DataWeek.ToString(), StartCouple = schedule.StartCouple, 
+                        EndCouple = schedule.EndCouple, schedule.Id
+                    }, transaction);
+                    transaction.Commit();
+                    return schedule.Id;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+            }
+        }
     }
 }
