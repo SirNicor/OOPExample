@@ -138,3 +138,4 @@ D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Sys
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\System.Linq.Dynamic.Core.dll

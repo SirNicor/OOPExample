@@ -17,6 +17,7 @@
           "Microsoft.Extensions.Options.ConfigurationExtensions": "9.0.9",
           "Newtonsoft.Json": "13.0.3",
           "Repository": "1.0.0",
+          "System.Linq.Dynamic.Core": "1.7.1",
           "UCore": "1.0.0",
           "UJob": "1.0.0"
         },
@@ -945,6 +946,14 @@
           }
         }
       },
+      "System.Linq.Dynamic.Core/1.7.1": {
+        "runtime": {
+          "lib/net9.0/System.Linq.Dynamic.Core.dll": {
+            "assemblyVersion": "1.7.1.0",
+            "fileVersion": "1.7.1.0"
+          }
+        }
+      },
       "System.Memory/4.5.4": {},
       "System.Memory.Data/1.0.2": {
         "dependencies": {
@@ -1604,6 +1613,13 @@
       "sha512": "sha512-D0TtrWOfoPdyYSlvOGaU9F1QR+qrbgJ/4eiEsQkIz7YQKIKkGXQldXukn6cYG9OahSq5UVMvyAIObECpH6Wglg==",
       "path": "system.identitymodel.tokens.jwt/7.5.0",
       "hashPath": "system.identitymodel.tokens.jwt.7.5.0.nupkg.sha512"
+    },
+    "System.Linq.Dynamic.Core/1.7.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qlgku/j9r0fei52yxR5ho9nC/fWGZuaELqPkZmJm24QZbBW4cL3sVWri1dZ0cKgARD7cgFKBdRqzxYoIG5Q0Cg==",
+      "path": "system.linq.dynamic.core/1.7.1",
+      "hashPath": "system.linq.dynamic.core.1.7.1.nupkg.sha512"
     },
     "System.Memory/4.5.4": {
       "type": "package",

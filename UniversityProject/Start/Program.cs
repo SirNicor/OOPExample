@@ -6,6 +6,7 @@ using ApiTelegramBot;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json");
+builder.Services.AddCors();
 IConfiguration appConfig = builder.Configuration;
 ConfigurationLogger cl = new ConfigurationLogger(appConfig);
 MyLogger logger = cl.Get();
@@ -30,6 +31,10 @@ try
     app.AddDisciplineRequest(app.Services.GetRequiredService<MyLogger>());
     app.AddDirectionRequest(app.Services.GetRequiredService<MyLogger>());
     app.AddScheduleRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddRegisterRequest(app.Services.GetRequiredService<MyLogger>());
+    app.UseCors(builder => builder.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod());
     Thread botThread = new Thread(()=>
     {
         using (var botScope = app.Services.CreateScope())

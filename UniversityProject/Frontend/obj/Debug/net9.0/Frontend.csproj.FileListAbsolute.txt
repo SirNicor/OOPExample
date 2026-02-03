@@ -1,0 +1,15 @@
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\bin\Debug\net9.0\Frontend.exe
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\bin\Debug\net9.0\Frontend.deps.json
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\bin\Debug\net9.0\Frontend.runtimeconfig.json
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\bin\Debug\net9.0\Frontend.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\bin\Debug\net9.0\Frontend.pdb
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\obj\Debug\net9.0\Frontend.GeneratedMSBuildEditorConfig.editorconfig
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\obj\Debug\net9.0\Frontend.AssemblyInfoInputs.cache
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\obj\Debug\net9.0\Frontend.AssemblyInfo.cs
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\obj\Debug\net9.0\Frontend.csproj.CoreCompileInputs.cache
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\obj\Debug\net9.0\Frontend.sourcelink.json
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\obj\Debug\net9.0\Frontend.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\obj\Debug\net9.0\refint\Frontend.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\obj\Debug\net9.0\Frontend.pdb
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\obj\Debug\net9.0\Frontend.genruntimeconfig.cache
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Frontend\obj\Debug\net9.0\ref\Frontend.dll

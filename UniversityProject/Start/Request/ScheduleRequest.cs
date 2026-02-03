@@ -20,7 +20,7 @@ static class ScheduleRequest
             var schedule = service.ReturnList();
             await context.Response.WriteAsJsonAsync(schedule);
         });
-        app.MapPost("/Student", async context =>
+        app.MapPost("/Schedule", async context =>
         {
             var request = context.Request;
             var service = context.RequestServices.GetService<IStudentRepository>();
@@ -28,7 +28,7 @@ static class ScheduleRequest
             var ID = service.Create(student1);
             await context.Response.WriteAsJsonAsync(ID);
         });
-        app.MapPut("/Student/{id}", async (long id, HttpContext context) =>
+        app.MapPut("/Schedule/{id}", async (long id, HttpContext context) =>
         {
             var request = context.Request;
             var service = context.RequestServices.GetService<IStudentRepository>();
@@ -37,7 +37,7 @@ static class ScheduleRequest
             var Id = service.Update(student);
             await context.Response.WriteAsJsonAsync(Id);
         });
-        app.MapDelete("/Student/{id}", async (long id, HttpContext context) =>
+        app.MapDelete("/Schedule/{id}", async (long id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IStudentRepository>();
             service.Delete(id);

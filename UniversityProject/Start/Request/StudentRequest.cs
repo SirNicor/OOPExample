@@ -1,9 +1,11 @@
-﻿using Logger;
+﻿using System.Globalization;
+using System.Reflection;
+using Logger;
 
 namespace Start;
 using Repository;
 using UCore;
-
+using System.Linq.Dynamic.Core;
 static class StudentRequest
 {
     public static void AddStudentRequest(this IEndpointRouteBuilder app, MyLogger logger, IConfiguration configuration)
@@ -18,8 +20,36 @@ static class StudentRequest
         app.MapGet("/Student", async context =>
         {
             var service = context.RequestServices.GetService<ReturnListOfStudents>();
-            var students = service.ReturnList();            
+            var students = service.ReturnList();
+            logger.Info("https://localhost:7082/api/students");
             await context.Response.WriteAsJsonAsync(students);
+        });
+        app.MapGet("/Student/{sortKey}/{sortOrder}", async(string sortKey, string sortOrder, HttpContext context) =>
+        {
+            var service = context.RequestServices.GetService<ReturnListOfStudents>();
+            var students = service.ReturnList().AsQueryable();
+            var path = FunctionForRequest.PathReturn(sortKey, typeof(Student));
+            var sortStudents = new List<Student>();
+            string direction;
+            if (path.Length == 0)
+            {
+                sortStudents = students.ToList();
+            }
+            else
+            {
+                if (sortOrder == "AscendingOrder")
+                {
+                    direction = "ASC";
+                    sortStudents = students.OrderBy($"{path} {direction}").ToList();
+                }
+                else
+                {
+                    direction = "DESC";
+                    sortStudents = students.OrderBy($"{path} {direction}").ToList();
+                }
+            }
+            logger.Info("https://localhost:7082/api/students");
+            await context.Response.WriteAsJsonAsync(sortStudents);
         });
         app.MapPost("/Student", async context =>
         {
