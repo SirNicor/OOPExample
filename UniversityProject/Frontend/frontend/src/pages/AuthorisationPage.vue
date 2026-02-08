@@ -55,13 +55,61 @@ const formData = reactive<AuthForm>({
 })
 const formRef = ref<FormInstance>();
 const isSubmit = false;
-const rules : FormRules<AuthForm> = {
+const rules : FormRules<typeof formData> = {
   login: [{required: true, trigger: 'blur'},
     {min:3, max:15, required: true, trigger: ['blur', 'change']}],
   phone: [{required: true, trigger: 'blur'},
     {pattern: /^[+]?[\d\s\-()]{10,}$/, message: "Некорректный phone", trigger: ['blur', 'change']}],
   password: [{required: true, trigger: 'blur'},
-    {min:6, max:30, trigger: ['blur', 'change']}],
-  rememberMe: [],
+    {
+      validator: (rule, value : string, callback) =>
+      {
+        if (!value) {
+          callback() ;
+          return;
+        }
+        if(value.length < 5)
+        {
+          callback(new Error('Пароль слишком короткий'));
+          return;
+        }
+        if(value.length > 30)
+        {
+          callback(new Error('Пароль слишком длинный'));
+          return;
+        }
+        if (!value) {
+          callback();
+          return;
+        }
+        if(!/[A-ZА-Я]/.test(value))
+        {
+          callback(new Error('Нет заглавных букв'));
+          return;
+        }
+        if(!/[a-zа-я]/.test(value))
+        {
+          callback(new Error('Только заглавные буквы'));
+          return;
+        }
+        if(!/[0-9]/.test(value))
+        {
+          callback(new Error('Нет цифр'));
+          return;
+        }
+        if(!/[@$!%*?&#()_+\-=\[\]{}|;:,.<>\/~]/.test(value))
+        {
+          callback(new Error('добавьте спец. символы'));
+          return;
+        }
+        if(value == formData.login)
+        {
+          callback(new Error('Пароль не может быть логином'));
+          return;
+        }
+        callback();
+        return;
+      }, trigger: ['blur', 'change']
+    }],
 }
 </script>

@@ -16,7 +16,17 @@
       :width="viewportWidth"
       :height="viewportHeight*0.8"
       fixed
-  />  
+      :gutter = "1"
+      :row-height = "30 "
+  >
+    <template #empty>
+      <div class="flex items-center justify-center h-100%">
+        <el-empty 
+          description="Нет данных(проверьте подключение к сети)"
+        />
+      </div>
+    </template>
+  </el-table-v2>
 </template>
 <style scoped>
   .sort {
@@ -43,25 +53,21 @@
         data: TableData[]
         apiBase: string;
       }> ();
-  const OptionsSorted = [
-      {
+  const OptionsSorted = [{
     value: 'AscendingOrder',
     label: 'по Возрастанию',
-      }, 
-    {
+      }, {
       value: 'DescendingOrder',
       label: 'По убыванию',
     }];
-  const valueCascader = computed(() =>
-  {
+  const valueCascader = computed(() => {
     return props.columns.map((column) => {
       return {
         value: column.dataKey,
         label: column.title,
       }});
   })
-  const CreateColumns = computed(() =>
-  {
+  const CreateColumns = computed(() => {
     return props.columns.map((column) => {
     return {
       ...column,
@@ -73,15 +79,12 @@
     if (!props.data || !props.columns) {
       return []
     }
-    return props.data.map((datarow, keyForData) =>
-    {
+    return props.data.map((datarow, keyForData) => {
       const row: TableData  = {
         id: `${datarow.id || keyForData}`,
       }
-      props.columns.forEach(((column, index) =>
-      {
-        if(datarow[column.dataKey] !== undefined)
-        {
+      props.columns.forEach(((column, index) => {
+        if(datarow[column.dataKey] !== undefined) {
           row[column.dataKey] = datarow[column.dataKey];
         }
         else {
@@ -89,8 +92,7 @@
           if (keys.length > 0) {
             const dataIndex = index < keys.length ? index : 0;
             const key = keys[dataIndex];
-            if(key && datarow[key] !== undefined)
-            {
+            if(key && datarow[key] !== undefined) {
               row[column.dataKey] = datarow[key]
             }
           } else {  
@@ -101,8 +103,7 @@
       return row;
     })
   });
-  const reset = (() =>
-  {
+  const reset = (() => {
     router.replace({query: {sortKey: sortType.sortKey, sortType: sortType.sortOrder}});
   })
 </script> 

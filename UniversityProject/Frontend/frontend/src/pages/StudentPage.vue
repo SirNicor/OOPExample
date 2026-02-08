@@ -18,25 +18,20 @@
   const students = ref<StudentType[]>([]);
   const Data = ref<TableData[]>([]);
   const Columns = reactive<TableColumn[]>( [
-    {key: "id-col", dataKey: 'id', title: 'ID'},
-    {key: "personId-col", dataKey: 'personId', title: 'Person Id'},
-    {key: "totalScore-col", dataKey: 'totalScore', title: 'Total Score'},
-    {key: "skipHours-col", dataKey: 'skipHours', title: 'Skip Hours'},
-    {key: "creditScores-col", dataKey: 'creditScores', title: 'Credit Scores'},
-    {key: "countOfExamsPassed-col", dataKey: 'countOfExamsPassed', title: 'Count Of Exams Passed'},
-    {key: "course-col", dataKey: 'course', title: 'Course'},
-    {key: "passportId-col", dataKey: 'passportId', title: 'Passport Id'},
-    {key: "serial-col", dataKey: 'serial', title: 'Serial'},
-    {key: "number-col", dataKey: 'number', title: 'Number'},
-    {key: "firstName-col", dataKey: 'firstName', title: 'First Name'},
-    {key: "lastName-col", dataKey: 'lastName', title: 'LastName'},
-    {key: "middleName-col", dataKey: 'middleName', title: 'Middle Name'},
-    {key: "birthData-col", dataKey: 'birthData', title: 'Birth Data'},
-    {key: "addressId-col", dataKey: 'addressId', title: 'Address Id'},
-    {key: "country-col", dataKey: 'country', title: 'Country'},
-    {key: "city-col", dataKey: 'city', title: 'City'},
-    {key: "street-col", dataKey: 'street', title: 'Street'},
-    {key: "houseNumber-col", dataKey: 'houseNumber', title: 'House Number'},
+    {key: "firstName-col", dataKey: 'firstName', title: 'Имя'},
+    {key: "lastName-col", dataKey: 'lastName', title: 'Фамилия'},
+    {key: "middleName-col", dataKey: 'middleName', title: 'Отчество'},
+    {key: "birthData-col", dataKey: 'birthData', title: 'Дата рождения'},
+    {key: "serial-col", dataKey: 'serial', title: 'Серия'},
+    {key: "number-col", dataKey: 'number', title: 'Номер'},
+    {key: "totalScore-col", dataKey: 'totalScore', title: 'Средний балл'},
+    {key: "skipHours-col", dataKey: 'skipHours', title: 'Часы пропусков'},
+    {key: "countOfExamsPassed-col", dataKey: 'countOfExamsPassed', title: 'Сданные экзамены'},
+    {key: "course-col", dataKey: 'course', title: 'Курс'},
+    {key: "country-col", dataKey: 'country', title: 'Страна'},
+    {key: "city-col", dataKey: 'city', title: 'Город'},
+    {key: "street-col", dataKey: 'street', title: 'Улица'},
+    {key: "houseNumber-col", dataKey: 'houseNumber', title: 'Номер дома'},
   ]);
   const route = useRoute();
   async function loadData()
@@ -45,14 +40,17 @@
     students.value = [];
     let response;
     if(route.query.sortKey === undefined || route.query.sortKey === null) {
-      response = await axios.get('https://localhost:7082/student');
+      response = await api.get('/student');
     }
     else
     {
-      response = await axios.get(`https://localhost:7082/student/${route.query.sortKey}/${route.query.sortType}`,);
+      response = await api.get('student/${route.query.sortKey}/${route.query.sortType}');
     }
     let studentServers = response.data as StudentServer[];
     students.value = studentServers.map(mapStudentType);
+    students.value.forEach((student) => {
+      student.birthData = Intl.DateTimeFormat("ru-RU").format(new Date(student.birthData));
+    })
     for(let i = 0; i < students.value.length; i++) {
       Data.value.push({id: i.toString(), ...students.value[i]});
     }
