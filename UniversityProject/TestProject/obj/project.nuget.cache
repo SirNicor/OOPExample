@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "cjlAyH0xYCM=",
+  "dgSpecHash": "z8cWEf9a7qY=",
   "success": true,
   "projectFilePath": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\TestProject\\TestProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\dapper.sqlbuilder\\2.1.66\\dapper.sqlbuilder.2.1.66.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\eka.dapper.json\\1.1.0\\eka.dapper.json.1.1.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\firebirdsql.data.firebirdclient\\10.3.2\\firebirdsql.data.firebirdclient.10.3.2.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\fluentmigrator\\7.1.0\\fluentmigrator.7.1.0.nupkg.sha512",

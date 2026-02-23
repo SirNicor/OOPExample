@@ -1,69 +1,47 @@
-﻿export interface StudentServer {
-    totalScore: number,
-    skipHours: number,
-    creditScores: number,
-    countOfExamsPassed: number,
-    course: number,
-    personId: number,
-    passport: {
-        passportId: number,
-        serial: number,
-        number: number,
-        firstName: string,
-        lastName: string,
-        middleName: string,
-        birthData: string,
-        address: {
-            addressId: number,
-            country: string,
-            city: string,
-            street: string,
-            houseNumber: number
-        }
-    }
+﻿export interface Filter
+{
+    FilterBirthDayStart?: Date,
+    FilterBirthDayEnd?: Date,
+    FilterSkipHoursStart?: number,
+    FilterSkipHoursEnd?: number,
+    FilterCourse?: number,
+    FilterTotalScore?: number,
 }
 
-export interface StudentType {
+export interface StudentsType {
+    studentId: number,
+    fio: string,
+    dob: string,
+    address: string,
+    serial: number,
+    number: number,
+    totalScore: number,
+    skipHours: number,
+    creditScores: number,
+    course: number
+}
+
+export interface StudentsTypeForPage {
+    studentId: number,
+    passportId: number,
+    addressId: number,
+    criminalRecord: boolean,
     totalScore: number,
     skipHours: number,
     creditScores: number,
     countOfExamsPassed: number,
     course: number,
-    personId: number,
-    passportId: number,
-    serial: number,
-    number: number,
+    chatId: number,
     firstName: string,
     lastName: string,
     middleName: string,
-    birthData: string,
-    addressId: number,
+    dob: Date,
     country: string,
     city: string,
-    street: string,
-    houseNumber: number
+    state: string,
+    houseNumber: string,
+    serial: string,
+    number: string,
+    placeReceipt: string
 }
 
-export const mapStudentType = (studentDB: StudentServer) : any =>
-{
-    return{
-        totalScore: studentDB.totalScore,
-        skipHours: studentDB.skipHours,
-        creditScores: studentDB.creditScores,
-        countOfExamsPassed: studentDB.countOfExamsPassed,
-        course: studentDB.course,
-        personId: studentDB.personId,
-        passportId: studentDB.passport.passportId,
-        serial: studentDB.passport.serial,
-        number: studentDB.passport.number,
-        firstName: studentDB.passport.firstName,
-        lastName: studentDB.passport.lastName,
-        middleName: studentDB.passport.middleName,
-        birthData: studentDB.passport.birthData,
-        addressId: studentDB.passport.address.addressId,
-        country: studentDB.passport.address.country,
-        city: studentDB.passport.address.city,
-        street: studentDB.passport.address.street,
-        houseNumber: studentDB.passport.address.houseNumber,
-    }
-}

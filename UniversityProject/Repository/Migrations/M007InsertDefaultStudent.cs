@@ -6,12 +6,13 @@ public class M007InsertDefaultStudent : AutoReversingMigration
 {
     public override void Up()
     {
-        for(int i = 0; i<10; ++i)
+        Random random = new Random();
+        for(int i = 0; i<40; ++i)
         {
             Insert.IntoTable("Student")
                 .Row(new
                 {
-                    PassportId = i+1, MilitaryId = 1, CriminalRecord = false, CourseId = 1, SkipHours = 0,
+                    PassportId = i+1, MilitaryId = 1, CriminalRecord = false, CourseId = random.Next(1, 6), SkipHours = random.Next(0, 100),
                     CountOfExamsPassed = 0, CreditScores = 0
                 });
         }

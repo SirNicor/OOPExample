@@ -1,24 +1,16 @@
 ﻿<template>
-  <el-form inline = true class = "sort">
-    <el-form-item label = "Сортировка по: ">
-      <el-cascader :options="valueCascader" v-model = "sortType.sortKey"/>
-    </el-form-item>
-    <el-form-item label = "Тип сортировки: ">
-      <el-cascader :options="OptionsSorted" v-model = "sortType.sortOrder"/>
-    </el-form-item>
-    <el-form-item>
-      <el-button @click = "reset">reset</el-button>
-    </el-form-item>
-  </el-form>
   <el-table-v2
       :columns="CreateColumns"
       :data="CreateData"
       :width="viewportWidth"
-      :height="viewportHeight*0.8"
+      :height="viewportHeight*0.7"
       fixed
       :gutter = "1"
       :row-height = "30 "
-  >
+      :sort-by = "sortState"
+      @column-sort = "OnSort"
+      :row-event-handlers="OpenPage"
+  >     
     <template #empty>
       <div class="flex items-center justify-center h-100%">
         <el-empty 
@@ -27,51 +19,46 @@
       </div>
     </template>
   </el-table-v2>
+  <div class = "pageButtons">
+    <el-button v-for = "n in props.countPage" circle @click = "PageSet(n)">{{n}}</el-button>
+  </div>
+  <div><el-button @click = "Create">Create new</el-button></div>
 </template>
 <style scoped>
-  .sort {
-    margin-top: 1%;
-    margin-left:4px;
-    padding-left: 4px;
-    border: 1px solid;
-    padding-top: 1%;
-    margin-right: 35%;
+  .pageButtons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 </style>  
 <script lang="ts" setup>
-  import type {TableColumn, TableData, SortType} from '@/types/TableTypes.ts';
-  import {computed, onMounted, reactive} from "vue";
-  import router from '@/router/index.ts';
-  const sortType = reactive<SortType>({
-    sortKey: '',
-    sortOrder: '',
-      });
+import type {SortType, TableColumn, TableData} from '@/types/TableTypes.ts';
+import {computed, onMounted, reactive, ref} from "vue";
+import router from '@/router/index.ts';
+import {useRoute} from 'vue-router';
+import type {SortBy} from 'element-plus'
+import {SortOrder} from "element-plus/es/components/table-v2/src/constants";
+import type { RowEventHandlers  } from 'element-plus'
+
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
+  const route = useRoute();
+  const sortState = ref<SortBy>({
+    key: 'column-0',
+    order: SortOrder.ASC,
+  })
   const props = defineProps <{
         columns: TableColumn[]
         data: TableData[]
-        apiBase: string;
+        apiBase: string,
+        countPage: number;
       }> ();
-  const OptionsSorted = [{
-    value: 'AscendingOrder',
-    label: 'по Возрастанию',
-      }, {
-      value: 'DescendingOrder',
-      label: 'По убыванию',
-    }];
-  const valueCascader = computed(() => {
-    return props.columns.map((column) => {
-      return {
-        value: column.dataKey,
-        label: column.title,
-      }});
-  })
   const CreateColumns = computed(() => {
     return props.columns.map((column) => {
     return {
       ...column,
-      width: column.width ?? 0.1 * viewportWidth
+      width: column.width ?? 0.1 * viewportWidth,
+      sortable: column.sortable ?? true
     }});
   })
   const CreateData = computed(() =>
@@ -103,7 +90,29 @@
       return row;
     })
   });
-  const reset = (() => {
-    router.replace({query: {sortKey: sortType.sortKey, sortType: sortType.sortOrder}});
+  
+  const PageSet = ((n : number) =>
+  {
+    router.push({query: {...route.query, NumberPage: n}});
   })
-</script> 
+  const OnSort = (sortBy: SortBy) =>
+  {
+    sortState.value = sortBy;
+    router.push({query: {...route.query, sortKey: sortState.value.key.toString(), sortType: sortState.value.order.toString()}});
+  }
+  const OpenPage : RowEventHandlers = {
+    onClick: (row: any) =>
+    {
+      let id = row.rowData.id;
+      let x = props.data[id];
+      if(x !== undefined) {
+        id = x.studentId;
+      }
+      debugger;
+      router.push(`${props.apiBase}/${id}`);
+    }
+  }
+const Create = () => {
+  router.push(`${props.apiBase}/${undefined}`);
+}
+</script>   

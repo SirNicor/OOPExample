@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using UCore;
+using Dadata;
 
 namespace Start;
 
@@ -34,5 +35,13 @@ public static class FunctionForRequest
 
         path.Length = 0;
         return path;
+    }
+
+    public static Address CheckAddress(string address)
+    {
+        var address = new Address();
+        
+        
+        return address;
     }
 }

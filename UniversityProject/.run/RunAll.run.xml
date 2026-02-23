@@ -13,8 +13,6 @@
     <option name="AUTO_ATTACH_CHILDREN" value="0" />
     <method v="2">
       <option name="Build" projectName="Selected project" />
-      <option name="RunConfigurationTask" enabled="false" run_configuration_name="RundoteNet" run_configuration_type="LaunchSettings" />
-      <option name="RunConfigurationTask" enabled="true" run_configuration_name="RunFrontend" run_configuration_type="js.build_tools.npm" />
     </method>
   </configuration>
 </component>

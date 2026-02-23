@@ -1,6 +1,8 @@
 ﻿using System.Globalization;
 using System.Reflection;
+using System.Text.Json;
 using Logger;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Start;
 using Repository;
@@ -10,61 +12,50 @@ static class StudentRequest
 {
     public static void AddStudentRequest(this IEndpointRouteBuilder app, MyLogger logger, IConfiguration configuration)
     {
-        app.MapGet("/Student/{id}", async (int id, HttpContext context) =>
+        app.MapGet("/Student/{studentId}", async (long studentId, HttpContext context) =>
         {
-            var service = context.RequestServices.GetService<ReturnOneStudent>();   
-            var student = service.ReturnStudent(id);
-            student.PrintInfo(logger);
+            logger.Info($"/student/{studentId}");
+            var service = context.RequestServices.GetService<IStudentRepository>();   
+            var student = service.GetStudentPage(studentId);
             await context.Response.WriteAsJsonAsync(student); 
         });
-        app.MapGet("/Student", async context =>
+        app.MapGet("/Student/Page/{count}",async (int count, HttpContext context) =>
         {
-            var service = context.RequestServices.GetService<ReturnListOfStudents>();
-            var students = service.ReturnList();
-            logger.Info("https://localhost:7082/api/students");
-            await context.Response.WriteAsJsonAsync(students);
+            var service = context.RequestServices.GetService<IStudentRepository>();
+            var allCount = service.GetCount();
+            var countOfPage = allCount / count +  (allCount % count == 0? 0: 1);
+            logger.Info($"student/Page/{count} = > {countOfPage}");
+            await context.Response.WriteAsJsonAsync(countOfPage);
         });
-        app.MapGet("/Student/{sortKey}/{sortOrder}", async(string sortKey, string sortOrder, HttpContext context) =>
+        app.MapGet("/Student", async(string? filter, string? sortKey, string? sortOrder, int page, int count, HttpContext context) =>
         {
-            var service = context.RequestServices.GetService<ReturnListOfStudents>();
-            var students = service.ReturnList().AsQueryable();
-            var path = FunctionForRequest.PathReturn(sortKey, typeof(Student));
-            var sortStudents = new List<Student>();
-            string direction;
-            if (path.Length == 0)
-            {
-                sortStudents = students.ToList();
-            }
-            else
-            {
-                if (sortOrder == "AscendingOrder")
-                {
-                    direction = "ASC";
-                    sortStudents = students.OrderBy($"{path} {direction}").ToList();
-                }
-                else
-                {
-                    direction = "DESC";
-                    sortStudents = students.OrderBy($"{path} {direction}").ToList();
-                }
-            }
-            logger.Info("https://localhost:7082/api/students");
-            await context.Response.WriteAsJsonAsync(sortStudents);
+            logger.Info($"get student/{sortKey} {sortOrder} {page} {count} {filter}");
+            FilterDto filterDto = JsonSerializer.Deserialize<FilterDto>(filter);
+            int firstId = (page-1) * count;
+            var service = context.RequestServices.GetService<IStudentRepository>();
+            var studentAndPage = service.GetStudentTableDTO(firstId, count, sortKey,
+                sortOrder, filterDto);
+            var allCount = studentAndPage.Item2;
+            var countOfPage = allCount / count +  (allCount % count == 0? 0: 1);
+            logger.Info($"student/{page} {count} {firstId} {sortKey} {sortOrder}");
+            await context.Response.WriteAsJsonAsync(new Tuple<List<StudentTableDTO>, long>(studentAndPage.Item1, countOfPage));
         });
         app.MapPost("/Student", async context =>
         {
+            logger.Info($"/student POST");
             var request = context.Request;
             var service =  context.RequestServices.GetService<IStudentRepository>();
-            Student student1 = await request.ReadFromJsonAsync<Student>();
-            var ID = service.Create(student1);
+            var student = await request.ReadFromJsonAsync<StudentDtoForPage>();
+            var ID = service.Create(student);
             await context.Response.WriteAsJsonAsync(ID);
         });
         app.MapPut("/Student/{id}", async (long id, HttpContext context) =>
         {
+            logger.Info($"put Student/{id}");
             var request = context.Request;
             var service = context.RequestServices.GetService<IStudentRepository>();
-            Student student = await request.ReadFromJsonAsync<Student>();
-            student.PersonId = id;
+            StudentDtoForPage student = await request.ReadFromJsonAsync<StudentDtoForPage>();
+            student.studentId = id;
             var Id = service.Update(student);
             await context.Response.WriteAsJsonAsync(Id);
         });

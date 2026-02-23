@@ -49,7 +49,6 @@ try
         context.Response.Headers.ContentLanguage = "ru-RU";
         context.Response.Headers.ContentType = "text/html; charset=utf-8";
         context.Response.Headers.Append("University", "system");
-        await context.Response.SendFileAsync("index.html");
     }); 
     app.MapGet("/Worker", () => app.Services.GetService<IPrintWorkersJob>().DoWork());
     app.MapGet("/ScoresOfStudents", () => app.Services.GetService<IScoresOfStudentsJob>().DoWork());

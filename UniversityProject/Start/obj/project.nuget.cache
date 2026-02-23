@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "62JnyaMS7lA=",
+  "dgSpecHash": "DncgrRfgFrs=",
   "success": true,
   "projectFilePath": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Start\\Start.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,9 @@
     "C:\\Users\\user\\.nuget\\packages\\bitmiracle.docotic.pdf\\9.8.19414-dev\\bitmiracle.docotic.pdf.9.8.19414-dev.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\bitmiracle.docotic.pdf.htmltopdf\\9.8.19414-dev\\bitmiracle.docotic.pdf.htmltopdf.9.8.19414-dev.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\cronos\\0.11.1\\cronos.0.11.1.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\dadata\\25.7.0\\dadata.25.7.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\dapper.sqlbuilder\\2.1.66\\dapper.sqlbuilder.2.1.66.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\eka.dapper.json\\1.1.0\\eka.dapper.json.1.1.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\firebirdsql.data.firebirdclient\\10.3.2\\firebirdsql.data.firebirdclient.10.3.2.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\fluentmigrator\\7.1.0\\fluentmigrator.7.1.0.nupkg.sha512",

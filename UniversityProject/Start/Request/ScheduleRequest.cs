@@ -23,18 +23,18 @@ static class ScheduleRequest
         app.MapPost("/Schedule", async context =>
         {
             var request = context.Request;
-            var service = context.RequestServices.GetService<IStudentRepository>();
-            Student student1 = await request.ReadFromJsonAsync<Student>();
-            var ID = service.Create(student1);
+            var service = context.RequestServices.GetService<IScheduleRepository>();
+            ScheduleDto schedule = await request.ReadFromJsonAsync<ScheduleDto>();
+            var ID = service.Create(schedule);
             await context.Response.WriteAsJsonAsync(ID);
         });
         app.MapPut("/Schedule/{id}", async (long id, HttpContext context) =>
         {
             var request = context.Request;
-            var service = context.RequestServices.GetService<IStudentRepository>();
-            Student student = await request.ReadFromJsonAsync<Student>();
-            student.PersonId = id;
-            var Id = service.Update(student);
+            var service = context.RequestServices.GetService<IScheduleRepository>();
+            ScheduleDto schedule = await request.ReadFromJsonAsync<ScheduleDto>();
+            schedule.Id = id;
+            var Id = service.Update(schedule);
             await context.Response.WriteAsJsonAsync(Id);
         });
         app.MapDelete("/Schedule/{id}", async (long id, HttpContext context) =>

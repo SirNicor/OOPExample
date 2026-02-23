@@ -144,6 +144,10 @@
               "target": "Package",
               "version": "[2.1.66, )"
             },
+            "Dapper.SqlBuilder": {
+              "target": "Package",
+              "version": "[2.1.66, )"
+            },
             "Eka.Dapper.Json": {
               "target": "Package",
               "version": "[1.1.0, )"

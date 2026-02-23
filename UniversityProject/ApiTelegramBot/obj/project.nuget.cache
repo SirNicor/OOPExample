@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pKaJyeVwsDo=",
+  "dgSpecHash": "QQG5dD4EIN8=",
   "success": true,
   "projectFilePath": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\ApiTelegramBot\\ApiTelegramBot.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\user\\.nuget\\packages\\bitmiracle.docotic.pdf\\9.8.19414-dev\\bitmiracle.docotic.pdf.9.8.19414-dev.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\bitmiracle.docotic.pdf.htmltopdf\\9.8.19414-dev\\bitmiracle.docotic.pdf.htmltopdf.9.8.19414-dev.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\dapper.sqlbuilder\\2.1.66\\dapper.sqlbuilder.2.1.66.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\eka.dapper.json\\1.1.0\\eka.dapper.json.1.1.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\firebirdsql.data.firebirdclient\\10.3.2\\firebirdsql.data.firebirdclient.10.3.2.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\fluentmigrator\\7.1.0\\fluentmigrator.7.1.0.nupkg.sha512",

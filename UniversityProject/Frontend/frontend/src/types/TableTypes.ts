@@ -1,9 +1,10 @@
 ﻿export interface TableColumn
 {
-    key : string;
+    key? : string;
     dataKey : string;
     title: string;
     width?: number;
+    sortable?: boolean;
 }
 export interface TableData
 {
