@@ -16,10 +16,11 @@ public class StudentDtoForPage
     public string middleName { get; set; }
     public DateTime dob { get; set; }
     public long passportId { get; set; }
-    public string country { get; set; }
-    public string city { get; set; }
-    public string state { get; set; }
-    public string houseNumber { get; set; }
+    public string address { get; set; }
+    public string? country { get; set; }
+    public string? city { get; set; }
+    public string? state { get; set; }
+    public string? houseNumber { get; set; }
     public string serial { get; set; }
     public string number { get; set; }
     public string placeReceipt { get; set; }

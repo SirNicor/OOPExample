@@ -11,8 +11,8 @@ public class M005InsertDefaultAddress : AutoReversingMigration
         {
             Insert.IntoTable("Address")
                 .Row(new
-                {
-                    Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = i
+                { 
+                    AddressString = $"Russia Moscow Geroyev Panfil Street {i}",Country = "Russia", City = "Moscow", Street = "Geroyev Panfilovtsev Street", HouseNumber = $"{i}"
                 });
         }
     }

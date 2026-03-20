@@ -1,5 +1,6 @@
 ﻿
 <template>
+  <h1>Добавление/Изменение студента</h1>
   <el-form :model = "studentTypeOfPage" :rules = "rules" ref = "formRef">
       <el-row type="flex" justify="space-between" >
         <el-col :span="6">
@@ -24,26 +25,9 @@
           </el-form-item>
         </el-col>
       </el-row>
-    <el-form-item class = "Address" inline label = "Адрес" label-position="top">
-      <el-row type="flex" justify="space-between">
-        <el-col :span="6">
-          <p>Страна: </p>
-          <el-input v-model = "studentTypeOfPage.country"></el-input>
-        </el-col>
-        <el-col :span="6">
-          <p>Город: </p>
-          <el-input v-model = "studentTypeOfPage.city"></el-input>
-        </el-col>
-        <el-col :span="6">
-          <p>Улица: </p>
-          <el-input v-model = "studentTypeOfPage.state"></el-input>
-        </el-col>
-        <el-col :span="6">
-          <p>Номер дома: </p>
-          <el-input v-model = "studentTypeOfPage.houseNumber"></el-input>
-        </el-col>
-      </el-row>
-    </el-form-item>
+        <el-form-item inline label = "Адрес: " label-position="top" prop = "address">
+          <el-autocomplete :fetch-suggestions = "addressSearch" @select = "handleSelect" v-model = "studentTypeOfPage.address"></el-autocomplete>
+        </el-form-item>
       <el-row type="flex" justify="space-between">
         <el-col :span="8">
           <el-form-item class = "Fio" inline label = "Серия: " label-position="top" prop = "serial">
@@ -103,7 +87,7 @@
     <el-form-item inline>
       <el-row type = "flex" justify = "space-between">
         <el-button type = "primary" @click = "Send">Отправить изменения</el-button>
-        <el-button type = "primary" plain @click="DeleteDialogBool = true">Удалить</el-button>
+        <el-button type = "primary"  @click="DeleteDialogBool = true">Удалить</el-button>
         <el-button type = "primary" @click = "Reset">Очистить изменения</el-button>
         <el-button type = "primary" @click = "GoRegistry">Вернуться к реестру</el-button>
         <DeleteDialogComponent @confirm = "Delete" v-model = "DeleteDialogBool"></DeleteDialogComponent>
@@ -120,16 +104,16 @@
 </style>
 
 <script setup lang="ts">
-  import {computed, onMounted, reactive, ref, watch} from 'vue';
+  import {computed, onMounted, ref, watch} from 'vue';
   import {ElMessageBox, type FormInstance, type FormRules} from "element-plus";
-  import api from "@/Api.ts";
-  import type {StudentsType, StudentsTypeForPage} from "@/types/studentType.ts";
+  import api from "@/api/Api.ts";
+  import {StudentResponse} from "@/api/Student.ts";
+  import {AddressResponse} from "@/api/Address.ts";
+  import type {StudentsTypeForPage} from "@/types/studentType.ts";
   import {useRoute} from "vue-router";
   import DeleteDialogComponent from "@/components/DeleteDialogComponent.vue";
   import router from '@/router/index.ts';
-
-  const viewportWidth = window.innerWidth;
-  const viewportHeight = window.innerHeight;
+  
   const formRef = ref<FormInstance>()
   const studentTypeOfPage = ref<StudentsTypeForPage>(
       {
@@ -147,25 +131,37 @@
         lastName: "",
         middleName: "",
         dob: new Date(),
+        address: "",
         country: "",
-        city: "",
         state: "",
+        city: "",
         houseNumber: "",
         serial: "",
         number: "",
         placeReceipt: ""
       });
   const route = useRoute();
-  async function LoadData()
-  {
-    debugger;
-    let response = await api.get(`Student/${route.params.index}`);
-    studentTypeOfPage.value = response.data;
+  const suggestions = ref<any>();
+  const handleSelect = (item: Record<string, any>) => {
+    studentTypeOfPage.value.address = item.label
+    studentTypeOfPage.value.city = item.city
+    studentTypeOfPage.value.houseNumber = item.houseNumber
+    studentTypeOfPage.value.state = item.state
+    studentTypeOfPage.value.country = item.country
   }
+  const DeleteDialogBool = ref(false);
   onMounted(async () =>
   {
-    await LoadData();
+    if(!(route.params.index === 'undefined'))
+    {
+      await LoadData();
+    }
   })
+  async function LoadData()
+  {
+    let response = await StudentResponse.getStudent(route.params.index);
+    studentTypeOfPage.value = response.data;
+  }
   async function Reset(){
     await LoadData();
   }
@@ -174,10 +170,9 @@
     window.history.back();
   }
   async function Delete(){
-    await api.delete(`Student/${route.params.index}`);
+    await StudentResponse.deleteStudent(route.params.index);
     window.history.back();
   }
-  const DeleteDialogBool = ref(false);
   async function Send()
   {
     let student = studentTypeOfPage.value;
@@ -185,13 +180,43 @@
     let param = route.params;
     if(route.params.index === 'undefined')
     {
-      let id = await api.post(`Student`, student) as number;
-      router.replace(`Student/${id}`);
+      let id = await StudentResponse.postStudent(student);
+      router.replace(`${id.data}`);
     }
     else
     {
-      await api.put(`Student/${route.params.index}`, student)
-      await LoadData();
+      await StudentResponse.putStudent(route.params.index, student);
+      await LoadData(); 
+    }
+  }
+  async function loadAll(query : string) {
+    try {
+      const response = await AddressResponse.getSuggest(query);
+      debugger;
+      return response.data.map((item: any) => ({
+        value: item.value,
+        label: item.value,
+        country: item.data.country,
+        city: item.data.city,
+        houseNumber: item.data.house,
+        state: item.data.street
+      }))
+    } catch (error) {
+      return []
+    }
+  }
+  const addressSearch = async (queryString: string, cb: (results: any[]) => void) => {
+    if (!queryString) {
+      cb([])
+      return
+    }
+
+    try {
+      const results = await loadAll(queryString)
+      cb(results)
+    } catch (error) {
+      console.error('Ошибка поиска:', error)
+      cb([])
     }
   }
   const rules : FormRules<typeof studentTypeOfPage> = {
@@ -200,6 +225,7 @@
     lastName: [{max: 30, message: "Слишком длинная фамилия", trigger: ['blur', 'change']},
       {required: true, message: "Не может быть пустым", trigger: ['blur', 'change']}],
     middleName: {max: 30, message: "Слишком длинное отчество", trigger: ['blur', 'change']},
+    houseNumber: {required: true, message: "Не может быть пустым", trigger: ['blur', 'change']},
     dob: {required: true, message: "Не может быть пустым", trigger: ['blur', 'change']},
     serial: [
       {validator: (rule, value, callback) =>
@@ -234,7 +260,42 @@
     placeReceipt: [{required: true, message: "Не может быть пустым", trigger: ['blur', 'change']}],
     skipHours: {required: true, message: "Не может быть пустым", trigger: ['blur', 'change']},
     creditScores: {},
-    course: {required: true, message: "Не может быть пустым", trigger: ['blur', 'change']},
+    course: [{required: true, message: "Не может быть пустым", trigger: ['blur', 'change']},
+      {validator: (rule, value, callback) =>
+        {
+          if(value < 1)
+          {
+            callback(new Error("Минимум - 1 курс"));
+          }
+          if(value > 6)
+          {
+            callback(new Error("Максимум - 6 курс"))
+          }
+          callback();
+          return;
+        }, trigger: ['blur', 'change']}],
     countOfExamsPassed: {},
+    address: [{required: true, message: "Не может быть пустым", trigger: ['blur', 'change']}
+    ,{validator: (rule, value, callback) =>
+        {
+          if(studentTypeOfPage.value.country === undefined)
+          {
+            callback(new Error("Обязательно указать страну"));
+          }
+          if(studentTypeOfPage.value.city === undefined)
+          { 
+            callback(new Error("Обязательно указать город"));
+          }
+          if(studentTypeOfPage.value.houseNumber === undefined)
+          {
+            callback(new Error("Обязательно указать номер дома"));
+          }
+          if(studentTypeOfPage.value.state === undefined)
+          {
+            callback(new Error("Обязательно указать улицу"));
+          }
+          callback();
+          return;
+        }, trigger: ['blur', 'change']}],
   }
 </script> 

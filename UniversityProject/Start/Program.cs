@@ -21,7 +21,7 @@ try
         app.Services.GetRequiredService<IConfiguration>());
     app.AddOtherRequest(app.Services.GetRequiredService<MyLogger>(), 
         app.Services.GetRequiredService<IConfiguration>());
-    app.AddAddressRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddAddressRequest(app.Services.GetRequiredService<MyLogger>(), appConfig);
     app.AddPassportRequest(app.Services.GetRequiredService<MyLogger>());
     app.AddAdministratorRequest(app.Services.GetRequiredService<MyLogger>());
     app.AddUniversityRequest(app.Services.GetRequiredService<MyLogger>());

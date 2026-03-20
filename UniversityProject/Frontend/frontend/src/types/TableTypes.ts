@@ -5,6 +5,7 @@
     title: string;
     width?: number;
     sortable?: boolean;
+    type?: string;
 }
 export interface TableData
 {

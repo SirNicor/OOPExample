@@ -48,7 +48,7 @@ import { reactive, ref } from 'vue'
 import type {RegistrationForm, ValidationRule} from '@/types/auth.ts'
 import type {FormRules, FormInstance} from "element-plus"
 import axios, {type AxiosResponse, type AxiosError} from "axios"
-import api from "@/Api.ts"
+import api from "@/api/Api.ts"
 const formData = reactive<RegistrationForm>({
   email: '',
   login: '',

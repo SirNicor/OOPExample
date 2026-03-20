@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using UCore;
 using Dadata;
+using Dadata.Model;
+using Address = Dadata.Model.Address;
 
 namespace Start;
 
@@ -37,11 +39,19 @@ public static class FunctionForRequest
         return path;
     }
 
-    public static Address CheckAddress(string address)
-    {
-        var address = new Address();
-        
-        
-        return address;
+    public async static Task<Address> CleanAddress(string address, IConfiguration configuration)
+    { 
+        var token = configuration.GetValue<string>("DaData:token");
+        var secret =  configuration.GetValue<string>("DaData:secret");
+        var api = new CleanClientAsync(token, secret);
+        var result = await api.Clean<Address>(address);
+        return result;
+    }
+    public async static Task<SuggestResponse<Address>> SuggestAddress(string address, IConfiguration configuration)
+    { 
+        var token = configuration.GetValue<string>("DaData:token");
+        var api = new SuggestClientAsync(token);
+        var result = await api.SuggestAddress(address);
+        return result;
     }
 }

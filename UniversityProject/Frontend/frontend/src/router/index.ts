@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AuthorisationPage from "@/pages/AuthorisationPage.vue";
 import RegistrationPage from "@/pages/RegistrationPage.vue";
-import Home from "@/pages/Home.vue";
+import MainPage from "@/pages/MainPage.vue";
 import StudentRegistry from "@/pages/StudentRegistry.vue";
 import StudentPage from "@/pages/StudentPage.vue";
 import AdministratorRegistry from "@/pages/AdministratorRegistry.vue";
@@ -13,7 +13,7 @@ const router = createRouter({
       {
           path: '/',
           name: 'main',
-          component: Home,
+          component: MainPage,
       },
       {
           path: '/authorisation',

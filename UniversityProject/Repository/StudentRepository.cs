@@ -57,8 +57,8 @@ public class StudentRepository : IStudentRepository
                     try
                     {
                         var sqlQuery = @"
-                INSERT INTO Address(Country, City, Street, HouseNumber)
-                VALUES(@country, @city, @state, @houseNumber)
+                INSERT INTO Address(AddressString, Country, City, Street, HouseNumber)
+                VALUES(@address, @country, @city, @state, @houseNumber)
                 SELECT SCOPE_IDENTITY()";
                         student.addressId = db.Query<long>(sqlQuery, student, transaction).First();
                         sqlQuery = @"
@@ -74,9 +74,9 @@ public class StudentRepository : IStudentRepository
                            SELECT SCOPE_IDENTITY()";
                         student.passportId = db.Query<long>(sqlQuery, student, transaction).First();
                         sqlQuery = @"
-                INSERT INTO Student(PassportId, MilitaryId, CriminalRecord, CourseId, SkipHours, CountOfExamsPassed, CreditScores)
+                INSERT INTO Student(PassportId, militaryId, CriminalRecord, CourseId, SkipHours, CountOfExamsPassed, CreditScores)
                     VALUES(@passportId,
-                        @MilitaryIdAvailability + 1,
+                        1,
                         @CriminalRecord,
                         @Course,
                         @SkipHours,
@@ -86,7 +86,7 @@ public class StudentRepository : IStudentRepository
                         student.studentId = db.Query<long>(sqlQuery, student
                             , transaction).First();
                         transaction.Commit();
-                        return student.passportId;
+                        return (long)student.studentId;
                     }
                     catch(Exception ex)
                     {
@@ -178,6 +178,7 @@ public class StudentRepository : IStudentRepository
         p.MiddleName,
         p.BirthData as dob,
         a.ID AS addressID,
+        a.AddressString as Address,
         a.Country,
         a.City,
         a.Street as state,
@@ -204,7 +205,7 @@ public class StudentRepository : IStudentRepository
         SortOrder = SortOrder == "null"? "ASC" : SortOrder;
         SortColumn = SortColumn == "null" ? "s.Id" : SortColumn;
         myLogger.Info($"GetStudentTableDto: FirstId:{FirstId},  count:{countOfRow}, sortColumn:{SortColumn}, sortOrder:{SortOrder}," +
-                      $"filterCourse:{filter.FilterCourse}, BitrhDay: {filter.FilterBirthDayStart} {filter.FilterBirthDayEnd}," +
+                      $"filterCourse:{filter.FilterCourse}, BitrhDay: {filter.FilterDate[0]} {filter.FilterDate[1]}," +
                       $"filterSkipHours: {filter.FilterSkipHoursStart} {filter.FilterSkipHoursEnd}, filtertotalScore: {filter.FilterTotalScore}");
         string Sql = $@"SELECT 
         s.Id AS studentId,
@@ -220,7 +221,11 @@ public class StudentRepository : IStudentRepository
         CONCAT_WS(' ',p.FirstName, p.LastName, p.MiddleName) AS Fio,
         p.BirthData as Dob,
         a.ID AS AddressID,
-        CONCAT_WS(' ',a.Country,a.City, a.Street, a.HouseNumber) AS Address
+        a.AddressString as Address,
+        a.Country,
+        a.City,
+        a.Street as State,
+        a.HouseNumber as HouseNumber
     FROM Student s
     INNER JOIN Passport p ON s.PassportId = p.ID
     INNER JOIN Address a ON p.AddressId = a.ID
@@ -231,9 +236,9 @@ public class StudentRepository : IStudentRepository
     OFFSET @FirstId ROWS FETCH NEXT @countOfRow ROWS ONLY";
         var template = builder.AddTemplate(Sql, new
         {
-            FirstId, countOfRow, filter.FilterBirthDayStart, filter.FilterCourse,
+            FirstId, countOfRow, FilterBirthDayStart = filter.FilterDate[0], filter.FilterCourse,
             filter.FilterSkipHoursStart, filter.FilterSkipHoursEnd, filter.FilterTotalScore,
-            filter.FilterBirthDayEnd
+            FilterBirthDayEnd = filter.FilterDate[1]
         });
         Sql = $@"SELECT COUNT(*)
     FROM Student s
@@ -248,7 +253,7 @@ public class StudentRepository : IStudentRepository
             builder.Where($"s.CourseId = {numberOfCourse}");
         }
 
-        if (filter.FilterBirthDayStart is not null && filter.FilterBirthDayEnd is not null)
+        if (filter.FilterDate[0] != "")
         {
             builder.Where("p.BirthData >= @FilterBirthDayStart AND p.BirthData <= @FilterBirthDayEnd");
         }
@@ -262,9 +267,9 @@ public class StudentRepository : IStudentRepository
         {
             
         }
-        var templateOfPage = builder.AddTemplate(Sql, new { FirstId, countOfRow, filter.FilterBirthDayStart, filter.FilterCourse,
+        var templateOfPage = builder.AddTemplate(Sql, new { FirstId, countOfRow, FilterBirthDayStart = filter.FilterDate[0], filter.FilterCourse,
             filter.FilterSkipHoursStart, filter.FilterSkipHoursEnd, filter.FilterTotalScore,
-            filter.FilterBirthDayEnd});
+            FilterBirthDayEnd = filter.FilterDate[1]});
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
             var students = db.Query<StudentTableDTO>(template.RawSql, template.Parameters).ToList();
@@ -322,7 +327,7 @@ public class StudentRepository : IStudentRepository
                 try
                 { 
                     string sqlQuery = @"UPDATE Address 
-                SET Country = @country,  City = @city, Street = @state, HouseNumber = @houseNumber
+                SET AddressString = @address, Country = @country,  City = @city, Street = @state, HouseNumber = @houseNumber
                 WHERE Id = @addressId";
                     db.Execute(sqlQuery, student, transaction);
                     sqlQuery = @"

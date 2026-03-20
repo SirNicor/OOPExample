@@ -1,7 +1,6 @@
 ﻿export interface Filter
 {
-    FilterBirthDayStart?: Date,
-    FilterBirthDayEnd?: Date,
+    FilterDate?: string,
     FilterSkipHoursStart?: number,
     FilterSkipHoursEnd?: number,
     FilterCourse?: number,
@@ -36,9 +35,10 @@ export interface StudentsTypeForPage {
     lastName: string,
     middleName: string,
     dob: Date,
+    address: string,
     country: string,
-    city: string,
     state: string,
+    city: string,
     houseNumber: string,
     serial: string,
     number: string,

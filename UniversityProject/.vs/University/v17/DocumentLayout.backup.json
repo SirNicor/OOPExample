@@ -90,8 +90,7 @@
               "RelativeToolTip": "Repository\\IScheduleRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T17:26:53.265Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T17:26:53.265Z"
             },
             {
               "$type": "Document",
@@ -103,21 +102,19 @@
               "RelativeToolTip": "Repository\\ScheduleRepository.cs",
               "ViewState": "AgIAAHIAAAAAAAAAAAAkwH8AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T17:26:17.775Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T17:26:17.775Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Repository",
+              "Title": "Repository.csproj",
               "DocumentMoniker": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\Repository.csproj",
               "RelativeDocumentMoniker": "Repository\\Repository.csproj",
               "ToolTip": "D:\\LessonsRep\\OOPExample\\OOPExample\\UniversityProject\\Repository\\Repository.csproj",
               "RelativeToolTip": "Repository\\Repository.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-01-07T17:26:12.203Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T17:26:12.203Z"
             },
             {
               "$type": "Document",
@@ -129,8 +126,7 @@
               "RelativeToolTip": "Repository\\DirectionRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T17:20:32.279Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T17:20:32.279Z"
             },
             {
               "$type": "Document",
@@ -142,8 +138,7 @@
               "RelativeToolTip": "ApiTelegramBot\\StudentUpdate.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAQwAwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T17:15:00.929Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T17:15:00.929Z"
             },
             {
               "$type": "Document",
@@ -155,8 +150,7 @@
               "RelativeToolTip": "ApiTelegramBot\\IStudentUpdate.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T17:14:52.403Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T17:14:52.403Z"
             },
             {
               "$type": "Document",
@@ -168,8 +162,7 @@
               "RelativeToolTip": "Repository\\Migrations\\M014AddDirectionTable.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAzwBQAAABiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T16:17:11.138Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T16:17:11.138Z"
             },
             {
               "$type": "Document",
@@ -205,8 +198,7 @@
               "RelativeToolTip": "ApiTelegramBot\\StartBot.cs",
               "ViewState": "AgIAAH0AAAAAAAAAAAAUwI8AAABfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T11:04:14.63Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T11:04:14.63Z"
             },
             {
               "$type": "Document",
@@ -231,8 +223,7 @@
               "RelativeToolTip": "ApiTelegramBot\\IDisciplineUpdate.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T10:48:51.084Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T10:48:51.084Z"
             },
             {
               "$type": "Document",
@@ -244,8 +235,7 @@
               "RelativeToolTip": "ApiTelegramBot\\StartFunctionalForGroup.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAgwCAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T10:47:53.171Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T10:47:53.171Z"
             },
             {
               "$type": "Document",
@@ -269,8 +259,7 @@
               "RelativeToolTip": "ApiTelegramBot\\DisciplineUpdate.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T10:48:05.527Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T10:48:05.527Z"
             },
             {
               "$type": "Document",
@@ -282,8 +271,7 @@
               "RelativeToolTip": "ApiTelegramBot\\IScheduleUpdate.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T10:48:44.92Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T10:48:44.92Z"
             }
           ]
         }

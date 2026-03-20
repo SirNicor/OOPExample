@@ -43,16 +43,17 @@ import type { RowEventHandlers  } from 'element-plus'
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
   const route = useRoute();
-  const sortState = ref<SortBy>({
-    key: 'column-0',
-    order: SortOrder.ASC,
-  })
   const props = defineProps <{
-        columns: TableColumn[]
-        data: TableData[]
+        defaultSortKey: string,
+        columns: TableColumn[],
+        data: TableData[],
         apiBase: string,
         countPage: number;
       }> ();
+const sortState = ref<SortBy>({
+  key: props.defaultSortKey,
+  order: SortOrder.ASC,
+})
   const CreateColumns = computed(() => {
     return props.columns.map((column) => {
     return {
@@ -72,7 +73,14 @@ import type { RowEventHandlers  } from 'element-plus'
       }
       props.columns.forEach(((column, index) => {
         if(datarow[column.dataKey] !== undefined) {
-          row[column.dataKey] = datarow[column.dataKey];
+          if(column.type == 'string' || column.type == 'number')
+          {
+            row[column.dataKey] = datarow[column.dataKey]
+          }
+          else if(column.type == 'date')
+          {
+            row[column.dataKey] = Intl.DateTimeFormat("ru-RU").format(new Date(datarow[column.dataKey]));
+          }
         }
         else {
           const keys = Object.keys(datarow);
@@ -80,9 +88,16 @@ import type { RowEventHandlers  } from 'element-plus'
             const dataIndex = index < keys.length ? index : 0;
             const key = keys[dataIndex];
             if(key && datarow[key] !== undefined) {
-              row[column.dataKey] = datarow[key]
+              if(column.type == 'string' || column.type == 'number')
+              {
+                row[column.dataKey] = datarow[key]
+              }
+              else if(column.type == 'date')
+              {
+                row[column.dataKey] = Intl.DateTimeFormat("ru-RU").format(datarow[key]);
+              }
             }
-          } else {  
+          } else {    
             row[column.dataKey] = '';
           }
         }
@@ -90,7 +105,6 @@ import type { RowEventHandlers  } from 'element-plus'
       return row;
     })
   });
-  
   const PageSet = ((n : number) =>
   {
     router.push({query: {...route.query, NumberPage: n}});
