@@ -1,51 +1,51 @@
 ﻿
 <template>
-  <h1>Добавление/Изменение студента</h1>
+  <h1>{{headerText}}</h1>
   <el-form :model = "studentTypeOfPage" :rules = "rules" ref = "formRef">
-      <el-row type="flex" justify="space-between" >
-        <el-col :span="6">
+      <el-row type="flex" justify="space-between" class = "rowStudent">
+        <el-col :span="5">
           <el-form-item class = "Fio" inline label = "Имя: " label-position="top" prop = "firstName">
             <el-input v-model = "studentTypeOfPage.firstName" ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item class = "Fio" inline label = "Фамилия: " label-position="top" prop = "lastName">
             <el-input v-model = "studentTypeOfPage.lastName"></el-input>
           </el-form-item> 
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item class = "Fio" inline label = "Отчество: " label-position="top" prop = "middleName">
             <el-input v-model = "studentTypeOfPage.middleName"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item class = "Fio" inline label = "Дата рождения: " label-position="top" prop = "dob">
             <el-date-picker v-model = "studentTypeOfPage.dob"
                             format="DD.MM.YYYY"></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
-        <el-form-item inline label = "Адрес: " label-position="top" prop = "address">
+        <el-form-item inline label = "Адрес: " label-position="top" prop = "address" class = "rowStudent">
           <el-autocomplete :fetch-suggestions = "addressSearch" @select = "handleSelect" v-model = "studentTypeOfPage.address"></el-autocomplete>
         </el-form-item>
-      <el-row type="flex" justify="space-between">
-        <el-col :span="8">
+      <el-row type="flex" justify="space-between" class = "rowStudent">
+        <el-col :span="7">
           <el-form-item class = "Fio" inline label = "Серия: " label-position="top" prop = "serial">
             <el-input v-model = "studentTypeOfPage.serial"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="7">
           <el-form-item class = "Fio" inline label = "Номер: " label-position="top" prop = "number">
             <el-input v-model = "studentTypeOfPage.number"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="7">
           <el-form-item class = "Fio" inline label = "Кем выдан: " label-position="top" prop = "placeReceipt">
             <el-input v-model = "studentTypeOfPage.placeReceipt"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row type="flex" justify="space-between" label = "Общая инфо:" label-position="top">
+      <el-row type="flex" justify="space-between" label = "Общая инфо:" label-position="top" class = "rowStudent">
           <el-col :span="6">
           <el-form-item inline label = "ID телеграмм чата: " label-position="top" prop = "chatId">
             <el-input v-model = "studentTypeOfPage.chatId"></el-input>
@@ -67,7 +67,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-    <el-row type="flex" justify="space-between">
+    <el-row type="flex" justify="space-between" class = "rowStudent">
         <el-col :span = "8">
           <el-form-item inline label = "Общие баллы: " label-position="top" prop = "creditScores">
             <el-input-number v-model = "studentTypeOfPage.creditScores"></el-input-number>
@@ -84,13 +84,14 @@
           </el-form-item>
         </el-col>
     </el-row>
-    <el-form-item inline>
+    <el-form-item inline class = "rowStudent">
       <el-row type = "flex" justify = "space-between">
-        <el-button type = "primary" @click = "Send">Отправить изменения</el-button>
-        <el-button type = "primary"  @click="DeleteDialogBool = true">Удалить</el-button>
-        <el-button type = "primary" @click = "Reset">Очистить изменения</el-button>
-        <el-button type = "primary" @click = "GoRegistry">Вернуться к реестру</el-button>
-        <DeleteDialogComponent @confirm = "Delete" v-model = "DeleteDialogBool"></DeleteDialogComponent>
+        <el-button type = "primary" @click = "sendBool = true">Отправить изменения</el-button>
+        <el-button type = "danger"  @click="DeleteDialogBool = true" v-if = "deleteButton">Удалить</el-button>
+        <el-button type = "text" @click = "Reset">Очистить изменения</el-button>
+        <el-button type = "text" @click = "GoRegistry">Назад</el-button>
+        <DialogComponent @confirm = "Delete" v-model = "DeleteDialogBool" :question-string = "question"></DialogComponent>
+        <DialogComponent @confirm = "SendAndBack" @cancel = "SendNotBack" :question-string = "sendDialog" v-model = "sendBool"></DialogComponent>
       </el-row>
     </el-form-item>
   </el-form>
@@ -100,6 +101,12 @@
   .Fio
   {
     width: 100%;
+  }
+  .rowStudent
+  {
+    margin-bottom: 1.5%;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 </style>
 
@@ -111,7 +118,7 @@
   import {AddressResponse} from "@/api/Address.ts";
   import type {StudentsTypeForPage} from "@/types/studentType.ts";
   import {useRoute} from "vue-router";
-  import DeleteDialogComponent from "@/components/DeleteDialogComponent.vue";
+  import DialogComponent from "@/components/DialogComponent.vue";
   import router from '@/router/index.ts';
   
   const formRef = ref<FormInstance>()
@@ -142,6 +149,11 @@
       });
   const route = useRoute();
   const suggestions = ref<any>();
+  const question = ref("");
+  const deleteButton = ref(false);
+  const sendDialog = ref("Вернуться ли к реестру после добавления?")
+  const sendBool = ref(false);
+  const headerText = ref("");
   const handleSelect = (item: Record<string, any>) => {
     studentTypeOfPage.value.address = item.label
     studentTypeOfPage.value.city = item.city
@@ -154,16 +166,23 @@
   {
     if(!(route.params.index === 'undefined'))
     {
+      deleteButton.value = true;
       await LoadData();
+      headerText.value = "Студент " + studentTypeOfPage.value.lastName + " " + studentTypeOfPage.value.firstName + " " + studentTypeOfPage.value.middleName;
+    }
+    else
+    {
+      headerText.value = "Добавление нового студента";
     }
   })
   async function LoadData()
   {
     let response = await StudentResponse.getStudent(route.params.index);
     studentTypeOfPage.value = response.data;
+    question.value = "Вы уверены, что хотите удалить студента " + studentTypeOfPage.value.lastName + " " + studentTypeOfPage.value.firstName + "?";
   }
   async function Reset(){
-    await LoadData();
+    await LoadData(); 
   }
   function GoRegistry()
   {
@@ -173,7 +192,7 @@
     await StudentResponse.deleteStudent(route.params.index);
     window.history.back();
   }
-  async function Send()
+  async function SendNotBack()
   {
     let student = studentTypeOfPage.value;
     debugger;
@@ -182,12 +201,18 @@
     {
       let id = await StudentResponse.postStudent(student);
       router.replace(`${id.data}`);
+      deleteButton.value = true;
     }
     else
     {
       await StudentResponse.putStudent(route.params.index, student);
       await LoadData(); 
     }
+  }
+  async function SendAndBack()
+  {
+    SendNotBack()
+    window.history.back();
   }
   async function loadAll(query : string) {
     try {

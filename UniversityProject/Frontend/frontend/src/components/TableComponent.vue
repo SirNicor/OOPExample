@@ -1,12 +1,15 @@
 ﻿<template>
+  <div>
+    <el-button @click = "Create" type = "text">Добавить</el-button>
+  </div>
   <el-table-v2
       :columns="CreateColumns"
       :data="CreateData"
       :width="viewportWidth"
-      :height="viewportHeight*0.7"
+      :height="viewportHeight*0.60"
       fixed
       :gutter = "1"
-      :row-height = "30 "
+      :row-height = props.height
       :sort-by = "sortState"
       @column-sort = "OnSort"
       :row-event-handlers="OpenPage"
@@ -22,7 +25,6 @@
   <div class = "pageButtons">
     <el-button v-for = "n in props.countPage" circle @click = "PageSet(n)">{{n}}</el-button>
   </div>
-  <div><el-button @click = "Create">Create new</el-button></div>
 </template>
 <style scoped>
   .pageButtons {
@@ -46,6 +48,7 @@ import type { RowEventHandlers  } from 'element-plus'
   const props = defineProps <{
         defaultSortKey: string,
         columns: TableColumn[],
+        height: number,
         data: TableData[],
         apiBase: string,
         countPage: number;

@@ -4,6 +4,7 @@
     dataKey : string;
     title: string;
     width?: number;
+    height?: number;
     sortable?: boolean;
     type?: string;
 }

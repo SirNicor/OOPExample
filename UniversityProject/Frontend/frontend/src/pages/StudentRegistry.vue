@@ -2,8 +2,8 @@
   <el-form inline class = "FilterForm"> 
     <el-form-item>
       <el-date-picker v-model = "Filter.FilterDate" type = "daterange"
-                      start-placeholder="Start Date" end-placeholder="End Date"
-                      range-separator="To"/>
+                      start-placeholder="Начальная дата" end-placeholder="Конечная дата"
+                      range-separator="-" format="DD/MM/YYYY"/>
     </el-form-item>
     <el-form-item label = "Кол-во часов пропусков: ">
       <el-input-number v-model="Filter.FilterSkipHoursStart" :min="1" :max="120" placeholder="От:"/>
@@ -17,20 +17,22 @@
     </el-form-item>
     <el-form-item>
       <el-button type = "primary" @click = "Reset">Фильтровать</el-button>
-      <el-button type = "primary" @click = "Clear">Очистить</el-button>
+      <el-button type = "danger" @click = "Clear">Очистить</el-button>
     </el-form-item>
   </el-form>
-  <TableComponent :defaultSortKey = "defaultSortKey" :columns="Columns" :data="Data" :apiBase = "Url" :countPage = "pageCount"/>
+  <TableComponent :defaultSortKey = "defaultSortKey" :columns="Columns" :data="Data" :apiBase = "Url" :countPage = "pageCount" :height = "24"/>
 </template>
 
 <style scoped>
   .FilterForm {
-    margin-top: 1%;
     margin-left:4px;
     padding-left: 4px;
-    border: 1px solid;
-    padding-top: 1%;
-    margin-right: 20%; 
+    padding-top: 2px;
+    margin-right: 20%;
+  }
+  .FilterForm el-form-item
+  {
+    margin-bottom: 1px;
   }
 </style>
 

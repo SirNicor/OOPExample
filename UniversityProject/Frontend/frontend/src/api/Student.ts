@@ -22,7 +22,7 @@ export const StudentResponse =
         {
             return api.put(`Student/${id}`, student);
         },
-        postStudent(id?: any, student?: any)
+        postStudent(student?: any)
         {
             return api.post(`Student`, student);
         }

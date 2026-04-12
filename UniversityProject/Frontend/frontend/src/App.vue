@@ -2,12 +2,9 @@
 <template>
   <div id="app">
     <el-menu v-if = "showNavigation" mode = "horizontal" router :ellipsis="false">
-      <el-menu-item index = "/">На главную</el-menu-item>
-      <el-sub-menu index = "1">
-        <template #title>К данным: </template>
-        <el-menu-item index = "/student">Студенты</el-menu-item>
-        <el-menu-item index = "/administrator">Администрация</el-menu-item>
-      </el-sub-menu>
+      <el-menu-item index = "/"><img src = "../public/college-grants.svg" alt = "Главная страница" class = "menu-icon"></el-menu-item>
+      <el-menu-item index = "/student">Список студентов</el-menu-item>
+      <el-menu-item index = "/administrator">Список администрации</el-menu-item>
       <el-menu-item index = "/account">Личный кабинет</el-menu-item>
     </el-menu>
     <nav v-if="showNavigation">
@@ -48,6 +45,12 @@
 
 .el-link {
   font-size: 14px;
+}
+.menu-icon{
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  object-fit: contain; 
 }
 </style>
 <script setup lang="ts">

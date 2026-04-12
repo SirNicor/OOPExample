@@ -4,10 +4,10 @@
       width="500"
       :before-close="close"
   >
-    <span>Вы уверены, что хотите удалить? </span>
+    <span>{{props.questionString}}</span>
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="cancel">Закрыть</el-button>
+        <el-button @click="cancel">Нет</el-button>
         <el-button type="primary" @click="confirm">Да</el-button>
       </div>
     </template>
@@ -15,7 +15,10 @@
 </template>
 
 <style scoped>
-  
+  .dialog-footer
+  {
+    margin: 0 auto;
+  }
 </style>
 
 <script setup lang="ts">
@@ -23,6 +26,7 @@ import {ref, watch} from "vue";
 import type {TableColumn, TableData} from "@/types/TableTypes.ts";
   const props = defineProps <{
     modelValue : boolean;
+    questionString: string;
   }> ();
   const DeleteDialogVisibility = ref(props.modelValue);
   const emit = defineEmits<
@@ -30,6 +34,7 @@ import type {TableColumn, TableData} from "@/types/TableTypes.ts";
         (e: 'update:modelValue', value: boolean): void
         (e: 'confirm'): void
         (e: 'cancel'): void
+        (e: 'close'): void
       }>();
   const handleClose = (done: () => void) => { DeleteDialogVisibility.value = false;}
   watch(() => props.modelValue, (val) =>
@@ -46,7 +51,7 @@ import type {TableColumn, TableData} from "@/types/TableTypes.ts";
   };
 const close = (done : () => void) => {
   DeleteDialogVisibility.value = false
-  emit('cancel');
+  emit('close');
   done();
 };
   const confirm = () => {
