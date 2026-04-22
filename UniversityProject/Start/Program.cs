@@ -16,6 +16,7 @@ try
     startMigrations.Start();
     builder.Services.AddInfrastructureServices(logger, appConfig);
     builder.Services.MakeCronJob(appConfig);
+    builder.Services.CreateJwtTokens(appConfig);
     var app = builder.Build();
     app.AddStudentRequest(app.Services.GetRequiredService<MyLogger>(), 
         app.Services.GetRequiredService<IConfiguration>());
@@ -32,6 +33,7 @@ try
     app.AddDirectionRequest(app.Services.GetRequiredService<MyLogger>());
     app.AddScheduleRequest(app.Services.GetRequiredService<MyLogger>());
     app.AddRegisterRequest(app.Services.GetRequiredService<MyLogger>());
+    app.AddAuthAndLoginRequest(appConfig,app.Services.GetRequiredService<MyLogger>());
     app.UseCors(builder => builder.AllowAnyOrigin()
         .AllowAnyHeader()
         .AllowAnyMethod());

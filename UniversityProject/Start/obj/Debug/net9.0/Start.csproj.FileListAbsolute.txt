@@ -141,3 +141,4 @@ D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\run
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\System.Linq.Dynamic.Core.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Dapper.SqlBuilder.dll
 D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Dadata.dll
+D:\LessonsRep\OOPExample\OOPExample\UniversityProject\Start\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

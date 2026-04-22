@@ -1,7 +1,9 @@
-﻿using System.Text;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using UCore;
 using Dadata;
 using Dadata.Model;
+using Microsoft.IdentityModel.Tokens;
 using Address = Dadata.Model.Address;
 
 namespace Start;
@@ -39,7 +41,7 @@ public static class FunctionForRequest
         return path;
     }
 
-    public async static Task<Address> CleanAddress(string address, IConfiguration configuration)
+    public static async Task<Address> CleanAddress(string address, IConfiguration configuration)
     { 
         var token = configuration.GetValue<string>("DaData:token");
         var secret =  configuration.GetValue<string>("DaData:secret");
@@ -47,11 +49,43 @@ public static class FunctionForRequest
         var result = await api.Clean<Address>(address);
         return result;
     }
-    public async static Task<SuggestResponse<Address>> SuggestAddress(string address, IConfiguration configuration)
+    public static async Task<SuggestResponse<Address>> SuggestAddress(string address, IConfiguration configuration)
     { 
         var token = configuration.GetValue<string>("DaData:token");
         var api = new SuggestClientAsync(token);
         var result = await api.SuggestAddress(address);
         return result;
+    }
+    public static IResult AttachAccountToContext(string token, IConfiguration configuration)
+    {
+        try
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Convert.FromBase64String(configuration["Auth:Key"]);
+            tokenHandler.ValidateToken(token, new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = true,
+                ValidAudience = configuration["Auth:AUDIENCE"],
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
+            }, out SecurityToken validatedToken);
+
+            return Results.Ok();
+        }
+        catch (SecurityTokenExpiredException)
+        {
+            return Results.Json(new{message = "SendRefresh"}, statusCode: 401);
+        }
+        catch (SecurityTokenInvalidSignatureException)
+        {
+            return Results.Json(new{message = "ResetAut"}, statusCode: 401);
+        }
+        catch (Exception ex)
+        {
+            return Results.Json(new{message = "Error"}, statusCode: 400);
+        }
     }
 }

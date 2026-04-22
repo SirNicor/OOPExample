@@ -27,6 +27,7 @@ public static class AddedInfrastructureServices
         services.AddTransient<IPrintWorkersJob, PrintWorkersJob>();
         services.AddTransient<ISalaryJob, UJob.SalaryJob>();
         services.AddTransient<IScoresOfStudentsJob, ScoresOfStudentsJob>();
+        services.AddTransient<IAuthorizationRepository, AuthorizationRepository>();
         services.AddTransient<ReturnListOfStudents>();
         services.AddSingleton<ReturnOneStudent>();
         services.AddTransient<ReturnListAdministrator>();

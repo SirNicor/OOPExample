@@ -13,22 +13,40 @@ static class StudentRequest
     public static void AddStudentRequest(this IEndpointRouteBuilder app, MyLogger logger, IConfiguration configuration)
     {
         app.MapGet("/Student/{studentId}", async (long studentId, HttpContext context) =>
-        {
+        {   
+            context.Request.Headers.TryGetValue("authorization", out var token);
+            IResult result = FunctionForRequest.AttachAccountToContext(token, configuration);
+            if (result is IStatusCodeHttpResult statusResult && statusResult.StatusCode != 200)
+            {
+                return result;
+            }
             logger.Info($"/student/{studentId}");
             var service = context.RequestServices.GetService<IStudentRepository>();   
             var student = service.GetStudentPage(studentId);
-            await context.Response.WriteAsJsonAsync(student); 
+            return Results.Json(student, statusCode: 200);
         });
         app.MapGet("/Student/Page/{count}",async (int count, HttpContext context) =>
         {
+            context.Request.Headers.TryGetValue("authorization", out var token);
+            IResult result = FunctionForRequest.AttachAccountToContext(token, configuration);
+            if (result is IStatusCodeHttpResult statusResult && statusResult.StatusCode != 200)
+            {
+                return result;
+            }
             var service = context.RequestServices.GetService<IStudentRepository>();
             var allCount = service.GetCount();
             var countOfPage = allCount / count +  (allCount % count == 0? 0: 1);
             logger.Info($"student/Page/{count} = > {countOfPage}");
-            await context.Response.WriteAsJsonAsync(countOfPage);
+            return Results.Json(countOfPage, statusCode: 200);
         });
         app.MapGet("/Student", async(string? filter, string? sortKey, string? sortOrder, int page, int count, HttpContext context) =>
         {
+            context.Request.Headers.TryGetValue("authorization", out var token);
+            IResult result = FunctionForRequest.AttachAccountToContext(token, configuration);
+            if (result is IStatusCodeHttpResult statusResult && statusResult.StatusCode != 200)
+            {
+                return result;
+            }
             logger.Info($"get student/{sortKey} {sortOrder} {page} {count} {filter}");
             FilterDto filterDto = JsonSerializer.Deserialize<FilterDto>(filter);
             int firstId = (page-1) * count;
@@ -38,31 +56,50 @@ static class StudentRequest
             var allCount = studentAndPage.Item2;
             var countOfPage = allCount / count +  (allCount % count == 0? 0: 1);
             logger.Info($"student/{page} {count} {firstId} {sortKey} {sortOrder}");
-            await context.Response.WriteAsJsonAsync(new Tuple<List<StudentTableDTO>, long>(studentAndPage.Item1, countOfPage));
+            return Results.Json(new Tuple<List<StudentTableDTO>, long>(studentAndPage.Item1, countOfPage), statusCode: 200);
         });
-        app.MapPost("/Student", async context =>
+        app.MapPost("/Student", async (HttpContext context) =>
         {
+            context.Request.Headers.TryGetValue("authorization", out var token);
+            IResult result = FunctionForRequest.AttachAccountToContext(token, configuration);
+            if (result is IStatusCodeHttpResult statusResult && statusResult.StatusCode != 200)
+            {
+                return result;
+            }
             logger.Info($"/student POST");
             var request = context.Request;
             var service =  context.RequestServices.GetService<IStudentRepository>();
             var student = await request.ReadFromJsonAsync<StudentDtoForPage>();
             var ID = service.Create(student);
-            await context.Response.WriteAsJsonAsync(ID);
+            return Results.Json(ID, statusCode: 200);
         });
         app.MapPut("/Student/{id}", async (long id, HttpContext context) =>
         {
+            context.Request.Headers.TryGetValue("authorization", out var token);
+            IResult result = FunctionForRequest.AttachAccountToContext(token, configuration);
+            if (result is IStatusCodeHttpResult statusResult && statusResult.StatusCode != 200)
+            {
+                return result;
+            }
             logger.Info($"put Student/{id}");
             var request = context.Request;
             var service = context.RequestServices.GetService<IStudentRepository>();
             StudentDtoForPage student = await request.ReadFromJsonAsync<StudentDtoForPage>();
             student.studentId = id;
             var Id = service.Update(student);
-            await context.Response.WriteAsJsonAsync(Id);
+            return Results.Json(Id, statusCode: 200);
         });
         app.MapDelete("/Student/{id}", async (long id, HttpContext context) =>
         {
+            context.Request.Headers.TryGetValue("authorization", out var token);
+            IResult result = FunctionForRequest.AttachAccountToContext(token, configuration);
+            if (result is IStatusCodeHttpResult statusResult && statusResult.StatusCode != 200)
+            {
+                return result;
+            }
             var service = context.RequestServices.GetService<IStudentRepository>();
             service.Delete(id);
+            return Results.Ok();
         });
     }
 }
