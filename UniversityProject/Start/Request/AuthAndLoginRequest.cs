@@ -6,6 +6,7 @@ using Telegram.Bot.Types;
 using UCore;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using Logger;
 
 namespace Start;
@@ -22,12 +23,15 @@ public static class AuthAndLoginRequest
             long id = authRep.CreateAuthorization(user);
             await ctx.Response.WriteAsJsonAsync(id);
         });
-        app.MapGet("/Login", async(HttpContext ctx) =>
+        app.MapPost("/Login", async(HttpContext ctx) =>
         {
-            logger.Info("@/Login");
-            var request = ctx.Request;
+            if (!ctx.Request.HasJsonContentType())
+            {
+                logger.Error("Request doesn't have JSON content type" + $"Content-Type: {ctx.Request.ContentType}");
+                return Results.BadRequest("Content-Type must be application/json");
+            }
             var authAndLoginRep = ctx.RequestServices.GetService<IAuthorizationRepository>();
-            AuthorizationForGetJwtToken auth = await request.ReadFromJsonAsync<AuthorizationForGetJwtToken>();
+            AuthorizationForGetJwtToken? auth = await ctx.Request.ReadFromJsonAsync<AuthorizationForGetJwtToken>();
             var id = authAndLoginRep.GetAuthorizationsForIndex(auth);   
             if (id is null)
             {

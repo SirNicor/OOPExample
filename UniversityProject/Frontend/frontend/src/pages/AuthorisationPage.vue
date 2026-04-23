@@ -1,19 +1,21 @@
 ﻿<template>
   <el-form class = "form" ref = "formRef" :model = "formData" :rules = "rules">
     <h1>Авторизация</h1>
-    <el-form-item label = "Логин: " class = "registerForm" required prop = "login" label-position="top">
-      <el-input placeholder="Введите логин" v-model="formData.login" clearable/>
+    <el-form-item label = "Почта: " class = "registerForm" prop = "Email" label-position="top">
+      <el-input placeholder="Введите почту" type = "text" clearable = "true" v-model="formData.Email"/>
     </el-form-item>
-    <el-form-item label = "Телефон: " class = "registerForm" required prop = "phone" label-position="top"> 
-      <el-input placeholder="Введите телефон" v-model="formData.phone" clearable/>
+    <el-form-item label = "Логин: " class = "registerForm" prop = "Login" label-position="top">
+      <el-input placeholder="Введите логин" v-model="formData.Login" clearable/>
     </el-form-item>
-    <el-form-item label = "Пароль: " required prop = "password" label-position="top" class = "registerForm">
-      <el-input type = "password" show-password placeholder="Введите пароль" v-model="formData.password" clearable/>
+    <el-form-item label = "Телефон: " class = "registerForm" prop = "Phone" label-position="top"> 
+      <el-input placeholder="Введите телефон" v-model="formData.Phone" clearable/>
+    </el-form-item>
+    <el-form-item label = "Пароль: " prop = "Password" label-position="top" class = "registerForm">
+      <el-input type = "password" show-password placeholder="Введите пароль" v-model="formData.Password" clearable/>
     </el-form-item>
     <el-form-item inline = "true" class = "submit">
-      <el-button type = "primary" native-type="submit">Войти</el-button>
+      <el-button type = "primary" native-type="submit" @click = "Send">Войти</el-button>
       <el-checkbox type = "primary" v-model="formData.rememberMe" size = "large" class = "rememberMe">Запомнить</el-checkbox>
-      <el-button link tag = "a" href = "/registration" size = "large" native-type="submit" class = "reg">Регистрация</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -46,21 +48,41 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import type {AuthForm, RegistrationForm} from '@/types/auth.ts'
-import type {FormRules, FormInstance} from "element-plus"
+import {type FormRules, type FormInstance, ElMessage} from "element-plus"
+import {AuthorizationResponse} from "@/api/Authorization.ts"
+async function Send()
+{
+  debugger;
+  if(!formRef.value) return;
+  try {
+    await formRef.value.validate();
+  } catch (error) {
+    ElMessage.error('Пожалуйста,  заполните все поля корректно');
+    return;
+  }
+  let response = await AuthorizationResponse.Login(formData);
+  let accessJWT = response.data.accessjwt;
+  let refreshJWT = response.data.refreshjwt;
+  localStorage.setItem('access_token', accessJWT);
+  localStorage.setItem('refresh_token', refreshJWT);
+}
 const formData = reactive<AuthForm>({
-  login: '',
-  phone: '',
-  password: '',
+  Login: '',
+  Phone: '',
+  Email: '',
+  Password: '',
   rememberMe: false
 })
 const formRef = ref<FormInstance>();
 const isSubmit = false;
 const rules : FormRules<typeof formData> = {
-  login: [{required: true, trigger: 'blur'},
+  Email: [{required: true, message: 'обязательно', trigger: ['blur', 'change']},
+    {type: 'email', message: 'Некорректный email', trigger: ['blur', 'change']},],
+  Login: [{required: true, message: 'обязательно', trigger: ['blur', 'change']},
     {min:3, max:15, required: true, trigger: ['blur', 'change']}],
-  phone: [{required: true, trigger: 'blur'},
+  Phone: [{required: true, message: 'обязательно', trigger: ['blur', 'change']},
     {pattern: /^[+]?[\d\s\-()]{10,}$/, message: "Некорректный phone", trigger: ['blur', 'change']}],
-  password: [{required: true, trigger: 'blur'},
+  Password: [{required: true, message: 'обязательно', trigger: ['blur', 'change']},
     {
       validator: (rule, value : string, callback) =>
       {
@@ -102,7 +124,7 @@ const rules : FormRules<typeof formData> = {
           callback(new Error('добавьте спец. символы'));
           return;
         }
-        if(value == formData.login)
+        if(value == formData.Login)
         {
           callback(new Error('Пароль не может быть логином'));
           return;

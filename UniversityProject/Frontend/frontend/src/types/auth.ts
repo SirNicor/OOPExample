@@ -1,7 +1,8 @@
 ﻿export interface AuthForm {
-    phone: string;
-    login: string;
-    password: string;
+    Phone: string;
+    Email: string;
+    Login: string;
+    Password: string;
     rememberMe: boolean;
 }
 

@@ -1,4 +1,4 @@
-﻿<template>
+﻿<template>AsdF1234!
   <el-form size = "large" show-message = "true" class = "form" ref = "formRef" :model = "formData" :rules="rules">
     <h1>Регистрация</h1>
       <el-form-item label = "Почта: " class = "registerForm" required prop = "email" label-position="top">
