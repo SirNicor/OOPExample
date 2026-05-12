@@ -36,10 +36,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
+import { ref } from 'vue' 
 
 const currentDate = ref(
     new Date().toLocaleDateString('ru-RU', {
@@ -50,9 +47,6 @@ const currentDate = ref(
     })
 )
 
-const goTo = (path) => {
-  router.push(path)
-}
 </script>
 
 <style scoped>

@@ -11,10 +11,14 @@ export const AuthorizationResponse =
         },
         Login(authorization: any)
         {
-            debugger;
-            return api.post(`Login`, authorization, {
+            return api.post(`Login`, authorization);            
+        },
+        CheckAccessToken(accessToken: string)
+        {
+            return api.get(`CheckAccessToken`, {
                 headers: {
-                    'Content-Type': 'application/json'
-                }});            
+                    'Authorization': accessToken
+                }
+            })
         }
     }

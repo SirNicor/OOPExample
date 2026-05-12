@@ -50,6 +50,7 @@ import { reactive, ref } from 'vue'
 import type {AuthForm, RegistrationForm} from '@/types/auth.ts'
 import {type FormRules, type FormInstance, ElMessage} from "element-plus"
 import {AuthorizationResponse} from "@/api/Authorization.ts"
+import router from '@/router/index.ts';
 async function Send()
 {
   debugger;
@@ -60,11 +61,13 @@ async function Send()
     ElMessage.error('Пожалуйста,  заполните все поля корректно');
     return;
   }
+  debugger;
   let response = await AuthorizationResponse.Login(formData);
   let accessJWT = response.data.accessjwt;
   let refreshJWT = response.data.refreshjwt;
-  localStorage.setItem('access_token', accessJWT);
-  localStorage.setItem('refresh_token', refreshJWT);
+  document.cookie = `accessJWT=${accessJWT}; path=/`;
+  document.cookie = `refreshJWT=${refreshJWT}; path=/`;
+  await router.push('/')
 }
 const formData = reactive<AuthForm>({
   Login: '',

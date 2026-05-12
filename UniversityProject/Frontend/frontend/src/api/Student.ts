@@ -1,29 +1,54 @@
 ﻿import api from "@/api/Api.ts";
+import {GetCookie} from "@/Function/CookiesFunction.ts";
 
 export const StudentResponse =
     {
         getStudents(sortKey?: any, sortType?: any, numberPage?: any, filter?: any, count?: any)
         {
-            return api.get(`Student?sortKey=${sortKey}&sortOrder=${sortType}&page=${numberPage}&count=${count}&filter=${filter}`)
+            let token = GetCookie("accessJWT");
+            return api.get(`Student?sortKey=${sortKey}&sortOrder=${sortType}&page=${numberPage}&count=${count}&filter=${filter}`,{
+                headers: {
+                    'Authorization': token
+                }})
         },
         getCountPage(count: number)
         {
-            return api.get(`Student/Page/${count}`);
+            let token = GetCookie("accessJWT");
+            return api.get(`Student/Page/${count}`,{
+                headers: {
+                    'Authorization': token
+                }});
         },
         getStudent(id?: any)
         {
-            return api.get(`Student/${id}`);
+            let token = GetCookie("accessJWT");
+            return api.get(`Student/${id}`,{
+                headers: {
+                    'Authorization': token
+                }});
         },
         deleteStudent(id?: any)
         {
-            return api.delete(`Student/${id}`);
+            let token = GetCookie("accessJWT");
+            return api.delete(`Student/${id}`,{
+                headers: {
+                    'Authorization': token
+                }});
         },
         putStudent(id?: any, student?: any)
         {
-            return api.put(`Student/${id}`, student);
+            let token = GetCookie("accessJWT");
+            return api.put(`Student/${id}`, student,{
+                headers: {
+                    'Authorization': token
+                }});
         },
         postStudent(student?: any)
         {
-            return api.post(`Student`, student);
+            let token = GetCookie("accessJWT");
+            return api.post(`Student`, student,{
+                headers: {
+                    'Authorization': token
+                }});
         }
     }
