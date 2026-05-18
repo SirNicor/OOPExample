@@ -80,26 +80,28 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-    if(to.path === `/authorisation` || to.path === `/registration`) {
+
+    if (to.path === '/authorisation' || to.path === '/registration') {
         next();
         return;
     }
-    let accessJWT = GetCookie('accessJWT');
-    debugger;
-    if(accessJWT === undefined)
-    {
+    const accessJWT = GetCookie('accessJWT');
+
+    if (accessJWT === undefined) {
         next('/authorisation');
         return;
     }
     try {
-        await AuthorizationResponse.CheckAccessToken(accessJWT);
+        const response = await AuthorizationResponse.CheckAccessToken(accessJWT);
         next();
-        return;
-    }
-    catch
-    {
+    } catch (error: any) {
+        console.error('Token validation FAILED:', {
+            error: error.message,
+            status: error.response?.status,
+            data: error.response?.data
+        });
         next('/authorisation');
     }
-}) 
+});
 
 export default router

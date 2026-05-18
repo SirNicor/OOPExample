@@ -6,7 +6,17 @@ using ApiTelegramBot;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json");
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowVueLocalhost", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173", "https://localhost:3000")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+    });
+});
 IConfiguration appConfig = builder.Configuration;
 ConfigurationLogger cl = new ConfigurationLogger(appConfig);
 MyLogger logger = cl.Get();

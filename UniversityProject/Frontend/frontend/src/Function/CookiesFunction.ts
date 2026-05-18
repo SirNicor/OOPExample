@@ -4,7 +4,11 @@
     document.cookie.split(';').forEach(cookie => {
         const [key, value] = cookie.trim().split('=');
         if (key !== undefined && value !== undefined) {
-            result[key] = value;
+            try {
+                result[key] = decodeURIComponent(value);
+            } catch {
+                result[key] = value;
+            }
         }
     });
     debugger;
@@ -18,4 +22,17 @@ export function DeleteCookie(name: string) {
 export function DeleteAllJWTToken() {
     DeleteCookie('accessJWT');
     DeleteCookie('refreshJWT');
+}
+
+export function setAuthCookie(name: string, value: string) {
+    const isSecure = window.location.protocol === 'https:';
+    const secureAttr = isSecure ? 'Secure; ' : '';
+    const sameSite = isSecure ? 'Strict' : 'Lax';
+    const encodedValue = encodeURIComponent(value);
+    document.cookie = `${name}=${encodedValue}; path=/; ${secureAttr}SameSite=${sameSite}`;
+}
+
+export function SetAllJWTToken(valueAccess: string, valueRefresh: string) {
+    setAuthCookie("accessJWT", valueAccess);
+    setAuthCookie("refreshJWT", valueRefresh);
 }

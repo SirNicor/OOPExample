@@ -1,8 +1,8 @@
 ﻿<template>
-  <el-form class = "form" ref = "formRef" :model = "formData" :rules = "rules">
+  <el-form class = "form" ref = "formRef" :model = "formData" :rules = "rules" @submit.prevent>
     <h1>Авторизация</h1>
     <el-form-item label = "Почта: " class = "registerForm" prop = "Email" label-position="top">
-      <el-input placeholder="Введите почту" type = "text" clearable = "true" v-model="formData.Email"/>
+      <el-input placeholder="Введите почту" type = "text" clearable v-model="formData.Email"/>
     </el-form-item>
     <el-form-item label = "Логин: " class = "registerForm" prop = "Login" label-position="top">
       <el-input placeholder="Введите логин" v-model="formData.Login" clearable/>
@@ -14,7 +14,7 @@
       <el-input type = "password" show-password placeholder="Введите пароль" v-model="formData.Password" clearable/>
     </el-form-item>
     <el-form-item inline = "true" class = "submit">
-      <el-button type = "primary" native-type="submit" @click = "Send">Войти</el-button>
+      <el-button type = "primary" @click = "Send">Войти</el-button>
       <el-checkbox type = "primary" v-model="formData.rememberMe" size = "large" class = "rememberMe">Запомнить</el-checkbox>
     </el-form-item>
   </el-form>
@@ -51,6 +51,7 @@ import type {AuthForm, RegistrationForm} from '@/types/auth.ts'
 import {type FormRules, type FormInstance, ElMessage} from "element-plus"
 import {AuthorizationResponse} from "@/api/Authorization.ts"
 import router from '@/router/index.ts';
+import {GetCookie, SetAllJWTToken, setAuthCookie} from "@/Function/CookiesFunction.ts";
 async function Send()
 {
   debugger;
@@ -62,12 +63,26 @@ async function Send()
     return;
   }
   debugger;
-  let response = await AuthorizationResponse.Login(formData);
-  let accessJWT = response.data.accessjwt;
-  let refreshJWT = response.data.refreshjwt;
-  document.cookie = `accessJWT=${accessJWT}; path=/`;
-  document.cookie = `refreshJWT=${refreshJWT}; path=/`;
-  await router.push('/')
+  try {
+    let response = await AuthorizationResponse.Login(formData);
+    const accessJWT = response.data.Accessjwt || response.data.accessjwt;
+    const refreshJWT = response.data.Refreshjwt || response.data.refreshjwt;
+    SetAllJWTToken(accessJWT, refreshJWT);
+    await new Promise(resolve => setTimeout(resolve, 100));
+    const testCookie = GetCookie('accessJWT');
+    await router.push('/')
+  }
+  catch (error: any)
+  {
+    console.error('CATCH ERROR:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name,
+      response: error.response?.data,
+      status: error.response?.status
+    });
+    ElMessage('Нет такого пользователя/неверный пароль')
+  }
 }
 const formData = reactive<AuthForm>({
   Login: '',

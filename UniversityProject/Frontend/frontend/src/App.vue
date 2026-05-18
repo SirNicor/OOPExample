@@ -54,9 +54,14 @@
 }
 </style>
 <script setup lang="ts">
-import { computed } from 'vue'
+import {computed, onMounted} from 'vue'
 import { useRoute } from 'vue-router'
-const route = useRoute()
+import {DeleteAllJWTToken} from "@/Function/CookiesFunction.ts";
+const route = useRoute()  
 const showNavigation = computed(() => route.path !== '/authorisation' && route.path !== '/registration')
 const currentYear = computed(() => new Date().getFullYear())
+onMounted(() =>
+{
+  DeleteAllJWTToken();
+})
 </script>

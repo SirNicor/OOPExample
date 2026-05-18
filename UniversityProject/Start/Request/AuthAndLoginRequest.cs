@@ -121,9 +121,9 @@ public static class AuthAndLoginRequest
         });
         app.MapGet("/CheckAccessToken", async (HttpContext ctx) =>
         {
-            logger.Info("@/CheckAccessToken");
             var request = ctx.Request;
             request.Headers.TryGetValue("authorization", out var token);
+            logger.Info("@/CheckAccessToken " + token);
             IResult result = FunctionForRequest.AttachAccountToContext(token[0], configuration);
             if (result is IStatusCodeHttpResult statusResult && statusResult.StatusCode != 200)
             {

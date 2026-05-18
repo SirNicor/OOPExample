@@ -1,73 +1,73 @@
-﻿import axios from 'axios';
-import {GetCookie, DeleteAllJWTToken} from "@/Function/CookiesFunction.ts";
-import router from '@/router';
-import {AuthorizationResponse} from "@/api/Authorization.ts"; 
+﻿    import axios from 'axios';
+    import {GetCookie, DeleteAllJWTToken, SetAllJWTToken} from "@/Function/CookiesFunction.ts";
+    import router from '@/router';
+    import {AuthorizationResponse} from "@/api/Authorization.ts"; 
+    
+    const api = axios.create({
+    baseURL: 'https://localhost:7082',
+        timeout: 10000,
+        headers: {'X-Custom-Header': 'foobar'}
+    });
 
-const api = axios.create({
-baseURL: 'https://localhost:7082',
-    timeout: 10000,
-    headers: {'X-Custom-Header': 'foobar'}
-});
-
-api.interceptors.response.use(
-    response => response,
-    async (error) => {
-        const {status} = error.response || {};
-        const config = error.config;
-        if (status === 401) {
-            switch(config.url)
-            {
-                case "/Login":
-                {    
-                    router.push(`/registration`);
-                    DeleteAllJWTToken();
+    api.interceptors.response.use(
+        response => {return response;},
+        async (error) => {
+            console.error('Axios interceptor error:', {
+                url: error.config?.url,
+                status: error.response?.status,
+                message: error.message
+            });
+            const { status } = error.response || {};
+            const config = error.config;
+            if (status === 401) {
+                const url = config.url?.toLowerCase() || '';
+                if (url.includes("/login")) {
+                    console.warn('⚠Login failed with 401');
                     return Promise.reject(error);
-                    break;
                 }
-                case "/ResetAccessToken":
-                {
+                if (url.includes("/resetaccesstoken")) {
                     DeleteAllJWTToken();
-                    router.push(`/authorisation`);
+                    await router.push('/authorisation');
                     return Promise.reject(error);
-                    break;
                 }
-                default:
-                {
-                    let message = error.response?.data?.message;
-                    if(message === `SendRefresh`)
-                    {
-                        let refreshToken = GetCookie("refreshJWT");
-                        if (refreshToken !== undefined) {
+                const message = error.response?.data?.message;
+                if (message === 'SendRefresh') {
+                    try {
+                        const refreshToken = GetCookie("refreshJWT");
+                        if (refreshToken) {
+                            console.log('Refreshing access token...');
                             const response = await AuthorizationResponse.ResetAccesToken(refreshToken);
-                            document.cookie = `accessJWT=${response.data.accessjwt}; path=/`;
-                            document.cookie = `refreshJWT=${response.data.refreshjwt}; path=/`;
-                            const originalUrl = config.url?.toLowerCase() || '';
+                            const newAccess = response.data.Accessjwt || response.data.accessjwt;
+                            const newRefresh = response.data.Refreshjwt || response.data.refreshjwt;
+                            SetAllJWTToken(newAccess, newRefresh);
                             if (config.headers) {
-                                config.headers.Authorization = `Bearer ${response.data.accessjwt}`;
+                                config.headers.Authorization = `Bearer ${newAccess}`;
                             }
+                            console.log('Token refreshed, retrying request');
                             return api(config);
-                        }
-                        else
-                        {
+                        } else {
+                            console.warn('No refresh token, redirecting to auth');
                             DeleteAllJWTToken();
-                            router.push(`/authorisation`);
+                            await router.push('/authorisation');
+                            return Promise.reject(error);
                         }
-                    }
-                    else
-                    {
+                    } catch (refreshError) {
+                        console.error('Token refresh failed:', refreshError);
                         DeleteAllJWTToken();
-                        router.push('/authorisation');
+                        await router.push('/authorisation');
+                        return Promise.reject(refreshError);
                     }
+                } else {
+                    console.warn('401 error, redirecting to auth');
+                    DeleteAllJWTToken();
+                    await router.push('/authorisation');
                     return Promise.reject(error);
                 }
             }
-        } else if (status === 403) {
-            router.push('/forbidden');
+            if (!error.response) {
+                console.error(error.message);
+            }
             return Promise.reject(error);
-        } else if (status === 404) {
-            router.push('/not-found');
-            return Promise.reject(error);
-        } 
-    }
-)
-export default api;
+        }
+    );
+    export default api;
