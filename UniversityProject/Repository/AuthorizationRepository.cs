@@ -24,166 +24,226 @@ public class AuthorizationRepository : IAuthorizationRepository
     }
     
     public AuthorizationDto GetForLoginAuthorization(string login)
+{
+    using (IDbConnection db = new SqlConnection(_connectionString))
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
+        const string sqlUser = @"
+            SELECT 
+                Id,
+                Login,
+                Email,
+                HashPassword AS Password,
+                Salt,
+                Phone,
+                IdAdmin,
+                IdTeacher,
+                BlackList
+            FROM AuthorizationTable
+            WHERE Login = @login";
+        
+        var user = db.QueryFirstOrDefault<AuthorizationDto>(sqlUser, new { login });
+        
+        if (user?.Id.HasValue == true)
         {
-            const string sql = @"
-                SELECT 
-                    Id,
-                    Login,
-                    Email,
-                    HashPassword AS Password,
-                    Salt,
-                    Phone,
-                    Role,
-                    IdAdmin,
-                    IdTeacher,
-                    BlackList
-                FROM AuthorizationTable
-                WHERE Login = @login";
+            const string sqlRoles = @"
+                SELECT IdRole 
+                FROM RoleForAuthorization 
+                WHERE IdUser = @userId";
             
-            return db.QueryFirstOrDefault<AuthorizationDto>(sql, new { login });
+            user.Role = db.Query<int>(sqlRoles, new { userId = user.Id }).ToArray();
         }
+        
+        return user;
     }
+}
 
-    public AuthorizationDto GetForIdAuthorization(long id)
+public AuthorizationDto GetForIdAuthorization(long id)
+{
+    using (IDbConnection db = new SqlConnection(_connectionString))
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
-        {
-            const string sql = @"
-                SELECT 
-                    Id,
-                    Login,
-                    Email,
-                    HashPassword AS Password,
-                    Salt,
-                    Phone,
-                    Role,
-                    IdAdmin,
-                    IdTeacher,
-                    BlackList
-                FROM AuthorizationTable
-                WHERE Id = @id";
+        const string sqlUser = @"
+            SELECT 
+                Id,
+                Login,
+                Email,
+                HashPassword AS Password,
+                Salt,
+                Phone,
+                IdAdmin,
+                IdTeacher,
+                BlackList
+            FROM AuthorizationTable
+            WHERE Id = @id";
 
-            return db.QueryFirstOrDefault<AuthorizationDto>(sql, new { id });
+        var user = db.QueryFirstOrDefault<AuthorizationDto>(sqlUser, new { id });
+        
+        if (user?.Id.HasValue == true)
+        {
+            const string sqlRoles = @"
+                SELECT IdRole 
+                FROM RoleForAuthorization 
+                WHERE IdUser = @userId";
+            
+            user.Role = db.Query<int>(sqlRoles, new { userId = user.Id }).ToArray();
         }
+        
+        return user;
     }
+}
 
-    public long CreateAuthorization(AuthorizationDto dto)
+public long CreateAuthorization(AuthorizationDto dto)
+{
+    using (IDbConnection db = new SqlConnection(_connectionString))
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
+        db.Open();
+        using (IDbTransaction transaction = db.BeginTransaction())
         {
-            db.Open();
-            using (IDbTransaction transaction = db.BeginTransaction())
+            try
             {
-                try
-                {
-                    byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
-                    dto.Password = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                        password: dto.Password,
-                        salt: salt,
-                        prf: KeyDerivationPrf.HMACSHA256,
-                        iterationCount: 100000,
-                        numBytesRequested: 256 / 8));
-                    dto.Salt = Convert.ToBase64String(salt);
-                    
-                    const string sql = @"
-                        INSERT INTO AuthorizationTable (
-                            Login,
-                            Email,
-                            HashPassword,
-                            Salt,
-                            Phone,
-                            Role,
-                            IdAdmin,
-                            IdTeacher,
-                            BlackList
-                        ) VALUES (
-                            @Login,
-                            @Email,
-                            @Password,
-                            @Salt,
-                            @Phone,
-                            @Role,
-                            @IdAdmin,
-                            @IdTeacher,
-                            @BlackList
-                        );
-                        SELECT SCOPE_IDENTITY();";
+                byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
+                dto.Password = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    password: dto.Password,
+                    salt: salt,
+                    prf: KeyDerivationPrf.HMACSHA256,
+                    iterationCount: 100000,
+                    numBytesRequested: 256 / 8));
+                dto.Salt = Convert.ToBase64String(salt);
+                
+                const string sql = @"
+                    INSERT INTO AuthorizationTable (
+                        Login,
+                        Email,
+                        HashPassword,
+                        Salt,
+                        Phone,
+                        IdAdmin,
+                        IdTeacher,
+                        BlackList
+                    ) VALUES (
+                        @Login,
+                        @Email,
+                        @Password,
+                        @Salt,
+                        @Phone,
+                        @IdAdmin,
+                        @IdTeacher,
+                        @BlackList
+                    );
+                    SELECT SCOPE_IDENTITY();";
 
-                    var id = db.ExecuteScalar<long>(sql, dto, transaction);
-                    transaction.Commit();
-                    return id;
-                }
-                catch (Exception ex)
+                var id = db.ExecuteScalar<long>(sql, dto, transaction);
+                
+                if (dto.Role != null && dto.Role.Length > 0)
                 {
-                    transaction.Rollback();
-                    _logger.Error($"Error creating authorization: {ex.Message}");
-                    throw;
+                    const string sqlRole = @"
+                        INSERT INTO RoleForAuthorization (IdRole, IdUser) 
+                        VALUES (@IdRole, @IdUser)";
+                    
+                    foreach (var roleId in dto.Role)
+                    {
+                        db.Execute(sqlRole, new { IdRole = roleId, IdUser = id }, transaction);
+                    }
                 }
+                
+                transaction.Commit();
+                return id;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                _logger.Error($"Error creating authorization: {ex.Message}");
+                throw;
             }
         }
     }
+}
 
-    public long UpdateAuthorization(AuthorizationDto dto)
+public long UpdateAuthorization(AuthorizationDto dto)
+{
+    using (IDbConnection db = new SqlConnection(_connectionString))
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
+        db.Open();
+        using (IDbTransaction transaction = db.BeginTransaction())
         {
-            db.Open();
-            using (IDbTransaction transaction = db.BeginTransaction())
+            try
             {
-                try
-                {
-                    byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
-                    dto.Password = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                        password: dto.Password,
-                        salt: salt,
-                        prf: KeyDerivationPrf.HMACSHA256,
-                        iterationCount: 100000,
-                        numBytesRequested: 256 / 8));
-                    dto.Salt = Convert.ToBase64String(salt);
-                    
-                    const string sql = @"
-                        UPDATE AuthorizationTable 
-                        SET 
-                            Email = @Email,
-                            HashPassword = @Password,
-                            Salt = @Salt,
-                            Phone = @Phone,
-                            Role = @Role,
-                            IdAdmin = @IdAdmin,
-                            IdTeacher = @IdTeacher,
-                            BlackList = @BlackList
-                        WHERE Login = @Login";
+                byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
+                dto.Password = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    password: dto.Password,
+                    salt: salt,
+                    prf: KeyDerivationPrf.HMACSHA256,
+                    iterationCount: 100000,
+                    numBytesRequested: 256 / 8));
+                dto.Salt = Convert.ToBase64String(salt);
+                
+                const string sql = @"
+                    UPDATE AuthorizationTable 
+                    SET 
+                        Email = @Email,
+                        HashPassword = @Password,
+                        Salt = @Salt,
+                        Phone = @Phone,
+                        IdAdmin = @IdAdmin,
+                        IdTeacher = @IdTeacher,
+                        BlackList = @BlackList
+                    WHERE Id = @Id";
 
-                    var rowsAffected = db.Execute(sql, dto, transaction);
-                    transaction.Commit();
-                    return dto.Id ?? 0;
-                }
-                catch (Exception ex)
+                db.Execute(sql, dto, transaction);
+                
+                if (dto.Id.HasValue)
                 {
-                    transaction.Rollback();
-                    _logger.Error($"Error updating authorization: {ex.Message}");
-                    throw;
+                    const string deleteRoles = "DELETE FROM RoleForAuthorization WHERE IdUser = @IdUser";
+                    db.Execute(deleteRoles, new { IdUser = dto.Id }, transaction);
+                    
+                    if (dto.Role != null && dto.Role.Length > 0)
+                    {
+                        const string insertRole = @"
+                            INSERT INTO RoleForAuthorization (IdRole, IdUser) 
+                            VALUES (@IdRole, @IdUser)";
+                        
+                        foreach (var roleId in dto.Role)
+                        {
+                            db.Execute(insertRole, new { IdRole = roleId, IdUser = dto.Id }, transaction);
+                        }
+                    }
                 }
+                
+                transaction.Commit();
+                return dto.Id ?? 0;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                _logger.Error($"Error updating authorization: {ex.Message}");
+                throw;
             }
         }
     }
+}
 
-    public int? GetAuthorizationsRoleForIndex(AuthorizationForGetJwtToken dto)
-    {
-        using (IDbConnection db = new SqlConnection(_connectionString))
-        {
-            const string sql = @"
-                SELECT Role
+public Tuple<long?,int[]?> GetAuthorizationsRoleForIndex(AuthorizationForGetJwtToken dto)
+{
+    using (IDbConnection db = new SqlConnection(_connectionString))
+    { 
+        string sql = @"
+            SELECT rfa.IdRole
+            FROM AuthorizationTable at
+            INNER JOIN RoleForAuthorization rfa ON at.Id = rfa.IdUser
+            WHERE at.Login = @login AND
+                  at.Email = @email AND
+                  at.Phone = @phone";
+        var roles = db.Query<int>(sql, dto).ToArray();
+        roles = roles.Length > 0 ? roles : null;
+        sql = @"
+                SELECT Id
                 FROM AuthorizationTable
                 WHERE Login = @login AND
                       Email = @email AND
                       Phone = @phone";
-
-            return db.QueryFirstOrDefault<int>(sql, dto);
-        }
+        var id = db.Query<int>(sql, dto).FirstOrDefault();
+        return new Tuple<long?, int[]?>(id, roles);
     }
+}
 
     public bool CheckPassword(string password, long id)
     {

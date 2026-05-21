@@ -10,7 +10,7 @@ public class AuthorizationDto
 
     public string Password { get; set; } = string.Empty;
     public string? Salt { get; set; }
-    public int Role { get; set; }
+    public int[] Role { get; set; }
     public long? IdAdmin { get; set; }
     public long? IdTeacher { get; set; }
     public bool? BlackList { get; set; }

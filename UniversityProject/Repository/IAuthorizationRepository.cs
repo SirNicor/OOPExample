@@ -7,7 +7,7 @@ public interface IAuthorizationRepository
     public AuthorizationDto GetForIdAuthorization(long id);
     public long CreateAuthorization(AuthorizationDto dto);
     public long UpdateAuthorization(AuthorizationDto dto);
-    public int? GetAuthorizationsRoleForIndex(AuthorizationForGetJwtToken dto);
+    public Tuple<long?, int[]?> GetAuthorizationsRoleForIndex(AuthorizationForGetJwtToken dto);
     public bool CheckPassword(string password, long id);
     public RefreshJWTTokenDTO GetJWTToken(string token);
     public long? CheckAndUpdateJWTToken(string token);

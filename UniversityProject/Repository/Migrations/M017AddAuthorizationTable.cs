@@ -22,7 +22,6 @@ public class M017AddAuthorizationTable : AutoReversingMigration
             .WithColumn("HashPassword").AsString(255).NotNullable()
             .WithColumn("Salt").AsString(255).NotNullable()
             .WithColumn("Phone").AsString(255).Nullable()
-            .WithColumn("Role").AsInt32().ForeignKey("Role", "Id").NotNullable()
             .WithColumn("IdAdmin").AsInt64().ForeignKey("Administrator", "Id").Nullable()
             .WithColumn("IdTeacher").AsInt64().ForeignKey("Teacher", "Id").Nullable()
             .WithColumn("BlackList").AsBoolean().NotNullable().WithDefaultValue(false);
@@ -30,6 +29,9 @@ public class M017AddAuthorizationTable : AutoReversingMigration
             .OnColumn("Login").Ascending()
             .OnColumn("Email").Ascending()
             .OnColumn("Phone").Ascending();
+        Create.Table("RoleForAuthorization")
+            .WithColumn("IdRole").AsInt32().ForeignKey("Role", "Id").NotNullable()
+            .WithColumn("IdUser").AsInt64().ForeignKey("AuthorizationTable", "Id").NotNullable();
         Create.Table("RefreshJWTToken")
             .WithColumn("Id").AsInt64().Identity().PrimaryKey()
             .WithColumn("Token").AsString(255).NotNullable()

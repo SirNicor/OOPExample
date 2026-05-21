@@ -42,4 +42,30 @@ public class RoleRepository : IRoleRepository
             throw;
         }
     }
+    public RoleAccessDto[] GetRoleAccess(int[] rolesId)
+    {
+        using IDbConnection db = new SqlConnection(_connectionString);
+        const string sql = @"
+            SELECT 
+                r.Id AS Id,
+                r.Name AS NameRole,
+                tor.Name AS TypeOperation,
+                ap.Name AS AccessPage
+            FROM Role r
+            INNER JOIN RoleAccess ra ON r.Id = ra.IdRole
+            INNER JOIN TypeOperationRole tor ON ra.IdTypeOperation = tor.Id
+            INNER JOIN AccessPage ap ON ra.IdAccessPage = ap.Id
+            WHERE r.Id IN @rolesId";
+
+        try
+        {
+            // Dapper автоматически разворачивает массив в IN-клаузу
+            return db.Query<RoleAccessDto>(sql, new { rolesId }).ToArray();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error($"Error getting role access for roles [{string.Join(",", rolesId)}]: {ex.Message}");
+            throw;
+        }
+    }
 }

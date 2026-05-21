@@ -30,26 +30,31 @@ public static class AuthAndLoginRequest
             var authAndLoginRep = ctx.RequestServices.GetService<IAuthorizationRepository>();
             var roleRep = ctx.RequestServices.GetService<IRoleRepository>();
             AuthorizationForGetJwtToken? auth = dto;
-            var id = authAndLoginRep.GetAuthorizationsRoleForIndex(auth);
-            if (id is null)
+            var userIdAndRole = authAndLoginRep.GetAuthorizationsRoleForIndex(auth);
+            var userId = userIdAndRole.Item1;
+            var rolesId =  userIdAndRole.Item2;
+            if (userId is null)
             {
                 return Results.Unauthorized();
             }
 
-            bool checkPassword = authAndLoginRep.CheckPassword(auth.Password, (long)id);
+            bool checkPassword = authAndLoginRep.CheckPassword(auth.Password, (long)userId);
             if (!checkPassword)
             {
                 return Results.Unauthorized();
             }
 
-            var role = roleRep.GetRoleAccess((int)id);
+            var roles = roleRep.GetRoleAccess((int[])rolesId);
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, auth.Login), 
                 new Claim(ClaimTypes.Email, auth.Email),
                 new Claim(ClaimTypes.MobilePhone, auth.Phone),
-                new Claim(ClaimTypes.Role, role.NameRole)
             };
+            foreach(var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role.NameRole));
+            }
             string key = configuration.GetSection("Auth:Key").Value;
             var Accessjwt = new JwtSecurityToken(
                 audience: configuration.GetSection("Auth:Audience").Value,
@@ -69,13 +74,13 @@ public static class AuthAndLoginRequest
             RefreshJWTTokenDTO refreshJwtDto = new RefreshJWTTokenDTO();
             refreshJwtDto.Token = new JwtSecurityTokenHandler().WriteToken(refreshJwt);
             refreshJwtDto.RevokedAt = false;
-            refreshJwtDto.IdAuthorizationTable = (long)id;
+            refreshJwtDto.IdAuthorizationTable = (long)userId;
             authAndLoginRep.CreateJWTToken(refreshJwtDto);
             return Results.Ok(new
             {
                 Accessjwt = new JwtSecurityTokenHandler().WriteToken(Accessjwt),
                 Refreshjwt = new JwtSecurityTokenHandler().WriteToken(refreshJwt),
-                Role = JsonSerializer.Serialize(role)
+                Role = JsonSerializer.Serialize(roles)
             });
         });
         app.MapGet("/ResetAccessToken", async (HttpContext ctx) =>
