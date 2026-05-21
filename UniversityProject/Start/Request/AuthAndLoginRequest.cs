@@ -28,8 +28,9 @@ public static class AuthAndLoginRequest
         {
             logger.Info("@/Login");
             var authAndLoginRep = ctx.RequestServices.GetService<IAuthorizationRepository>();
+            var roleRep = ctx.RequestServices.GetService<IRoleRepository>();
             AuthorizationForGetJwtToken? auth = dto;
-            var id = authAndLoginRep.GetAuthorizationsForIndex(auth);
+            var id = authAndLoginRep.GetAuthorizationsRoleForIndex(auth);
             if (id is null)
             {
                 return Results.Unauthorized();
@@ -41,11 +42,13 @@ public static class AuthAndLoginRequest
                 return Results.Unauthorized();
             }
 
+            var role = roleRep.GetRoleAccess((int)id);
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, auth.Login), 
                 new Claim(ClaimTypes.Email, auth.Email),
-                new Claim(ClaimTypes.MobilePhone, auth.Phone)
+                new Claim(ClaimTypes.MobilePhone, auth.Phone),
+                new Claim(ClaimTypes.Role, role.NameRole)
             };
             string key = configuration.GetSection("Auth:Key").Value;
             var Accessjwt = new JwtSecurityToken(
@@ -71,7 +74,8 @@ public static class AuthAndLoginRequest
             return Results.Ok(new
             {
                 Accessjwt = new JwtSecurityTokenHandler().WriteToken(Accessjwt),
-                Refreshjwt = new JwtSecurityTokenHandler().WriteToken(refreshJwt)
+                Refreshjwt = new JwtSecurityTokenHandler().WriteToken(refreshJwt),
+                Role = JsonSerializer.Serialize(role)
             });
         });
         app.MapGet("/ResetAccessToken", async (HttpContext ctx) =>

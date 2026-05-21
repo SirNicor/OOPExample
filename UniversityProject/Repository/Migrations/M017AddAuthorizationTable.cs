@@ -12,7 +12,9 @@ public class M017AddAuthorizationTable : AutoReversingMigration
         Create.Table("Role")
             .WithColumn("Id").AsInt32().Identity().PrimaryKey()
             .WithColumn("Name").AsString(100).NotNullable();
-        Insert.IntoTable("Role").Row(new {Name = "Administrator"});
+        Insert.IntoTable("Role").Row(new {Name = "Teacher"})
+            .Row(new {Name = "StudentAdministrator"})
+            .Row(new {Name = "AdministrationAdministrator"});
         Create.Table("AuthorizationTable")
             .WithColumn("Id").AsInt64().NotNullable().Identity().PrimaryKey()
             .WithColumn("Login").AsString(255).NotNullable().Unique()

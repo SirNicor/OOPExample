@@ -170,18 +170,18 @@ public class AuthorizationRepository : IAuthorizationRepository
         }
     }
 
-    public long? GetAuthorizationsForIndex(AuthorizationForGetJwtToken dto)
+    public int? GetAuthorizationsRoleForIndex(AuthorizationForGetJwtToken dto)
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
             const string sql = @"
-                SELECT Id
+                SELECT Role
                 FROM AuthorizationTable
                 WHERE Login = @login AND
                       Email = @email AND
                       Phone = @phone";
 
-            return db.QueryFirstOrDefault<long>(sql, dto);
+            return db.QueryFirstOrDefault<int>(sql, dto);
         }
     }
 
