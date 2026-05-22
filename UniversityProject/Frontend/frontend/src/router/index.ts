@@ -8,6 +8,8 @@ import StudentPage from "@/pages/StudentPage.vue";
 import AdministratorRegistry from "@/pages/AdministratorRegistry.vue";  
 import AccountPage from "@/pages/AccountPage.vue";
 import {GetCookie} from "@/Function/CookiesFunction.ts"
+import {userAccessPage} from "@/stores/AccessPage.ts";
+import {ElMessage} from "element-plus";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,7 +44,7 @@ const router = createRouter({
       },
       {
           path: '/student',   
-          name: 'student',
+          name: 'StudentRegister',
           component: StudentRegistry,
           meta: {
               title: 'Student',
@@ -51,7 +53,7 @@ const router = createRouter({
       },
       {
           path: `/student/:index`,
-          name: 'studentPage',
+          name: 'StudentPage',
           component: StudentPage,
           meta: {
               title: 'Student',
@@ -60,7 +62,7 @@ const router = createRouter({
       },
       {
           path: '/administrator',
-          name: 'administrator',
+          name: 'AdministratorRegister',
           component: AdministratorRegistry,
           meta: {
               title: 'administrator',
@@ -86,14 +88,27 @@ router.beforeEach(async (to, from, next) => {
         return;
     }
     const accessJWT = GetCookie('accessJWT');
-
+    
     if (accessJWT === undefined) {
         next('/authorisation');
         return;
     }
     try {
         const response = await AuthorizationResponse.CheckAccessToken(accessJWT);
-        next();
+        if(to.path === `/` || to.path === `/account`)
+        {
+            next();
+        }
+        else
+        {
+            if(userAccessPage().canAccessForAllOperationName(typeof to.name === "string" ? to.name : "", ["Read", "All"]))
+            {
+                next();
+                return;
+            }
+            ElMessage.error("Доступ запрещен");
+            next(false);
+        }
     } catch (error: any) {
         console.error('Token validation FAILED:', {
             error: error.message,

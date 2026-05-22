@@ -36,8 +36,9 @@ public class M018AddAuthorizationRole : AutoReversingMigration
             .OnColumn("IdAccessPage").Ascending();
         Insert.IntoTable("RoleAccess")
             .Row(new { IdRole = 1, IdTypeOperation = 2, IdAccessPage = 4 })
+            .Row(new { IdRole = 1, IdTypeOperation = 2, IdAccessPage = 3 })
             .Row(new { IdRole = 2, IdTypeOperation = 5, IdAccessPage = 3 })
             .Row(new { IdRole = 3, IdTypeOperation = 2, IdAccessPage = 2 })
             .Row(new { IdRole = 3, IdTypeOperation = 5, IdAccessPage = 1 });
-    }
+    }   
 }

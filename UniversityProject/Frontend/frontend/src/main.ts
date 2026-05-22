@@ -5,5 +5,7 @@ import App from './App.vue'
 import router from './router'
 import "./css/global.css"
 import VueCookies from 'vue-cookies'
+import { createPinia } from 'pinia'
 
-createApp(App).use(router).use(ElementPlus).use(VueCookies).mount('#app');
+const Pinia = createPinia();
+createApp(App).use(router).use(ElementPlus).use(VueCookies).use(Pinia).mount('#app');

@@ -80,7 +80,7 @@ public static class AuthAndLoginRequest
             {
                 Accessjwt = new JwtSecurityTokenHandler().WriteToken(Accessjwt),
                 Refreshjwt = new JwtSecurityTokenHandler().WriteToken(refreshJwt),
-                Role = JsonSerializer.Serialize(roles)
+                Role = roles
             });
         });
         app.MapGet("/ResetAccessToken", async (HttpContext ctx) =>

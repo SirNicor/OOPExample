@@ -52,6 +52,9 @@ import {type FormRules, type FormInstance, ElMessage} from "element-plus"
 import {AuthorizationResponse} from "@/api/Authorization.ts"
 import router from '@/router/index.ts';
 import {GetCookie, SetAllJWTToken, setAuthCookie} from "@/Function/CookiesFunction.ts";
+import {forEach} from "lodash";
+import {userAccessPage} from "@/stores/AccessPage.ts";
+const accessStore = userAccessPage()
 async function Send()
 {
   debugger;
@@ -68,13 +71,20 @@ async function Send()
     const accessJWT = response.data.Accessjwt || response.data.accessjwt;
     const refreshJWT = response.data.Refreshjwt || response.data.refreshjwt;
     SetAllJWTToken(accessJWT, refreshJWT);
+    let roles = response.data.role;
+    roles.forEach((role: any) => {
+      role.typeOperationAccessPage.forEach((item: any) => {
+        accessStore.AddAccessPage(item.item2, item.item1);
+      })
+    })
+    setAuthCookie("Role", JSON.stringify(response.data.role));
     await new Promise(resolve => setTimeout(resolve, 100));
     const testCookie = GetCookie('accessJWT');
     await router.push('/')
   }
   catch (error: any)
   {
-    console.error('CATCH ERROR:', {
+    console.error('Authorization ERROR:', {
       message: error.message,
       stack: error.stack,
       name: error.name,
@@ -101,7 +111,7 @@ const rules : FormRules<typeof formData> = {
   Phone: [{required: true, message: 'обязательно', trigger: ['blur', 'change']},
     {pattern: /^[+]?[\d\s\-()]{10,}$/, message: "Некорректный phone", trigger: ['blur', 'change']}],
   Password: [{required: true, message: 'обязательно', trigger: ['blur', 'change']},
-    {
+    { 
       validator: (rule, value : string, callback) =>
       {
         if (!value) {

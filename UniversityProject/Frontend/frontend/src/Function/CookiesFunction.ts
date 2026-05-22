@@ -32,6 +32,7 @@ export function setAuthCookie(name: string, value: string) {
     document.cookie = `${name}=${encodedValue}; path=/; ${secureAttr}SameSite=${sameSite}`;
 }
 
+
 export function SetAllJWTToken(valueAccess: string, valueRefresh: string) {
     setAuthCookie("accessJWT", valueAccess);
     setAuthCookie("refreshJWT", valueRefresh);
