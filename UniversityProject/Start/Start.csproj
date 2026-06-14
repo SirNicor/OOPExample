@@ -26,4 +26,8 @@
       <PackageReference Include="System.Linq.Dynamic.Core" Version="1.7.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="PolicyForMinimalAPI\" />
+    </ItemGroup>
+
 </Project>

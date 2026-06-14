@@ -56,36 +56,4 @@ public static class FunctionForRequest
         var result = await api.SuggestAddress(address);
         return result;
     }
-    public static IResult AttachAccountToContext(string token, IConfiguration configuration)
-    {
-        try
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Convert.FromBase64String(configuration["Auth:Key"]);
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = true,
-                ValidAudience = configuration["Auth:AUDIENCE"],
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero
-            }, out SecurityToken validatedToken);
-
-            return Results.Ok();
-        }
-        catch (SecurityTokenExpiredException)
-        {
-            return Results.Json(new{message = "SendRefresh"}, statusCode: 401);
-        }
-        catch (SecurityTokenInvalidSignatureException)
-        {
-            return Results.Json(new{message = "ResetAut"}, statusCode: 401);
-        }
-        catch (Exception ex)
-        {
-            return Results.Json(new{message = "Error"}, statusCode: 400);
-        }
-    }
 }

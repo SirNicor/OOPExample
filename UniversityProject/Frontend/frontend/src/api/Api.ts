@@ -6,12 +6,14 @@
     const api = axios.create({
     baseURL: 'https://localhost:7082',
         timeout: 10000,
-        headers: {'X-Custom-Header': 'foobar'}
+        headers: {'X-Custom-Header': 'foobar'},
+        withCredentials: false
     });
-
+    let isRefreshing = false;
     api.interceptors.response.use(
         response => {return response;},
         async (error) => {
+            debugger;
             console.error('Axios interceptor error:', {
                 url: error.config?.url,
                 status: error.response?.status,
@@ -22,7 +24,6 @@
             if (status === 401) {
                 const url = config.url?.toLowerCase() || '';
                 if (url.includes("/login")) {
-                    console.warn('⚠Login failed with 401');
                     return Promise.reject(error);
                 }
                 if (url.includes("/resetaccesstoken")) {
@@ -31,24 +32,32 @@
                     return Promise.reject(error);
                 }
                 const message = error.response?.data?.message;
-                if (message === 'SendRefresh') {
+                if (message.toLowerCase() === 'sendrefresh') {
+                    if(isRefreshing) {
+                        return Promise.reject(error);
+                    }       
                     try {
                         const refreshToken = GetCookie("refreshJWT");
-                        if (refreshToken) {
+                        if (refreshToken !== undefined) {
+                            if(isRefreshing) {
+                                return Promise.reject(error);
+                            }
+                            isRefreshing = true;
                             console.log('Refreshing access token...');
                             const response = await AuthorizationResponse.ResetAccesToken(refreshToken);
+                            
                             const newAccess = response.data.Accessjwt || response.data.accessjwt;
                             const newRefresh = response.data.Refreshjwt || response.data.refreshjwt;
                             SetAllJWTToken(newAccess, newRefresh);
-                            if (config.headers) {
-                                config.headers.Authorization = `Bearer ${newAccess}`;
-                            }
+                            isRefreshing = false;
                             console.log('Token refreshed, retrying request');
+                            config.headers.Authorization = `${newAccess}`;   
                             return api(config);
                         } else {
                             console.warn('No refresh token, redirecting to auth');
                             DeleteAllJWTToken();
                             await router.push('/authorisation');
+                            isRefreshing = false;
                             return Promise.reject(error);
                         }
                     } catch (refreshError) {
@@ -67,6 +76,7 @@
             if (!error.response) {
                 console.error(error.message);
             }
+            isRefreshing = false;
             return Promise.reject(error);
         }
     );

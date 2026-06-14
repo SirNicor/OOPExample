@@ -89,7 +89,8 @@ public static class AuthAndLoginRequest
             var request = ctx.Request;
             request.Headers.TryGetValue("authorization", out var token);
             var authAndLoginRep = ctx.RequestServices.GetService<IAuthorizationRepository>();
-            var ver = authAndLoginRep.CheckAndUpdateJWTToken(token);
+            var x = token.ToString();
+            var ver = authAndLoginRep.CheckAndUpdateJWTToken(x);
             if (ver is null)
             {
                 return Results.Unauthorized();
@@ -130,15 +131,6 @@ public static class AuthAndLoginRequest
         });
         app.MapGet("/CheckAccessToken", async (HttpContext ctx) =>
         {
-            var request = ctx.Request;
-            request.Headers.TryGetValue("authorization", out var token);
-            logger.Info("@/CheckAccessToken " + token);
-            IResult result = FunctionForRequest.AttachAccountToContext(token[0], configuration);
-            if (result is IStatusCodeHttpResult statusResult && statusResult.StatusCode != 200)
-            {
-                return result;
-            }
-
             return Results.Ok();
         });
     }
