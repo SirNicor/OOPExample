@@ -45,32 +45,35 @@ public static class AuthAndLoginRequest
             }
 
             var roles = roleRep.GetRoleAccess((int[])rolesId);
-            var claims = new List<Claim>
+            string[] nameRoles = new string[roles.Length];
+            for (int i = 0; i < roles.Length; i++)
             {
-                new Claim(ClaimTypes.Name, auth.Login), 
-                new Claim(ClaimTypes.Email, auth.Email),
-                new Claim(ClaimTypes.MobilePhone, auth.Phone),
-            };
-            foreach(var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role.NameRole));
+                nameRoles[i] = roles[i].NameRole;
             }
-            string key = configuration.GetSection("Auth:Key").Value;
-            var Accessjwt = new JwtSecurityToken(
-                audience: configuration.GetSection("Auth:Audience").Value,
-                claims: claims,
-                expires: DateTime.UtcNow.Add(
-                    TimeSpan.FromMinutes(Convert.ToInt64(configuration.GetSection("Auth:TimeAccessJwtToken").Value))),
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Convert.FromBase64String(key)),
-                    SecurityAlgorithms.HmacSha256));
-            claims = new List<Claim> { new Claim(ClaimTypes.NameIdentifier, auth.Id.ToString()) };
+            var jwtPayload = new JwtPayload()
+            {
+                {"exp", DateTimeOffset.UtcNow.AddMinutes(Convert.ToInt64(configuration.GetSection("Auth:TimeAccessJwtToken").Value)).ToUnixTimeSeconds()},
+                {"aud", configuration.GetSection("Auth:Audience").Value},
+                { ClaimTypes.Name, auth.Login},
+                { ClaimTypes.Email, auth.Email},
+                {ClaimTypes.MobilePhone, auth.Phone},
+                { ClaimTypes.Role, nameRoles.ToList()},
+            };
+            var key = new SymmetricSecurityKey(Convert.FromBase64String(configuration["Auth:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var header = new JwtHeader(creds);
+            var accessJwt = new JwtSecurityToken(
+                header: header,
+                payload: jwtPayload);
+            jwtPayload = new JwtPayload(){
+            { ClaimTypes.NameIdentifier, auth.Id.ToString() },
+            { "exp", DateTime.UtcNow.Add(TimeSpan.FromMinutes(Convert.ToInt64(configuration.GetSection("Auth:TimeRefreshJwtToken").Value)))},
+            {"aud", configuration.GetSection("Auth:Audience").Value},
+            { "token_type", "refresh" } 
+            };
             var refreshJwt = new JwtSecurityToken(
-                audience: configuration.GetSection("Auth:Audience").Value,
-                claims: claims,
-                expires: DateTime.UtcNow.Add(
-                    TimeSpan.FromMinutes(Convert.ToInt64(configuration.GetSection("Auth:TimeRefreshJwtToken").Value))),
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Convert.FromBase64String(key)),
-                    SecurityAlgorithms.HmacSha256));
+                header: header,
+                payload: jwtPayload);
             RefreshJWTTokenDTO refreshJwtDto = new RefreshJWTTokenDTO();
             refreshJwtDto.Token = new JwtSecurityTokenHandler().WriteToken(refreshJwt);
             refreshJwtDto.RevokedAt = false;
@@ -78,7 +81,7 @@ public static class AuthAndLoginRequest
             authAndLoginRep.CreateJWTToken(refreshJwtDto);
             return Results.Ok(new
             {
-                Accessjwt = new JwtSecurityTokenHandler().WriteToken(Accessjwt),
+                Accessjwt = new JwtSecurityTokenHandler().WriteToken(accessJwt),
                 Refreshjwt = new JwtSecurityTokenHandler().WriteToken(refreshJwt),
                 Role = roles
             });

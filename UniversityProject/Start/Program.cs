@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Logger;
 using UJob;
 using Start;
@@ -28,14 +29,21 @@ try
     builder.Services.AddInfrastructureServices(logger, appConfig);
     builder.Services.MakeCronJob(appConfig);
     builder.Services.CreateJwtTokens(appConfig);
+    builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("AdministrationAdministrator", policy => policy.RequireClaim(ClaimTypes.Role,"AdministrationAdministrator"));
+        options.AddPolicy("Teacher", policy => policy.RequireClaim(ClaimTypes.Role,"Teacher"));
+        options.AddPolicy("StudentAdministrator", policy => policy.RequireClaim(ClaimTypes.Role,"StudentAdministrator"));
+    });
     var app = builder.Build();
+    app.UseDiffEndpoints(logger, appConfig);
     app.UseCors(builder => builder.AllowAnyOrigin()
         .AllowAnyHeader()
         .AllowAnyMethod());
     app.UseLoggingMiddleware();
     app.UseExceptionHandlerMiddleware();
     app.UseAuthenticationMiddleware();
-    app.UseDiffEndpoints(logger, appConfig);
+    app.UseAuthorization();
     Thread botThread = new Thread(()=>
     {
         using (var botScope = app.Services.CreateScope())

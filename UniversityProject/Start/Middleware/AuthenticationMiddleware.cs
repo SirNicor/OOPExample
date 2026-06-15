@@ -10,11 +10,13 @@ public class AuthenticationMiddleware
 {
     readonly RequestDelegate _next;
     readonly IConfiguration _configuration;
+    readonly MyLogger _logger;
 
-    public AuthenticationMiddleware(RequestDelegate next, IConfiguration configuration)
+    public AuthenticationMiddleware(RequestDelegate next, IConfiguration configuration,  MyLogger logger)
     {
         _next = next;
         _configuration = configuration;
+        _logger = logger;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -28,6 +30,7 @@ public class AuthenticationMiddleware
                 await SendBadRequest(context, 401, "ResetAut");
                 return;
             }
+
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
@@ -43,6 +46,10 @@ public class AuthenticationMiddleware
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
                 context.User = claimsPrincipal;
+                foreach (var x in claimsPrincipal.Claims)
+                {
+                    _logger.Info($"Claims - {x.Type};  {x.Value}");
+                }
             }
             catch (SecurityTokenExpiredException)
             {

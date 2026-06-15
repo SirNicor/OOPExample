@@ -17,7 +17,7 @@ static class StudentRequest
             var service = context.RequestServices.GetService<IStudentRepository>();   
             var student = service.GetStudentPage(studentId);
             return Results.Json(student, statusCode: 200);
-        });
+        }).RequireAuthorization("Teacher");
         app.MapGet("/Student/Page/{count}",async (int count, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IStudentRepository>();
@@ -25,7 +25,7 @@ static class StudentRequest
             var countOfPage = allCount / count +  (allCount % count == 0? 0: 1);
             logger.Info($"student/Page/{count} = > {countOfPage}");
             return Results.Json(countOfPage, statusCode: 200);
-        });
+        }).RequireAuthorization("Teacher");
         app.MapGet("/Student", async(string? filter, string? sortKey, string? sortOrder, int page, int count, HttpContext context) =>
         {
             FilterDto filterDto = JsonSerializer.Deserialize<FilterDto>(filter);
@@ -37,7 +37,7 @@ static class StudentRequest
             var countOfPage = allCount / count +  (allCount % count == 0? 0: 1);
             logger.Info($"student/{page} {count} {firstId} {sortKey} {sortOrder}");
             return Results.Json(new Tuple<List<StudentTableDTO>, long>(studentAndPage.Item1, countOfPage), statusCode: 200);
-        });
+        }).RequireAuthorization("Teacher");
         app.MapPost("/Student", async (HttpContext context) =>
         {
             var request = context.Request;
@@ -45,7 +45,7 @@ static class StudentRequest
             var student = await request.ReadFromJsonAsync<StudentDtoForPage>();
             var ID = service.Create(student);
             return Results.Json(ID, statusCode: 200);
-        });
+        }).RequireAuthorization("StudentAdministrator");
         app.MapPut("/Student/{id}", async (long id, HttpContext context) =>
         {
             var request = context.Request;
@@ -54,12 +54,12 @@ static class StudentRequest
             student.studentId = id;
             var Id = service.Update(student);
             return Results.Json(Id, statusCode: 200);
-        });
+        }).RequireAuthorization("StudentAdministrator");
         app.MapDelete("/Student/{id}", async (long id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IStudentRepository>();
             service.Delete(id);
             return Results.Ok();
-        });
+        }).RequireAuthorization("StudentAdministrator");
     }    
 }
