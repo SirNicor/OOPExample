@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <el-button @click = "Create" type = "text">Добавить</el-button>
+    <el-button @click = "Create" type = "text" v-if="props.createVisibility">Добавить</el-button>
   </div>
   <el-table-v2
       :columns="CreateColumns"
@@ -52,6 +52,7 @@ import type { RowEventHandlers  } from 'element-plus'
         data: TableData[],
         apiBase: string,
         countPage: number;
+        createVisibility: boolean
       }> ();
 const sortState = ref<SortBy>({
   key: props.defaultSortKey,

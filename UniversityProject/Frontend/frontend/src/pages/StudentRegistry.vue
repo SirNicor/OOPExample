@@ -20,7 +20,7 @@
       <el-button type = "danger" @click = "Clear">Очистить</el-button>
     </el-form-item>
   </el-form>
-  <TableComponent :defaultSortKey = "defaultSortKey" :columns="Columns" :data="Data" :apiBase = "Url" :countPage = "pageCount" :height = "24"/>
+  <TableComponent :defaultSortKey = "defaultSortKey" :columns="Columns" :data="Data" :apiBase = "Url" :countPage = "pageCount" :height = "24" :createVisibility = "createVisibility"/>
 </template>
 
 <style scoped>
@@ -46,12 +46,14 @@
   import {type StudentsType, type Filter} from '@/types/studentType.ts'
   import router from '@/router/index.ts'
   import {type FormRules, ElLink } from "element-plus";
+  import {userAccessPage} from "@/stores/AccessPage.ts";
   const Url = "/student";
   const students = ref<StudentsType[]>([]);
   const Data = ref<TableData[]>([]);
   const pageCount = ref(0);
   const count = 15;
   const defaultSortKey = "fio";
+  const createVisibility = ref(false);
   const Columns = reactive<TableColumn[]>( [
     {dataKey: 'fio', title: 'ФИО', type: 'string'},
     {dataKey: 'dob', title: 'Дата рождения', type: 'date'},
@@ -106,7 +108,6 @@
   let IsWatch = false;
   watch(() => route.query,
       async(newQuery, oldQuery) => {
-        debugger;
         if(!IsWatch) return;
         else {
           await loadData();
@@ -123,6 +124,7 @@
       let response = await StudentResponse.getCountPage(count);
       pageCount.value = response.data;
       await loadData();
+      createVisibility.value = userAccessPage().canAccessForAllOperationName("StudentRegistry", ["Create", "All"]);
     }
     catch (error) {
       console.error(error);
@@ -133,10 +135,13 @@
     Data.value = [];
     students.value = [];
     let response = await StudentResponse.getStudents(route.query.sortKey, route.query.sortType, route.query.NumberPage, route.query.filter, count);
-    students.value = response.data.item1 as StudentsType[];
-    pageCount.value = response.data.item2 as number;
-    for(let i = 0; i < students.value.length; i++) {
-      Data.value.push({id: i.toString(), ...students.value[i]});
+    if(response !== null)
+    {
+      students.value = response.data.item1 as StudentsType[];
+      pageCount.value = response.data.item2 as number;
+      for(let i = 0; i < students.value.length; i++) {
+        Data.value.push({id: i.toString(), ...students.value[i]});
+      }
     }
   }
   const Reset = () =>

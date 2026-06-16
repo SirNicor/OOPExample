@@ -1,6 +1,6 @@
 ﻿import { defineStore } from 'pinia'
 import {ref, computed, reactive} from 'vue'
-import {forEach} from "lodash";
+import type {VisibilityPage} from "@/types/Visibility.ts";
 
 interface AccessPageAndTypeOperation {
     TypeOperation: string,
@@ -9,7 +9,18 @@ interface AccessPageAndTypeOperation {
 
 export const userAccessPage = defineStore('AccessPage', ()=>
 {
-    const accessPageAndTypeOperation = ref<AccessPageAndTypeOperation[]>();
+    const accessPageAndTypeOperation = ref<AccessPageAndTypeOperation[]>([]);
+    const visibilityPage = computed<VisibilityPage>(()=> {
+        debugger;
+        let studentVisibility = canAccessForAllOperationName("StudentPage", ["Read", "All"]) || canAccessForAllOperationName("StudentRegistry", ["Read", "All"])
+        let adminVisibility = canAccessForAllOperationName("AdministratorPage", ["Read", "All"]) || canAccessForAllOperationName("AdministratorRegister", ["Read", "All"])
+        let deleteCreateVisibility = accessPageAndTypeOperation.value.some(op => op.TypeOperation === "Create" || op.TypeOperation === "All")
+        return{
+            studentVisibility,
+            adminVisibility,
+            deleteCreateVisibility
+        };
+    })   
     function canAccess(pageName: string, operationName: string)
     {
         if(accessPageAndTypeOperation.value === undefined)
@@ -26,7 +37,7 @@ export const userAccessPage = defineStore('AccessPage', ()=>
         }
         return operationNames.some(operationName =>
             {
-                return accessPageAndTypeOperation.value!.some(operation => operation.AccessPage === pageName && operation.TypeOperation === operationName);
+                return accessPageAndTypeOperation.value.some(operation => operation.AccessPage === pageName && operation.TypeOperation === operationName);
             }
         )
     }
@@ -56,7 +67,8 @@ export const userAccessPage = defineStore('AccessPage', ()=>
         accessPageAndTypeOperation,
         canAccess,
         AddAccessPage,
-        canAccessForAllOperationName
+        canAccessForAllOperationName,
+        visibilityPage,
     };
 }
 )

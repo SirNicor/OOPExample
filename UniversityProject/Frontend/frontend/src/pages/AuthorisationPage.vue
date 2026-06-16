@@ -57,7 +57,6 @@ import {userAccessPage} from "@/stores/AccessPage.ts";
 const accessStore = userAccessPage()
 async function Send()
 {
-  debugger;
   if(!formRef.value) return;
   try {
     await formRef.value.validate();
@@ -65,7 +64,6 @@ async function Send()
     ElMessage.error('Пожалуйста,  заполните все поля корректно');
     return;
   }
-  debugger;
   try {
     let response = await AuthorizationResponse.Login(formData);
     const accessJWT = response.data.Accessjwt || response.data.accessjwt;

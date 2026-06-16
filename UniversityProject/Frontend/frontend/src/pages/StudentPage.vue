@@ -86,9 +86,9 @@
     </el-row>
     <el-form-item inline class = "rowStudent">
       <el-row type = "flex" justify = "space-between">
-        <el-button type = "primary" @click = "sendBool = true">Отправить изменения</el-button>
+        <el-button type = "primary" @click = "sendBool = true" v-if = "SendButton">Отправить изменения</el-button>
         <el-button type = "danger"  @click="DeleteDialogBool = true" v-if = "deleteButton">Удалить</el-button>
-        <el-button type = "text" @click = "Reset">Очистить изменения</el-button>
+        <el-button type = "text" @click = "Reset" v-if = "SendButton">Очистить изменения</el-button>
         <el-button type = "text" @click = "GoRegistry">Назад</el-button>
         <DialogComponent @confirm = "Delete" v-model = "DeleteDialogBool" :question-string = "question"></DialogComponent>
         <DialogComponent @confirm = "SendAndBack" @cancel = "SendNotBack" :question-string = "sendDialog" v-model = "sendBool"></DialogComponent>
@@ -120,6 +120,7 @@
   import {useRoute} from "vue-router";
   import DialogComponent from "@/components/DialogComponent.vue";
   import router from '@/router/index.ts';
+  import {userAccessPage} from "@/stores/AccessPage.ts";
   
   const formRef = ref<FormInstance>()
   const studentTypeOfPage = ref<StudentsTypeForPage>(
@@ -151,6 +152,7 @@
   const suggestions = ref<any>();
   const question = ref("");
   const deleteButton = ref(false);
+  const SendButton = ref(false);
   const sendDialog = ref("Вернуться ли к реестру после добавления?")
   const sendBool = ref(false);
   const headerText = ref("");
@@ -174,6 +176,8 @@
     {
       headerText.value = "Добавление нового студента";
     }
+    deleteButton.value = userAccessPage().canAccessForAllOperationName("StudentPage", ["Delete", "All"]);
+    SendButton.value = userAccessPage().canAccessForAllOperationName("StudentPage", ["Create", "Update", "All"]);
   })
   async function LoadData()
   {
