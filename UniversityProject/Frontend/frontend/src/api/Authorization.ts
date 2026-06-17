@@ -15,7 +15,6 @@ export const AuthorizationResponse =
         },
         CheckAccessToken(accessToken: string)
         {
-            debugger;
             return api.get(`/CheckAccessToken`, {
                 headers: {
                     'Authorization': accessToken

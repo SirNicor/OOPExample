@@ -11,7 +11,6 @@
             }
         }
     });
-    debugger;
     return result[nameSection];
 }
 

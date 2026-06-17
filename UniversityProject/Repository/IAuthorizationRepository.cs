@@ -8,6 +8,7 @@ public interface IAuthorizationRepository
     public long CreateAuthorization(AuthorizationDto dto);
     public long UpdateAuthorization(AuthorizationDto dto);
     public Tuple<long?, int[]?> GetAuthorizationsRoleForIndex(AuthorizationForGetJwtToken dto);
+    public string[] GetAllRoles(int[] idRoles);
     public bool CheckPassword(string password, long id);
     public RefreshJWTTokenDTO GetJWTToken(string token);
     public long? CheckAndUpdateJWTToken(string token);

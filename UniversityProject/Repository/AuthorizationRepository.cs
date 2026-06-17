@@ -245,7 +245,20 @@ public Tuple<long?,int[]?> GetAuthorizationsRoleForIndex(AuthorizationForGetJwtT
     }
 }
 
-    public bool CheckPassword(string password, long id)
+public string[] GetAllRoles(int[] idRoles)
+{
+    using (IDbConnection db = new SqlConnection(_connectionString))
+    {
+        db.Open();
+        string sql = @"
+            SELECT Name
+            FROM Role 
+            WHERE Id IN @idRoles";
+        return db.Query<string>(sql, new{idRoles}).ToArray();
+    }
+}
+
+public bool CheckPassword(string password, long id)
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
