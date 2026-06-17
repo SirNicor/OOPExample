@@ -1,6 +1,7 @@
 ﻿import { defineStore } from 'pinia'
 import {ref, computed, reactive} from 'vue'
 import type {VisibilityPage} from "@/types/Visibility.ts";
+import {DeleteAllJWTToken} from "@/Function/CookiesFunction.ts";
 
 interface AccessPageAndTypeOperation {
     TypeOperation: string,
@@ -50,6 +51,7 @@ export const userAccessPage = defineStore('AccessPage', ()=>
                     AccessPage: pageName
                 }];
             accessPageAndTypeOperation.value = accessPage;
+            localStorage.setItem(pageName, operationName);
         }
         let access: AccessPageAndTypeOperation =
             {
@@ -59,7 +61,34 @@ export const userAccessPage = defineStore('AccessPage', ()=>
         if(accessPageAndTypeOperation.value.some(
             op => op.AccessPage === pageName && op.TypeOperation === operationName
         )) return;
+        localStorage.setItem(pageName, operationName);
         accessPageAndTypeOperation.value.push(access);
+        return;
+    }
+
+    function ResetForLocalStorageAccessPage(): void {
+        if(localStorage.length === 0)
+        {
+            DeleteAllJWTToken();
+            return;
+        }
+        for(let i = 0; i<localStorage.length; i++)
+        {
+            let key = localStorage.key(i);
+            if(key === null) continue;
+            let item = localStorage.getItem(key);
+            if(item === null) continue;
+            let access: AccessPageAndTypeOperation =
+                {
+                    TypeOperation: item,
+                    AccessPage: key
+                }
+            if(accessPageAndTypeOperation.value.some(
+                op => op.AccessPage === key && op.TypeOperation === item
+            )) continue;
+            localStorage.setItem(key, item);
+            accessPageAndTypeOperation.value.push(access);
+        }
         return;
     }
 
@@ -69,6 +98,7 @@ export const userAccessPage = defineStore('AccessPage', ()=>
         AddAccessPage,
         canAccessForAllOperationName,
         visibilityPage,
+        ResetForLocalStorageAccessPage,
     };
 }
 )

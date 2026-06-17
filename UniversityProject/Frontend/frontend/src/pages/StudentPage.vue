@@ -4,82 +4,82 @@
   <el-form :model = "studentTypeOfPage" :rules = "rules" ref = "formRef">
       <el-row type="flex" justify="space-between" class = "rowStudent">
         <el-col :span="5">
-          <el-form-item class = "Fio" inline label = "Имя: " label-position="top" prop = "firstName">
+          <el-form-item class = "Fio elementForm" inline label = "Имя: " label-position="top" prop = "firstName" >
             <el-input v-model = "studentTypeOfPage.firstName" ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item class = "Fio" inline label = "Фамилия: " label-position="top" prop = "lastName">
+          <el-form-item class = "Fio elementForm" inline label = "Фамилия: " label-position="top" prop = "lastName">
             <el-input v-model = "studentTypeOfPage.lastName"></el-input>
           </el-form-item> 
         </el-col>
         <el-col :span="5">
-          <el-form-item class = "Fio" inline label = "Отчество: " label-position="top" prop = "middleName">
+          <el-form-item class = "Fio elementForm" inline label = "Отчество: " label-position="top" prop = "middleName">
             <el-input v-model = "studentTypeOfPage.middleName"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item class = "Fio" inline label = "Дата рождения: " label-position="top" prop = "dob">
+          <el-form-item class = "Fio elementForm" inline label = "Дата рождения: " label-position="top" prop = "dob">
             <el-date-picker v-model = "studentTypeOfPage.dob"
                             format="DD.MM.YYYY"></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
-        <el-form-item inline label = "Адрес: " label-position="top" prop = "address" class = "rowStudent">
+        <el-form-item inline label = "Адрес: " label-position="top" prop = "address" class = "rowStudent elementForm">
           <el-autocomplete :fetch-suggestions = "addressSearch" @select = "handleSelect" v-model = "studentTypeOfPage.address"></el-autocomplete>
         </el-form-item>
-      <el-row type="flex" justify="space-between" class = "rowStudent">
+      <el-row type="flex" justify="space-between" class = "rowStudent elementForm">
         <el-col :span="7">
-          <el-form-item class = "Fio" inline label = "Серия: " label-position="top" prop = "serial">
+          <el-form-item class = "Fio elementForm" inline label = "Серия: " label-position="top" prop = "serial">
             <el-input v-model = "studentTypeOfPage.serial"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="7">
-          <el-form-item class = "Fio" inline label = "Номер: " label-position="top" prop = "number">
+          <el-form-item class = "Fio elementForm" inline label = "Номер: " label-position="top" prop = "number">
             <el-input v-model = "studentTypeOfPage.number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="7">
-          <el-form-item class = "Fio" inline label = "Кем выдан: " label-position="top" prop = "placeReceipt">
+          <el-form-item class = "Fio elementForm" inline label = "Кем выдан: " label-position="top" prop = "placeReceipt">
             <el-input v-model = "studentTypeOfPage.placeReceipt"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row type="flex" justify="space-between" label = "Общая инфо:" label-position="top" class = "rowStudent">
           <el-col :span="6">
-          <el-form-item inline label = "ID телеграмм чата: " label-position="top" prop = "chatId">
+          <el-form-item inline label = "ID телеграмм чата: " label-position="top" prop = "chatId" class = "elementForm">
             <el-input v-model = "studentTypeOfPage.chatId"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="4">
-          <el-form-item inline label = "Судимость(есть/нет): " label-position="top" prop = "criminalRecord">
+          <el-form-item inline label = "Судимость(есть/нет): " label-position="top" prop = "criminalRecord" class = "elementForm">
             <el-switch v-model = "studentTypeOfPage.criminalRecord" active-text="Да" inactive-text="Нет"/>
           </el-form-item>
         </el-col>
         <el-col :span="3">
-          <el-form-item inline label = "Средний балл: " label-position="top" prop = "totalScore">
+          <el-form-item inline label = "Средний балл: " label-position="top" prop = "totalScore" class = "elementForm">
             <el-input v-model = "studentTypeOfPage.totalScore"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="4">
-          <el-form-item inline label = "Часы пропусков: " label-position="top" prop = "skipHours">
+          <el-form-item inline label = "Часы пропусков: " label-position="top" prop = "skipHours" class = "elementForm">
               <el-input-number v-model = "studentTypeOfPage.skipHours"></el-input-number>
           </el-form-item>
         </el-col>
       </el-row>
     <el-row type="flex" justify="space-between" class = "rowStudent">
         <el-col :span = "8">
-          <el-form-item inline label = "Общие баллы: " label-position="top" prop = "creditScores">
+          <el-form-item inline label = "Общие баллы: " label-position="top" prop = "creditScores" class = "elementForm">
             <el-input-number v-model = "studentTypeOfPage.creditScores"></el-input-number>
           </el-form-item>
         </el-col>
         <el-col :span = "8">
-          <el-form-item inline label = "Курс: " label-position="top" prop = "course">
+          <el-form-item inline label = "Курс: " label-position="top" prop = "course" class = "elementForm">
             <el-input-number v-model = "studentTypeOfPage.course"></el-input-number>
           </el-form-item>
         </el-col>
         <el-col :span = "8">
-          <el-form-item inline label = "Количество сданных экзаменов: " label-position="top" prop = "countOfExamsPassed">
+          <el-form-item inline label = "Количество сданных экзаменов: " label-position="top" prop = "countOfExamsPassed" class = "elementForm">
             <el-input-number v-model = "studentTypeOfPage.countOfExamsPassed"></el-input-number>
           </el-form-item>
         </el-col>

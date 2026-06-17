@@ -72,6 +72,6 @@ const visibilityPage = ref<VisibilityPage>(
 );
 onMounted(() =>
 {
-  DeleteAllJWTToken();
+  accessPage.ResetForLocalStorageAccessPage();
 })
 </script>
