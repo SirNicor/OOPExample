@@ -67,7 +67,7 @@ public static class AuthAndLoginRequest
                 payload: jwtPayload);
             jwtPayload = new JwtPayload(){
             { ClaimTypes.NameIdentifier, auth.Id.ToString() },
-            { "exp", DateTime.UtcNow.Add(TimeSpan.FromMinutes(Convert.ToInt64(configuration.GetSection("Auth:TimeRefreshJwtToken").Value)))},
+            { "exp", DateTimeOffset.UtcNow.AddMinutes(Convert.ToInt64(configuration.GetSection("Auth:TimeRefreshJwtToken").Value)).ToUnixTimeSeconds()},
             {"aud", configuration.GetSection("Auth:Audience").Value},
             { "token_type", "refresh" } 
             };
@@ -119,7 +119,7 @@ public static class AuthAndLoginRequest
                 payload: jwtPayload);
             jwtPayload = new JwtPayload(){
                 { ClaimTypes.NameIdentifier, auth.Id.ToString() },
-                { "exp", DateTime.UtcNow.Add(TimeSpan.FromMinutes(Convert.ToInt64(configuration.GetSection("Auth:TimeRefreshJwtToken").Value)))},
+                { "exp", DateTimeOffset.UtcNow.AddMinutes(Convert.ToInt64(configuration.GetSection("Auth:TimeRefreshJwtToken").Value)).ToUnixTimeSeconds()},
                 {"aud", configuration.GetSection("Auth:Audience").Value},
                 { "token_type", "refresh" } 
             };

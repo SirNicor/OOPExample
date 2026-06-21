@@ -86,7 +86,6 @@ export const userAccessPage = defineStore('AccessPage', ()=>
             if(accessPageAndTypeOperation.value.some(
                 op => op.AccessPage === key && op.TypeOperation === item
             )) continue;
-            localStorage.setItem(key, item);
             accessPageAndTypeOperation.value.push(access);
         }
         return;

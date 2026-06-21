@@ -1,7 +1,7 @@
 
 <template>
   <div id="app">
-    <el-menu v-if = "showNavigation" mode = "horizontal" router :ellipsis="false">
+    <el-menu v-if = "showNavigation" mode = "horizontal" router :ellipsis="false" class="el-menu-vertical-demo">
       <el-menu-item index = "/"><img src = "../public/college-grants.svg" alt = "Главная страница" class = "menu-icon"></el-menu-item>
       <el-menu-item index = "/student" v-if = "accessPage.visibilityPage.studentVisibility">Список студентов</el-menu-item>
       <el-menu-item index = "/administrator" v-if = "accessPage.visibilityPage.adminVisibility">Список администрации</el-menu-item>
@@ -28,15 +28,20 @@
 </template>
 
 <style scoped>
+.el-menu-vertical-demo
+{
+  background-color: #f5f7fa;
+  border:1px black solid;
+}
 .el-menu--horizontal > .el-menu-item:last-child {
   right: 90%;
 }
 .app-footer {
   background-color: #f5f7fa;
-  border-top: 1px solid #e4e7ed;
+  border-top: 1px solid black;
   font-size: 14px;
   color: #606266;
-  width: 100%;
+  width: 100%; 
 }
 
 .footer-links {
@@ -67,7 +72,7 @@ const visibilityPage = ref<VisibilityPage>(
     {
       studentVisibility:false,
       adminVisibility: false,
-      deleteCreateVisibility:false,
+      deleteCreateVisibility:false, 
     }
 );
 onMounted(() =>

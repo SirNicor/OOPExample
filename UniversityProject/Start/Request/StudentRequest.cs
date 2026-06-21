@@ -10,6 +10,13 @@ using UCore;
 using System.Linq.Dynamic.Core;
 static class StudentRequest
 {
+    public static void billupdate(int x)
+    {
+        //var Db = new DataBase();
+        // var state = Db.GetForDb();
+        // state += x;
+        //Db.Save(state);
+    }
     public static void AddStudentRequest(this IEndpointRouteBuilder app, MyLogger logger, IConfiguration configuration)
     {
         app.MapGet("/Student/{studentId}", async (long studentId, HttpContext context) =>
