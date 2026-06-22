@@ -4,6 +4,7 @@ using UJob;
 using Start;
 using Repository.Migrations;
 using ApiTelegramBot;
+using Start.Const;
 using Start.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,9 +32,9 @@ try
     builder.Services.CreateJwtTokens(appConfig);
     builder.Services.AddAuthorization(options =>
     {
-        options.AddPolicy("AdministrationAdministrator", policy => policy.RequireClaim(ClaimTypes.Role,"AdministrationAdministrator"));
-        options.AddPolicy("Teacher", policy => policy.RequireClaim(ClaimTypes.Role,"Teacher"));
-        options.AddPolicy("StudentAdministrator", policy => policy.RequireClaim(ClaimTypes.Role,"StudentAdministrator"));
+        options.AddPolicy("AdministrationAdministrator", policy => policy.RequireClaim(ClaimTypes.Role,AuthorizationPolicyConst.AdministratorAdmin));
+        options.AddPolicy("Teacher", policy => policy.RequireClaim(ClaimTypes.Role,AuthorizationPolicyConst.Teacher));
+        options.AddPolicy("StudentAdministrator", policy => policy.RequireClaim(ClaimTypes.Role,AuthorizationPolicyConst.StudentAdministrator));
     });
     var app = builder.Build();
     app.UseDiffEndpoints(logger, appConfig);

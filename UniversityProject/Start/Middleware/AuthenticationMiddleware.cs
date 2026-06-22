@@ -3,6 +3,8 @@ using Logger;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
+using Start.Const;
+using Telegram.Bot.Types;
 
 namespace Start.Middleware;
 
@@ -27,7 +29,7 @@ public class AuthenticationMiddleware
             context.Request.Headers.TryGetValue("authorization", out var token);
             if (token.ToString() == null)
             {
-                await SendBadRequest(context, 401, "ResetAut");
+                await SendBadRequest(context, 401, MessageRequestConst.MessageUnLoginForUnauthorized);
                 return;
             }
 
@@ -53,17 +55,17 @@ public class AuthenticationMiddleware
             }
             catch (SecurityTokenExpiredException)
             {
-                await SendBadRequest(context, 401, "SendRefresh");
+                await SendBadRequest(context, 401, MessageRequestConst.MessageSendRefreshTokenForUnauthorized);
                 return;
             }
             catch (SecurityTokenInvalidSignatureException)
             {
-                await SendBadRequest(context, 401, "ResetAut");
+                await SendBadRequest(context, 401, MessageRequestConst.MessageUnLoginForUnauthorized);
                 return;
             }
             catch (Exception ex)
             {
-                await SendBadRequest(context, 400, "Error");
+                await SendBadRequest(context, 400, MessageRequestConst.MessageForBadRequest);
                 return;
             }
         }
