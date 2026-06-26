@@ -5,6 +5,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using UCore;
+using IRepositoryAll;
 namespace ApiTelegramBot;
 
 public class RegistrationClass : IRegistrationClass

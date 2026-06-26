@@ -1,6 +1,7 @@
 ﻿namespace Start;
 using Repository;
 using UCore;
+using IRepositoryAll;
 using Logger;
 
 static class TeacherRequest

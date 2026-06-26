@@ -7,6 +7,7 @@ using Repository;
 using SelectPdf;
 using Logger;
 using Microsoft.Extensions.Logging;
+using IRepositoryAll;
 
 namespace ApiTelegramBot;
 

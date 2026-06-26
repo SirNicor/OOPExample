@@ -2,6 +2,7 @@
 using Repository;
 using Logger;
 using UCore;
+using IRepositoryAll;
 public class PrintWorkersJob:IJob, IPrintWorkersJob
 {
     public PrintWorkersJob(MyLogger myLogger, IWorkerTeacherRepository workerTeacherRepository, 

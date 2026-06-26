@@ -2,6 +2,7 @@
 using Logger;
 using Repository;
 using UCore;
+using IRepositoryAll;
 static public class UniversityRequest
 {
     public static void AddUniversityRequest(this IEndpointRouteBuilder app, MyLogger logger)

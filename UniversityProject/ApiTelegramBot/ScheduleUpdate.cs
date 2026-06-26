@@ -11,6 +11,7 @@ using Repository;
 using Telegram.Bot.Types.Enums;
 using SelectPdf;
 using Logger;
+using IRepositoryAll;
 
 namespace ApiTelegramBot
 {

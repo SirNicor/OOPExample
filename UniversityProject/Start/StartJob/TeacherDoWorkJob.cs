@@ -3,6 +3,7 @@ using Logger;
 using Repository;
 using UCore;
 
+using IRepositoryAll;
 namespace Start;
 
 public class TeacherDoWorkJob : CronJobService

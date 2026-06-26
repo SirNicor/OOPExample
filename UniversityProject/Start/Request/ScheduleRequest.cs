@@ -1,6 +1,7 @@
 ﻿using Logger;
 using Repository;
 using UCore;
+using IRepositoryAll;
 namespace Start;
 static class ScheduleRequest
 {

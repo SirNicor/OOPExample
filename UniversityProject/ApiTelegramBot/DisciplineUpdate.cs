@@ -6,6 +6,7 @@ using System.Text;
 using Repository;
 using SelectPdf;
 using Logger;
+using IRepositoryAll;
 namespace ApiTelegramBot;
 
 public class DisciplineUpdate : IDisciplineUpdate

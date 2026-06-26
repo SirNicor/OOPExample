@@ -3,6 +3,7 @@ using Repository;
 using UCore;
 using Repository;
 using Logger;
+using IRepositoryAll;
 
 namespace Start;
 

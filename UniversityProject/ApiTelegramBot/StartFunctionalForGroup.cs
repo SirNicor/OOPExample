@@ -8,6 +8,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 using Repository;
 using UCore;
 using Logger;
+using IRepositoryAll;
 public class StartFunctionalForGroup : IStartFunctionalForGroup
 {
     private IDisciplineUpdate _disSend;

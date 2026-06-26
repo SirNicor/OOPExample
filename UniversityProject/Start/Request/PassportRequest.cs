@@ -2,6 +2,7 @@
 using Repository;
 using UCore;
 using Logger;
+using IRepositoryAll;
 
 static class PassportRequest
 {

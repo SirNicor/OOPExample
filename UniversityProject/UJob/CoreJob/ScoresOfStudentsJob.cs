@@ -2,6 +2,7 @@
 using Repository;
 using Logger;
 using UCore;
+using IRepositoryAll;
 
 
 public class ScoresOfStudentsJob:IJob, IScoresOfStudentsJob

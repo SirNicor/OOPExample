@@ -3,6 +3,7 @@ using Repository;
 using UCore;
 using Logger;
 using Dadata.Model;
+using IRepositoryAll;
 
 static class AddressRequest
 {

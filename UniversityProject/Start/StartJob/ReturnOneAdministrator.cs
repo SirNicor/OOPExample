@@ -2,6 +2,7 @@
 
 namespace Start;
 using UCore;
+using IRepositoryAll;
 
 public class ReturnOneAdministrator
 {

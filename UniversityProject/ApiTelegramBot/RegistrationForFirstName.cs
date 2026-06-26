@@ -6,6 +6,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using Repository;
 using UCore;
+using IRepositoryAll;
 public class RegistrationForFirstName : IRegistrationForFirstName
 {
     private IStudentRepository _repository;

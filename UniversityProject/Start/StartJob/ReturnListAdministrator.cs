@@ -2,6 +2,7 @@
 namespace Start;
 using UCore;
 using Repository;
+using IRepositoryAll;
 
 public class ReturnListAdministrator
 {

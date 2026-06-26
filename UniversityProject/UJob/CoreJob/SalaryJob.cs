@@ -4,6 +4,7 @@ namespace UJob;
 
 using Logger;
 using UCore;
+using IRepositoryAll;
 public class SalaryJob:IJob, ISalaryJob
 {
 

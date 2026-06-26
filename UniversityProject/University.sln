@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCore", "UCore\UCore.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{D076D9E0-244A-4AE4-BB03-9354E8157CCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperRepository", "DapperRepository\DapperRepository.csproj", "{2D7913BD-DF2D-42E2-8A5F-B8EE98E4EDBA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UJob", "UJob\UJob.csproj", "{7E579CCE-5FDE-4524-8A03-876583E92895}"
 EndProject
@@ -17,6 +17,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VueProject", "VueProject\VueProject.csproj", "{A28AD410-C01E-471D-A75E-C7CE61A50924}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{4A96E633-CF1B-41AE-BA81-AB44C9889E39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRepositoryAll", "IRepositoryAll\IRepositoryAll.csproj", "{2897A976-9CC3-48CA-9C15-1A6BB1F44A40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,5 +62,9 @@ Global
 		{4A96E633-CF1B-41AE-BA81-AB44C9889E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A96E633-CF1B-41AE-BA81-AB44C9889E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A96E633-CF1B-41AE-BA81-AB44C9889E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2897A976-9CC3-48CA-9C15-1A6BB1F44A40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2897A976-9CC3-48CA-9C15-1A6BB1F44A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2897A976-9CC3-48CA-9C15-1A6BB1F44A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2897A976-9CC3-48CA-9C15-1A6BB1F44A40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

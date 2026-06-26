@@ -9,6 +9,7 @@ using Telegram.Bot.Types.Enums;
 using Logger;
 using Repository;
 using UCore;
+using IRepositoryAll;
 public class FunctionOfBot
 {
     public IStartFunctionalForGroup StartFunctionalForGroup;

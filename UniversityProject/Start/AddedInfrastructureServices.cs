@@ -4,6 +4,7 @@ namespace Start;
 using Repository;
 using Logger;
 using UJob;
+using IRepositoryAll;
 
 public static class AddedInfrastructureServices
 {
