@@ -37,16 +37,16 @@ public class InfoJob: CronJobService
         switch (input)
         {
             case 1:
-                _printWorkersJob.DoWork();
+                _printWorkersJob.DoWorkAsync();
                 break;
             case 2:
-                _printStudentJob.DoWork();
+                _printStudentJob.DoWorkAsync();
                 break;
             case 3:
-                _scoresOfStudentsJob.DoWork();
+                _scoresOfStudentsJob.DoWorkAsync();
                 break;
             case 4:
-                _infoCouplesAttendanceJob.DoWork();
+                _infoCouplesAttendanceJob.DoWorkAsync();
                 break;
             default:
                 _myLogger.Info("Выход за возможный выбор");

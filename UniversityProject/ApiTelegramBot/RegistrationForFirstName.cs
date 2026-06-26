@@ -21,7 +21,7 @@ public class RegistrationForFirstName : IRegistrationForFirstName
     }
     public async Task Registration(long chatId, ITelegramBotClient botClient, string messageText, UserStateRegistration userStateReg)
     {
-        var id = _repository.CheckName(messageText, userStateReg.StudentLastName);
+        var id = await _repository.CheckNameAsync(messageText, userStateReg.StudentLastName);
         if (id != null)
         {
             userStateReg.StudentFirstName = messageText;

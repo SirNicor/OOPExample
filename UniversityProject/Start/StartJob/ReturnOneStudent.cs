@@ -13,8 +13,8 @@ public class ReturnOneStudent
         _studentRepository = studentRepository;   
     }
 
-    public Student ReturnStudent(int id)
+    public async Task<Student> ReturnStudentAsync(int id)
     {
-        return _studentRepository.Get(id);
+        return await _studentRepository.GetAsync(id);
     }
 }

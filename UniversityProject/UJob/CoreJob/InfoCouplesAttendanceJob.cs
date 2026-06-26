@@ -4,19 +4,20 @@ using Logger;
 using UCore;
 using IRepositoryAll;
 
-public class InfoCouplesAttendanceJob:IJob,  IInfoCouplesAttendanceJob
+public class InfoCouplesAttendanceJob : IJob, IInfoCouplesAttendanceJob
 {
     public InfoCouplesAttendanceJob(MyLogger myLogger, IStudentRepository studentRepository)
     {
         _myLogger = myLogger;
-        _students = studentRepository.ReturnList();
+        _studentsRepository = studentRepository;
     }
 
-    public void DoWork()    
+    public async Task DoWorkAsync()
     {
+        _students = await _studentsRepository.ReturnListAsync();
         int?[] couplesAttendance = new int?[_students.Count];
         int maxindex = 0, minindex = 0;
-        for(int i = 0; i < _students.Count; i++)
+        for (int i = 0; i < _students.Count; i++)
         {
             couplesAttendance[i] = _students[i].SkipHours;
             Console.WriteLine(couplesAttendance[i]);
@@ -24,19 +25,22 @@ public class InfoCouplesAttendanceJob:IJob,  IInfoCouplesAttendanceJob
             {
                 maxindex = i;
             }
+
             if (couplesAttendance[minindex] < couplesAttendance[i])
             {
                 minindex = i;
             }
         }
+
         _myLogger.Info($"Максимально количество пропусков= {couplesAttendance[maxindex]}. Данный студент:");
         _students[maxindex].PrintInfo(_myLogger);
         _myLogger.Info($"Минимальное количество пропусков = {couplesAttendance[minindex]}. Данный студент:");
         _students[minindex].PrintInfo(_myLogger);
     }
-    
-    
+
+
     private readonly MyLogger _myLogger;
     private Timer _timer;
+    private readonly IStudentRepository _studentsRepository;
     private List<Student> _students;
 }

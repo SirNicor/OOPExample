@@ -5,18 +5,18 @@ using System.Collections.Generic;
 
 public interface IStudentRepository
 {
-    public void PrintAll();
-    public List<Student> ReturnList();
-    long Create(StudentDtoForPage student);
-    long? Update(StudentDtoForPage student);
-    void Delete(long ID);
-    void DeleteAddress(long ID);
-    void DeletePassport(long ID);
-    Student Get(long ID);
-    StudentDtoForPage GetStudentPage(long studentId);
-     Tuple<List<StudentTableDTO>, long>GetStudentTableDTO(long FirstId, long count, string? SortColumn,
+    public Task PrintAllAsync();
+    public Task<List<Student>> ReturnListAsync();
+    Task<long> CreateAsync(StudentDtoForPage student);
+    Task<long?> UpdateAsync(StudentDtoForPage student);
+    Task DeleteAsync(long ID);
+    Task DeleteAddressAsync(long ID);
+    Task DeletePassportAsync(long ID);
+    Task<Student> GetAsync(long ID);
+    Task<StudentDtoForPage> GetStudentPageAsync(long studentId);
+    Task<(List<StudentTableDTO>, long)> GetStudentTableDTO(long FirstId, long count, string? SortColumn,
         string? SortOrder, FilterDto? filter);
-    long GetCount();
-    public Student? GetStudentForChatId(string chatId);
-    public long? CheckName(string firstName, string LastName);
+    Task<long> GetCountAsync();
+    public Task<Student?> GetStudentForChatIdAsync(string chatId);
+    public Task<long?> CheckNameAsync(string firstName, string LastName);
 }

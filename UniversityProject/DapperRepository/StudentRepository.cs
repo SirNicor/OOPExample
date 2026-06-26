@@ -47,85 +47,77 @@ public class StudentRepository : IStudentRepository
         myLogger = logger;
     }
 
-    public long Create(StudentDtoForPage student)
+    public async Task<long> CreateAsync(StudentDtoForPage student)
     {
-        using (IDbConnection db = new SqlConnection(ConnectionString))
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        await using var transaction = await db.BeginTransactionAsync();
+        try
         {
-            db.Open();
-            using(IDbTransaction transaction = db.BeginTransaction())
-                {
-                    try
-                    {
-                        var sqlQuery = @"
-                INSERT INTO Address(AddressString, Country, City, Street, HouseNumber)
-                VALUES(@address, @country, @city, @state, @houseNumber)
-                SELECT SCOPE_IDENTITY()";
-                        student.addressId = db.Query<long>(sqlQuery, student, transaction).First();
-                        sqlQuery = @"
-                INSERT INTO Passport(Serial, Number, FirstName, LastName, MiddleName, BirthData, AddressId, PlaceReceipt)
-                       VALUES(@serial,
-                           @number,
-                           @firstName,
-                           @lastName, 
-                           @middleName, 
-                           @dob, 
-                           @addressId, 
-                           @PlaceReceipt)
-                           SELECT SCOPE_IDENTITY()";
-                        student.passportId = db.Query<long>(sqlQuery, student, transaction).First();
-                        sqlQuery = @"
-                INSERT INTO Student(PassportId, militaryId, CriminalRecord, CourseId, SkipHours, CountOfExamsPassed, CreditScores)
-                    VALUES(@passportId,
-                        1,
-                        @CriminalRecord,
-                        @Course,
-                        @SkipHours,
-                        @CountOfExamsPassed, 
-                        @CreditScores)
-                        SELECT SCOPE_IDENTITY()";
-                        student.studentId = db.Query<long>(sqlQuery, student
-                            , transaction).First();
-                        transaction.Commit();
-                        return (long)student.studentId;
-                    }
-                    catch(Exception ex)
-                    {
-                        myLogger.Error("An error occured during transaction" + ex.Message);
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
+            var sqlQuery = @"
+                    INSERT INTO Address(AddressString, Country, City, Street, HouseNumber)
+                    VALUES(@address, @country, @city, @state, @houseNumber)
+                    SELECT SCOPE_IDENTITY()";
+            student.addressId = await db.QueryFirstOrDefaultAsync<long>(sqlQuery, student, transaction);
+            sqlQuery = @"
+                    INSERT INTO Passport(Serial, Number, FirstName, LastName, MiddleName, BirthData, AddressId, PlaceReceipt)
+                           VALUES(@serial,
+                               @number,
+                               @firstName,
+                               @lastName, 
+                               @middleName, 
+                               @dob, 
+                               @addressId, 
+                               @PlaceReceipt)
+                               SELECT SCOPE_IDENTITY()";
+            student.passportId = await db.QueryFirstOrDefaultAsync<long>(sqlQuery, student, transaction);
+            sqlQuery = @"
+                    INSERT INTO Student(PassportId, militaryId, CriminalRecord, CourseId, SkipHours, CountOfExamsPassed, CreditScores)
+                        VALUES(@passportId,
+                            1,
+                            @CriminalRecord,
+                            @Course,
+                            @SkipHours,
+                            @CountOfExamsPassed, 
+                            @CreditScores)
+                            SELECT SCOPE_IDENTITY()";
+            student.studentId = await db.QueryFirstOrDefaultAsync<long>(sqlQuery, student, transaction); 
+            await transaction.CommitAsync();
+            return (long)student.studentId;
         }
-        
+        catch(Exception ex)
+        {
+            myLogger.Error("An error occured during transaction" + ex.Message);
+            throw;
+        }
     }
 
-    public void PrintAll()
+    public async Task PrintAllAsync()
     {
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            var sqlQuery = SQlQuerySelect;
-            List <Student> students = db.Query<Student, Passport, Address, Student>(sqlQuery,
-                (student, passport, address) =>
-                {
-                    passport.Address = address;
-                    student.Passport = passport;
-                    return student;
-                },
-                splitOn: "PassportID, AddressID"
-            ).ToList();
-            foreach (var student in students)
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        var sqlQuery = SQlQuerySelect;
+        List<Student> students = (await db.QueryAsync<Student, Passport, Address, Student>(sqlQuery,
+            (student, passport, address) =>
             {
-                student.PrintInfo(myLogger);
-            }
+                passport.Address = address;
+                student.Passport = passport;
+                return student;
+            },
+            splitOn: "PassportID, AddressID"
+        )).AsList();
+        foreach (var student in students)
+        {
+            student.PrintInfo(myLogger);
         }
     }
 
-    public List<Student> ReturnList()
+    public async Task<List<Student>> ReturnListAsync()
     {
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            var sqlQuery = SQlQuerySelect;
-            return db.Query<Student, Passport, Address, Student>(sqlQuery,
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        var sqlQuery = SQlQuerySelect;
+        return (await db.QueryAsync<Student, Passport, Address, Student>(sqlQuery,
                 (student, passport, address) =>
                 {
                     passport.Address = address;
@@ -133,16 +125,15 @@ public class StudentRepository : IStudentRepository
                     return student;
                 },
                 splitOn: "PassportID, AddressID"
-            ).ToList();
-        }
+                )).AsList();
     }   
     
-    public Student Get(long id)
+    public async Task<Student> GetAsync(long id)
     {
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            var sqlQuery = SQlQuerySelect + " WHERE s.ID = @id";
-            var student = db.Query<Student, Passport, Address, Student>(sqlQuery,
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        var sqlQuery = SQlQuerySelect + " WHERE s.ID = @id";
+        var students = await db.QueryAsync<Student, Passport, Address, Student>(sqlQuery,
                 (student, passport, address) =>
                 {
                     passport.Address = address;
@@ -151,14 +142,14 @@ public class StudentRepository : IStudentRepository
                 },
                 (new { id = id }),
                 splitOn: "PassportID, AddressID"
-            ).FirstOrDefault();
-            myLogger.Info($"Возвращение студента - {student.Passport.FirstName}, {student.Passport.LastName}");
-            return student;
-        }
+            );
+        return students.FirstOrDefault();
     }
 
-    public StudentDtoForPage GetStudentPage(long studentId)
+    public async Task<StudentDtoForPage> GetStudentPageAsync(long studentId)
     {
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
         const string SQlQuerySelect = @"
     SELECT 
         s.Id AS studentId,
@@ -189,14 +180,10 @@ public class StudentRepository : IStudentRepository
     INNER JOIN DegreesStudy ds ON s.CourseId = ds.ID
     INNER JOIN IdMilitary im ON s.MilitaryId = im.ID
     WHERE s.Id = @studentId;";
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            StudentDtoForPage student = db.QueryFirst<StudentDtoForPage>(SQlQuerySelect, new {studentId});
-            return student;
-        }
+        return await db.QueryFirstOrDefaultAsync<StudentDtoForPage>(SQlQuerySelect, new {studentId});
     }
 
-    public Tuple<List<StudentTableDTO>, long> GetStudentTableDTO(long FirstId, long countOfRow, string? SortColumn, string? SortOrder, 
+    public async Task<(List<StudentTableDTO>, long)> GetStudentTableDTO(long FirstId, long countOfRow, string? SortColumn, string? SortOrder, 
         FilterDto? filter)
     {
         var builder = new SqlBuilder();
@@ -270,28 +257,27 @@ public class StudentRepository : IStudentRepository
         var templateOfPage = builder.AddTemplate(Sql, new { FirstId, countOfRow, FilterBirthDayStart = filter.FilterDate[0], filter.FilterCourse,
             filter.FilterSkipHoursStart, filter.FilterSkipHoursEnd, filter.FilterTotalScore,
             FilterBirthDayEnd = filter.FilterDate[1]});
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            var students = db.Query<StudentTableDTO>(template.RawSql, template.Parameters).ToList();
-            var allCount = db.Query<long>(templateOfPage.RawSql, template.Parameters).First();
-            return new Tuple<List<StudentTableDTO>, long>(students, allCount);
-        }
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        var students = (await db.QueryAsync<StudentTableDTO>(template.RawSql, template.Parameters)).AsList();
+        var allCount = await db.QueryFirstOrDefaultAsync<long>(templateOfPage.RawSql, template.Parameters);
+        return (students, allCount);
     }
 
-    public long GetCount()
+    public async Task<long> GetCountAsync()
     {
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            return db.Query<long>("SELECT COUNT(*) FROM Student").First();
-        }
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        return await db.QueryFirstOrDefaultAsync<long>("SELECT COUNT(*) FROM Student");
+        
     }
 
-    public Student? GetStudentForChatId(string chatId)
+    public async Task<Student?> GetStudentForChatIdAsync(string chatId)
     {
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            var sqlQuery = SQlQuerySelect + " WHERE s.ChatId = @chatId";
-            var student = db.Query<Student, Passport, Address, Student>(sqlQuery,
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        var sqlQuery = SQlQuerySelect + " WHERE s.ChatId = @chatId";
+        var student = await db.QueryAsync<Student, Passport, Address, Student>(sqlQuery,
                 (student, passport, address) =>
                 {
                     passport.Address = address;
@@ -300,37 +286,32 @@ public class StudentRepository : IStudentRepository
                 },
                 (new { chatId }),
                 splitOn: "PassportID, AddressID"
-            ).FirstOrDefault();
-            return student;
-        }
+            );
+        return student.FirstOrDefault();
     }
 
-    public long? CheckName(string firstName, string lastName)
+    public async Task<long?> CheckNameAsync(string firstName, string lastName)
     {
         string SqlQuery = @"SELECT s.ID FROM Student S 
     INNER JOIN Passport p ON s.PassportId = p.ID
     WHERE p.FirstName = @firstName AND p.LastName = @lastName";
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            var check = db.Query<long?>(SqlQuery, new {  firstName, lastName }).FirstOrDefault();
-            check = check == 0 ? null : check;
-            return check;
-        }
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        long? check = await db.QueryFirstOrDefaultAsync<long?>(SqlQuery, new {  firstName, lastName });
+        return check;
     }
-    public long? Update(StudentDtoForPage student)
+    public async Task<long?> UpdateAsync(StudentDtoForPage student)
     {
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            db.Open();
-            using (IDbTransaction transaction = db.BeginTransaction())
-            {
-                try
-                { 
-                    string sqlQuery = @"UPDATE Address 
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        await using var transaction = await db.BeginTransactionAsync();
+        try
+        { 
+            string sqlQuery = @"UPDATE Address 
                 SET AddressString = @address, Country = @country,  City = @city, Street = @state, HouseNumber = @houseNumber
                 WHERE Id = @addressId";
-                    db.Execute(sqlQuery, student, transaction);
-                    sqlQuery = @"
+            await db.ExecuteAsync(sqlQuery, student, transaction);
+            sqlQuery = @"
                     UPDATE PASSPORT 
                     SET Serial = @serial, 
                         Number = @number,  
@@ -340,8 +321,8 @@ public class StudentRepository : IStudentRepository
                         BirthData = @dob, 
                         PlaceReceipt = @placeReceipt
                     WHERE Id = @passportId";
-                    db.Execute(sqlQuery, student, transaction);
-                    sqlQuery = @"
+            await db.ExecuteAsync(sqlQuery, student, transaction);
+            sqlQuery = @"
                     UPDATE STUDENT 
                     SET
                         CriminalRecord = @criminalRecord, 
@@ -350,45 +331,39 @@ public class StudentRepository : IStudentRepository
                         CountOfExamsPassed = @countOfExamsPassed, 
                         CreditScores = @creditScores
                     WHERE ID = @studentId";
-                    db.Execute(sqlQuery, student, transaction);
-                    transaction.Commit();
-                    return student.studentId;
-                }
-                catch (Exception ex)
-                {
-                    myLogger.Error("An error occured during transaction" + ex.Message);
-                    transaction.Rollback();
-                    throw;
-                }
-            }
+            await db.ExecuteAsync(sqlQuery, student, transaction);
+            await transaction.CommitAsync();
+            return student.studentId;
+        }
+        catch (Exception ex)
+        {
+            myLogger.Error("An error occured during transaction" + ex.Message);
+            throw;
         }
     }
 
-    public void Delete(long ID)
+    public async Task DeleteAsync(long ID)
     {
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            var sqlQuery = "DELETE FROM Student where ID = @ID;";
-            db.Execute(sqlQuery, new{ID});
-        }
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        var sqlQuery = "DELETE FROM Student where ID = @ID;";
+        await db.ExecuteAsync(sqlQuery, new{ID});
     }
     
-    public void DeleteAddress(long ID)
+    public async Task DeleteAddressAsync(long ID)
     {
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            var sqlQuery = "DELETE FROM Address where ID = @ID;";
-            db.Execute(sqlQuery, new{ID});
-        }
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        var sqlQuery = "DELETE FROM Address where ID = @ID;";
+        await db.ExecuteAsync(sqlQuery, new{ID});
     }
     
-    public void DeletePassport(long ID)
+    public async Task DeletePassportAsync(long ID)
     {
-        using (IDbConnection db = new SqlConnection(ConnectionString))
-        {
-            var sqlQuery = "DELETE FROM Passport where ID = @ID;";
-            db.Execute(sqlQuery, new{ID});
-        }
+        await using var db = new SqlConnection(ConnectionString);
+        await db.OpenAsync();
+        var sqlQuery = "DELETE FROM Passport where ID = @ID;";
+        await db.ExecuteAsync(sqlQuery, new{ID});
     }
     
     string ConnectionString = null;

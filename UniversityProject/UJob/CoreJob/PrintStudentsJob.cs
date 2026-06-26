@@ -12,9 +12,9 @@ public class PrintStudentsJob:IJob, IPrintStudentJob
         _studentsRepository = studentRepository;
     }
 
-    public void DoWork()
+    public async Task DoWorkAsync()
     {
-        _studentsRepository.PrintAll();
+        await _studentsRepository.PrintAllAsync();
     }
     
     

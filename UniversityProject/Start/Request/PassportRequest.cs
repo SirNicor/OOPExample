@@ -11,7 +11,7 @@ static class PassportRequest
         app.MapDelete("/Passport/{id}", async (int id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IStudentRepository>();
-            service.DeletePassport(id);
+            await service.DeletePassportAsync(id);
         });
     }
 }

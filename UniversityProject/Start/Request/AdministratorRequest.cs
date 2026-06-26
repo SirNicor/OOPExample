@@ -18,7 +18,7 @@ static class AdministratorRequest
         app.MapGet("/Administrator", async context =>
         {
             var service = context.RequestServices.GetService<ReturnListOfStudents>();
-            var administrators = service.ReturnList();            
+            var administrators = service.ReturnListAsync();            
             await context.Response.WriteAsJsonAsync(administrators);
         });
         app.MapPost("/Administrator", async context =>

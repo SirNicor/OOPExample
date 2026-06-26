@@ -12,7 +12,7 @@ static class AddressRequest
         app.MapDelete("/Address/{id}", async (int id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IStudentRepository>();
-            service.DeleteAddress(id);
+            await service.DeleteAddressAsync(id);
         });
         app.MapGet("/Address/Suggest/{address}", async (string address, HttpContext context) =>
         {

@@ -15,8 +15,8 @@ public class ReturnListOfStudents
         _studentRepository = studentRepository;   
     }
 
-    public List<Student> ReturnList()
+    public async Task<List<Student>> ReturnListAsync()
     {
-        return _studentRepository.ReturnList();
+        return await _studentRepository.ReturnListAsync();
     }
 }

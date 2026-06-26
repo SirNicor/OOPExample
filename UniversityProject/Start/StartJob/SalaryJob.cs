@@ -28,7 +28,7 @@ public class SalaryJob: CronJobService
     {
         _loggerMain.LogInformation($"{DateTime.Now:hh:mm:ss} Выполняется задача");
         _myLogger.Info($"{DateTime.Now:hh:mm:ss} Выполняется задача");
-        _salaryJob.DoWork();
+        _salaryJob.DoWorkAsync();
         return Task.CompletedTask;
     }
 

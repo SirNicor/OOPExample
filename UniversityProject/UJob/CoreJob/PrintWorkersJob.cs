@@ -13,7 +13,7 @@ public class PrintWorkersJob:IJob, IPrintWorkersJob
         _workerAdministratorRepository = workerAdministratorsRepository;
     }
 
-    public void DoWork()
+    public async Task DoWorkAsync()
     {
         _workerTeacherRepository.PrintAll();
         _workerAdministratorRepository.PrintAll();

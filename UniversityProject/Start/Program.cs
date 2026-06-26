@@ -54,9 +54,9 @@ try
         }
     });
     botThread.Start();
-    app.MapGet("/Worker", () => app.Services.GetService<IPrintWorkersJob>().DoWork());
-    app.MapGet("/ScoresOfStudents", () => app.Services.GetService<IScoresOfStudentsJob>().DoWork());
-    app.MapGet("/InfoCouplesAttendance", () => app.Services.GetService<IInfoCouplesAttendanceJob>().DoWork());
+    app.MapGet("/Worker", () => app.Services.GetService<IPrintWorkersJob>().DoWorkAsync());
+    app.MapGet("/ScoresOfStudents", () => app.Services.GetService<IScoresOfStudentsJob>().DoWorkAsync());
+    app.MapGet("/InfoCouplesAttendance", () => app.Services.GetService<IInfoCouplesAttendanceJob>().DoWorkAsync());
     app.Run();
 }
 catch (Exception ex)

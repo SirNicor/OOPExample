@@ -17,7 +17,7 @@ public class SalaryJob:IJob, ISalaryJob
     }
 
 
-    public void DoWork()
+    public async Task DoWorkAsync()
     {
         List<Teacher> teachers = _workerTeacherRepository.ReturnList();
         List<Administrator> administrators = _workerAdministratorsRepository.ReturnListAdministrator();

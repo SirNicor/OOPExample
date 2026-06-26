@@ -41,7 +41,7 @@ static class ScheduleRequest
         app.MapDelete("/Schedule/{id}", async (long id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IStudentRepository>();
-            service.Delete(id);
+            await service.DeleteAsync(id);
         });
     }
 }
