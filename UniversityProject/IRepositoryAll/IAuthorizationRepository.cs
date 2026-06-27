@@ -3,15 +3,15 @@ using UCore;
 
 public interface IAuthorizationRepository
 {
-    public AuthorizationDto GetForLoginAuthorization(string login);
-    public AuthorizationDto GetForIdAuthorization(long id);
-    public long CreateAuthorization(AuthorizationDto dto);
-    public long UpdateAuthorization(AuthorizationDto dto);
-    public Tuple<long?, int[]?> GetAuthorizationsRoleForIndex(AuthorizationForGetJwtToken dto);
-    public string[] GetAllRoles(int[] idRoles);
-    public bool CheckPassword(string password, long id);
-    public RefreshJWTTokenDTO GetJWTToken(string token);
-    public long? CheckAndUpdateJWTToken(string token);
-    public long CreateJWTToken(RefreshJWTTokenDTO dto);
-    public void DeleteJWTToken(string token);
+    public Task<AuthorizationDto> GetForLoginAuthorizationAsync(string login);
+    public Task<AuthorizationDto> GetForIdAuthorizationAsync(long id);
+    public Task<long> CreateAuthorizationAsync(AuthorizationDto dto);
+    public Task<long> UpdateAuthorizationAsync(AuthorizationDto dto);
+    public Task<(long?, int[]?)> GetAuthorizationsRoleForIndexAsync(AuthorizationForGetJwtToken dto);
+    public Task<string[]> GetAllRolesAsync(int[] idRoles);
+    public Task<bool> CheckPasswordAsync(string password, long id);
+    public Task<RefreshJWTTokenDTO> GetJWTTokenAsync(string token);
+    public Task<long?> CheckAndUpdateJWTTokenAsync(string token);
+    public Task<long> CreateJWTTokenAsync(RefreshJWTTokenDTO dto);
+    public Task DeleteJWTTokenAsync(string token);
 }

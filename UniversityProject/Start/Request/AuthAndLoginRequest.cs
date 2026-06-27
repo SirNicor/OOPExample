@@ -22,7 +22,7 @@ public static class AuthAndLoginRequest
             logger.Info("@/Authorization");
             var authRep = ctx.RequestServices.GetService<IAuthorizationRepository>();
             var user = await ctx.Request.ReadFromJsonAsync<AuthorizationDto>();
-            long id = authRep.CreateAuthorization(user);
+            long id = await authRep.CreateAuthorizationAsync(user);
             await ctx.Response.WriteAsJsonAsync(id);
         });
         app.MapPost("/Login", async (HttpContext ctx, AuthorizationForGetJwtToken dto) =>
@@ -31,7 +31,7 @@ public static class AuthAndLoginRequest
             var authAndLoginRep = ctx.RequestServices.GetService<IAuthorizationRepository>();
             var roleRep = ctx.RequestServices.GetService<IRoleRepository>();
             AuthorizationForGetJwtToken? auth = dto;
-            var userIdAndRole = authAndLoginRep.GetAuthorizationsRoleForIndex(auth);
+            var userIdAndRole = await authAndLoginRep.GetAuthorizationsRoleForIndexAsync(auth);
             var userId = userIdAndRole.Item1;
             var rolesId =  userIdAndRole.Item2;
             if (userId is null)
@@ -39,7 +39,7 @@ public static class AuthAndLoginRequest
                 return Results.Unauthorized();
             }
 
-            bool checkPassword = authAndLoginRep.CheckPassword(auth.Password, (long)userId);
+            bool checkPassword = await authAndLoginRep.CheckPasswordAsync(auth.Password, (long)userId);
             if (!checkPassword)
             {
                 return Results.Unauthorized();
@@ -79,7 +79,7 @@ public static class AuthAndLoginRequest
             refreshJwtDto.Token = new JwtSecurityTokenHandler().WriteToken(refreshJwt);
             refreshJwtDto.RevokedAt = false;
             refreshJwtDto.IdAuthorizationTable = (long)userId;
-            authAndLoginRep.CreateJWTToken(refreshJwtDto);
+            await authAndLoginRep.CreateJWTTokenAsync(refreshJwtDto);
             return Results.Ok(new
             {
                 Accessjwt = new JwtSecurityTokenHandler().WriteToken(accessJwt),
@@ -95,14 +95,14 @@ public static class AuthAndLoginRequest
             var authAndLoginRep = ctx.RequestServices.GetService<IAuthorizationRepository>();
             var roleRep = ctx.RequestServices.GetService<IRoleRepository>();
             var x = token.ToString();
-            var ver = authAndLoginRep.CheckAndUpdateJWTToken(x);
+            var ver = await authAndLoginRep.CheckAndUpdateJWTTokenAsync(x);
             if (ver is null)
             {
                 return Results.Unauthorized();
             }
 
-            var auth = authAndLoginRep.GetForIdAuthorization((long)ver);
-            var roles = authAndLoginRep.GetAllRoles(auth.Role);
+            var auth = await authAndLoginRep.GetForIdAuthorizationAsync((long)ver);
+            var roles = await authAndLoginRep.GetAllRolesAsync(auth.Role);
             var jwtPayload = new JwtPayload()
             {
                 {"exp", DateTimeOffset.UtcNow.AddMinutes(Convert.ToInt64(configuration.GetSection("Auth:TimeAccessJwtToken").Value)).ToUnixTimeSeconds()},
@@ -131,7 +131,7 @@ public static class AuthAndLoginRequest
             refreshJwtDto.Token = new JwtSecurityTokenHandler().WriteToken(refreshJwt);
             refreshJwtDto.RevokedAt = false;
             refreshJwtDto.IdAuthorizationTable = (long)auth.Id;
-            authAndLoginRep.CreateJWTToken(refreshJwtDto);
+            await authAndLoginRep.CreateJWTTokenAsync(refreshJwtDto);
             return Results.Ok(new
             {
                 Accessjwt = new JwtSecurityTokenHandler().WriteToken(accessJwt),
