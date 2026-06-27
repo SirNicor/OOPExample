@@ -12,7 +12,6 @@ export const userAccessPage = defineStore('AccessPage', ()=>
 {
     const accessPageAndTypeOperation = ref<AccessPageAndTypeOperation[]>([]);
     const visibilityPage = computed<VisibilityPage>(()=> {
-        debugger;
         let studentVisibility = canAccessForAllOperationName("StudentPage", ["Read", "All"]) || canAccessForAllOperationName("StudentRegistry", ["Read", "All"])
         let adminVisibility = canAccessForAllOperationName("AdministratorPage", ["Read", "All"]) || canAccessForAllOperationName("AdministratorRegister", ["Read", "All"])
         let deleteCreateVisibility = accessPageAndTypeOperation.value.some(op => op.TypeOperation === "Create" || op.TypeOperation === "All")
@@ -42,51 +41,37 @@ export const userAccessPage = defineStore('AccessPage', ()=>
             }
         )
     }
-    function AddAccessPage(pageName: string, operationName: string): void {
-        if(accessPageAndTypeOperation.value === undefined)
-        {
-            let accessPage : AccessPageAndTypeOperation[] =
-                [{
-                    TypeOperation: operationName,
-                    AccessPage: pageName
-                }];
-            accessPageAndTypeOperation.value = accessPage;
-            localStorage.setItem(pageName, operationName);
-        }
-        let access: AccessPageAndTypeOperation =
-            {
-                TypeOperation: operationName,
-                AccessPage: pageName
-            }
-        if(accessPageAndTypeOperation.value.some(
-            op => op.AccessPage === pageName && op.TypeOperation === operationName
-        )) return;
-        localStorage.setItem(pageName, operationName);
-        accessPageAndTypeOperation.value.push(access);
+    function AddAccessPage(roles:any): void {
+        localStorage.removeItem("rolesInfo");
+        let accessPage : AccessPageAndTypeOperation;
+        accessPageAndTypeOperation.value = []; 
+        roles.forEach((role : any) => {
+            role.typeOperationAccessPage.forEach((oper:any) => {
+                accessPage =
+                    {
+                        TypeOperation: oper.item1,
+                        AccessPage: oper.item2
+                    }
+                if(accessPageAndTypeOperation.value.some(
+                    op => op.AccessPage === accessPage.AccessPage && op.TypeOperation === accessPage.TypeOperation
+                )) return;
+                accessPageAndTypeOperation.value.push(accessPage);
+            })
+        })
+        localStorage.setItem("rolesInfo", JSON.stringify(accessPageAndTypeOperation.value));
         return;
     }
 
     function ResetForLocalStorageAccessPage(): void {
-        if(localStorage.length === 0)
+        if(localStorage.getItem("rolesInfo") === null)
         {
             DeleteAllJWTToken();
             return;
         }
-        for(let i = 0; i<localStorage.length; i++)
+        else
         {
-            let key = localStorage.key(i);
-            if(key === null) continue;
-            let item = localStorage.getItem(key);
-            if(item === null) continue;
-            let access: AccessPageAndTypeOperation =
-                {
-                    TypeOperation: item,
-                    AccessPage: key
-                }
-            if(accessPageAndTypeOperation.value.some(
-                op => op.AccessPage === key && op.TypeOperation === item
-            )) continue;
-            accessPageAndTypeOperation.value.push(access);
+            let allRoles : AccessPageAndTypeOperation[] = JSON.parse(localStorage.getItem("rolesInfo"));
+            accessPageAndTypeOperation.value = allRoles;
         }
         return;
     }

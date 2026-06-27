@@ -70,11 +70,7 @@ async function Send()
     const refreshJWT = response.data.Refreshjwt || response.data.refreshjwt;
     SetAllJWTToken(accessJWT, refreshJWT);
     let roles = response.data.role;
-    roles.forEach((role: any) => {
-      role.typeOperationAccessPage.forEach((item: any) => {
-        accessStore.AddAccessPage(item.item2, item.item1);
-      })
-    })
+    accessStore.AddAccessPage(roles);
     setAuthCookie("Role", JSON.stringify(response.data.role));
     await new Promise(resolve => setTimeout(resolve, 100));
     const testCookie = GetCookie('accessJWT');

@@ -366,6 +366,6 @@ public class StudentRepository : IStudentRepository
         await db.ExecuteAsync(sqlQuery, new{ID});
     }
     
-    string ConnectionString = null;
-    private MyLogger myLogger;
+    readonly string ConnectionString = null;
+    readonly MyLogger myLogger;
 }

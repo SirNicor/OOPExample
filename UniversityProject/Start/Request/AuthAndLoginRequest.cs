@@ -69,7 +69,7 @@ public static class AuthAndLoginRequest
             jwtPayload = new JwtPayload(){
             { ClaimTypes.NameIdentifier, auth.Id.ToString() },
             { "exp", DateTimeOffset.UtcNow.AddMinutes(Convert.ToInt64(configuration.GetSection("Auth:TimeRefreshJwtToken").Value)).ToUnixTimeSeconds()},
-            {"aud", configuration.GetSection("Auth:Audience").Value},
+            {"aud", configuration.GetSection("Auth:Audience").Value},       
             { "token_type", "refresh" } 
             };
             var refreshJwt = new JwtSecurityToken(

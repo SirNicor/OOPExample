@@ -21,6 +21,8 @@ export function DeleteCookie(name: string) {
 export function DeleteAllJWTToken() {
     DeleteCookie('accessJWT');
     DeleteCookie('refreshJWT');
+    localStorage.removeItem('accessJWT');
+    localStorage.removeItem('refreshJWT');
 }
 
 export function setAuthCookie(name: string, value: string) {
