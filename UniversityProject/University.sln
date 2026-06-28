@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Fronte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRepositoryAll", "IRepositoryAll\IRepositoryAll.csproj", "{2897A976-9CC3-48CA-9C15-1A6BB1F44A40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFRepository", "EFRepository\EFRepository.csproj", "{3AABAC50-9A7E-4325-9602-D3139D2BA26E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +62,9 @@ Global
 		{2897A976-9CC3-48CA-9C15-1A6BB1F44A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2897A976-9CC3-48CA-9C15-1A6BB1F44A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2897A976-9CC3-48CA-9C15-1A6BB1F44A40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AABAC50-9A7E-4325-9602-D3139D2BA26E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AABAC50-9A7E-4325-9602-D3139D2BA26E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AABAC50-9A7E-4325-9602-D3139D2BA26E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AABAC50-9A7E-4325-9602-D3139D2BA26E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -4,6 +4,8 @@ using UJob;
 using Start;
 using Repository.Migrations;
 using ApiTelegramBot;
+using Dapper;
+using Repository;
 using Start.Const;
 using Start.Middleware;
 
@@ -25,6 +27,7 @@ ConfigurationLogger cl = new ConfigurationLogger(appConfig);
 MyLogger logger = cl.Get();
 try
 {
+    SqlMapper.AddTypeHandler(new TimeHandler());
     StartMigrations startMigrations = new StartMigrations(appConfig, logger);
     startMigrations.Start();
     builder.Services.AddInfrastructureServices(logger, appConfig);

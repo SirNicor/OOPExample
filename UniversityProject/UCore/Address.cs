@@ -3,7 +3,7 @@ using Logger;
 
 public class Address
 {
-    public Address(string country, string city, string street, int houseNumber)
+    public Address(string country, string city, string street, string houseNumber)
     {
         Country = country;
         Street = street;
@@ -19,5 +19,5 @@ public class Address
     public string Country { get; set; }
     public string City { get; set; }
     public string Street { get; set; }
-    public int HouseNumber { get; set; }
+    public string HouseNumber { get; set; }
 }

@@ -4,7 +4,7 @@ namespace UCore;
 using Logger;
 public class Passport
 {
-    public Passport(int serial, int number, string firstName, string lastName, string middleName, DateTime birthData, Address address, string placeReceipt)
+    public Passport(int serial, int number, string firstName, string lastName, string middleName, DateOnly birthData, Address address, string placeReceipt)
     {
         Serial = serial;
         Number = number;
@@ -15,7 +15,7 @@ public class Passport
         Address = address;
         PlaceReceipt = placeReceipt;
     }
-    public Passport(int serial, int number, string firstName, string lastName, DateTime birthData, Address address, string placeReceipt)
+    public Passport(int serial, int number, string firstName, string lastName, DateOnly birthData, Address address, string placeReceipt)
     {
         Serial = serial;
         Number = number;
@@ -40,7 +40,7 @@ public class Passport
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string MiddleName { get; set; }
-    public DateTime BirthData { get; set; }
+    public DateOnly BirthData { get; set; }
     public Address Address { get; set; }
     public string PlaceReceipt { get; set; }
 }

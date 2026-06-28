@@ -6,7 +6,7 @@ public class StudentTableDTO
 {
     public long studentId { get; set; }
     public string Fio { get; set; }
-    public DateTime Dob { get; set; }
+    public DateOnly Dob { get; set; }
     public string Address { get; set; }
     public int Serial { get; set; }
     public int Number { get; set; }

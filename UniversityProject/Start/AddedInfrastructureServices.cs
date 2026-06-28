@@ -1,4 +1,5 @@
 ﻿using ApiTelegramBot;
+using EFRepository;
 
 namespace Start;
 using Repository;
@@ -13,23 +14,23 @@ public static class AddedInfrastructureServices
         services.AddSingleton<MyLogger>(logger);
         services.AddSingleton<IGetConnectionString, GetConnectionString>();
         services.AddSingleton<IScheduleUpdate, ScheduleUpdate>();
-        services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
-        services.AddSingleton<IStudentRepository, StudentRepository>();
-        services.AddSingleton<IDirectionRepository, DirectionRepository>();
-        services.AddSingleton<IDisciplineRepository,  DisciplineRepository>();
-        services.AddSingleton<IFacultyRepository, FacultyRepository>();
-        services.AddSingleton<IUniversityRepository, UniversityRepository>();
-        services.AddSingleton<IScheduleRepository, ScheduleRepository>();
-        services.AddSingleton<IWorkerTeacherRepository, WorkerTeacherRepository>();
-        services.AddSingleton<IWorkerAdministratorRepository, WorkerAdministratorRepository>();
-        services.AddSingleton<IUserStateTelegramRepository, UserStateTelegramRepository>();
+        services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        services.AddScoped<IStudentRepository, EFStudentRepository>();
+        services.AddScoped<IDirectionRepository, DirectionRepository>();
+        services.AddScoped<IDisciplineRepository,  DisciplineRepository>();
+        services.AddScoped<IFacultyRepository, FacultyRepository>();
+        services.AddScoped<IUniversityRepository, UniversityRepository>();
+        services.AddScoped<IScheduleRepository, ScheduleRepository>();
+        services.AddScoped<IWorkerTeacherRepository, WorkerTeacherRepository>();
+        services.AddScoped<IWorkerAdministratorRepository, WorkerAdministratorRepository>();
+        services.AddScoped<IUserStateTelegramRepository, UserStateTelegramRepository>();
         services.AddTransient<IInfoCouplesAttendanceJob, InfoCouplesAttendanceJob>();
         services.AddTransient<IPrintStudentJob, PrintStudentsJob>();
         services.AddTransient<IPrintWorkersJob, PrintWorkersJob>();
         services.AddTransient<ISalaryJob, UJob.SalaryJob>();
         services.AddTransient<IScoresOfStudentsJob, ScoresOfStudentsJob>();
-        services.AddTransient<IAuthorizationRepository, AuthorizationRepository>();
-        services.AddTransient<IRoleRepository, RoleRepository>();
+        services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddTransient<ReturnListOfStudents>();
         services.AddSingleton<ReturnOneStudent>();
         services.AddTransient<ReturnListAdministrator>();
@@ -50,7 +51,7 @@ public static class AddedInfrastructureServices
         services.AddSingleton<IRegistrationForLastName, RegistrationForLastName>();
         services.AddSingleton<IRegistrationForFirstName, RegistrationForFirstName>();
         services.AddTransient<ICreateMessageClass, CreateMessageClass>();
-        services.AddSingleton<IRegistrationRepository, RegistrationRepository>();
+        services.AddScoped<IRegistrationRepository, RegistrationRepository>();
         services.AddSingleton<FunctionOfBot, FunctionOfBot>();
         services.AddSingleton<CreateFileClass, CreateFileClass>();
     }
