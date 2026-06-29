@@ -12,8 +12,8 @@ public static class AddedInfrastructureServices
     public static void AddInfrastructureServices(this IServiceCollection services, MyLogger logger, IConfiguration configuration)
     {
         services.AddSingleton<MyLogger>(logger);
-        services.AddSingleton<IGetConnectionString, GetConnectionString>();
-        services.AddSingleton<IScheduleUpdate, ScheduleUpdate>();
+        services.AddTransient<IGetConnectionString, GetConnectionString>();
+        services.AddScoped<IScheduleUpdate, ScheduleUpdate>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         services.AddScoped<IStudentRepository, EFStudentRepository>();
         services.AddScoped<IDirectionRepository, DirectionRepository>();
@@ -32,27 +32,27 @@ public static class AddedInfrastructureServices
         services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddTransient<ReturnListOfStudents>();
-        services.AddSingleton<ReturnOneStudent>();
+        services.AddScoped<ReturnOneStudent>();
         services.AddTransient<ReturnListAdministrator>();
-        services.AddSingleton<ReturnOneAdministrator>();
+        services.AddScoped<ReturnOneAdministrator>();
         services.AddTransient<ReturnListOfUniversity>();
-        services.AddSingleton<ReturnOneUniversity>();
+        services.AddScoped<ReturnOneUniversity>();
         services.AddTransient<IGetToken, GetToken>();
-        services.AddSingleton<IStartBot, StartBot>();
-        services.AddSingleton<IStartFunctionalForGroup, StartFunctionalForGroup>();
+        services.AddScoped<IStartBot, StartBot>();
+        services.AddScoped<IStartFunctionalForGroup, StartFunctionalForGroup>();
         services.AddTransient<IDisciplineUpdate, DisciplineUpdate>();
         services.AddTransient<IStudentUpdate, StudentUpdate>();
-        services.AddSingleton<IInitializedClass, InitializedClass>();
-        services.AddSingleton<IRegistrationClass, RegistrationClass>();
-        services.AddSingleton<IRegistrationForUniversity, RegistrationForUniversity>();
-        services.AddSingleton<IRegistrationForDepartment, RegistrationForDepartment>();
-        services.AddSingleton<IRegistrationForFaculty, RegistrationForFaculty>();
-        services.AddSingleton<IRegistrationForDirection, RegistrationForDirection>();
-        services.AddSingleton<IRegistrationForLastName, RegistrationForLastName>();
-        services.AddSingleton<IRegistrationForFirstName, RegistrationForFirstName>();
+        services.AddScoped<IInitializedClass, InitializedClass>();
+        services.AddScoped<IRegistrationClass, RegistrationClass>();
+        services.AddScoped<IRegistrationForUniversity, RegistrationForUniversity>();
+        services.AddScoped<IRegistrationForDepartment, RegistrationForDepartment>();
+        services.AddScoped<IRegistrationForFaculty, RegistrationForFaculty>();
+        services.AddScoped<IRegistrationForDirection, RegistrationForDirection>();
+        services.AddScoped<IRegistrationForLastName, RegistrationForLastName>();
+        services.AddScoped<IRegistrationForFirstName, RegistrationForFirstName>();
         services.AddTransient<ICreateMessageClass, CreateMessageClass>();
         services.AddScoped<IRegistrationRepository, RegistrationRepository>();
-        services.AddSingleton<FunctionOfBot, FunctionOfBot>();
-        services.AddSingleton<CreateFileClass, CreateFileClass>();
+        services.AddScoped<FunctionOfBot, FunctionOfBot>();
+        services.AddScoped<CreateFileClass, CreateFileClass>();
     }
 }

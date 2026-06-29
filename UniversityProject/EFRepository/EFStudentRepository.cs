@@ -102,22 +102,24 @@ public class EFStudentRepository : IStudentRepository
     {
         await using var db =  new UniversityDbContext();
         var insertDate = ConvertEF.ConvertStudentToInsert(student);
-        db.Addresses.Add(insertDate.Address);
-        db.Passports.Add(insertDate.Passport);
-        db.Students.Add(insertDate.Student);
+        var studentRow = insertDate.Student;
+        studentRow.EfPassport = insertDate.Passport;
+        studentRow.EfPassport.EfAddress = insertDate.Address;
+        db.Students.Add(studentRow);
         await db.SaveChangesAsync();
-        return insertDate.Student.Id;
+        return studentRow.Id;
     }
 
     public async Task<long?> UpdateAsync(StudentDtoForPage student)
     {
         await using var db =  new UniversityDbContext();
         var insertDate = ConvertEF.ConvertStudentToInsert(student);
-        db.Addresses.Update(insertDate.Address);
-        db.Passports.Update(insertDate.Passport);
-        db.Students.Update(insertDate.Student);
+        var studentRow = insertDate.Student;
+        studentRow.EfPassport = insertDate.Passport;
+        studentRow.EfPassport.EfAddress = insertDate.Address;
+        db.Students.Update(studentRow);
         await db.SaveChangesAsync();
-        return insertDate.Student.Id;
+        return studentRow.Id;
     }
 
     public async Task DeleteAsync(long ID)

@@ -9,12 +9,12 @@ namespace Start;
 public class TeacherDoWorkJob : CronJobService
 {
 
-    public TeacherDoWorkJob(IScheduleConfig<TeacherDoWorkJob> config, ILogger<TeacherDoWorkJob> loggerMain, MyLogger myLogger, IWorkerTeacherRepository teachers)
+    public TeacherDoWorkJob(IScheduleConfig<TeacherDoWorkJob> config, ILogger<TeacherDoWorkJob> loggerMain, MyLogger myLogger, IServiceScopeFactory serviceScopeFactory)
         : base(config.CronExpression, config.TimeZoneInfo, loggerMain)
     {
         _loggerMain = loggerMain;
         _myLogger = myLogger;
-        _teachers = teachers.ReturnList();
+        _serviceScopeFactory = serviceScopeFactory;
     }
 
     public override Task StartAsync(CancellationToken cancellationToken)
@@ -28,6 +28,11 @@ public class TeacherDoWorkJob : CronJobService
     {
         _loggerMain.LogInformation($"{DateTime.Now:hh:mm:ss} Выполняется задача");
         _myLogger.Info($"{DateTime.Now:hh:mm:ss} Выполняется задача");
+        using (var scope = _serviceScopeFactory.CreateScope())
+        {
+            var teacherRepository = scope.ServiceProvider.GetRequiredService<IWorkerTeacherRepository>();
+            _teachers = teacherRepository.ReturnList();
+        }
         foreach (var teacher in _teachers)
         {
             teacher.DoWork(_myLogger);
@@ -46,4 +51,5 @@ public class TeacherDoWorkJob : CronJobService
     private readonly ILogger<TeacherDoWorkJob> _loggerMain;
     private readonly MyLogger _myLogger;
     private List<Teacher> _teachers;
+    private  IServiceScopeFactory _serviceScopeFactory;
 }

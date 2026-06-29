@@ -22,7 +22,7 @@ public class ExceptionHandlerMiddleware
         }
         catch (Exception ex)
         {
-            _logger.Error(ex.Message);
+            _logger.Error(ex.Message + " " +ex.StackTrace + Environment.NewLine + "Source =" + ex.Source);
             if (!context.Response.HasStarted)
             {
                 context.Response.Clear();

@@ -44,37 +44,37 @@ public static class ConvertEF
     
     public static StudentPassportAddressDto ConvertStudentToInsert(StudentDtoForPage studentRow)
     {
-        EFAddress address = new EFAddress()
+        EFAddress address = new EFAddress
         {
-            Id = (long)studentRow.addressId,
+            Id = (studentRow.addressId == null ? 0 : (long)studentRow.addressId),
             AddressString = studentRow.address,
             City = studentRow.city,
             Country = studentRow.country,
             HouseNumber = studentRow.houseNumber,
             Street = studentRow.state
         };
-        EFPassport passport = new EFPassport()
+        EFPassport passport = new EFPassport
         {
-            Id = (long)studentRow.passportId,
+            Id = (studentRow.passportId == null ? 0 : (long)studentRow.passportId),
             Serial =  studentRow.serial,
             PlaceReceipt = studentRow.placeReceipt,
             FirstName = studentRow.firstName,
             LastName = studentRow.lastName,
             MiddleName = studentRow.middleName,
             Number = studentRow.number,
-            AddressId = (long)studentRow.addressId,
+            AddressId = (studentRow.addressId == null ? 0 : (long)studentRow.addressId),
             BirthData = studentRow.dob
         };
-        EFStudent student = new EFStudent()
+        EFStudent student = new EFStudent
         {
-            Id = (long)studentRow.studentId,
+            Id = (studentRow.studentId == null ? 0 : (long)studentRow.studentId),
             PassportId = passport.Id,
             ChatId = Convert.ToString(studentRow.chatId),
             MilitaryId = 1,
             CriminalRecord = (bool)studentRow.criminalRecord,
             CountOfExamsPassed = studentRow.countOfExamsPassed,
             SkipHours = studentRow.skipHours,
-            CreditScores = (int)studentRow.creditScores,
+            CreditScores = (studentRow.creditScores == null ? 0 : (int)studentRow.creditScores),
             CourseId = (long)studentRow.course,
         };
         return new  StudentPassportAddressDto()

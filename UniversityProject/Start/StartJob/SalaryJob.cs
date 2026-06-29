@@ -9,12 +9,12 @@ public class SalaryJob: CronJobService
 {
 
     public SalaryJob(IScheduleConfig<TeacherDoWorkJob> config, ILogger<TeacherDoWorkJob> loggerMain,
-        MyLogger myLogger, ISalaryJob salaryJob)
+        MyLogger myLogger, IServiceScopeFactory salaryJob)
         : base(config.CronExpression, config.TimeZoneInfo, loggerMain)
     {
         _loggerMain = loggerMain;
         _myLogger = myLogger;
-        _salaryJob = salaryJob;
+        _serviceScopeFactory = salaryJob;
     }
 
     public override Task StartAsync(CancellationToken cancellationToken)
@@ -28,7 +28,11 @@ public class SalaryJob: CronJobService
     {
         _loggerMain.LogInformation($"{DateTime.Now:hh:mm:ss} Выполняется задача");
         _myLogger.Info($"{DateTime.Now:hh:mm:ss} Выполняется задача");
-        _salaryJob.DoWorkAsync();
+        using (var scope = _serviceScopeFactory.CreateScope())
+        {
+            var salaryJob =  scope.ServiceProvider.GetRequiredService<ISalaryJob>();
+            salaryJob.DoWorkAsync();
+        }
         return Task.CompletedTask;
     }
 
@@ -41,5 +45,5 @@ public class SalaryJob: CronJobService
     
     private readonly ILogger<TeacherDoWorkJob> _loggerMain;
     private readonly MyLogger _myLogger;
-    private ISalaryJob _salaryJob;
+    private  IServiceScopeFactory _serviceScopeFactory;
 }
