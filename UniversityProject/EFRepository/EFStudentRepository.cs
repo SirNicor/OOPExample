@@ -222,7 +222,7 @@ public class EFStudentRepository : IStudentRepository
     {
         await using UniversityDbContext db = new UniversityDbContext();
         SortOrder = SortOrder == "null"? "ASC" : SortOrder;
-        SortColumn = SortColumn == "null" ? "student.Id" : SortColumn;
+        SortColumn = SortColumn == "null" ? "studentId" : SortColumn;
         var students = (
             from student in db.Students
             join passport in db.Passports on student.PassportId equals passport.Id
@@ -243,7 +243,6 @@ public class EFStudentRepository : IStudentRepository
                 Course =  Convert.ToInt32(student.CourseId),
                 CountOfExamsPassed =  Convert.ToInt32(student.CountOfExamsPassed??0),
             });
-        var countAsync = await students.CountAsync();
         if (filter.FilterCourse is not null)
         {
             long numberOfCourse = (long)filter.FilterCourse;
@@ -252,8 +251,8 @@ public class EFStudentRepository : IStudentRepository
 
         if (filter.FilterDate[0] != "")
         {
-            var filterDateStart = DateOnly.Parse(filter.FilterDate[0]);
-            var filterDateEnd = DateOnly.Parse(filter.FilterDate[1]);
+            var filterDateStart = DateOnly.FromDateTime(Convert.ToDateTime(filter.FilterDate[0]));
+            var filterDateEnd = DateOnly.FromDateTime(Convert.ToDateTime(filter.FilterDate[1]));
             students = students.Where(student => student.Dob >= filterDateStart & student.Dob <= filterDateEnd);    
         }
 
@@ -265,6 +264,7 @@ public class EFStudentRepository : IStudentRepository
         {
             
         }
+        var countAsync = await students.CountAsync();
 
         students = students.OrderBy($"{SortColumn} {SortOrder}");
         students = students.Skip((int)(FirstId)).Take((int)count);  
