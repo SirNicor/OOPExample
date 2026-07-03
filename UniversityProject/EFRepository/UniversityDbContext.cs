@@ -10,11 +10,11 @@ public partial class UniversityDbContext : DbContext
     {
     }
 
-    public UniversityDbContext(DbContextOptions<UniversityDbContext> options)
+    public UniversityDbContext(DbContextOptions<UniversityDbContext> options, GetConnectionString getConnectionString)
         : base(options)
     {
+        _getConnectionString = getConnectionString.ReturnConnectionString();
     }
-
     public virtual DbSet<EFAddress> Addresses { get; set; }
 
     public virtual DbSet<EFDegreesStudy> DegreesStudies { get; set; }
@@ -27,7 +27,7 @@ public partial class UniversityDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=UniversityDB;Integrated Security=True");
+        => optionsBuilder.UseSqlServer(_getConnectionString);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -102,4 +102,5 @@ public partial class UniversityDbContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    private string _getConnectionString;
 }

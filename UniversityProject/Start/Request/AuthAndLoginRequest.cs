@@ -93,7 +93,6 @@ public static class AuthAndLoginRequest
             var request = ctx.Request;
             request.Headers.TryGetValue("authorization", out var token);
             var authAndLoginRep = ctx.RequestServices.GetService<IAuthorizationRepository>();
-            var roleRep = ctx.RequestServices.GetService<IRoleRepository>();
             var x = token.ToString();
             var ver = await authAndLoginRep.CheckAndUpdateJWTTokenAsync(x);
             if (ver is null)
