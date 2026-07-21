@@ -4,326 +4,283 @@ using Microsoft.EntityFrameworkCore;
 using UCore;
 using static Microsoft.EntityFrameworkCore.EF;
 using System.Linq.Dynamic.Core;
+using Ucore;
 
 namespace EFRepository;
 
 public class EFStudentRepository : IStudentRepository
 {
     private readonly MyLogger _logger;
+    private readonly UniversityDbContext _db;
 
-    public EFStudentRepository(MyLogger logger)
+    public EFStudentRepository(MyLogger logger, UniversityDbContext db)
     {
         _logger = logger;
+        _db = db;
     }
     
     public async Task PrintAllAsync()
     {
-        await using UniversityDbContext db = new UniversityDbContext();
-        var students = await (
-            from student in db.Students
-            join passport in db.Passports on student.PassportId equals passport.Id
-            join address in db.Addresses on passport.AddressId equals address.Id
-            join degrees in db.DegreesStudies on student.CourseId equals degrees.Id
-            join military in db.IdMilitaries on student.MilitaryId equals military.Id
-            select new StudentAllDto
+        var students = await(_db.Students
+            .Select(s => new Student()
             {
-                StudentId = student.Id,
-                SkipHours = student.SkipHours,
-                CountOfExamsPassed = student.CountOfExamsPassed,
-                CreditScores = student.CreditScores,
-                ChatId = student.ChatId,
-                CriminalRecord = student.CriminalRecord,
-                CourseId = student.CourseId,
-                LevelDegrees = degrees.LevelDegrees,
-                PassportId = passport.Id,
-                Serial = passport.Serial,
-                Number = passport.Number,
-                FirstName = passport.FirstName,
-                LastName = passport.LastName,
-                MiddleName = passport.MiddleName,
-                BirthData = passport.BirthData,
-                AddressId = address.Id,
-                Country = address.Country,
-                City = address.City,
-                Street = address.Street,
-                HouseNumber = address.HouseNumber,
-                MilitaryId = military.Id,
-                LevelId = military.LevelId
-            }).ToListAsync();
+                Passport = new Passport()
+                {
+                    Address = new Address()
+                    {
+                        AddressId = s.Passport.Address.AddressId,
+                        Country = s.Passport.Address.Country,
+                        City = s.Passport.Address.City,
+                        Street = s.Passport.Address.Street,
+                        HouseNumber = s.Passport.Address.HouseNumber,
+                        AddressString = s.Passport.Address.AddressString
+                    },
+                    Serial = s.Passport.Serial,
+                    Number = s.Passport.Number,
+                    FirstName =  s.Passport.FirstName,
+                    LastName =  s.Passport.LastName,
+                    MiddleName =  s.Passport.MiddleName,
+                    BirthData = s.Passport.BirthData,
+                    AddressId = s.Passport.AddressId,
+                    PlaceReceipt = s.Passport.PlaceReceipt,
+                    PassportId = s.Passport.PassportId,
+                },
+                StudentId = s.Id,
+                Id = s.Id,
+                ChatId =  s.ChatId,
+                CountOfExamsPassed = s.CountOfExamsPassed,
+                Course = s.Course,
+                CreditScores = s.CreditScores,
+                CriminalRecord = s.CriminalRecord,
+                MillitaryId = s.MillitaryId,
+                Millitary = s.Millitary,
+                MilitaryIdAvailability = s.Millitary.LevelId,
+                PassportId = s.Passport.PassportId,
+                SkipHours = s.SkipHours,
+            }).ToListAsync());
         foreach (var st in students)
         {
-            ConvertEF.ConvertStudent(st).PrintInfo(_logger);
+            st.PrintInfo(_logger);
         }
     }
 
     public async Task<List<Student>> ReturnListAsync()
     {
-        await using UniversityDbContext db = new UniversityDbContext();
-        var students = await (
-            from student in db.Students
-            join passport in db.Passports on student.PassportId equals passport.Id
-            join address in db.Addresses on passport.AddressId equals address.Id
-            join degrees in db.DegreesStudies on student.CourseId equals degrees.Id
-            join military in db.IdMilitaries on student.MilitaryId equals military.Id
-            select new StudentAllDto
+        var students = await(_db.Students
+            .Select(s => new Student()
             {
-                StudentId = student.Id,
-                SkipHours = student.SkipHours,
-                CountOfExamsPassed = student.CountOfExamsPassed,
-                CreditScores = student.CreditScores,
-                ChatId = student.ChatId,
-                CriminalRecord = student.CriminalRecord,
-                CourseId = student.CourseId,
-                LevelDegrees = degrees.LevelDegrees,
-                PassportId = passport.Id,
-                Serial = passport.Serial,
-                Number = passport.Number,
-                FirstName = passport.FirstName,
-                LastName = passport.LastName,
-                MiddleName = passport.MiddleName,
-                BirthData = passport.BirthData,
-                AddressId = address.Id,
-                Country = address.Country,
-                City = address.City,
-                Street = address.Street,
-                HouseNumber = address.HouseNumber,
-                MilitaryId = military.Id,
-                LevelId = military.LevelId
-            }).ToListAsync();
-        List<Student> allStudent = new List<Student>();
-        foreach (var st in students)
-        {
-            allStudent.Add(ConvertEF.ConvertStudent(st));
-        }
-        return allStudent;
+                Passport = new Passport()
+                {
+                    Address = new Address()
+                    {
+                        AddressId = s.Passport.Address.AddressId,
+                        Country = s.Passport.Address.Country,
+                        City = s.Passport.Address.City,
+                        Street = s.Passport.Address.Street,
+                        HouseNumber = s.Passport.Address.HouseNumber,
+                        AddressString = s.Passport.Address.AddressString
+                    },
+                    Serial = s.Passport.Serial,
+                    Number = s.Passport.Number,
+                    FirstName =  s.Passport.FirstName,
+                    LastName =  s.Passport.LastName,
+                    MiddleName =  s.Passport.MiddleName,
+                    BirthData = s.Passport.BirthData,
+                    AddressId = s.Passport.AddressId,
+                    PlaceReceipt = s.Passport.PlaceReceipt,
+                    PassportId = s.Passport.PassportId,
+                },
+                StudentId = s.Id,
+                Id = s.Id,
+                ChatId =  s.ChatId,
+                CountOfExamsPassed = s.CountOfExamsPassed,
+                Course = s.Course,
+                CreditScores = s.CreditScores,
+                CriminalRecord = s.CriminalRecord,
+                MillitaryId = s.MillitaryId,
+                Millitary = s.Millitary,
+                MilitaryIdAvailability = s.Millitary.LevelId,
+                PassportId = s.Passport.PassportId,
+                SkipHours = s.SkipHours,
+            }).ToListAsync());
+        return students;
     }
 
     public async Task<long> CreateAsync(StudentDtoForPage student)
     {
-        await using var db =  new UniversityDbContext();
+        await using var transaction = _db.Database.BeginTransaction();
         var insertDate = ConvertEF.ConvertStudentToInsert(student);
         var studentRow = insertDate.Student;
-        studentRow.EfPassport = insertDate.Passport;
-        studentRow.EfPassport.EfAddress = insertDate.Address;
-        db.Students.Add(studentRow);
-        await db.SaveChangesAsync();
-        return studentRow.Id;
+        studentRow.Passport = insertDate.Passport;
+        studentRow.Passport.Address = insertDate.Address;
+        _db.Students.Add(studentRow);
+        await _db.SaveChangesAsync();
+        await transaction.CommitAsync();
+        return (long)studentRow.StudentId;
     }
 
     public async Task<long?> UpdateAsync(StudentDtoForPage student)
     {
-        await using var db =  new UniversityDbContext();
+        await using var transaction = _db.Database.BeginTransaction();
         var insertDate = ConvertEF.ConvertStudentToInsert(student);
         var studentRow = insertDate.Student;
-        studentRow.EfPassport = insertDate.Passport;
-        studentRow.EfPassport.EfAddress = insertDate.Address;
-        db.Students.Update(studentRow);
-        await db.SaveChangesAsync();
-        return studentRow.Id;
+        studentRow.Passport = insertDate.Passport;
+        studentRow.Passport.Address = insertDate.Address;
+        _db.Students.Update(studentRow);
+        await _db.SaveChangesAsync();
+        await transaction.CommitAsync();
+        return studentRow.StudentId;
     }
 
     public async Task DeleteAsync(long ID)
     {
-        await using var db =  new UniversityDbContext();
-        db.Students.Remove(await db.Students.FindAsync(ID));
-        await db.SaveChangesAsync();
+        _db.Students.Remove(await _db.Students.FindAsync(ID));
+        await _db.SaveChangesAsync();
     }
 
     public async Task DeleteAddressAsync(long ID)
     {
-        await using var db =  new UniversityDbContext();
-        db.Addresses.Remove(await db.Addresses.FindAsync(ID));
-        await db.SaveChangesAsync();
+        _db.Addresses.Remove(await _db.Addresses.FindAsync(ID));
+        await _db.SaveChangesAsync();
     }
 
     public async Task DeletePassportAsync(long ID)
     {
-        await using var db =  new UniversityDbContext();
-        db.Passports.Remove(await db.Passports.FindAsync(ID));
-        await db.SaveChangesAsync();
+        _db.Passports.Remove(await _db.Passports.FindAsync(ID));
+        await _db.SaveChangesAsync();
     }
 
     public async Task<Student> GetAsync(long ID)
     {
-        await using UniversityDbContext db = new UniversityDbContext();
-        var students = await (
-            from student in db.Students
-            join passport in db.Passports on student.PassportId equals passport.Id
-            join address in db.Addresses on passport.AddressId equals address.Id
-            join degrees in db.DegreesStudies on student.CourseId equals degrees.Id
-            join military in db.IdMilitaries on student.MilitaryId equals military.Id
-            where student.Id == ID
-            select new StudentAllDto
+        var student = await(_db.Students
+            .Select(s => new Student()
             {
-                StudentId = student.Id,
-                SkipHours = student.SkipHours,
-                CountOfExamsPassed = student.CountOfExamsPassed,
-                CreditScores = student.CreditScores,
-                ChatId = student.ChatId,
-                CriminalRecord = student.CriminalRecord,
-                CourseId = student.CourseId,
-                LevelDegrees = degrees.LevelDegrees,
-                PassportId = passport.Id,
-                Serial = passport.Serial,
-                Number = passport.Number,
-                FirstName = passport.FirstName,
-                LastName = passport.LastName,
-                MiddleName = passport.MiddleName,
-                BirthData = passport.BirthData,
-                AddressId = address.Id,
-                Country = address.Country,
-                City = address.City,
-                Street = address.Street,
-                HouseNumber = address.HouseNumber,
-                MilitaryId = military.Id,
-                LevelId = military.LevelId
-            }).FirstOrDefaultAsync();
-        return ConvertEF.ConvertStudent(students);
+                Passport = new Passport()
+                {
+                    Address = new Address()
+                    {
+                        AddressId = s.Passport.Address.AddressId,
+                        Country = s.Passport.Address.Country,
+                        City = s.Passport.Address.City,
+                        Street = s.Passport.Address.Street,
+                        HouseNumber = s.Passport.Address.HouseNumber,
+                        AddressString = s.Passport.Address.AddressString
+                    },
+                    Serial = s.Passport.Serial,
+                    Number = s.Passport.Number,
+                    FirstName =  s.Passport.FirstName,
+                    LastName =  s.Passport.LastName,
+                    MiddleName =  s.Passport.MiddleName,
+                    BirthData = s.Passport.BirthData,
+                    AddressId = s.Passport.AddressId,
+                    PlaceReceipt = s.Passport.PlaceReceipt,
+                    PassportId = s.Passport.PassportId,
+                },
+                StudentId = s.Id,
+                Id = s.Id,
+                ChatId =  s.ChatId,
+                CountOfExamsPassed = s.CountOfExamsPassed,
+                Course = s.Course,
+                CreditScores = s.CreditScores,
+                CriminalRecord = s.CriminalRecord,
+                MillitaryId = s.MillitaryId,
+                Millitary = s.Millitary,
+                MilitaryIdAvailability = s.Millitary.LevelId,
+                PassportId = s.Passport.PassportId,
+                SkipHours = s.SkipHours,
+            }).Where(s => s.StudentId == ID).FirstOrDefaultAsync());
+        return student;
     }
 
     public async Task<StudentDtoForPage> GetStudentPageAsync(long studentId)
     {
-        await using UniversityDbContext db = new UniversityDbContext();
-        var students = await (
-            from student in db.Students
-            join passport in db.Passports on student.PassportId equals passport.Id
-            join address in db.Addresses on passport.AddressId equals address.Id
-            join degrees in db.DegreesStudies on student.CourseId equals degrees.Id
-            join military in db.IdMilitaries on student.MilitaryId equals military.Id
-            where student.Id == studentId
-            select new StudentDtoForPage
+        var studentPage = await _db.Students
+            .Select(s => new StudentDtoForPage()
             {
-                studentId = student.Id,
-                criminalRecord = student.CriminalRecord,
-                skipHours = student.SkipHours,
-                creditScores = student.CreditScores,
-                countOfExamsPassed = student.CountOfExamsPassed,
-                course =  student.CourseId,
-                chatId = Convert.ToInt32(student.ChatId),    
-                address = address.AddressString,
-                addressId = address.Id,
-                firstName = passport.FirstName,
-                lastName = passport.LastName,
-                middleName = passport.MiddleName,
-                dob = passport.BirthData,
-                passportId =  passport.Id,
-                country = address.Country,
-                city = address.City,
-                state = address.Street,
-                houseNumber = address.HouseNumber,
-                serial = passport.Serial,
-                number = passport.Number,
-                placeReceipt = passport.PlaceReceipt
-            }).FirstOrDefaultAsync();
-        return students;
+                studentId = s.Id,
+                criminalRecord = s.CriminalRecord,
+                skipHours = s.SkipHours,
+                creditScores = s.CreditScores,
+                countOfExamsPassed = s.CountOfExamsPassed,
+                course =  s.Course,
+                chatId = Convert.ToInt32(s.ChatId),    
+                address = s.Passport.Address.AddressString,
+                addressId = s.Passport.Address.AddressId,
+                firstName = s.Passport.FirstName,
+                lastName = s.Passport.LastName,
+                middleName = s.Passport.MiddleName,
+                dob = s.Passport.BirthData,
+                passportId =  s.Passport.PassportId,
+                country = s.Passport.Address.Country,
+                city = s.Passport.Address.City,
+                state = s.Passport.Address.Street,
+                houseNumber = s.Passport.Address.HouseNumber,
+                serial = Convert.ToString(s.Passport.Serial),
+                number = Convert.ToString(s.Passport.Number),
+                placeReceipt = s.Passport.PlaceReceipt
+            }).Where(s => s.studentId == studentId).FirstOrDefaultAsync();
+        return studentPage;
     }
 
     public async Task<(List<StudentTableDTO>, long)> GetStudentTableDTO(long FirstId, long count, string? SortColumn, string? SortOrder, FilterDto? filter)
     {
-        await using UniversityDbContext db = new UniversityDbContext();
         SortOrder = SortOrder == "null"? "ASC" : SortOrder;
-        SortColumn = SortColumn == "null" ? "studentId" : SortColumn;
-        var students = (
-            from student in db.Students
-            join passport in db.Passports on student.PassportId equals passport.Id
-            join address in db.Addresses on passport.AddressId equals address.Id
-            join degrees in db.DegreesStudies on student.CourseId equals degrees.Id
-            join military in db.IdMilitaries on student.MilitaryId equals military.Id
-            select new StudentTableDTO
-            {
-                studentId = student.Id,
-                Fio = passport.FirstName + " " + passport.LastName + " " + passport.MiddleName,
-                Dob = passport.BirthData,
-                Address = address.AddressString,
-                Serial = Convert.ToInt32(passport.Serial),
-                Number = Convert.ToInt32(passport.Number),
-                TotalScore = student.CountOfExamsPassed > 0 ? student.CreditScores as double? / student.CountOfExamsPassed : 0,
-                SkipHours =  Convert.ToInt32(student.SkipHours??0),
-                CreditScore = Convert.ToInt32(student.CreditScores??0),
-                Course =  Convert.ToInt32(student.CourseId),
-                CountOfExamsPassed =  Convert.ToInt32(student.CountOfExamsPassed??0),
-            });
+        SortColumn = SortColumn == "null" ? "Id" : SortColumn;
+        IQueryable<Student> queryable = _db.Students.AsNoTracking();
         if (filter.FilterCourse is not null)
         {
             long numberOfCourse = (long)filter.FilterCourse;
-            students = students.Where(student => student.Course == filter.FilterCourse);
+            queryable = queryable.Where(student => student.Course == filter.FilterCourse);
         }
 
         if (filter.FilterDate[0] != "")
         {
             var filterDateStart = DateOnly.FromDateTime(Convert.ToDateTime(filter.FilterDate[0]));
             var filterDateEnd = DateOnly.FromDateTime(Convert.ToDateTime(filter.FilterDate[1]));
-            students = students.Where(student => student.Dob >= filterDateStart & student.Dob <= filterDateEnd);    
+            queryable = queryable.Where(student => student.Passport.BirthData >= filterDateStart & student.Passport.BirthData <= filterDateEnd);    
         }
 
         if (filter.FilterSkipHoursEnd is not null && filter.FilterSkipHoursStart is not null)
         {
-            students = students.Where(student => student.SkipHours >= filter.FilterSkipHoursStart & student.SkipHours <= filter.FilterSkipHoursEnd);
+            queryable = queryable.Where(student => student.SkipHours >= filter.FilterSkipHoursStart & student.SkipHours <= filter.FilterSkipHoursEnd);
         }
         if (filter.FilterTotalScore is not null)
         {
             
         }
-        var countAsync = await students.CountAsync();
-
-        students = students.OrderBy($"{SortColumn} {SortOrder}");
-        students = students.Skip((int)(FirstId)).Take((int)count);  
-        var st = await students.ToListAsync();
+        var countAsync = await queryable.CountAsync();
+        queryable = queryable.OrderBy($"{SortColumn} {SortOrder}");
+        queryable = queryable.Skip((int)(FirstId)).Take((int)count);  
+        var st = await (queryable.Select(s => new StudentTableDTO()
+        {
+            studentId = s.Id,
+            Fio = s.Passport.FirstName + " " + s.Passport.LastName + " " + s.Passport.MiddleName,
+            Dob = s.Passport.BirthData,
+            Address = s.Passport.Address.AddressString,
+            Serial = s.Passport.Serial,
+            Number = s.Passport.Number,
+            TotalScore = s.CountOfExamsPassed > 0 ? (double?)s.CreditScores / s.CountOfExamsPassed : 0,
+            SkipHours =  s.SkipHours??0,
+            CreditScore = s.CreditScores??0,
+            Course =  (int)s.Course,
+            CountOfExamsPassed =  s.CountOfExamsPassed??0
+        }).ToListAsync());
         return (st, countAsync);
     }
 
     public async Task<long> GetCountAsync()
     {
-        await using UniversityDbContext db = new UniversityDbContext();
-        return await db.Students.CountAsync();
+        return await _db.Students.CountAsync();
     }
 
     public async Task<Student?> GetStudentForChatIdAsync(string chatId)
     {
-        await using UniversityDbContext db = new UniversityDbContext();
-        var students = await (
-            from student in db.Students
-            join passport in db.Passports on student.PassportId equals passport.Id
-            join address in db.Addresses on passport.AddressId equals address.Id
-            join degrees in db.DegreesStudies on student.CourseId equals degrees.Id
-            join military in db.IdMilitaries on student.MilitaryId equals military.Id
-            where student.ChatId == chatId
-            select new StudentAllDto
-            {
-                StudentId = student.Id,
-                SkipHours = student.SkipHours,
-                CountOfExamsPassed = student.CountOfExamsPassed,
-                CreditScores = student.CreditScores,
-                ChatId = student.ChatId,
-                CriminalRecord = student.CriminalRecord,
-                CourseId = student.CourseId,
-                LevelDegrees = degrees.LevelDegrees,
-                PassportId = passport.Id,
-                Serial = passport.Serial,
-                Number = passport.Number,
-                FirstName = passport.FirstName,
-                LastName = passport.LastName,
-                MiddleName = passport.MiddleName,
-                BirthData = passport.BirthData,
-                AddressId = address.Id,
-                Country = address.Country,
-                City = address.City,
-                Street = address.Street,
-                HouseNumber = address.HouseNumber,
-                MilitaryId = military.Id,
-                LevelId = military.LevelId
-            }).FirstOrDefaultAsync();
-        return ConvertEF.ConvertStudent(students);
+        throw new NotImplementedException();
     }
 
     public async Task<long?> CheckNameAsync(string firstName, string LastName)
     {
-        await using var db = new UniversityDbContext();
-        long id = await (
-            from student in db.Students
-            join passport in db.Passports on student.PassportId equals passport.Id
-            where passport.FirstName == firstName && passport.LastName == LastName
-            select student.Id).FirstOrDefaultAsync();
+        var id = await(_db.Students.Where(s => s.Passport.FirstName == firstName && s.Passport.LastName == LastName).Select(s => s.StudentId).FirstOrDefaultAsync());
         return id;
     }
 }

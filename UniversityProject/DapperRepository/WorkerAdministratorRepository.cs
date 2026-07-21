@@ -81,7 +81,7 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
                     return admin;
                 }, new{ID},
                 splitOn: "PassportId, AddressId").FirstOrDefault();
-            _myLogger.Info($"Return administrator - {administrator?.Passport?.Serial ?? -1}, Number: {administrator?.Passport?.Number ?? -1}");
+            _myLogger.Info($"Return administrator - {administrator.Passport.Serial}, Number: {administrator.Passport.Number}");
             return administrator;
         }
     }   
@@ -171,7 +171,7 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
                     WHERE ID = @PersonId";
                     db.Execute(sqlQuery, administrator, transaction);
                     transaction.Commit();
-                    return administrator.PersonId;
+                    return administrator.AdministratorId;
                 }
                 catch(Exception ex)
                 {

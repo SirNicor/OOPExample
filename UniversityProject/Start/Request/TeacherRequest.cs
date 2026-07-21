@@ -33,7 +33,7 @@ static class TeacherRequest
             var request = context.Request;
             var service =  context.RequestServices.GetService<IWorkerTeacherRepository>();
             Teacher teacher = await request.ReadFromJsonAsync<Teacher>();
-            teacher.PersonId = id;
+            teacher.TeacherId = id;
             id = service.Update(teacher);
             await context.Response.WriteAsJsonAsync(id);
         });

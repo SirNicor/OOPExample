@@ -178,7 +178,7 @@ SELECT
                     WHERE ID = @PersonId";
                     db.Execute(sqlQuery, teacher, transaction);
                     transaction.Commit();
-                    return teacher.PersonId;
+                    return teacher.TeacherId;
                 }
                 catch(Exception ex)
                 {

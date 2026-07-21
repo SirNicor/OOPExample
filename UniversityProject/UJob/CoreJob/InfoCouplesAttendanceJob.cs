@@ -15,7 +15,7 @@ public class InfoCouplesAttendanceJob : IJob, IInfoCouplesAttendanceJob
     public async Task DoWorkAsync()
     {
         _students = await _studentsRepository.ReturnListAsync();
-        int?[] couplesAttendance = new int?[_students.Count];
+        long?[] couplesAttendance = new long?[_students.Count];
         int maxindex = 0, minindex = 0;
         for (int i = 0; i < _students.Count; i++)
         {

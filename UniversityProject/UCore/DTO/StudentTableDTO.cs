@@ -8,11 +8,11 @@ public class StudentTableDTO
     public string Fio { get; set; }
     public DateOnly Dob { get; set; }
     public string Address { get; set; }
-    public int Serial { get; set; }
-    public int Number { get; set; }
+    public string Serial { get; set; }
+    public string Number { get; set; }
     public double? TotalScore { get; set; }
-    public int SkipHours { get; set; }
-    public int CreditScore { get; set; }
-    public int Course { get; set; }
-    public int CountOfExamsPassed;
+    public long SkipHours { get; set; }
+    public long CreditScore { get; set; }
+    public long Course { get; set; }
+    public long CountOfExamsPassed;
 }

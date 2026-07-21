@@ -15,4 +15,5 @@ public class Administrator : Worker
     }
     
     public string Post { get; set; }
+    public long AdministratorId { get; set; }
 }

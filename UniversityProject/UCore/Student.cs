@@ -1,4 +1,5 @@
-﻿using System.Net.Security;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Net.Security;
 using Logger;
 
 namespace UCore;
@@ -6,20 +7,50 @@ using Logger;
 public class Student:Person
 {
     protected const int MinChances = 200;
-    public double? TotalScore {
-        get
+    public long? StudentId { get; set; } = null; 
+    public double? TotalScore { get; set; }
+    public long? SkipHours { get; set; }
+    public long? CreditScores { get; set; }
+    public long? CountOfExamsPassed { get; set; }
+    public long? Course { get; set; } 
+
+    public string? ChatId { get; set; }
+    public void SkipHoursSet(int skipHours)
+    {
+        if (skipHours == null)
         {
-            if (CountOfExamsPassed == 0)
-            {
-                return 0;
-            } 
-            else
-            {
-                return ((double?)CreditScores/CountOfExamsPassed)/5*100;
-            }
+            SkipHours = 0;
+        }
+        else if (skipHours < 0)
+        {
+            SkipHours += 0;
+        }
+        else
+        {
+            SkipHours += skipHours*2;
         }
     }
 
+    public void CreditScoresSet(int creditScores)
+    {
+        if (creditScores == null)
+        {
+            CreditScores = 0;
+        }
+        else if (creditScores < 0)
+        {
+            CreditScores -= 1;
+        }
+        else
+        {
+            CreditScores += creditScores ;
+        }
+    }
+    
+    public void NextExamsPassed()
+    {
+        CountOfExamsPassed++;
+    }
     public override void PrintDerivedClass(MyLogger myLogger)
     {
         string message = $"Course: {Course}" + Environment.NewLine;
@@ -27,78 +58,6 @@ public class Student:Person
         // message += "Расположен ли в общежитии " + (_accomodationDormitories ? "Да" : "Нет");
         myLogger.Info(message);
     }
-
-    
-    public int? SkipHours
-    {
-        get { return _skipHours;}
-        set
-        {
-            if (value == null)
-            {
-                _skipHours = 0;
-            }
-            else if (value < 0)
-            {
-                _skipHours += 0;
-            }
-            else
-            {
-                _skipHours += value*2;
-            }
-        }
-    }
-    
-    public int? CreditScores
-    {
-        get { return _creditScores;}
-        set
-        {
-            if (value == null)
-            {
-                _creditScores = 0;
-            }
-            else if (value < 0)
-            {
-                _creditScores -= 1;
-            }
-            else
-            {
-                _creditScores += value ;
-            }
-        }
-    }
-
-    public void NextExamsPassed()
-    {
-        CountOfExamsPassed++;
-    }
-    public int? CountOfExamsPassed
-    {
-        get{return _countOfExamsPassed;}
-        set
-        {
-            if (value == null)
-            {
-                _countOfExamsPassed = 0;
-            }
-            else 
-            {
-                _countOfExamsPassed = value;
-            }
-        }
-    }
-    public int? Course
-    {
-        get { return _course;} 
-        set{ _course=value;} 
-    }
-    public string? ChatId { get; set; }
-    private int? _course;
-    private int? _countOfExamsPassed;
-    private int? _skipHours;
-    private int? _creditScores;
-    
 
     // private bool _accomodationDormitories;
 

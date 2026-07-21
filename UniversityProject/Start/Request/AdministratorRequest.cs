@@ -34,7 +34,7 @@ static class AdministratorRequest
             var request = context.Request;
             var service =  context.RequestServices.GetService<IWorkerAdministratorRepository>();
             Administrator administrator = await request.ReadFromJsonAsync<Administrator>();
-            administrator.PersonId = id;
+            administrator.AdministratorId = id;
             id = service.Update(administrator);
             await context.Response.WriteAsJsonAsync(id);
         });

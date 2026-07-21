@@ -1,5 +1,6 @@
 ﻿using ApiTelegramBot;
 using EFRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Start;
 using Repository;
@@ -11,6 +12,7 @@ public static class AddedInfrastructureServices
 {
     public static void AddInfrastructureServices(this IServiceCollection services, MyLogger logger, IConfiguration configuration)
     {
+        services.AddDbContext<UniversityDbContext>(options => options.UseSqlServer(configuration.GetValue<string>("ConnectionStrings")));
         services.AddSingleton<MyLogger>(logger);
         services.AddTransient<IGetConnectionString, GetConnectionString>();
         services.AddScoped<IScheduleUpdate, ScheduleUpdate>();

@@ -1,12 +1,8 @@
-﻿namespace UCore;
+﻿/*
+namespace UCore;
 using Logger;
 public class Service:Worker
 {
-    public Service(int salary, 
-        Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord) 
-        : base(salary,  passport, militaryIdAvailability, criminalRecord)
-    {
-    }
 
     public override void DoWork(MyLogger myLogger) 
     {
@@ -19,3 +15,4 @@ public class Service:Worker
         myLogger.Info(message);
     }
 }
+*/

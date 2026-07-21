@@ -4,27 +4,6 @@ namespace UCore;
 using Logger;
 public class Passport
 {
-    public Passport(int serial, int number, string firstName, string lastName, string middleName, DateOnly birthData, Address address, string placeReceipt)
-    {
-        Serial = serial;
-        Number = number;
-        FirstName = firstName;
-        LastName = lastName;
-        MiddleName = middleName;
-        BirthData = birthData;
-        Address = address;
-        PlaceReceipt = placeReceipt;
-    }
-    public Passport(int serial, int number, string firstName, string lastName, DateOnly birthData, Address address, string placeReceipt)
-    {
-        Serial = serial;
-        Number = number;
-        FirstName = firstName;
-        LastName = lastName;
-        BirthData = birthData;
-        Address = address;
-        PlaceReceipt = placeReceipt;
-    }
 
     public Passport() { }
     public void Print(MyLogger myLogger)
@@ -35,12 +14,14 @@ public class Passport
         Address.Print(myLogger);
     }
     public long PassportId { get; set; }
-    public int Serial { get; set; }
-    public int Number { get; set; }
+    public string Serial { get; set; }
+    public string Number { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string MiddleName { get; set; }
     public DateOnly BirthData { get; set; }
     public Address Address { get; set; }
+    public long? AddressId { get; set; } = null;
     public string PlaceReceipt { get; set; }
+    public Student student { get; set; } = null;
 }

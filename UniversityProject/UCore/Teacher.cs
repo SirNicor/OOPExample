@@ -12,6 +12,6 @@ public class Teacher:Worker
         message = $"Зарплата - {Salary}" + Environment.NewLine;
         myLogger.Info(message);
     }
-    
-    
+
+    public long TeacherId { get; set; }
 }

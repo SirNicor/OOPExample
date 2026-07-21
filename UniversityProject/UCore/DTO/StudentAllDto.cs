@@ -1,4 +1,4 @@
-﻿namespace EFRepository;
+﻿namespace Ucore;
 
 public class StudentAllDto
 {

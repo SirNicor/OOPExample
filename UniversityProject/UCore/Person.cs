@@ -4,15 +4,9 @@ namespace UCore;
 using Logger;
 public abstract class Person
 {
-    public Person(Passport passport, IdMillitary militaryIdAvailability, bool criminalRecord)
-    {
-        Passport = passport;
-        MilitaryIdAvailability = militaryIdAvailability;
-        CriminalRecord = criminalRecord;
-    }
     public void PrintInfo(MyLogger myLogger)
     {
-        string message = $"Id : {PersonId}";
+        string message = $"";
         myLogger.Info(message);
         Passport.Print(myLogger);
         message = ($"Военный билет: {MilitaryIdAvailability} и судимость ") + (CriminalRecord?"есть":"нет");
@@ -23,8 +17,11 @@ public abstract class Person
     public abstract void PrintDerivedClass(MyLogger myLogger);
     
     protected Person(){}
-    public long PersonId { get; set; }
+    public long Id { get; set; }
+    public long PassportId { get; set; }
+    public int MillitaryId { get; set; }
     public Passport Passport { get; set; }
     public IdMillitary MilitaryIdAvailability { get; set; }
+    public IdMillitaryClass Millitary { get; set; } = null!;
     public bool CriminalRecord { get; set; }
 }
