@@ -1,4 +1,5 @@
-﻿using Logger;
+﻿using System.Reflection;
+using Logger;
 
 namespace Start.Middleware;
 
@@ -20,9 +21,15 @@ public class ExceptionHandlerMiddleware
         {
             await _next(context);
         }
+        catch (OperationCanceledException ex)
+        {
+        }
+        catch (TargetInvocationException ex)
+        {
+        }
         catch (Exception ex)
         {
-            _logger.Error(ex.Message + " " +ex.StackTrace + Environment.NewLine + "Source =" + ex.Source);
+            _logger.Error(ex.Message + " " + ex.StackTrace + Environment.NewLine + "Source =" + ex.Source);
             if (!context.Response.HasStarted)
             {
                 context.Response.Clear();

@@ -15,7 +15,7 @@ public interface IStudentRepository
     Task<Student> GetAsync(long ID);
     Task<StudentDtoForPage> GetStudentPageAsync(long studentId);
     Task<(List<StudentTableDTO>, long)> GetStudentTableDTO(long FirstId, long count, string? SortColumn,
-        string? SortOrder, FilterDto? filter);
+        string? SortOrder, FilterDto? filter, CancellationToken token);
     Task<long> GetCountAsync();
     public Task<Student?> GetStudentForChatIdAsync(string chatId);
     public Task<long?> CheckNameAsync(string firstName, string LastName);

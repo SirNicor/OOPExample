@@ -222,7 +222,7 @@ public class EFStudentRepository : IStudentRepository
         return studentPage;
     }
 
-    public async Task<(List<StudentTableDTO>, long)> GetStudentTableDTO(long FirstId, long count, string? SortColumn, string? SortOrder, FilterDto? filter)
+    public async Task<(List<StudentTableDTO>, long)> GetStudentTableDTO(long FirstId, long count, string? SortColumn, string? SortOrder, FilterDto? filter, CancellationToken token)
     {
         SortOrder = SortOrder == "null"? "ASC" : SortOrder;
         SortColumn = SortColumn == "null" ? "Id" : SortColumn;
@@ -248,7 +248,7 @@ public class EFStudentRepository : IStudentRepository
         {
             
         }
-        var countAsync = await queryable.CountAsync();
+        var countAsync = await queryable.CountAsync(token);
         queryable = queryable.OrderBy($"{SortColumn} {SortOrder}");
         queryable = queryable.Skip((int)(FirstId)).Take((int)count);  
         var st = await (queryable.Select(s => new StudentTableDTO()
@@ -264,7 +264,7 @@ public class EFStudentRepository : IStudentRepository
             CreditScore = s.CreditScores??0,
             Course =  (int)s.Course,
             CountOfExamsPassed =  s.CountOfExamsPassed??0
-        }).ToListAsync());
+        }).ToListAsync(token));
         return (st, countAsync);
     }
 

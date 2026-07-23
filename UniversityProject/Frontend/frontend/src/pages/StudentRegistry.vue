@@ -37,16 +37,16 @@
 </style>
 
 <script setup lang="ts">
-  import {onMounted, reactive, ref, watch} from 'vue'
+import {onBeforeUnmount, onMounted, reactive, ref, watch} from 'vue'
   import {useRoute} from 'vue-router'
   import TableComponent from '@/components/TableComponent.vue'
   import type {TableColumn, TableData} from '@/types/TableTypes';
-  import api from "@/api/Api.ts"
   import {StudentResponse} from "@/api/Student.ts"
   import {type StudentsType, type Filter} from '@/types/studentType.ts'
   import router from '@/router/index.ts'
-  import {type FormRules, ElLink } from "element-plus";
+  import {type FormRules, ElLink, ElMessage} from "element-plus";
   import {userAccessPage} from "@/stores/AccessPage.ts";
+  import axios, { CancelTokenSource } from 'axios';
   const Url = "/student";
   const students = ref<StudentsType[]>([]);
   const Data = ref<TableData[]>([]);
@@ -54,6 +54,8 @@
   const count = 15;
   const defaultSortKey = "fio";
   const createVisibility = ref(false);
+  const isLoading = ref(false);
+  let cancelSource: CancelTokenSource | null = null;
   const Columns = reactive<TableColumn[]>( [
     {dataKey: 'fio', title: 'ФИО', type: 'string'},
     {dataKey: 'dob', title: 'Дата рождения', type: 'date'},
@@ -114,9 +116,13 @@
         }
       },
       {deep: true})
+  watch(() => isLoading.value, (isLoading) => {
+    if(isLoading) {
+      ElMessage.info("Происходит загрузка данных");
+    }
+  })
   onMounted(async () => {
     try {
-      IsWatch = false;
       if(route.query.NumberPage == undefined || route.query.NumberPage === null) {
         await router.push({query: {...route.query, NumberPage: 1, filter:JSON.stringify(Filter), sortKey: "null", sortType: "null"}});
       }
@@ -130,18 +136,36 @@
       console.error(error);
     }
   })
+  onBeforeUnmount(() => {
+    if (cancelSource) cancelSource.cancel('Страница выключена');
+  });
   async function loadData()
   {
+    if(cancelSource)
+    {
+      cancelSource.cancel("Запрос отменени из-за нового")
+    }
+    cancelSource = axios.CancelToken.source();
+    isLoading.value = true;
     Data.value = [];
     students.value = [];
-    let response = await StudentResponse.getStudents(route.query.sortKey, route.query.sortType, route.query.NumberPage, route.query.filter, count);
-    if(response !== null)
+    try
     {
-      students.value = response.data.item1 as StudentsType[];
-      pageCount.value = response.data.item2 as number;
-      for(let i = 0; i < students.value.length; i++) {
-        Data.value.push({id: i.toString(), ...students.value[i]});
+      const response = await StudentResponse.getStudents(route.query.sortKey, route.query.sortType, route.query.NumberPage, route.query.filter, count, cancelSource.token);
+      if(response !== null)
+      {
+        students.value = response.data.item1 as StudentsType[];
+        pageCount.value = response.data.item2 as number;
+        for(let i = 0; i < students.value.length; i++) {
+          Data.value.push({id: i.toString(), ...students.value[i]});
+        }
       }
+    }
+    catch(error) {
+      ElMessage.info("Загрузка отмена/произошел сбой")
+    }
+    finally {
+      isLoading.value = false;
     }
   }
   const Reset = () =>

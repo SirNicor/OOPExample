@@ -27,13 +27,13 @@ static class StudentRequest
             logger.Info($"student/Page/{count} = > {countOfPage}");
             return Results.Json(countOfPage, statusCode: 200);
         }).RequireAuthorization("Teacher");
-        app.MapGet("/Student", async(string? filter, string? sortKey, string? sortOrder, int page, int count, HttpContext context) =>
+        app.MapGet("/Student", async(string? filter, string? sortKey, string? sortOrder, int page, int count, CancellationToken token,  HttpContext context) =>
         {
             FilterDto filterDto = JsonSerializer.Deserialize<FilterDto>(filter);
             int firstId = (page-1) * count;
             var service = context.RequestServices.GetService<IStudentRepository>();
             var studentAndPage = await service.GetStudentTableDTO(firstId, count, sortKey,
-                sortOrder, filterDto);
+                sortOrder, filterDto, token);
             var allCount = studentAndPage.Item2;
             var countOfPage = allCount / count +  (allCount % count == 0? 0: 1);
             logger.Info($"student/{page} {count} {firstId} {sortKey} {sortOrder}");

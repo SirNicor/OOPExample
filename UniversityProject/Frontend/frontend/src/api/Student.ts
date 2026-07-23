@@ -2,10 +2,11 @@
 import {GetCookie} from "@/Function/CookiesFunction.ts";
 import {userAccessPage} from "@/stores/AccessPage.ts";
 import {ElMessage} from "element-plus";
+import {type CancelToken} from "axios";
 
 export const StudentResponse =
     {
-        getStudents(sortKey?: any, sortType?: any, numberPage?: any, filter?: any, count?: any)
+        getStudents(sortKey?: any, sortType?: any, numberPage?: any, filter?: any, count?: any, cancelToken?: CancelToken)
         {
             let token = GetCookie("accessJWT");
             if(!userAccessPage().canAccessForAllOperationName("StudentRegister", ["Read", "All"]))
@@ -16,15 +17,17 @@ export const StudentResponse =
             return api.get(`Student?sortKey=${sortKey}&sortOrder=${sortType}&page=${numberPage}&count=${count}&filter=${filter}`,{
                 headers: {
                     'Authorization': token
-                }})
+                },
+                cancelToken})
         },
-        getCountPage(count: number)
+        getCountPage(count: number, cancelToken?: CancelToken)
         {
             let token = GetCookie("accessJWT");
             return api.get(`Student/Page/${count}`,{
                 headers: {
                     'Authorization': token
-                }});
+                },
+                cancelToken});
         },
         getStudent(id?: any)
         {

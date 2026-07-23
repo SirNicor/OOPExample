@@ -184,7 +184,7 @@ public class StudentRepository : IStudentRepository
     }
 
     public async Task<(List<StudentTableDTO>, long)> GetStudentTableDTO(long FirstId, long countOfRow, string? SortColumn, string? SortOrder, 
-        FilterDto? filter)
+        FilterDto? filter, CancellationToken token)
     {
         var builder = new SqlBuilder();
         SortOrder = SortOrder ?? "ASC";
@@ -258,9 +258,11 @@ public class StudentRepository : IStudentRepository
             filter.FilterSkipHoursStart, filter.FilterSkipHoursEnd, filter.FilterTotalScore,
             FilterBirthDayEnd = filter.FilterDate[1]});
         await using var db = new SqlConnection(ConnectionString);
-        await db.OpenAsync();
+        await db.OpenAsync(token);
         var students = (await db.QueryAsync<StudentTableDTO>(template.RawSql, template.Parameters)).AsList();
+        token.ThrowIfCancellationRequested();
         var allCount = await db.QueryFirstOrDefaultAsync<long>(templateOfPage.RawSql, template.Parameters);
+        token.ThrowIfCancellationRequested();
         return (students, allCount);
     }
 
