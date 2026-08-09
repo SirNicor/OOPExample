@@ -2,7 +2,7 @@
 
 public class DirectionDto
 {
-    public DegreesStudy DegreesStudy { get; set; }
+    public string DegreesStudy { get; set; }
 
     public string NameDirection { get; set; }
     public long DepartmentId { get; set; }

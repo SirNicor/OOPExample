@@ -4,8 +4,6 @@ namespace UCore;
 using Logger;
 public class Passport
 {
-
-    public Passport() { }
     public void Print(MyLogger myLogger)
     {
         string message = $"Id: {PassportId}, FullName: {FirstName} {LastName} {MiddleName}, BirthDate: {BirthData}";

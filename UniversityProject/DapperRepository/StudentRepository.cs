@@ -16,7 +16,8 @@ public class StudentRepository : IStudentRepository
         s.CountOfExamsPassed, 
         s.CreditScores,
         ds.LevelDegrees,
-        im.LevelId AS MilitaryIdAvailability,
+        im.LevelId AS LevelId,
+        im.Id AS MillitaryId,
         p.ID AS PassportID,
         p.Serial,
         p.Number,
@@ -97,11 +98,12 @@ public class StudentRepository : IStudentRepository
         await using var db = new SqlConnection(ConnectionString);
         await db.OpenAsync();
         var sqlQuery = SQlQuerySelect;
-        List<Student> students = (await db.QueryAsync<Student, Passport, Address, Student>(sqlQuery,
-            (student, passport, address) =>
+        List<Student> students = (await db.QueryAsync<Student, Passport, Address, MillitaryClass, Student>(sqlQuery,
+            (student, passport, address, millitaryClass) =>
             {
                 passport.Address = address;
                 student.Passport = passport;
+                student.Millitary = millitaryClass;
                 return student;
             },
             splitOn: "PassportID, AddressID"
@@ -117,11 +119,12 @@ public class StudentRepository : IStudentRepository
         await using var db = new SqlConnection(ConnectionString);
         await db.OpenAsync();
         var sqlQuery = SQlQuerySelect;
-        return (await db.QueryAsync<Student, Passport, Address, Student>(sqlQuery,
-                (student, passport, address) =>
+        return (await db.QueryAsync<Student, Passport, Address, MillitaryClass, Student>(sqlQuery,
+                (student, passport, address, millitaryClass) =>
                 {
                     passport.Address = address;
                     student.Passport = passport;
+                    student.Millitary = millitaryClass;
                     return student;
                 },
                 splitOn: "PassportID, AddressID"
@@ -133,11 +136,12 @@ public class StudentRepository : IStudentRepository
         await using var db = new SqlConnection(ConnectionString);
         await db.OpenAsync();
         var sqlQuery = SQlQuerySelect + " WHERE s.ID = @id";
-        var students = await db.QueryAsync<Student, Passport, Address, Student>(sqlQuery,
-                (student, passport, address) =>
+        var students = await db.QueryAsync<Student, Passport, Address, MillitaryClass, Student>(sqlQuery,
+                (student, passport, address, millitaryClass) =>
                 {
                     passport.Address = address;
                     student.Passport = passport;
+                    student.Millitary = millitaryClass;
                     return student;
                 },
                 (new { id = id }),
@@ -271,7 +275,6 @@ public class StudentRepository : IStudentRepository
         await using var db = new SqlConnection(ConnectionString);
         await db.OpenAsync();
         return await db.QueryFirstOrDefaultAsync<long>("SELECT COUNT(*) FROM Student");
-        
     }
 
     public async Task<Student?> GetStudentForChatIdAsync(string chatId)
@@ -279,11 +282,12 @@ public class StudentRepository : IStudentRepository
         await using var db = new SqlConnection(ConnectionString);
         await db.OpenAsync();
         var sqlQuery = SQlQuerySelect + " WHERE s.ChatId = @chatId";
-        var student = await db.QueryAsync<Student, Passport, Address, Student>(sqlQuery,
-                (student, passport, address) =>
+        var student = await db.QueryAsync<Student, Passport, Address, MillitaryClass, Student>(sqlQuery,
+                (student, passport, address, millitary) =>
                 {
                     passport.Address = address;
                     student.Passport = passport;
+                    student.Millitary = millitary;
                     return student;
                 },
                 (new { chatId }),

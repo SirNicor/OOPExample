@@ -14,7 +14,7 @@ public partial class UniversityDbContext : DbContext
     }
     public virtual DbSet<Address> Addresses { get; set; }
 
-    public virtual DbSet<IdMillitaryClass> IdMilitaries { get; set; }
+    public virtual DbSet<MillitaryClass> IdMilitaries { get; set; }
 
     public virtual DbSet<Passport> Passports { get; set; }
 
@@ -39,10 +39,10 @@ public partial class UniversityDbContext : DbContext
 
             entity.Property(e => e.LevelDegrees).HasMaxLength(255).HasConversion<string>();
         });
-        modelBuilder.Entity<IdMillitaryClass>(entity =>
+        modelBuilder.Entity<MillitaryClass>(entity =>
         {
             entity.ToTable("IdMillitary");
-
+            entity.HasKey(e => e.MillitaryId);
             entity.Property(e => e.LevelId).HasColumnName("LevelID");
         });
         modelBuilder.Entity<Passport>(entity =>
@@ -68,6 +68,11 @@ public partial class UniversityDbContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.PassportId).HasColumnName("PassportID");
             entity.Property(e => e.MillitaryId).HasColumnName("MilitaryID");
+            entity.HasOne(d => d.Millitary)
+                .WithMany(p => p.Person)
+                .HasForeignKey(d => d.MillitaryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Student_MilitaryID_IdMilitary_Id");
         });
         modelBuilder.Entity<Student>(entity =>
         {
@@ -77,11 +82,6 @@ public partial class UniversityDbContext : DbContext
             entity.Property(e => e.Course).HasColumnName("CourseID");   
             entity.Property(e => e.MillitaryId).HasColumnName("MilitaryID");
             entity.Property(e => e.PassportId).HasColumnName("PassportID");
-            entity.HasOne(d => d.Millitary)
-                .WithMany(p => p.Students)
-                .HasForeignKey(d => d.MillitaryId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Student_MilitaryID_IdMilitary_Id");
             entity.HasOne(d => d.Passport).WithOne(p => p.student)
                 .HasForeignKey<Student>(d => d.PassportId)
                 .HasConstraintName("FK_Student_PassportID_Passport_Id");

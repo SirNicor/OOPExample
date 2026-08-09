@@ -54,7 +54,6 @@ public class EFStudentRepository : IStudentRepository
                 CriminalRecord = s.CriminalRecord,
                 MillitaryId = s.MillitaryId,
                 Millitary = s.Millitary,
-                MilitaryIdAvailability = s.Millitary.LevelId,
                 PassportId = s.Passport.PassportId,
                 SkipHours = s.SkipHours,
             }).ToListAsync());
@@ -99,7 +98,6 @@ public class EFStudentRepository : IStudentRepository
                 CriminalRecord = s.CriminalRecord,
                 MillitaryId = s.MillitaryId,
                 Millitary = s.Millitary,
-                MilitaryIdAvailability = s.Millitary.LevelId,
                 PassportId = s.Passport.PassportId,
                 SkipHours = s.SkipHours,
             }).ToListAsync());
@@ -153,6 +151,7 @@ public class EFStudentRepository : IStudentRepository
     public async Task<Student> GetAsync(long ID)
     {
         var student = await(_db.Students
+            .Where(s => s.StudentId == ID)
             .Select(s => new Student()
             {
                 Passport = new Passport()
@@ -185,10 +184,9 @@ public class EFStudentRepository : IStudentRepository
                 CriminalRecord = s.CriminalRecord,
                 MillitaryId = s.MillitaryId,
                 Millitary = s.Millitary,
-                MilitaryIdAvailability = s.Millitary.LevelId,
                 PassportId = s.Passport.PassportId,
                 SkipHours = s.SkipHours,
-            }).Where(s => s.StudentId == ID).FirstOrDefaultAsync());
+            }).FirstOrDefaultAsync());
         return student;
     }
 

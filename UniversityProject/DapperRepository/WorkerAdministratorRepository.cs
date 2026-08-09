@@ -12,7 +12,8 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
         ad.Id AS PersonId,
         ad.Salary,
         ad.CriminalRecord,
-        im.LevelId AS MilitaryIdAvailability,
+        im.Id AS MillitaryId,
+        im.LevelId AS LevelId,
         p.ID AS PassportID,
         p.Serial,
         p.Number,
@@ -38,14 +39,15 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
     {
         using(IDbConnection db = new SqlConnection(ConnectionString))
         {
-            List<Administrator> Administrators = db.Query<Administrator, Passport, Address, Administrator>(SqlQuerySelect,
-                (Administrator, Passport, Address) =>
+            List<Administrator> Administrators = db.Query<Administrator, MillitaryClass, Passport, Address, Administrator>(SqlQuerySelect,
+                (Administrator, millitary, Passport, Address) =>
                 {
+                    Administrator.Millitary = millitary;
                     Passport.Address = Address;
                     Administrator.Passport = Passport;
                     return Administrator;
                 }, 
-                splitOn: "PassportId, AddressId").ToList();
+                splitOn: "MillitaryId, PassportId, AddressId").ToList();
             foreach (Administrator admin in Administrators)
             {
                 admin.PrintDerivedClass(_myLogger);
@@ -56,15 +58,16 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
-            return db.Query<Administrator, Passport, Address, Administrator>(
+            return db.Query<Administrator, MillitaryClass, Passport, Address, Administrator>(
                 SqlQuerySelect,
-                (Administrator, Passport, Address) =>
+                (Administrator, millitary, Passport, Address) =>
                 {
+                    Administrator.Millitary = millitary;
                     Passport.Address = Address;
                     Administrator.Passport = Passport;
                     return Administrator;
-                },
-                splitOn: "PassportId, AddressId").ToList();
+                }, 
+                splitOn: "MillitaryId, PassportId, AddressId").ToList();
         }
     }
 
@@ -72,15 +75,16 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
     {
         using (IDbConnection db = new SqlConnection(ConnectionString))
         {
-            var administrator = db.Query<Administrator, Passport, Address, Administrator>(
+            var administrator = db.Query<Administrator, MillitaryClass, Passport, Address, Administrator>(
                 SqlQuerySelect + " WHERE ad.ID = @ID",
-                (admin, Passport, Address) =>
+                (Administrator, millitary, Passport, Address) =>
                 {
+                    Administrator.Millitary = millitary;
                     Passport.Address = Address;
-                    admin.Passport = Passport;
-                    return admin;
+                    Administrator.Passport = Passport;
+                    return Administrator;
                 }, new{ID},
-                splitOn: "PassportId, AddressId").FirstOrDefault();
+                splitOn: "MillitaryId, PassportId, AddressId").FirstOrDefault();
             _myLogger.Info($"Return administrator - {administrator.Passport.Serial}, Number: {administrator.Passport.Number}");
             return administrator;
         }
@@ -118,7 +122,7 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
                     VALUES(@Salary,
                         @CriminalRecord,
                         (SELECT MAX(ID) FROM PASSPORT),
-                        @MilitaryIdAvailability + 1)
+                        @MillitaryId,
                         @Post";
                         db.Execute(sqlQuery, worker, transaction);
                         transaction.Commit();
@@ -167,7 +171,7 @@ public class WorkerAdministratorRepository : IWorkerAdministratorRepository
                     WHERE ID = @PassportID";
                     db.Execute(sqlQuery, passport, transaction);
                     sqlQuery = @"UPDATE Administrator
-                    SET Salary = @Salary, MilitaryId = @MilitaryIdAvailability, CriminalRecord = @CriminalRecord
+                    SET Salary = @Salary, MilitaryId = @MillitaryId, CriminalRecord = @CriminalRecord
                     WHERE ID = @PersonId";
                     db.Execute(sqlQuery, administrator, transaction);
                     transaction.Commit();

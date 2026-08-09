@@ -31,7 +31,7 @@ public static class ConvertEF
         {
             StudentId = (studentRow.studentId == null ? 0 : (long)studentRow.studentId),
             ChatId = Convert.ToString(studentRow.chatId),
-            Millitary = new IdMillitaryClass(){Id = 1, LevelId = IdMillitary.DidNotServe},
+            Millitary = new MillitaryClass(){MillitaryId = 1, LevelId = "DidNotServe"},
             CriminalRecord = (bool)studentRow.criminalRecord,
             CountOfExamsPassed = (int)studentRow.countOfExamsPassed,
             SkipHours = (int)studentRow.skipHours,

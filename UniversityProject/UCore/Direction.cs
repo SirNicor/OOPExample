@@ -7,7 +7,7 @@ public class Direction
         
     }
 
-    public Direction(Department department, string nameDirection, DegreesStudy degreesStudy, List<Student> students)
+    public Direction(Department department, string nameDirection, string degreesStudy, List<Student> students)
     {
         Department = department;
         NameDirection = nameDirection;
@@ -20,7 +20,7 @@ public class Direction
         return $"{Department.Faculty.University.NameUniversity}.{Department.Faculty.NameFaculty}.{Department.NameDepartment}.{NameDirection}.courses:{NumberOfCourse}";
     }
     
-    public DegreesStudy DegreesStudy { get; set; }
+    public string DegreesStudy { get; set; }
 
     public string NameDirection { get; set; }
     public Department Department { get; set; }

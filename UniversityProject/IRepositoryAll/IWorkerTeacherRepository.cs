@@ -7,7 +7,7 @@ public interface IWorkerTeacherRepository
     public void PrintAll();
     public long Create(Teacher teacher);
     public List<Teacher> ReturnList();
-    Teacher Get(long Id);
+    Teacher Get(long id);
     public void Delete(long Id);
     public long Update(Teacher teacher);
     

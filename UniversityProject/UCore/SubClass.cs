@@ -1,8 +1,8 @@
-﻿namespace UCore;
+﻿/*namespace UCore;
 
 public static class CheckMethods
 {
-    public static int CheckDegress(int course, DegreesStudy degrees)
+    public static int CheckDegress(int course, int degrees)
     {
         if (course > (int)degrees)
         {
@@ -14,4 +14,4 @@ public static class CheckMethods
         }
         return course;
     }
-}
+}*/

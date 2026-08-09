@@ -12,7 +12,8 @@ SELECT
         tc.Id AS PersonId,
         tc.Salary,
         tc.CriminalRecord,
-        im.LevelId AS MilitaryIdAvailability,
+        im.Id AS MillitaryId,
+        im.LevelId AS LevelId,
         p.ID AS PassportID,
         p.Serial,
         p.Number,
@@ -36,19 +37,20 @@ SELECT
         _connectionString = getConnectionString.ReturnConnectionString();
         _logger = logger;
     }
-    public Teacher Get(long Id)
+    public Teacher Get(long id)
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
-            var teacher = db.Query<Teacher, Passport, Address, Teacher>(
+            var teacher = db.Query<Teacher,  MillitaryClass, Passport, Address, Teacher>(
                 SqlQuerySelect + " WHERE tc.ID = @ID",
-                (teacher, Passport, Address) =>
+                (teacher, millitary, passport, address) =>
                 {
-                    Passport.Address = Address;
-                    teacher.Passport = Passport;
+                    teacher.Millitary = millitary;
+                    passport.Address = address;
+                    teacher.Passport = passport;
                     return teacher;
-                }, new{ ID = Id},
-                splitOn: "PassportId, AddressId").FirstOrDefault();
+                }, new{ ID = id},
+                splitOn: "MillitaryId, PassportId, AddressId").FirstOrDefault();
             return teacher;
         }
     }
@@ -56,15 +58,16 @@ SELECT
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
-            var teachers = db.Query<Teacher, Passport, Address, Teacher>(
+            var teachers = db.Query<Teacher,  MillitaryClass, Passport, Address, Teacher>(
                 SqlQuerySelect,
-                (teacher, Passport, Address) =>
+                (teacher, millitary, passport, address) =>
                 {
-                    Passport.Address = Address;
-                    teacher.Passport = Passport;
+                    teacher.Millitary = millitary;
+                    passport.Address = address;
+                    teacher.Passport = passport;
                     return teacher;
                 },
-                splitOn: "PassportId, AddressId").ToList();
+                splitOn: "MillitaryId, PassportId, AddressId").ToList();
             foreach (var teacher in teachers)
             {
                 teacher.PrintInfo(_logger);
@@ -103,7 +106,7 @@ SELECT
                     VALUES(@Salary,
                         @CriminalRecord,
                         (SELECT MAX(ID) FROM PASSPORT),
-                        @MilitaryIdAvailability + 1)
+                        @MillitaryId)
                         ";
                         db.Execute(sqlQuery, teacher, transaction);
                         transaction.Commit();
@@ -123,15 +126,16 @@ SELECT
     {
         using (IDbConnection db = new SqlConnection(_connectionString))
         {
-            var teachers = db.Query<Teacher, Passport, Address, Teacher>(
+            var teachers = db.Query<Teacher,  MillitaryClass, Passport, Address, Teacher>(
                 SqlQuerySelect,
-                (teacher, Passport, Address) =>
+                (teacher, millitary, passport, address) =>
                 {
-                    Passport.Address = Address;
-                    teacher.Passport = Passport;
+                    teacher.Millitary = millitary;
+                    passport.Address = address;
+                    teacher.Passport = passport;
                     return teacher;
                 },
-                splitOn: "PassportId, AddressId").ToList();
+                splitOn: "MillitaryId, PassportId, AddressId").ToList();
             return teachers;
         }
     }
@@ -174,7 +178,7 @@ SELECT
                     WHERE ID = @PassportID";
                     db.Execute(sqlQuery, passport, transaction);
                     sqlQuery = @"UPDATE Teacher
-                    SET Salary = @Salary, MilitaryId = @MilitaryIdAvailability, CriminalRecord = @CriminalRecord
+                    SET Salary = @Salary, MilitaryId = @MillitaryId, CriminalRecord = @CriminalRecord
                     WHERE ID = @PersonId";
                     db.Execute(sqlQuery, teacher, transaction);
                     transaction.Commit();
