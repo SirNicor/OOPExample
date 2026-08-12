@@ -1,4 +1,5 @@
 ﻿import api from "@/api/Api.ts";
+import type {CancelToken} from "axios";
 
 export const AuthorizationResponse =
     {
@@ -9,9 +10,9 @@ export const AuthorizationResponse =
                     'Authorization': token
                 }});
         },
-        Login(authorization: any)
+        Login(authorization: any, cancelToken?: CancelToken)
         {
-            return api.post(`/Login`, authorization);            
+            return api.post(`/Login`, {authorization, cancelToken});            
         },
         CheckAccessToken(accessToken: string)
         {

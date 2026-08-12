@@ -14,9 +14,9 @@ static class AddressRequest
             var service = context.RequestServices.GetService<IStudentRepository>();
             await service.DeleteAddressAsync(id);
         });
-        app.MapGet("/Address/Suggest/{address}", async (string address, HttpContext context) =>
+        app.MapGet("/Address/Suggest/{address}", async (string address, CancellationToken token, HttpContext context) =>
         {
-            var suggest = FunctionForRequest.SuggestAddress(address, config).Result;
+            var suggest = FunctionForRequest.SuggestAddress(address, config, token).Result;
             logger.Info($"Suggest {suggest.suggestions}");
             await context.Response.WriteAsJsonAsync(suggest.suggestions);
         });

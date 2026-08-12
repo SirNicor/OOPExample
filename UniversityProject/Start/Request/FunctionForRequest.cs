@@ -49,11 +49,11 @@ public static class FunctionForRequest
         var result = await api.Clean<Address>(address);
         return result;
     }
-    public static async Task<SuggestResponse<Address>> SuggestAddress(string address, IConfiguration configuration)
+    public static async Task<SuggestResponse<Address>> SuggestAddress(string address, IConfiguration configuration, CancellationToken cancellationToken)
     { 
         var token = configuration.GetValue<string>("DaData:token");
         var api = new SuggestClientAsync(token);
-        var result = await api.SuggestAddress(address);
+        var result = await api.SuggestAddress(address, 10, cancellationToken);
         return result;
     }
 }

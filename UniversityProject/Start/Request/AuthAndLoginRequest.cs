@@ -25,7 +25,7 @@ public static class AuthAndLoginRequest
             long id = await authRep.CreateAuthorizationAsync(user);
             await ctx.Response.WriteAsJsonAsync(id);
         });
-        app.MapPost("/Login", async (HttpContext ctx, AuthorizationForGetJwtToken dto) =>
+        app.MapPost("/Login", async (HttpContext ctx, CancellationToken token, AuthorizationForGetJwtToken dto) =>
         {
             logger.Info("@/Login");
             var authAndLoginRep = ctx.RequestServices.GetService<IAuthorizationRepository>();

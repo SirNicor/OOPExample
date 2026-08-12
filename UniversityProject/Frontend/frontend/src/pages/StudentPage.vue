@@ -130,8 +130,8 @@
 </style>
 
 <script setup lang="ts">
-  import {computed, onMounted, ref, watch} from 'vue';
-  import {ElMessageBox, type FormInstance, type FormRules} from "element-plus";
+import {computed, onBeforeUnmount, onMounted, ref, watch} from 'vue';
+import {ElMessage, ElMessageBox, type FormInstance, type FormRules} from "element-plus";
   import api from "@/api/Api.ts";
   import {StudentResponse} from "@/api/Student.ts";
   import {AddressResponse} from "@/api/Address.ts";
@@ -140,6 +140,7 @@
   import DialogComponent from "@/components/DialogComponent.vue";
   import router from '@/router/index.ts';
   import {userAccessPage} from "@/stores/AccessPage.ts";
+import axios, {CancelTokenSource} from "axios";
   
   const formRef = ref<FormInstance>()
   const studentTypeOfPage = ref<StudentsTypeForPage>(
@@ -175,6 +176,8 @@
   const sendDialog = ref("Вернуться ли к реестру после добавления?")
   const sendBool = ref(false);
   const headerText = ref("");
+  let cancelSourceLoad: CancelTokenSource | null = null;
+  let cancelSourceCUD: CancelTokenSource | null = null;
   const handleSelect = (item: Record<string, any>) => {
     studentTypeOfPage.value.address = item.label
     studentTypeOfPage.value.city = item.city
@@ -198,11 +201,27 @@
     deleteButton.value = userAccessPage().canAccessForAllOperationName("StudentPage", ["Delete", "All"]);
     SendButton.value = userAccessPage().canAccessForAllOperationName("StudentPage", ["Create", "Update", "All"]);
   })
+  onBeforeUnmount(() => {
+    if (cancelSourceLoad) cancelSourceLoad.cancel('Страница выключена');
+    if (cancelSourceCUD) cancelSourceCUD.cancel("Страница выключена")
+  });
   async function LoadData()
   {
-    let response = await StudentResponse.getStudent(route.params.index);
-    studentTypeOfPage.value = response.data;
-    question.value = "Вы уверены, что хотите удалить студента " + studentTypeOfPage.value.lastName + " " + studentTypeOfPage.value.firstName + "?";
+    if(cancelSourceLoad)
+    {
+      cancelSourceLoad.cancel("Запрос отменени из-за нового")
+    }
+    cancelSourceLoad = axios.CancelToken.source();
+    try {
+      let response = await StudentResponse.getStudent(route.params.index, cancelSourceLoad.token);
+      studentTypeOfPage.value = response.data;
+      question.value = "Вы уверены, что хотите удалить студента " + studentTypeOfPage.value.lastName + " " + studentTypeOfPage.value.firstName + "?";
+    }
+    catch(error) {
+      ElMessage.info("Загрузка отмена/произошел сбой")
+    }
+    finally {
+    }
   }
   async function Reset(){
     await LoadData(); 
@@ -212,24 +231,44 @@
     window.history.back();
   }
   async function Delete(){
-    await StudentResponse.deleteStudent(route.params.index);
-    window.history.back();
+    if(cancelSourceCUD)
+    {
+      cancelSourceCUD.cancel("Запрос отменени из-за нового")
+    }
+    cancelSourceCUD = axios.CancelToken.source();
+    try {
+      await StudentResponse.deleteStudent(route.params.index, cancelSourceCUD.token);
+      window.history.back();
+    }
+    catch(error) {
+      ElMessage.info("Отмена удаления/сбой")
+    }
   }
   async function SendNotBack()
   {
-    let student = studentTypeOfPage.value;
-    debugger;
-    let param = route.params;
-    if(route.params.index === 'undefined')
+    if(cancelSourceCUD)
     {
-      let id = await StudentResponse.postStudent(student);
-      router.replace(`${id.data}`);
-      deleteButton.value = true;
+      cancelSourceCUD.cancel("Запрос отменени из-за нового")
     }
-    else
-    {
-      await StudentResponse.putStudent(route.params.index, student);
-      await LoadData(); 
+    cancelSourceCUD = axios.CancelToken.source();
+    try {
+      let student = studentTypeOfPage.value;
+      debugger;
+      let param = route.params;
+      if(route.params.index === 'undefined')
+      {
+        let id = await StudentResponse.postStudent(student, cancelSourceCUD.token);
+        router.replace(`${id.data}`);
+        deleteButton.value = true;
+      }
+      else
+      {
+        await StudentResponse.putStudent(route.params.index, student, cancelSourceCUD.token);
+        await LoadData();
+      }
+    }
+    catch(error) {
+      ElMessage.info("Отмена изменение/Сбой")
     }
   }
   async function SendAndBack()
@@ -238,9 +277,13 @@
     window.history.back();
   }
   async function loadAll(query : string) {
+    if(cancelSourceCUD)
+    {
+      cancelSourceCUD.cancel("Запрос отменени из-за нового")
+    }
+    cancelSourceCUD = axios.CancelToken.source();
     try {
-      const response = await AddressResponse.getSuggest(query);
-      debugger;
+      const response = await AddressResponse.getSuggest(query, cancelSourceCUD.token);
       return response.data.map((item: any) => ({
         value: item.value,
         label: item.value,

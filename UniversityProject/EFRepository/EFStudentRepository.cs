@@ -104,36 +104,36 @@ public class EFStudentRepository : IStudentRepository
         return students;
     }
 
-    public async Task<long> CreateAsync(StudentDtoForPage student)
+    public async Task<long> CreateAsync(StudentDtoForPage student, CancellationToken token)
     {
-        await using var transaction = _db.Database.BeginTransaction();
+        await using var transaction = await _db.Database.BeginTransactionAsync(token);
         var insertDate = ConvertEF.ConvertStudentToInsert(student);
         var studentRow = insertDate.Student;
         studentRow.Passport = insertDate.Passport;
         studentRow.Passport.Address = insertDate.Address;
         _db.Students.Add(studentRow);
-        await _db.SaveChangesAsync();
-        await transaction.CommitAsync();
+        await _db.SaveChangesAsync(token);
+        await transaction.CommitAsync(token);
         return (long)studentRow.StudentId;
     }
 
-    public async Task<long?> UpdateAsync(StudentDtoForPage student)
+    public async Task<long?> UpdateAsync(StudentDtoForPage student, CancellationToken token)
     {
-        await using var transaction = _db.Database.BeginTransaction();
+        await using var transaction = await _db.Database.BeginTransactionAsync(token);
         var insertDate = ConvertEF.ConvertStudentToInsert(student);
         var studentRow = insertDate.Student;
         studentRow.Passport = insertDate.Passport;
         studentRow.Passport.Address = insertDate.Address;
         _db.Students.Update(studentRow);
-        await _db.SaveChangesAsync();
-        await transaction.CommitAsync();
+        await _db.SaveChangesAsync(token);
+        await transaction.CommitAsync(token);
         return studentRow.StudentId;
     }
 
-    public async Task DeleteAsync(long ID)
+    public async Task DeleteAsync(long ID, CancellationToken token)
     {
-        _db.Students.Remove(await _db.Students.FindAsync(ID));
-        await _db.SaveChangesAsync();
+        _db.Students.Remove(await _db.Students.FindAsync(ID, token));
+        await _db.SaveChangesAsync(token);
     }
 
     public async Task DeleteAddressAsync(long ID)
@@ -190,7 +190,7 @@ public class EFStudentRepository : IStudentRepository
         return student;
     }
 
-    public async Task<StudentDtoForPage> GetStudentPageAsync(long studentId)
+    public async Task<StudentDtoForPage> GetStudentPageAsync(long studentId, CancellationToken token)
     {
         var studentPage = await _db.Students
             .Select(s => new StudentDtoForPage()
@@ -216,7 +216,7 @@ public class EFStudentRepository : IStudentRepository
                 serial = Convert.ToString(s.Passport.Serial),
                 number = Convert.ToString(s.Passport.Number),
                 placeReceipt = s.Passport.PlaceReceipt
-            }).Where(s => s.studentId == studentId).FirstOrDefaultAsync();
+            }).Where(s => s.studentId == studentId).FirstOrDefaultAsync(token);
         return studentPage;
     }
 
@@ -266,14 +266,10 @@ public class EFStudentRepository : IStudentRepository
         return (st, countAsync);
     }
 
-    public async Task<long> GetCountAsync()
-    {
-        return await _db.Students.CountAsync();
-    }
 
-    public async Task<Student?> GetStudentForChatIdAsync(string chatId)
+    public async Task<long> GetCountAsync(CancellationToken token)
     {
-        throw new NotImplementedException();
+        return await _db.Students.CountAsync(token);
     }
 
     public async Task<long?> CheckNameAsync(string firstName, string LastName)

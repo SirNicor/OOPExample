@@ -29,7 +29,7 @@ export const StudentResponse =
                 },
                 cancelToken});
         },
-        getStudent(id?: any)
+        getStudent(id?: any, cancelToken?: CancelToken)
         {
             let token = GetCookie("accessJWT");
             if(!userAccessPage().canAccessForAllOperationName("StudentPage", ["Read", "All"]))
@@ -40,9 +40,10 @@ export const StudentResponse =
             return api.get(`Student/${id}`,{
                 headers: {
                     'Authorization': token
-                }});
+                },
+                cancelToken});
         },
-        deleteStudent(id?: any)
+        deleteStudent(id?: any, cancelToken?: CancelToken)
         {
             let token = GetCookie("accessJWT");
             if(!userAccessPage().canAccessForAllOperationName("StudentPage", ["Delete", "All"]))
@@ -53,9 +54,10 @@ export const StudentResponse =
             return api.delete(`Student/${id}`,{
                 headers: {
                     'Authorization': token
-                }});
+                },
+                cancelToken});
         },
-        putStudent(id?: any, student?: any)
+        putStudent(id?: any, student?: any, cancelToken?: CancelToken)
         {
             let token = GetCookie("accessJWT");
             if(!userAccessPage().canAccessForAllOperationName("StudentPage", ["Update", "All"]))
@@ -66,9 +68,10 @@ export const StudentResponse =
             return api.put(`Student/${id}`, student,{
                 headers: {
                     'Authorization': token
-                }});
+                },
+                cancelToken});
         },
-        postStudent(student?: any)
+        postStudent(student?: any, cancelToken?: CancelToken)
         {
             let token = GetCookie("accessJWT");
             if(!userAccessPage().canAccessForAllOperationName("StudentPage", ["Create", "All"]))
@@ -79,6 +82,7 @@ export const StudentResponse =
             return api.post(`Student`, student,{
                 headers: {
                     'Authorization': token
-                }});
+                },
+                cancelToken});
         }
     }

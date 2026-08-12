@@ -48,11 +48,11 @@ public class StudentRepository : IStudentRepository
         myLogger = logger;
     }
 
-    public async Task<long> CreateAsync(StudentDtoForPage student)
+    public async Task<long> CreateAsync(StudentDtoForPage student, CancellationToken token)
     {
         await using var db = new SqlConnection(ConnectionString);
-        await db.OpenAsync();
-        await using var transaction = await db.BeginTransactionAsync();
+        await db.OpenAsync(token);
+        await using var transaction = await db.BeginTransactionAsync(token);
         try
         {
             var sqlQuery = @"
@@ -83,7 +83,7 @@ public class StudentRepository : IStudentRepository
                             @CreditScores)
                             SELECT SCOPE_IDENTITY()";
             student.studentId = await db.QueryFirstOrDefaultAsync<long>(sqlQuery, student, transaction); 
-            await transaction.CommitAsync();
+            await transaction.CommitAsync(token);
             return (long)student.studentId;
         }
         catch(Exception ex)
@@ -150,10 +150,10 @@ public class StudentRepository : IStudentRepository
         return students.FirstOrDefault();
     }
 
-    public async Task<StudentDtoForPage> GetStudentPageAsync(long studentId)
+    public async Task<StudentDtoForPage> GetStudentPageAsync(long studentId, CancellationToken token)
     {
         await using var db = new SqlConnection(ConnectionString);
-        await db.OpenAsync();
+        await db.OpenAsync(token);
         const string SQlQuerySelect = @"
     SELECT 
         s.Id AS studentId,
@@ -270,10 +270,10 @@ public class StudentRepository : IStudentRepository
         return (students, allCount);
     }
 
-    public async Task<long> GetCountAsync()
+    public async Task<long> GetCountAsync(CancellationToken token)
     {
         await using var db = new SqlConnection(ConnectionString);
-        await db.OpenAsync();
+        await db.OpenAsync(token);
         return await db.QueryFirstOrDefaultAsync<long>("SELECT COUNT(*) FROM Student");
     }
 
@@ -306,11 +306,11 @@ public class StudentRepository : IStudentRepository
         long? check = await db.QueryFirstOrDefaultAsync<long?>(SqlQuery, new {  firstName, lastName });
         return check;
     }
-    public async Task<long?> UpdateAsync(StudentDtoForPage student)
+    public async Task<long?> UpdateAsync(StudentDtoForPage student, CancellationToken token)
     {
         await using var db = new SqlConnection(ConnectionString);
-        await db.OpenAsync();
-        await using var transaction = await db.BeginTransactionAsync();
+        await db.OpenAsync(token);
+        await using var transaction = await db.BeginTransactionAsync(token);
         try
         { 
             string sqlQuery = @"UPDATE Address 
@@ -338,7 +338,7 @@ public class StudentRepository : IStudentRepository
                         CreditScores = @creditScores
                     WHERE ID = @studentId";
             await db.ExecuteAsync(sqlQuery, student, transaction);
-            await transaction.CommitAsync();
+            await transaction.CommitAsync(token);
             return student.studentId;
         }
         catch (Exception ex)
@@ -348,10 +348,10 @@ public class StudentRepository : IStudentRepository
         }
     }
 
-    public async Task DeleteAsync(long ID)
+    public async Task DeleteAsync(long ID, CancellationToken token)
     {
         await using var db = new SqlConnection(ConnectionString);
-        await db.OpenAsync();
+        await db.OpenAsync(token);
         var sqlQuery = "DELETE FROM Student where ID = @ID;";
         await db.ExecuteAsync(sqlQuery, new{ID});
     }

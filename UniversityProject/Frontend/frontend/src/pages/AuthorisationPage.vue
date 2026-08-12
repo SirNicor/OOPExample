@@ -46,7 +46,7 @@
 </style>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import {onBeforeUnmount, reactive, ref} from 'vue'
 import type {AuthForm, RegistrationForm} from '@/types/auth.ts'
 import {type FormRules, type FormInstance, ElMessage} from "element-plus"
 import {AuthorizationResponse} from "@/api/Authorization.ts"
@@ -54,9 +54,19 @@ import router from '@/router/index.ts';
 import {GetCookie, SetAllJWTToken, setAuthCookie} from "@/Function/CookiesFunction.ts";
 import {forEach} from "lodash";
 import {userAccessPage} from "@/stores/AccessPage.ts";
+import axios, {CancelTokenSource} from "axios";
 const accessStore = userAccessPage()
+let cancelSource: CancelTokenSource | null = null;
+onBeforeUnmount(() => {
+  if (cancelSource) cancelSource.cancel('Страница выключена');
+});
 async function Send()
 {
+  if(cancelSource)
+  {
+    cancelSource.cancel("Запрос отменени из-за нового")
+  }
+  cancelSource = axios.CancelToken.source();
   if(!formRef.value) return;
   try {
     await formRef.value.validate();
@@ -65,7 +75,7 @@ async function Send()
     return;
   }
   try {
-    let response = await AuthorizationResponse.Login(formData);
+    let response = await AuthorizationResponse.Login(formData, cancelSource.token);
     const accessJWT = response.data.Accessjwt || response.data.accessjwt;
     const refreshJWT = response.data.Refreshjwt || response.data.refreshjwt;
     SetAllJWTToken(accessJWT, refreshJWT);

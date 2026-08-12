@@ -13,16 +13,16 @@ static class StudentRequest
 {
     public static void AddStudentRequest(this IEndpointRouteBuilder app, MyLogger logger, IConfiguration configuration)
     {
-        app.MapGet("/Student/{studentId}", async (long studentId, HttpContext context) =>
+        app.MapGet("/Student/{studentId}", async (long studentId, CancellationToken token, HttpContext context) =>
         {   
             var service = context.RequestServices.GetService<IStudentRepository>();   
-            var student = await service.GetStudentPageAsync(studentId);
+            var student = await service.GetStudentPageAsync(studentId, token);
             return Results.Json(student, statusCode: 200);
         }).RequireAuthorization("Teacher");
-        app.MapGet("/Student/Page/{count}",async (int count, HttpContext context) =>
+        app.MapGet("/Student/Page/{count}",async (int count, CancellationToken token, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IStudentRepository>();
-            var allCount = await service.GetCountAsync();
+            var allCount = await service.GetCountAsync(token);
             var countOfPage = allCount / count +  (allCount % count == 0? 0: 1);
             logger.Info($"student/Page/{count} = > {countOfPage}");
             return Results.Json(countOfPage, statusCode: 200);
@@ -39,27 +39,27 @@ static class StudentRequest
             logger.Info($"student/{page} {count} {firstId} {sortKey} {sortOrder}");
             return Results.Json(new Tuple<List<StudentTableDTO>, long>(studentAndPage.Item1, countOfPage), statusCode: 200);
         }).RequireAuthorization("Teacher");
-        app.MapPost("/Student", async (HttpContext context) =>
+        app.MapPost("/Student", async (CancellationToken token, HttpContext context) =>
         {
             var request = context.Request;
             var service =  context.RequestServices.GetService<IStudentRepository>();
             var student = await request.ReadFromJsonAsync<StudentDtoForPage>();
-            var ID = await service.CreateAsync(student);
+            var ID = await service.CreateAsync(student, token);
             return Results.Json(ID, statusCode: 200);
         }).RequireAuthorization("StudentAdministrator");
-        app.MapPut("/Student/{id}", async (long id, HttpContext context) =>
+        app.MapPut("/Student/{id}", async (long id, CancellationToken token, HttpContext context) =>
         {
             var request = context.Request;
             var service = context.RequestServices.GetService<IStudentRepository>();
             StudentDtoForPage student = await request.ReadFromJsonAsync<StudentDtoForPage>();
             student.studentId = id;
-            var Id = await service.UpdateAsync(student);
+            var Id = await service.UpdateAsync(student, token);
             return Results.Json(Id, statusCode: 200);
         }).RequireAuthorization("StudentAdministrator");
-        app.MapDelete("/Student/{id}", async (long id, HttpContext context) =>
+        app.MapDelete("/Student/{id}", async (long id, CancellationToken token,  HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IStudentRepository>();
-            await service.DeleteAsync(id);
+            await service.DeleteAsync(id, token);
             return Results.Ok();
         }).RequireAuthorization("StudentAdministrator");
     }    
