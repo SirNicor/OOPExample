@@ -4,16 +4,10 @@ namespace Start;
 using UCore;
 using IRepositoryAll;
 
-public class ReturnOneAdministrator
+public class ReturnOneAdministrator(IWorkerAdministratorRepository administratorRepository)
 {
-    private IWorkerAdministratorRepository _administratorRepositoryRepository;
-    public ReturnOneAdministrator(IWorkerAdministratorRepository administratorRepository)
-    {
-        _administratorRepositoryRepository = administratorRepository;   
-    }
-
     public Administrator ReturnAdministrator(int id)
     {
-        return _administratorRepositoryRepository.Get(id);
+        return administratorRepository.Get(id);
     }
 }

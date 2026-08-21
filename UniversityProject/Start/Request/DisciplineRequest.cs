@@ -1,8 +1,8 @@
-﻿namespace Start;
+﻿using IRepositoryAll;
 using Logger;
-using Repository;
 using UCore;
-using IRepositoryAll;
+
+namespace Start.Request;
 
 static class DisciplineRequest
 {
@@ -37,10 +37,11 @@ static class DisciplineRequest
             var id = service.Create(discipline);
             await context.Response.WriteAsJsonAsync(id);
         });
-        app.MapDelete("/Discipline/{id}", async (long id, HttpContext context) =>
+        app.MapDelete("/Discipline/{id}", (long id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IDisciplineRepository>();
             service.Delete(id);
+            return Task.CompletedTask;
         });
     }
 }

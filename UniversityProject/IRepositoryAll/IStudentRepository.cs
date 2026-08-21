@@ -9,13 +9,13 @@ public interface IStudentRepository
     public Task<List<Student>> ReturnListAsync();
     Task<long> CreateAsync(StudentDtoForPage student, CancellationToken token);
     Task<long?> UpdateAsync(StudentDtoForPage student, CancellationToken token);
-    Task DeleteAsync(long ID, CancellationToken token);
-    Task DeleteAddressAsync(long ID);
-    Task DeletePassportAsync(long ID);
-    Task<Student> GetAsync(long ID);
+    Task DeleteAsync(long id, CancellationToken token);
+    Task DeleteAddressAsync(long id);
+    Task DeletePassportAsync(long id);
+    Task<Student> GetAsync(long id);
     Task<StudentDtoForPage> GetStudentPageAsync(long studentId, CancellationToken token);
-    Task<(List<StudentTableDTO>, long)> GetStudentTableDTO(long FirstId, long count, string? SortColumn,
-        string? SortOrder, FilterDto? filter, CancellationToken token);
+    Task<(List<StudentTableDTO>, long)> GetStudentTableDto(long firstId, long count, string? sortColumn,
+        string? sortOrder, FilterDto? filter, CancellationToken token);
     Task<long> GetCountAsync(CancellationToken token);
-    public Task<long?> CheckNameAsync(string firstName, string LastName);
+    public Task<long?> CheckNameAsync(string firstName, string lastName);
 }

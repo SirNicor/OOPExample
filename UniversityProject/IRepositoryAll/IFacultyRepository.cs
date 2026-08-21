@@ -4,10 +4,10 @@ using Logger;
 
 public interface IFacultyRepository
 {
-    public long Create(FacultyDto facutly);
-    public Faculty Get(long Id);
+    public long Create(FacultyDto facutlyDto);
+    public Faculty Get(long id);
     public List<Faculty> ReturnList();
-    public void Delete(long ID);
+    public void Delete(long id);
     public long Update(FacultyDto faculty);
     public long? CheckNameFaculty(string nameFaculty, long universityId);
 }

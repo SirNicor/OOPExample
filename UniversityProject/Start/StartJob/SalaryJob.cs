@@ -5,30 +5,25 @@ using UCore;
 using UJob;
 namespace Start;
 
-public class SalaryJob: CronJobService
+public class SalaryJob(
+    IScheduleConfig<TeacherDoWorkJob> config,
+    ILogger<TeacherDoWorkJob> loggerMain,
+    MyLogger myLogger,
+    IServiceScopeFactory salaryJob)
+    : CronJobService(config.CronExpression, config.TimeZoneInfo, loggerMain)
 {
-
-    public SalaryJob(IScheduleConfig<TeacherDoWorkJob> config, ILogger<TeacherDoWorkJob> loggerMain,
-        MyLogger myLogger, IServiceScopeFactory salaryJob)
-        : base(config.CronExpression, config.TimeZoneInfo, loggerMain)
-    {
-        _loggerMain = loggerMain;
-        _myLogger = myLogger;
-        _serviceScopeFactory = salaryJob;
-    }
-
     public override Task StartAsync(CancellationToken cancellationToken)
     {
-        _loggerMain.LogInformation("CronJob запущен");
-        _myLogger.Info("CronJob запущен");
+        loggerMain.LogInformation("CronJob запущен");
+        myLogger.Info("CronJob запущен");
         return base.StartAsync(cancellationToken);
     }
 
     public override Task DoWork(CancellationToken cancellationToken)
     {
-        _loggerMain.LogInformation($"{DateTime.Now:hh:mm:ss} Выполняется задача");
-        _myLogger.Info($"{DateTime.Now:hh:mm:ss} Выполняется задача");
-        using (var scope = _serviceScopeFactory.CreateScope())
+        loggerMain.LogInformation($"{DateTime.Now:hh:mm:ss} Выполняется задача");
+        myLogger.Info($"{DateTime.Now:hh:mm:ss} Выполняется задача");
+        using (var scope = salaryJob.CreateScope())
         {
             var salaryJob =  scope.ServiceProvider.GetRequiredService<ISalaryJob>();
             salaryJob.DoWorkAsync();
@@ -38,12 +33,8 @@ public class SalaryJob: CronJobService
 
     public override Task StopAsync(CancellationToken cancellationToken)
     {
-        _loggerMain.LogInformation("CronJob остановлен");
-        _myLogger.Info("CronJob остановлен");
+        loggerMain.LogInformation("CronJob остановлен");
+        myLogger.Info("CronJob остановлен");
         return base.StopAsync(cancellationToken);
     }
-    
-    private readonly ILogger<TeacherDoWorkJob> _loggerMain;
-    private readonly MyLogger _myLogger;
-    private  IServiceScopeFactory _serviceScopeFactory;
 }

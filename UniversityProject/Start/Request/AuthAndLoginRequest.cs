@@ -1,16 +1,12 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using Repository;
-using Telegram.Bot.Types;
-using UCore;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.Json;
-using Logger;
 using IRepositoryAll;
+using Logger;
+using Microsoft.IdentityModel.Tokens;
+using UCore;
 
-namespace Start;
+namespace Start.Request;
 
 public static class AuthAndLoginRequest
 {
@@ -25,12 +21,15 @@ public static class AuthAndLoginRequest
             long id = await authRep.CreateAuthorizationAsync(user);
             await ctx.Response.WriteAsJsonAsync(id);
         });
-        app.MapPost("/Login", async (HttpContext ctx, CancellationToken token, AuthorizationForGetJwtToken dto) =>
+        app.MapPost("/Login", async (HttpContext ctx, CancellationToken token) =>
         {
             logger.Info("@/Login");
             var authAndLoginRep = ctx.RequestServices.GetService<IAuthorizationRepository>();
             var roleRep = ctx.RequestServices.GetService<IRoleRepository>();
-            AuthorizationForGetJwtToken? auth = dto;
+            using var reader = new StreamReader(ctx.Request.Body);
+            var json = await reader.ReadToEndAsync(token);
+            var requestData = JsonSerializer.Deserialize<JsonElement>(json);
+            var auth = requestData.GetProperty("authorization").Deserialize<AuthorizationForGetJwtToken>();
             var userIdAndRole = await authAndLoginRep.GetAuthorizationsRoleForIndexAsync(auth);
             var userId = userIdAndRole.Item1;
             var rolesId =  userIdAndRole.Item2;
@@ -75,11 +74,13 @@ public static class AuthAndLoginRequest
             var refreshJwt = new JwtSecurityToken(
                 header: header,
                 payload: jwtPayload);
-            RefreshJWTTokenDTO refreshJwtDto = new RefreshJWTTokenDTO();
-            refreshJwtDto.Token = new JwtSecurityTokenHandler().WriteToken(refreshJwt);
-            refreshJwtDto.RevokedAt = false;
-            refreshJwtDto.IdAuthorizationTable = (long)userId;
-            await authAndLoginRep.CreateJWTTokenAsync(refreshJwtDto);
+            RefreshJWTTokenDTO refreshJwtDto = new RefreshJWTTokenDTO
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(refreshJwt),
+                RevokedAt = false,
+                IdAuthorizationTable = (long)userId
+            };
+            await authAndLoginRep.CreateJwtTokenAsync(refreshJwtDto);
             return Results.Ok(new
             {
                 Accessjwt = new JwtSecurityTokenHandler().WriteToken(accessJwt),
@@ -94,7 +95,7 @@ public static class AuthAndLoginRequest
             request.Headers.TryGetValue("authorization", out var token);
             var authAndLoginRep = ctx.RequestServices.GetService<IAuthorizationRepository>();
             var x = token.ToString();
-            var ver = await authAndLoginRep.CheckAndUpdateJWTTokenAsync(x);
+            var ver = await authAndLoginRep.CheckAndUpdateJwtTokenAsync(x);
             if (ver is null)
             {
                 return Results.Unauthorized();
@@ -126,20 +127,19 @@ public static class AuthAndLoginRequest
             var refreshJwt = new JwtSecurityToken(
                 header: header,
                 payload: jwtPayload);
-            RefreshJWTTokenDTO refreshJwtDto = new RefreshJWTTokenDTO();
-            refreshJwtDto.Token = new JwtSecurityTokenHandler().WriteToken(refreshJwt);
-            refreshJwtDto.RevokedAt = false;
-            refreshJwtDto.IdAuthorizationTable = (long)auth.Id;
-            await authAndLoginRep.CreateJWTTokenAsync(refreshJwtDto);
+            RefreshJWTTokenDTO refreshJwtDto = new RefreshJWTTokenDTO
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(refreshJwt),
+                RevokedAt = false,
+                IdAuthorizationTable = (long)auth.Id
+            };
+            await authAndLoginRep.CreateJwtTokenAsync(refreshJwtDto);
             return Results.Ok(new
             {
                 Accessjwt = new JwtSecurityTokenHandler().WriteToken(accessJwt),
                 Refreshjwt = new JwtSecurityTokenHandler().WriteToken(refreshJwt)
             });
         });
-        app.MapGet("/CheckAccessToken", async (HttpContext ctx) =>
-        {
-            return Results.Ok();
-        });
+        app.MapGet("/CheckAccessToken", (HttpContext ctx) => Task.FromResult(Results.Ok()));
     }
 }

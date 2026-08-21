@@ -9,8 +9,8 @@ namespace IRepositoryAll
 {
     public interface IUserStateTelegramRepository
     {
-        public UserStateRegistration? Get(long Id);
-        public void Delete(long Id);
+        public UserStateRegistration? Get(long id);
+        public void Delete(long id);
         public long Update(UserStateRegistration registration);
         public long Create(UserStateRegistration registration);
     }

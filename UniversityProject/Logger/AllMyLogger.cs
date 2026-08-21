@@ -1,14 +1,7 @@
 ﻿namespace Logger;
 
-public class AllMyLogger:MyLogger
+public class AllMyLogger(MyLogger[] loggers) : MyLogger
 {
-    private readonly MyLogger[] _loggers;
-
-    public AllMyLogger(MyLogger[] loggers)
-    {
-        _loggers = loggers;
-    }
-
     protected override void Log(LevelLoger levelLoger, string message)
     {
         Log(levelLoger, message, null);
@@ -16,24 +9,24 @@ public class AllMyLogger:MyLogger
 
     protected override void Log(LevelLoger levelLoger, string message, Exception exception)
     {
-        foreach (var loggers in _loggers)
+        foreach (var loggers1 in loggers)
         {
             switch (levelLoger)
             {
                 case LevelLoger.DEBUG:
-                    loggers.Debug(message);
+                    loggers1.Debug(message);
                     break;
                 case LevelLoger.INFO:
-                    loggers.Info(message);
+                    loggers1.Info(message);
                     break;
                 case LevelLoger.WARNING:
-                    loggers.Warning(message);
+                    loggers1.Warning(message);
                     break;
                 case LevelLoger.ERROR:
-                    loggers.Error(message);
+                    loggers1.Error(message);
                     break;
                 case LevelLoger.FATAL:
-                    loggers.Fatal(message);
+                    loggers1.Fatal(message);
                     break;
             }
         }

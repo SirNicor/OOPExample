@@ -1,8 +1,8 @@
-﻿using Logger;
-namespace Start;
-using Repository;
+﻿using IRepositoryAll;
+using Logger;
 using UCore;
-using IRepositoryAll;
+
+namespace Start.Request;
 
 static class AdministratorRequest
 {
@@ -38,10 +38,11 @@ static class AdministratorRequest
             id = service.Update(administrator);
             await context.Response.WriteAsJsonAsync(id);
         });
-        app.MapDelete("/Administrator/{id}", async (long id, HttpContext context) =>
+        app.MapDelete("/Administrator/{id}", (long id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IWorkerAdministratorRepository>();
             service.Delete(id);
+            return Task.CompletedTask;
         });
     }
 }

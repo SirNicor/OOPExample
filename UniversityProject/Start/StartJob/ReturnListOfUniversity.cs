@@ -3,16 +3,10 @@ using Repository;
 using UCore;
 using IRepositoryAll;
 
-public class ReturnListOfUniversity
+public class ReturnListOfUniversity(IUniversityRepository universityRepository)
 {
-    private IUniversityRepository _universityRepositoryRepository;
-    public ReturnListOfUniversity(IUniversityRepository universityRepository)
-    {
-        _universityRepositoryRepository = universityRepository;   
-    }
-
     public List<University> ReturnList()
     {
-        return _universityRepositoryRepository.ReturnList();
+        return universityRepository.ReturnList();
     }
 }

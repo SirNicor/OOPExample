@@ -1,8 +1,7 @@
-﻿namespace Start;
-using Repository;
-using UCore;
+﻿using IRepositoryAll;
 using Logger;
-using IRepositoryAll;
+
+namespace Start.Request;
 
 static class PassportRequest
 {

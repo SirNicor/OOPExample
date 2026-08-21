@@ -1,9 +1,7 @@
-﻿namespace Start;
-using Repository;
-using UCore;
+﻿using IRepositoryAll;
 using Logger;
-using Dadata.Model;
-using IRepositoryAll;
+
+namespace Start.Request;
 
 static class AddressRequest
 {
@@ -18,7 +16,7 @@ static class AddressRequest
         {
             var suggest = FunctionForRequest.SuggestAddress(address, config, token).Result;
             logger.Info($"Suggest {suggest.suggestions}");
-            await context.Response.WriteAsJsonAsync(suggest.suggestions);
+            await context.Response.WriteAsJsonAsync(suggest.suggestions, cancellationToken: token);
         });
         app.MapGet("/Address/Clean/{address}", async (string address, HttpContext context) =>
         {

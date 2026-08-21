@@ -1,8 +1,8 @@
-﻿namespace Start;
-using Repository;
-using UCore;
+﻿using IRepositoryAll;
 using Logger;
-using IRepositoryAll;
+using UCore;
+
+namespace Start.Request;
 
 static class RegisterRequest
 {
@@ -13,8 +13,8 @@ static class RegisterRequest
             var request = context.Request;
             var service = context.RequestServices.GetService<IRegistrationRepository>();
             RegistrationDTO registration = await request.ReadFromJsonAsync<RegistrationDTO>();
-            var ID = service.Create(registration);
-            await context.Response.WriteAsJsonAsync(ID);
+            var id = service.Create(registration);
+            await context.Response.WriteAsJsonAsync(id);
         });
     }
 }

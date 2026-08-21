@@ -8,7 +8,7 @@ public interface IWorkerTeacherRepository
     public long Create(Teacher teacher);
     public List<Teacher> ReturnList();
     Teacher Get(long id);
-    public void Delete(long Id);
+    public void Delete(long id);
     public long Update(Teacher teacher);
     
 }

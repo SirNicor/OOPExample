@@ -1,8 +1,8 @@
-﻿using Logger;
-using Repository;
+﻿using IRepositoryAll;
+using Logger;
 using UCore;
-using IRepositoryAll;
-namespace Start;
+
+namespace Start.Request;
 static class ScheduleRequest
 {
     public static void AddScheduleRequest(this IEndpointRouteBuilder app, MyLogger logger)
@@ -26,8 +26,8 @@ static class ScheduleRequest
             var request = context.Request;
             var service = context.RequestServices.GetService<IScheduleRepository>();
             ScheduleDto schedule = await request.ReadFromJsonAsync<ScheduleDto>();
-            var ID = service.Create(schedule);
-            await context.Response.WriteAsJsonAsync(ID);
+            var id = service.Create(schedule);
+            await context.Response.WriteAsJsonAsync(id);
         });
         app.MapPut("/Schedule/{id}", async (long id, HttpContext context) =>
         {
@@ -35,13 +35,13 @@ static class ScheduleRequest
             var service = context.RequestServices.GetService<IScheduleRepository>();
             ScheduleDto schedule = await request.ReadFromJsonAsync<ScheduleDto>();
             schedule.Id = id;
-            var Id = service.Update(schedule);
-            await context.Response.WriteAsJsonAsync(Id);
+            var updateId = service.Update(schedule);
+            await context.Response.WriteAsJsonAsync(updateId);
         });
-        app.MapDelete("/Schedule/{id}", async (long id, HttpContext context) =>
+        app.MapDelete("/Schedule/{id}", async (long id, CancellationToken token,  HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IStudentRepository>();
-            await service.DeleteAsync(id);
+            await service.DeleteAsync(id, token);
         });
     }
 }

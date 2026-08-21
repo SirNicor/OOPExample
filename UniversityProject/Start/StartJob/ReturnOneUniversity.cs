@@ -5,16 +5,10 @@ using Repository;
 using Logger;
 using IRepositoryAll;
 
-public class ReturnOneUniversity
+public class ReturnOneUniversity(IUniversityRepository universityRepository)
 {
-    private IUniversityRepository _universityRepositoryRepository;
-    public ReturnOneUniversity(IUniversityRepository universityRepository)
-    {
-        _universityRepositoryRepository = universityRepository;   
-    }
-
     public University ReturnUniversity(int id)
     {
-        return _universityRepositoryRepository.Get(id);
+        return universityRepository.Get(id);
     }
 }

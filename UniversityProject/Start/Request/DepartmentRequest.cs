@@ -1,8 +1,8 @@
-﻿namespace Start;
+﻿using IRepositoryAll;
 using Logger;
-using Repository;
 using UCore;
-using IRepositoryAll;
+
+namespace Start.Request;
 
 static class DepartmentRequest
 {
@@ -26,21 +26,22 @@ static class DepartmentRequest
             var service =  context.RequestServices.GetService<IDepartmentRepository>();
             DepartmentDto department = await request.ReadFromJsonAsync<DepartmentDto>();
             department.DepartmentId = id;
-            var ID = service.Update(department);
-            await context.Response.WriteAsJsonAsync(ID);
+            var idUpdate = service.Update(department);
+            await context.Response.WriteAsJsonAsync(idUpdate);
         });
         app.MapPost("/Department", async context =>
         {
             var request = context.Request;
             var service =  context.RequestServices.GetService<IDepartmentRepository>();
             DepartmentDto department = await request.ReadFromJsonAsync<DepartmentDto>();
-            var ID = service.Create(department);
-            await context.Response.WriteAsJsonAsync(ID);
+            var id = service.Create(department);
+            await context.Response.WriteAsJsonAsync(id);
         });
-        app.MapDelete("/Department/{id}", async (long id, HttpContext context) =>
+        app.MapDelete("/Department/{id}", (long id, HttpContext context) =>
         {
             var service = context.RequestServices.GetService<IDepartmentRepository>();
             service.Delete(id);
+            return Task.CompletedTask;
         });
     }
 }

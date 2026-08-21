@@ -1,9 +1,10 @@
-﻿namespace Start;
+﻿using IRepositoryAll;
 using Logger;
-using Repository;
 using UCore;
-using IRepositoryAll;
-static public class UniversityRequest
+
+namespace Start.Request;
+
+public static class UniversityRequest
 {
     public static void AddUniversityRequest(this IEndpointRouteBuilder app, MyLogger logger)
     {
@@ -25,16 +26,16 @@ static public class UniversityRequest
             var service =  context.RequestServices.GetService<IUniversityRepository>();
             UniversityDto university = await request.ReadFromJsonAsync<UniversityDto>();
             university.IdUniversity = id;
-            var ID = service.Update(university);
-            await context.Response.WriteAsJsonAsync(ID);
+            var idUpdate = service.Update(university);
+            await context.Response.WriteAsJsonAsync(idUpdate);
         });
         app.MapPost("/University", async context =>
         {
             var request = context.Request;
             var service =  context.RequestServices.GetService<IUniversityRepository>();
             UniversityDto university = await request.ReadFromJsonAsync<UniversityDto>();
-            var ID = service.Create(university);
-            await context.Response.WriteAsJsonAsync(ID);
+            var id = service.Create(university);
+            await context.Response.WriteAsJsonAsync(id);
         });
         app.MapDelete("/University/{id}", async (long id, HttpContext context) =>
         {

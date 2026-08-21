@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EFRepository.EntityClass;
 using Microsoft.EntityFrameworkCore;
 using UCore;
 

@@ -11,19 +11,16 @@ using IRepositoryAll;
 
 namespace Repository
 {
-    public class UserStateTelegramRepository : IUserStateTelegramRepository
+    public class UserStateTelegramRepository(IGetConnectionString getConnectionString) : IUserStateTelegramRepository
     {
-        private const string _sqlQuery = @"SELECT us.Id as ChatId, us.ListUserStateId, LUS.UserStatus AS UserState, 
+        private const string SqlQuery = @"SELECT us.Id as ChatId, us.ListUserStateId, LUS.UserStatus AS UserState, 
 us.UniversityId, us.FacultyId, us.DepartmentId, us.DirectionId,
 us.StudentId, us.LastName AS StudentLastName, us.FirstName AS StudentFirstName, us.RequestType
 FROM UserStateTelegram us
 JOIN ListUserStateTelegram LUS ON LUS.Id = us.ListUserStateId
 WHERE us.Id = @Id";
-        private string _connectionString;
-        public UserStateTelegramRepository(IGetConnectionString getConnectionString)
-        {
-            _connectionString = getConnectionString.ReturnConnectionString();
-        }
+        private readonly string _connectionString = getConnectionString.ReturnConnectionString();
+
         public long Create(UserStateRegistration registration)
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
@@ -62,7 +59,7 @@ WHERE us.Id = @Id";
             using(IDbConnection db = new SqlConnection(_connectionString))
             {
                 db.Open();
-                var UserState = db.Query<UserStateRegistration>(_sqlQuery, new { Id }).FirstOrDefault();
+                var UserState = db.Query<UserStateRegistration>(SqlQuery, new { Id }).FirstOrDefault();
                 return UserState;
             }
         }

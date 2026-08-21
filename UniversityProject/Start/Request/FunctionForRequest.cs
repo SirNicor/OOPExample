@@ -1,16 +1,13 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using UCore;
+﻿using System.Text;
 using Dadata;
 using Dadata.Model;
-using Microsoft.IdentityModel.Tokens;
 using Address = Dadata.Model.Address;
 
-namespace Start;
+namespace Start.Request;
 
 public static class FunctionForRequest
 {
-    public static StringBuilder PathReturn(string sortKey, Type typeOfClass, StringBuilder path = null)
+    public static StringBuilder PathReturn(string sortKey, Type typeOfClass, StringBuilder? path = null)
     {
         if (path == null)
         {

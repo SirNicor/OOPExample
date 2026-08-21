@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UCore;
 
-namespace EFRepository;
+namespace EFRepository.EntityClass;
 
 public static class EntityForMillitaryClass
 {

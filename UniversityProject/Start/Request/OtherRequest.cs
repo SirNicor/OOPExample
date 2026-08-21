@@ -1,5 +1,6 @@
-﻿namespace Start;
-using Logger;
+﻿using Logger;
+
+namespace Start.Request;
 
 static class OtherRequest
 {

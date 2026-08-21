@@ -1,8 +1,7 @@
-﻿namespace Start;
+﻿using IRepositoryAll;
 using Logger;
-using Repository;
-using UCore;
-using IRepositoryAll;
+
+namespace Start.Request;
 
 static class DirectionRequest
 {

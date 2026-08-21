@@ -1,5 +1,4 @@
-﻿
-namespace Repository;
+﻿namespace Repository;
 using UCore;
 using Logger;
 using Dapper;
@@ -7,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using static Dapper.SqlBuilder;
 using IRepositoryAll;
-public class StudentRepository : IStudentRepository
+public class StudentRepository(IGetConnectionString getConnectionString, MyLogger logger) : IStudentRepository
 {
     const string SQlQuerySelect = @"
     SELECT 
@@ -35,22 +34,11 @@ public class StudentRepository : IStudentRepository
     INNER JOIN Address a ON p.AddressId = a.ID
     INNER JOIN DegreesStudy ds ON s.CourseId = ds.ID
     INNER JOIN IdMilitary im ON s.MilitaryId = im.ID";
-    
-    public StudentRepository(IGetConnectionString getConnectionString, MyLogger logger)
-    {
-        ConnectionString = getConnectionString.ReturnConnectionString();
-        myLogger = logger;
-    }
-
-    public StudentRepository(string connectionString, MyLogger logger)
-    {
-        ConnectionString = connectionString;
-        myLogger = logger;
-    }
+    readonly string _connectionString = getConnectionString.ReturnConnectionString();
 
     public async Task<long> CreateAsync(StudentDtoForPage student, CancellationToken token)
     {
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync(token);
         await using var transaction = await db.BeginTransactionAsync(token);
         try
@@ -88,17 +76,16 @@ public class StudentRepository : IStudentRepository
         }
         catch(Exception ex)
         {
-            myLogger.Error("An error occured during transaction" + ex.Message);
+            logger.Error("An error occured during transaction" + ex.Message);
             throw;
         }
     }
 
     public async Task PrintAllAsync()
     {
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync();
-        var sqlQuery = SQlQuerySelect;
-        List<Student> students = (await db.QueryAsync<Student, Passport, Address, MillitaryClass, Student>(sqlQuery,
+        List<Student> students = (await db.QueryAsync<Student, Passport, Address, MillitaryClass, Student>(SQlQuerySelect,
             (student, passport, address, millitaryClass) =>
             {
                 passport.Address = address;
@@ -110,16 +97,15 @@ public class StudentRepository : IStudentRepository
         )).AsList();
         foreach (var student in students)
         {
-            student.PrintInfo(myLogger);
+            student.PrintInfo(logger);
         }
     }
 
     public async Task<List<Student>> ReturnListAsync()
     {
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync();
-        var sqlQuery = SQlQuerySelect;
-        return (await db.QueryAsync<Student, Passport, Address, MillitaryClass, Student>(sqlQuery,
+        return (await db.QueryAsync<Student, Passport, Address, MillitaryClass, Student>(SQlQuerySelect,
                 (student, passport, address, millitaryClass) =>
                 {
                     passport.Address = address;
@@ -133,7 +119,7 @@ public class StudentRepository : IStudentRepository
     
     public async Task<Student> GetAsync(long id)
     {
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync();
         var sqlQuery = SQlQuerySelect + " WHERE s.ID = @id";
         var students = await db.QueryAsync<Student, Passport, Address, MillitaryClass, Student>(sqlQuery,
@@ -152,9 +138,9 @@ public class StudentRepository : IStudentRepository
 
     public async Task<StudentDtoForPage> GetStudentPageAsync(long studentId, CancellationToken token)
     {
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync(token);
-        const string SQlQuerySelect = @"
+        const string sqlQuerySelect = @"
     SELECT 
         s.Id AS studentId,
         s.SkipHours,
@@ -184,10 +170,10 @@ public class StudentRepository : IStudentRepository
     INNER JOIN DegreesStudy ds ON s.CourseId = ds.ID
     INNER JOIN IdMilitary im ON s.MilitaryId = im.ID
     WHERE s.Id = @studentId;";
-        return await db.QueryFirstOrDefaultAsync<StudentDtoForPage>(SQlQuerySelect, new {studentId});
+        return await db.QueryFirstOrDefaultAsync<StudentDtoForPage>(sqlQuerySelect, new {studentId});
     }
 
-    public async Task<(List<StudentTableDTO>, long)> GetStudentTableDTO(long FirstId, long countOfRow, string? SortColumn, string? SortOrder, 
+    public async Task<(List<StudentTableDTO>, long)> GetStudentTableDto(long FirstId, long countOfRow, string? SortColumn, string? SortOrder, 
         FilterDto? filter, CancellationToken token)
     {
         var builder = new SqlBuilder();
@@ -195,10 +181,10 @@ public class StudentRepository : IStudentRepository
         SortColumn = SortColumn ?? "s.Id";
         SortOrder = SortOrder == "null"? "ASC" : SortOrder;
         SortColumn = SortColumn == "null" ? "s.Id" : SortColumn;
-        myLogger.Info($"GetStudentTableDto: FirstId:{FirstId},  count:{countOfRow}, sortColumn:{SortColumn}, sortOrder:{SortOrder}," +
+        logger.Info($"GetStudentTableDto: FirstId:{FirstId},  count:{countOfRow}, sortColumn:{SortColumn}, sortOrder:{SortOrder}," +
                       $"filterCourse:{filter.FilterCourse}, BitrhDay: {filter.FilterDate[0]} {filter.FilterDate[1]}," +
                       $"filterSkipHours: {filter.FilterSkipHoursStart} {filter.FilterSkipHoursEnd}, filtertotalScore: {filter.FilterTotalScore}");
-        string Sql = $@"SELECT 
+        string sql = $@"SELECT 
         s.Id AS studentId,
         s.SkipHours,
         s.CountOfExamsPassed, 
@@ -225,13 +211,13 @@ public class StudentRepository : IStudentRepository
     /**where**/
     ORDER BY {SortColumn} {SortOrder}
     OFFSET @FirstId ROWS FETCH NEXT @countOfRow ROWS ONLY";
-        var template = builder.AddTemplate(Sql, new
+        var template = builder.AddTemplate(sql, new
         {
             FirstId, countOfRow, FilterBirthDayStart = filter.FilterDate[0], filter.FilterCourse,
             filter.FilterSkipHoursStart, filter.FilterSkipHoursEnd, filter.FilterTotalScore,
             FilterBirthDayEnd = filter.FilterDate[1]
         });
-        Sql = $@"SELECT COUNT(*)
+        sql = $@"SELECT COUNT(*)
     FROM Student s
     INNER JOIN Passport p ON s.PassportId = p.ID
     INNER JOIN Address a ON p.AddressId = a.ID
@@ -258,10 +244,10 @@ public class StudentRepository : IStudentRepository
         {
             
         }
-        var templateOfPage = builder.AddTemplate(Sql, new { FirstId, countOfRow, FilterBirthDayStart = filter.FilterDate[0], filter.FilterCourse,
+        var templateOfPage = builder.AddTemplate(sql, new { FirstId, countOfRow, FilterBirthDayStart = filter.FilterDate[0], filter.FilterCourse,
             filter.FilterSkipHoursStart, filter.FilterSkipHoursEnd, filter.FilterTotalScore,
             FilterBirthDayEnd = filter.FilterDate[1]});
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync(token);
         var students = (await db.QueryAsync<StudentTableDTO>(template.RawSql, template.Parameters)).AsList();
         token.ThrowIfCancellationRequested();
@@ -272,14 +258,14 @@ public class StudentRepository : IStudentRepository
 
     public async Task<long> GetCountAsync(CancellationToken token)
     {
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync(token);
         return await db.QueryFirstOrDefaultAsync<long>("SELECT COUNT(*) FROM Student");
     }
 
     public async Task<Student?> GetStudentForChatIdAsync(string chatId)
     {
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync();
         var sqlQuery = SQlQuerySelect + " WHERE s.ChatId = @chatId";
         var student = await db.QueryAsync<Student, Passport, Address, MillitaryClass, Student>(sqlQuery,
@@ -298,17 +284,17 @@ public class StudentRepository : IStudentRepository
 
     public async Task<long?> CheckNameAsync(string firstName, string lastName)
     {
-        string SqlQuery = @"SELECT s.ID FROM Student S 
+        string sqlQuery = @"SELECT s.ID FROM Student S 
     INNER JOIN Passport p ON s.PassportId = p.ID
     WHERE p.FirstName = @firstName AND p.LastName = @lastName";
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync();
-        long? check = await db.QueryFirstOrDefaultAsync<long?>(SqlQuery, new {  firstName, lastName });
+        long? check = await db.QueryFirstOrDefaultAsync<long?>(sqlQuery, new {  firstName, lastName });
         return check;
     }
     public async Task<long?> UpdateAsync(StudentDtoForPage student, CancellationToken token)
     {
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync(token);
         await using var transaction = await db.BeginTransactionAsync(token);
         try
@@ -343,14 +329,14 @@ public class StudentRepository : IStudentRepository
         }
         catch (Exception ex)
         {
-            myLogger.Error("An error occured during transaction" + ex.Message);
+            logger.Error("An error occured during transaction" + ex.Message);
             throw;
         }
     }
 
     public async Task DeleteAsync(long ID, CancellationToken token)
     {
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync(token);
         var sqlQuery = "DELETE FROM Student where ID = @ID;";
         await db.ExecuteAsync(sqlQuery, new{ID});
@@ -358,7 +344,7 @@ public class StudentRepository : IStudentRepository
     
     public async Task DeleteAddressAsync(long ID)
     {
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync();
         var sqlQuery = "DELETE FROM Address where ID = @ID;";
         await db.ExecuteAsync(sqlQuery, new{ID});
@@ -366,12 +352,10 @@ public class StudentRepository : IStudentRepository
     
     public async Task DeletePassportAsync(long ID)
     {
-        await using var db = new SqlConnection(ConnectionString);
+        await using var db = new SqlConnection(_connectionString);
         await db.OpenAsync();
         var sqlQuery = "DELETE FROM Passport where ID = @ID;";
         await db.ExecuteAsync(sqlQuery, new{ID});
     }
     
-    readonly string ConnectionString = null;
-    readonly MyLogger myLogger;
 }

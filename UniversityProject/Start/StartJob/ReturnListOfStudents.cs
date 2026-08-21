@@ -7,16 +7,10 @@ using IRepositoryAll;
 
 namespace Start;
 
-public class ReturnListOfStudents 
+public class ReturnListOfStudents(IStudentRepository studentRepository)
 {
-    private IStudentRepository _studentRepository;
-    public ReturnListOfStudents(IStudentRepository studentRepository)
-    {
-        _studentRepository = studentRepository;   
-    }
-
     public async Task<List<Student>> ReturnListAsync()
     {
-        return await _studentRepository.ReturnListAsync();
+        return await studentRepository.ReturnListAsync();
     }
 }

@@ -1,12 +1,14 @@
 ﻿using ApiTelegramBot;
 using EFRepository;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Profiling;
 
 namespace Start;
 using Repository;
 using Logger;
 using UJob;
 using IRepositoryAll;
+using static MiniProfiler;
 
 public static class AddedInfrastructureServices
 {
@@ -17,7 +19,7 @@ public static class AddedInfrastructureServices
         services.AddTransient<IGetConnectionString, GetConnectionString>();
         services.AddScoped<IScheduleUpdate, ScheduleUpdate>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-        services.AddScoped<IStudentRepository, EFStudentRepository>();
+        services.AddScoped<IStudentRepository, StudentRepository>();
         services.AddScoped<IDirectionRepository, DirectionRepository>();
         services.AddScoped<IDisciplineRepository,  DisciplineRepository>();
         services.AddScoped<IFacultyRepository, FacultyRepository>();

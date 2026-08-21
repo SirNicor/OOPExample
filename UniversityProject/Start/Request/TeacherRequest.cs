@@ -1,8 +1,8 @@
-﻿namespace Start;
-using Repository;
-using UCore;
-using IRepositoryAll;
+﻿using IRepositoryAll;
 using Logger;
+using UCore;
+
+namespace Start.Request;
 
 static class TeacherRequest
 {

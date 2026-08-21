@@ -46,7 +46,8 @@ public class ConfigurationLogger
                 logger.MinLog = LevelLoger.FATAL;
                 break;
         }
-        
+
+        logger.ExplainLog = _configuration.GetValue<bool>("Logging:ExplainLogger");
         return logger;
     }
 

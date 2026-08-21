@@ -8,19 +8,8 @@ using Telegram.Bot.Types;
 
 namespace Start.Middleware;
 
-public class AuthenticationMiddleware
+public class AuthenticationMiddleware(RequestDelegate next, IConfiguration configuration, MyLogger logger)
 {
-    readonly RequestDelegate _next;
-    readonly IConfiguration _configuration;
-    readonly MyLogger _logger;
-
-    public AuthenticationMiddleware(RequestDelegate next, IConfiguration configuration,  MyLogger logger)
-    {
-        _next = next;
-        _configuration = configuration;
-        _logger = logger;
-    }
-
     public async Task InvokeAsync(HttpContext context)
     {
         var path = context.Request.Path.ToString();
@@ -36,21 +25,21 @@ public class AuthenticationMiddleware
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Convert.FromBase64String(_configuration["Auth:Key"]);
+                var key = Convert.FromBase64String(configuration["Auth:Key"]);
                 var claimsPrincipal = tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = true,
-                    ValidAudience = _configuration["Auth:AUDIENCE"],
+                    ValidAudience = configuration["Auth:AUDIENCE"],
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
                 context.User = claimsPrincipal;
                 foreach (var x in claimsPrincipal.Claims)
                 {
-                    _logger.Info($"Claims - {x.Type};  {x.Value}");
+                    logger.Info($"Claims - {x.Type};  {x.Value}");
                 }
             }
             catch (SecurityTokenExpiredException)
@@ -69,7 +58,7 @@ public class AuthenticationMiddleware
                 return;
             }
         }
-        await _next(context);
+        await next(context);
     }
 
     public static async Task SendBadRequest(HttpContext context, int statusCode, string message)

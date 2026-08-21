@@ -6,6 +6,7 @@ using System.Text.Json;
 public abstract class MyLogger:IMyLogger
 {
     public LevelLoger MinLog { get; set; }
+    public bool ExplainLog { get; set; }
     protected DateTime CurrentTime;
     protected abstract void Log(LevelLoger levelLoger,  string message);
     protected abstract void Log(LevelLoger levelLoger, string message, Exception exception);

@@ -21,7 +21,6 @@
         const config = error.config;
         const data = error.response?.data;
         if (status === 401) {
-            debugger;
             const url = config.url?.toLowerCase() || '';
             if (url.includes("/login")) {
                 return Promise.reject(error);

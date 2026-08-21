@@ -8,20 +8,11 @@ using Ucore;
 
 namespace EFRepository;
 
-public class EFStudentRepository : IStudentRepository
+public class EfStudentRepository(MyLogger logger, UniversityDbContext db) : IStudentRepository
 {
-    private readonly MyLogger _logger;
-    private readonly UniversityDbContext _db;
-
-    public EFStudentRepository(MyLogger logger, UniversityDbContext db)
-    {
-        _logger = logger;
-        _db = db;
-    }
-    
     public async Task PrintAllAsync()
     {
-        var students = await(_db.Students
+        var students = await(db.Students
             .Select(s => new Student()
             {
                 Passport = new Passport()
@@ -59,13 +50,13 @@ public class EFStudentRepository : IStudentRepository
             }).ToListAsync());
         foreach (var st in students)
         {
-            st.PrintInfo(_logger);
+            st.PrintInfo(logger);
         }
     }
 
     public async Task<List<Student>> ReturnListAsync()
     {
-        var students = await(_db.Students
+        var students = await(db.Students
             .Select(s => new Student()
             {
                 Passport = new Passport()
@@ -106,52 +97,52 @@ public class EFStudentRepository : IStudentRepository
 
     public async Task<long> CreateAsync(StudentDtoForPage student, CancellationToken token)
     {
-        await using var transaction = await _db.Database.BeginTransactionAsync(token);
+        await using var transaction = await db.Database.BeginTransactionAsync(token);
         var insertDate = ConvertEF.ConvertStudentToInsert(student);
         var studentRow = insertDate.Student;
         studentRow.Passport = insertDate.Passport;
         studentRow.Passport.Address = insertDate.Address;
-        _db.Students.Add(studentRow);
-        await _db.SaveChangesAsync(token);
+        db.Students.Add(studentRow);
+        await db.SaveChangesAsync(token);
         await transaction.CommitAsync(token);
         return (long)studentRow.StudentId;
     }
 
     public async Task<long?> UpdateAsync(StudentDtoForPage student, CancellationToken token)
     {
-        await using var transaction = await _db.Database.BeginTransactionAsync(token);
+        await using var transaction = await db.Database.BeginTransactionAsync(token);
         var insertDate = ConvertEF.ConvertStudentToInsert(student);
         var studentRow = insertDate.Student;
         studentRow.Passport = insertDate.Passport;
         studentRow.Passport.Address = insertDate.Address;
-        _db.Students.Update(studentRow);
-        await _db.SaveChangesAsync(token);
+        db.Students.Update(studentRow);
+        await db.SaveChangesAsync(token);
         await transaction.CommitAsync(token);
         return studentRow.StudentId;
     }
 
-    public async Task DeleteAsync(long ID, CancellationToken token)
+    public async Task DeleteAsync(long id, CancellationToken token)
     {
-        _db.Students.Remove(await _db.Students.FindAsync(ID, token));
-        await _db.SaveChangesAsync(token);
+        db.Students.Remove(await db.Students.FindAsync(id, token));
+        await db.SaveChangesAsync(token);
     }
 
-    public async Task DeleteAddressAsync(long ID)
+    public async Task DeleteAddressAsync(long id)
     {
-        _db.Addresses.Remove(await _db.Addresses.FindAsync(ID));
-        await _db.SaveChangesAsync();
+        db.Addresses.Remove(await db.Addresses.FindAsync(id));
+        await db.SaveChangesAsync();
     }
 
-    public async Task DeletePassportAsync(long ID)
+    public async Task DeletePassportAsync(long id)
     {
-        _db.Passports.Remove(await _db.Passports.FindAsync(ID));
-        await _db.SaveChangesAsync();
+        db.Passports.Remove(await db.Passports.FindAsync(id));
+        await db.SaveChangesAsync();
     }
 
-    public async Task<Student> GetAsync(long ID)
+    public async Task<Student> GetAsync(long id)
     {
-        var student = await(_db.Students
-            .Where(s => s.StudentId == ID)
+        var student = await(db.Students
+            .Where(s => s.StudentId == id)
             .Select(s => new Student()
             {
                 Passport = new Passport()
@@ -192,7 +183,7 @@ public class EFStudentRepository : IStudentRepository
 
     public async Task<StudentDtoForPage> GetStudentPageAsync(long studentId, CancellationToken token)
     {
-        var studentPage = await _db.Students
+        var studentPage = await db.Students
             .Select(s => new StudentDtoForPage()
             {
                 studentId = s.Id,
@@ -220,11 +211,11 @@ public class EFStudentRepository : IStudentRepository
         return studentPage;
     }
 
-    public async Task<(List<StudentTableDTO>, long)> GetStudentTableDTO(long FirstId, long count, string? SortColumn, string? SortOrder, FilterDto? filter, CancellationToken token)
+    public async Task<(List<StudentTableDTO>, long)> GetStudentTableDto(long firstId, long count, string? sortColumn, string? sortOrder, FilterDto? filter, CancellationToken token)
     {
-        SortOrder = SortOrder == "null"? "ASC" : SortOrder;
-        SortColumn = SortColumn == "null" ? "Id" : SortColumn;
-        IQueryable<Student> queryable = _db.Students.AsNoTracking();
+        sortOrder = sortOrder == "null"? "ASC" : sortOrder;
+        sortColumn = sortColumn == "null" ? "Id" : sortColumn;
+        IQueryable<Student> queryable = db.Students.AsNoTracking();
         if (filter.FilterCourse is not null)
         {
             long numberOfCourse = (long)filter.FilterCourse;
@@ -247,8 +238,8 @@ public class EFStudentRepository : IStudentRepository
             
         }
         var countAsync = await queryable.CountAsync(token);
-        queryable = queryable.OrderBy($"{SortColumn} {SortOrder}");
-        queryable = queryable.Skip((int)(FirstId)).Take((int)count);  
+        queryable = queryable.OrderBy($"{sortColumn} {sortOrder}");
+        queryable = queryable.Skip((int)(firstId)).Take((int)count);  
         var st = await (queryable.Select(s => new StudentTableDTO()
         {
             studentId = s.Id,
@@ -269,12 +260,12 @@ public class EFStudentRepository : IStudentRepository
 
     public async Task<long> GetCountAsync(CancellationToken token)
     {
-        return await _db.Students.CountAsync(token);
+        return await db.Students.CountAsync(token);
     }
 
-    public async Task<long?> CheckNameAsync(string firstName, string LastName)
+    public async Task<long?> CheckNameAsync(string firstName, string lastName)
     {
-        var id = await(_db.Students.Where(s => s.Passport.FirstName == firstName && s.Passport.LastName == LastName).Select(s => s.StudentId).FirstOrDefaultAsync());
+        var id = await(db.Students.Where(s => s.Passport.FirstName == firstName && s.Passport.LastName == lastName).Select(s => s.StudentId).FirstOrDefaultAsync());
         return id;
     }
 }

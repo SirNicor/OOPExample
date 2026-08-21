@@ -8,6 +8,7 @@ using Dapper;
 using Repository;
 using Start.Const;
 using Start.Middleware;
+using Start.StartJob;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json");
@@ -50,11 +51,9 @@ try
     app.UseAuthorization();
     Thread botThread = new Thread(()=>
     {
-        using (var botScope = app.Services.CreateScope())
-        {
-            var bot = botScope.ServiceProvider.GetRequiredService<IStartBot>();
-            _ = Task.Run(async () => await bot.ListenForMessagesAsync());
-        }
+        using var botScope = app.Services.CreateScope();
+        var bot = botScope.ServiceProvider.GetRequiredService<IStartBot>();
+        _ = Task.Run(async () => await bot.ListenForMessagesAsync());
     });
     botThread.Start();
     app.MapGet("/Worker", () => app.Services.GetService<IPrintWorkersJob>().DoWorkAsync());

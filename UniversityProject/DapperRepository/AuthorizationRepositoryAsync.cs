@@ -5,25 +5,17 @@ using System.Text;
 using Dapper;
 using Logger;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Identity;
 using IRepositoryAll;
 
 namespace Repository;
 using UCore;
 
 
-public class AuthorizationRepository : IAuthorizationRepository
+public class AuthorizationRepository(IGetConnectionString getConnectionString, MyLogger logger)
+    : IAuthorizationRepository
 {
-    private readonly string _connectionString;
-    private readonly MyLogger _logger;
-
-    public AuthorizationRepository(IGetConnectionString getConnectionString, MyLogger logger)
-    {
-        _connectionString = getConnectionString.ReturnConnectionString();
-        _logger = logger;
-    }
-    
+    private readonly string _connectionString = getConnectionString.ReturnConnectionString();
+    private readonly MyLogger _logger = logger;
     public async Task<AuthorizationDto> GetForLoginAuthorizationAsync(string login)
 {
     await using var db = new SqlConnection(_connectionString);
@@ -200,8 +192,6 @@ public async Task<long> UpdateAuthorizationAsync(AuthorizationDto dto)
     {
         _logger.Error($"Error updating authorization: {ex.Message}");
         throw;
-            
-        
     }
 }
 
@@ -263,7 +253,7 @@ public async Task<bool> CheckPasswordAsync(string password, long id)
         return hashedPassword == passwordAndSalt.Password;
     }
 
-    public async Task<RefreshJWTTokenDTO> GetJWTTokenAsync(string token)
+    public async Task<RefreshJWTTokenDTO> GetJwtTokenAsync(string token)
     {
         await using var db =  new SqlConnection(_connectionString);
         await db.OpenAsync();
@@ -286,7 +276,7 @@ public async Task<bool> CheckPasswordAsync(string password, long id)
         }
     }
 
-    public async Task<long?> CheckAndUpdateJWTTokenAsync(string token)
+    public async Task<long?> CheckAndUpdateJwtTokenAsync(string token)
     {
         await using var db =  new SqlConnection(_connectionString);
         await db.OpenAsync();
@@ -327,7 +317,7 @@ public async Task<bool> CheckPasswordAsync(string password, long id)
         }
     }
 
-    public async Task<long> CreateJWTTokenAsync(RefreshJWTTokenDTO dto)
+    public async Task<long> CreateJwtTokenAsync(RefreshJWTTokenDTO dto)
     {
         await using var db =  new SqlConnection(_connectionString);
         await db.OpenAsync();
@@ -350,7 +340,7 @@ public async Task<bool> CheckPasswordAsync(string password, long id)
         }
     }
 
-    public async Task DeleteJWTTokenAsync(string token)
+    public async Task DeleteJwtTokenAsync(string token)
     {
         await using var db =  new SqlConnection(_connectionString);
         await db.OpenAsync();

@@ -1,11 +1,10 @@
-﻿
-namespace Start;
-using Microsoft.Extensions.Configuration;
-using ServiceWorkerCronJobDemo.Services;
+﻿using ServiceWorkerCronJobDemo.Services;
+
+namespace Start.StartJob;
 
 static class DoCronJob
 {
-    static public void MakeCronJob(this IServiceCollection services, IConfiguration configuration)
+    public static void MakeCronJob(this IServiceCollection services, IConfiguration configuration)
     {
         var timeSalaryJob = configuration.GetValue<string>("StartJobTime:SalaryJob");
         var timeTeacherDoSession =  configuration.GetValue<string>("StartJobTime:TeacherDoSession");

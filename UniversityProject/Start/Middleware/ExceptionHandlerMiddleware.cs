@@ -3,23 +3,13 @@ using Logger;
 
 namespace Start.Middleware;
 
-public class ExceptionHandlerMiddleware
+public class ExceptionHandlerMiddleware(RequestDelegate next, MyLogger logger)
 {
-    readonly MyLogger _logger;
-    readonly RequestDelegate _next;
-
-    public ExceptionHandlerMiddleware(RequestDelegate next, MyLogger logger)
-    {
-        _next = next;
-        _logger = logger;
-    }
-
     public async Task InvokeAsync(HttpContext context)
     {
-        var request = context.Request;
         try
         {
-            await _next(context);
+            await next(context);
         }
         catch (OperationCanceledException ex)
         {
@@ -29,7 +19,7 @@ public class ExceptionHandlerMiddleware
         }
         catch (Exception ex)
         {
-            _logger.Error(ex.Message + " " + ex.StackTrace + Environment.NewLine + "Source =" + ex.Source);
+            logger.Error(ex.Message + " " + ex.StackTrace + Environment.NewLine + "Source =" + ex.Source);
             if (!context.Response.HasStarted)
             {
                 context.Response.Clear();

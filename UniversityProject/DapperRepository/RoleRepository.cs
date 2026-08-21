@@ -7,16 +7,9 @@ using UCore;
 using IRepositoryAll;
 namespace Repository;
 
-public class RoleRepository : IRoleRepository
+public class RoleRepository(IGetConnectionString getConnectionString, MyLogger logger) : IRoleRepository
 {
-    private readonly string _connectionString;
-    private readonly MyLogger _logger;
-
-    public RoleRepository(IGetConnectionString getConnectionString, MyLogger logger)
-    {
-        _connectionString = getConnectionString.ReturnConnectionString();
-        _logger = logger;
-    }
+    private readonly string _connectionString = getConnectionString.ReturnConnectionString();
 
     public RoleAccessDto GetRoleAccess(int roleId)
     {
@@ -40,7 +33,6 @@ public class RoleRepository : IRoleRepository
             if (rawResults.Count == 0)
                 return null;
 
-            // Формируем массив кортежей (операция, страница) для каждой записи
             var permissions = rawResults
                 .Select(x => Tuple.Create(x.TypeOperation, x.AccessPage))
                 .Distinct()
@@ -55,7 +47,7 @@ public class RoleRepository : IRoleRepository
         }
         catch (Exception ex)
         {
-            _logger.Error($"Error getting role access for RoleId {roleId}: {ex.Message}");
+            logger.Error($"Error getting role access for RoleId {roleId}: {ex.Message}");
             throw;
         }
     }
@@ -83,9 +75,8 @@ public class RoleRepository : IRoleRepository
             var rawResults = db.Query<RoleAccessRaw>(sql, new { rolesId }).ToList();
             
             if (rawResults.Count == 0)
-                return Array.Empty<RoleAccessDto>();
+                return [];
 
-            // Группируем по роли и формируем кортежи для каждой
             var result = rawResults
                 .GroupBy(x => new { x.Id, x.NameRole })
                 .Select(g => new RoleAccessDto
@@ -103,7 +94,7 @@ public class RoleRepository : IRoleRepository
         }
         catch (Exception ex)
         {
-            _logger.Error($"Error getting role access for roles [{string.Join(",", rolesId)}]: {ex.Message}");
+            logger.Error($"Error getting role access for roles [{string.Join(",", rolesId)}]: {ex.Message}");
             throw;
         }
     }

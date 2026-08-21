@@ -6,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 
 using IRepositoryAll;
-public class FacultyRepository : IFacultyRepository
+public class FacultyRepository(IGetConnectionString getConnectionString, MyLogger logger) : IFacultyRepository
 {
     private const string SqlSelectFacultyQuery = @"SELECT fc.ID AS FacultyId, fc.NameFaculty, fc.IdUniversity AS UniversityId, un.Budget, un.Budget FROM Faculty fc 
 JOIN University un ON un.Id = fc.IdUniversity ";
@@ -19,164 +19,139 @@ JOIN University un ON un.Id = fc.IdUniversity ";
         INNER JOIN Passport p ON ad.PassportId = p.ID
         INNER JOIN Address a ON p.AddressId = a.ID
         INNER JOIN IdMilitary im ON ad.MilitaryId = im.ID ";
-    private MyLogger _myLogger;
-    private string _connectionString;
-    public FacultyRepository(IGetConnectionString getConnectionString, MyLogger logger)
-    {
-        _connectionString =  getConnectionString.ReturnConnectionString();
-        _myLogger = logger;
-    }
 
-    public long Create(FacultyDto faculty)
+    private readonly string _connectionString = getConnectionString.ReturnConnectionString();
+
+    public long Create(FacultyDto facutlyDto)
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
+        using IDbConnection db = new SqlConnection(_connectionString);
+        db.Open();
+        using IDbTransaction transaction = db.BeginTransaction();
+        try
         {
-            db.Open();
-            using (IDbTransaction transaction = db.BeginTransaction())
-            {
-                try
-                {
-                    string SqlQuery;
-                    SqlQuery = @"INSERT INTO Faculty(NameFaculty, IdUniversity) VALUES(@NameFaculty, @IdUniversity);
+            var sqlQuery = @"INSERT INTO Faculty(NameFaculty, IdUniversity) VALUES(@NameFaculty, @IdUniversity);
                     SELECT SCOPE_IDENTITY();";
-                    faculty.IdFaculty = db.QuerySingle<int>(SqlQuery, faculty, transaction);
-                    var admin = faculty.IdAdministrators.Select(adminId => new
-                    {
-                        IdFaculty = faculty.IdFaculty,
-                        IdAdministrators = adminId
-                    }).ToList();
-                    SqlQuery = @"INSERT INTO AdministrationOfFaculty(IdFaculty, IdAdministrator) VALUES(@IdFaculty, @IdAdministrators)";
-                    db.Execute(SqlQuery,  admin , transaction);
-                    transaction.Commit();
-                    return faculty.IdFaculty;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    throw;
-                }
-            }
+            facutlyDto.IdFaculty = db.QuerySingle<int>(sqlQuery, facutlyDto, transaction);
+            var admin = facutlyDto.IdAdministrators.Select(adminId => new
+            {
+                IdFaculty = facutlyDto.IdFaculty,
+                IdAdministrators = adminId
+            }).ToList();
+            sqlQuery = @"INSERT INTO AdministrationOfFaculty(IdFaculty, IdAdministrator) VALUES(@IdFaculty, @IdAdministrators)";
+            db.Execute(sqlQuery,  admin , transaction);
+            transaction.Commit();
+            return facutlyDto.IdFaculty;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw;
         }
     }
 
-    public Faculty Get(long Id)
+    public Faculty Get(long id)
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
-        {
-            List<Administrator> administrators = db.Query<Administrator, Passport, Address, Administrator>(
-                SqlSelectAdministratorOfFaculty + @"WHERE IdFaculty = @Id",
-                (administrator, passport, address) =>
-                {
-                    passport.Address = address;
-                    administrator.Passport = passport;
-                    return administrator;
-                },
-                new { Id }, splitOn: "PassportId, AddressId").ToList();
-            Faculty faculty = db.Query<Faculty, University, Faculty>(SqlSelectFacultyQuery + @"WHERE fc.Id = @Id",
-                (faculty, university) =>
-                {
-                    faculty.University = university;
-                    return faculty;
-                }, new{Id}, splitOn: "UniversityId").First();
-            faculty.AdministrationOfFaculty = administrators;
-            return faculty;
-        }
+        using IDbConnection db = new SqlConnection(_connectionString);
+        List<Administrator> administrators = db.Query<Administrator, Passport, Address, Administrator>(
+            SqlSelectAdministratorOfFaculty + @"WHERE IdFaculty = @Id",
+            (administrator, passport, address) =>
+            {
+                passport.Address = address;
+                administrator.Passport = passport;
+                return administrator;
+            },
+            new { Id = id }, splitOn: "PassportId, AddressId").ToList();
+        Faculty faculty = db.Query<Faculty, University, Faculty>(SqlSelectFacultyQuery + @"WHERE fc.Id = @Id",
+            (faculty, university) =>
+            {
+                faculty.University = university;
+                return faculty;
+            }, new{ Id = id}, splitOn: "UniversityId").First();
+        faculty.AdministrationOfFaculty = administrators;
+        return faculty;
     }
 
     public List<Faculty> ReturnList()
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
-        {
-            List<Faculty> faculties = db.Query<Faculty, University, Faculty>(SqlSelectFacultyQuery,
-                (faculty, university) =>
-                {
-                    faculty.University = university;
-                    return faculty;
-                }, splitOn: "UniversityId").ToList();
-            List<AdministrationOfFacultyDto> administrators = db.Query<AdministrationOfFacultyDto, Administrator, Passport, Address, AdministrationOfFacultyDto>(
-                SqlSelectAdministratorOfFaculty,    
-                (administrationOfFacultyDto, administrator, passport, address) =>
-                {
-                    passport.Address = address;
-                    administrator.Passport = passport;
-                    administrationOfFacultyDto.Administrator = administrator;
-                    return administrationOfFacultyDto;
-                }, splitOn: "PersonId, PassportId, AddressId").ToList();
-            var dictionaryAdministrators = administrators
-                .GroupBy(x => x.FacultyId)
-                .ToDictionary(x => x.Key, x => x.Select(PoF => PoF.Administrator).ToList());
-            foreach (var faculty in faculties)
+        using IDbConnection db = new SqlConnection(_connectionString);
+        List<Faculty> faculties = db.Query<Faculty, University, Faculty>(SqlSelectFacultyQuery,
+            (faculty, university) =>
             {
-                faculty.AdministrationOfFaculty = dictionaryAdministrators.GetValueOrDefault(faculty.FacultyId);
-            }
-            return faculties;
+                faculty.University = university;
+                return faculty;
+            }, splitOn: "UniversityId").ToList();
+        List<AdministrationOfFacultyDto> administrators = db.Query<AdministrationOfFacultyDto, Administrator, Passport, Address, AdministrationOfFacultyDto>(
+            SqlSelectAdministratorOfFaculty,    
+            (administrationOfFacultyDto, administrator, passport, address) =>
+            {
+                passport.Address = address;
+                administrator.Passport = passport;
+                administrationOfFacultyDto.Administrator = administrator;
+                return administrationOfFacultyDto;
+            }, splitOn: "PersonId, PassportId, AddressId").ToList();
+        var dictionaryAdministrators = administrators
+            .GroupBy(x => x.FacultyId)
+            .ToDictionary(x => x.Key, x => x.Select(poF => poF.Administrator).ToList());
+        foreach (var faculty in faculties)
+        {
+            faculty.AdministrationOfFaculty = dictionaryAdministrators.GetValueOrDefault(faculty.FacultyId);
         }
+        return faculties;
     }
 
     public void Delete(long ID)
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
+        using IDbConnection db = new SqlConnection(_connectionString);
+        db.Open();
+        using IDbTransaction transaction = db.BeginTransaction();
+        try
         {
-            db.Open();
-            using (IDbTransaction transaction = db.BeginTransaction())
-            {
-                try
-                {
-                    string SqlQuery = @"DELETE FROM Faculty WHERE ID = @ID";
-                    db.Execute(SqlQuery, new { ID },  transaction);
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    _myLogger.Error("An error occured during transaction" + ex.Message);
-                    transaction.Rollback();
-                }
-            }   
+            string sqlQuery = @"DELETE FROM Faculty WHERE ID = @ID";
+            db.Execute(sqlQuery, new { ID },  transaction);
+            transaction.Commit();
+        }
+        catch (Exception ex)
+        {
+            logger.Error("An error occured during transaction" + ex.Message);
+            transaction.Rollback();
         }
     }
 
     public long Update(FacultyDto faculty)
     {
-        using (IDbConnection db = new SqlConnection(_connectionString))
+        using IDbConnection db = new SqlConnection(_connectionString);
+        db.Open();
+        using IDbTransaction transaction = db.BeginTransaction();
+        try
         {
-            db.Open();
-            using (IDbTransaction transaction = db.BeginTransaction())
+            var sqlQuery = @"UPDATE Faculty SET NameFaculty = @NameFaculty, IdUniversity = @IdUniversity WHERE ID = @IdFaculty";
+            db.Execute(sqlQuery, faculty, transaction);
+            sqlQuery = @"DELETE FROM AdministrationOfFaculty WHERE IdFaculty = @IdFaculty";
+            db.Execute(sqlQuery, faculty, transaction);
+            var admin = faculty.IdAdministrators.Select(adminId => new
             {
-                string SqlQuery;
-                try
-                {
-                    SqlQuery = @"UPDATE Faculty SET NameFaculty = @NameFaculty, IdUniversity = @IdUniversity WHERE ID = @IdFaculty";
-                    db.Execute(SqlQuery, faculty, transaction);
-                    SqlQuery = @"DELETE FROM AdministrationOfFaculty WHERE IdFaculty = @IdFaculty";
-                    db.Execute(SqlQuery, faculty, transaction);
-                    var admin = faculty.IdAdministrators.Select(adminId => new
-                    {
-                        IdFaculty = faculty.IdFaculty,
-                        IdAdministrators = adminId
-                    }).ToList();
-                    SqlQuery = @"INSERT INTO AdministrationOfFaculty (IdFaculty, IdAdministrator) VALUES (@IdFaculty, @IdAdministrators)";
-                    db.Execute(SqlQuery, admin, transaction);
-                    transaction.Commit();
-                    return faculty.IdFaculty;
-                }
-                catch (Exception ex)
-                {
-                    _myLogger.Error("An error occured during transaction" + ex.Message);
-                    transaction.Rollback();
-                    throw;
-                }
-            }
+                IdFaculty = faculty.IdFaculty,
+                IdAdministrators = adminId
+            }).ToList();
+            sqlQuery = @"INSERT INTO AdministrationOfFaculty (IdFaculty, IdAdministrator) VALUES (@IdFaculty, @IdAdministrators)";
+            db.Execute(sqlQuery, admin, transaction);
+            transaction.Commit();
+            return faculty.IdFaculty;
+        }
+        catch (Exception ex)
+        {
+            logger.Error("An error occured during transaction" + ex.Message);
+            transaction.Rollback();
+            throw;
         }
     }
 
     public long? CheckNameFaculty(string nameFaculty, long universityId)
     {
-        string SqlQuery = "SELECT ID FROM Faculty WHERE NameFaculty = @namefaculty AND IdUniversity = @universityId";
-        using (IDbConnection db = new SqlConnection(_connectionString))
-        {
-            var check = db.Query<long?>(SqlQuery, new {  nameFaculty, universityId}).FirstOrDefault();
-            check = check == 0 ? null : check;
-            return check;
-        }
+        string sqlQuery = "SELECT ID FROM Faculty WHERE NameFaculty = @namefaculty AND IdUniversity = @universityId";
+        using IDbConnection db = new SqlConnection(_connectionString);
+        var check = db.Query<long?>(sqlQuery, new {  nameFaculty, universityId}).FirstOrDefault();
+        check = check == 0 ? null : check;
+        return check;
     }
 }

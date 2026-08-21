@@ -6,7 +6,7 @@ public class ConsoleMyLogger : MyLogger
     {
         Log(levelLoger, message, null);
     }
-    protected override void Log(LevelLoger levelLoger, string message, Exception exception)
+    protected override void Log(LevelLoger levelLoger, string message, Exception? exception)
     {
         if (levelLoger < MinLog)
             return;

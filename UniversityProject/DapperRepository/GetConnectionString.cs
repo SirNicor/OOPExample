@@ -2,17 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using IRepositoryAll;
 
-public class GetConnectionString : IGetConnectionString
+public class GetConnectionString(IConfiguration configuration) : IGetConnectionString
 {
-    public GetConnectionString(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
     public string ReturnConnectionString()
     {
-        return _configuration.GetValue<string>("ConnectionStrings");
+        return configuration.GetValue<string>("ConnectionStrings");
     }
-    
-    private IConfiguration _configuration;
 }
